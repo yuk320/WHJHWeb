@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF35B803-F7AA-4237-A715-A55EE1BD25EF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Game.Web</RootNamespace>
+    <AssemblyName>Game.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AspNetPager">
+      <HintPath>..\..\..\Library\AspNetPager.dll</HintPath>
+    </Reference>
+    <Reference Include="Game.Kernel">
+      <HintPath>..\..\..\Library\Game.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Game.Utils">
+      <HintPath>..\..\..\Library\Game.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\Library\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Library\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="ThoughtWorks.QRCode">
+      <HintPath>..\..\..\Library\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="404.html" />
+    <Content Include="Agreement.aspx" />
+    <Content Include="Authorize.aspx" />
+    <Content Include="Card\AddAgent.aspx" />
+    <Content Include="Card\AddUser.aspx" />
+    <Content Include="Card\AgentChildList.aspx" />
+    <Content Include="Card\AgentInfo.aspx" />
+    <Content Include="Card\Js\iscroll\pullup-refresh.css" />
+    <Content Include="Card\Js\under.js" />
+    <Content Include="Card\Under.aspx" />
+    <Content Include="Card\ExchangeRecord.aspx" />
+    <Content Include="Card\CostRecord.aspx" />
+    <Content Include="Card\Css\agentinfo.css" />
+    <Content Include="Card\Css\base.css" />
+    <Content Include="Card\Css\default.css" />
+    <Content Include="Card\Css\form.css" />
+    <Content Include="Card\Css\present.css" />
+    <Content Include="Card\Css\record.css" />
+    <Content Include="Card\Image\add.png" />
+    <Content Include="Card\Image\addagent.png" />
+    <Content Include="Card\Image\adduser.png" />
+    <Content Include="Card\Image\adduserbtn.png" />
+    <Content Include="Card\Image\banner.png" />
+    <Content Include="Card\Image\buy_submit.png" />
+    <Content Include="Card\Image\card_title.png" />
+    <Content Include="Card\Image\change_password.png" />
+    <Content Include="Card\Image\change_submit.png" />
+    <Content Include="Card\Image\correct.png" />
+    <Content Include="Card\Image\editor.png" />
+    <Content Include="Card\Image\error.png" />
+    <Content Include="Card\Image\exchange_submit.png" />
+    <Content Include="Card\Image\input_bg.png" />
+    <Content Include="Card\Image\login_out.png" />
+    <Content Include="Card\Image\logo.png" />
+    <Content Include="Card\Image\menu.png" />
+    <Content Include="Card\Image\menu_bg.png" />
+    <Content Include="Card\Image\menu_li_bg.png" />
+    <Content Include="Card\Image\nav_bg.png" />
+    <Content Include="Card\Image\nav_ico.png" />
+    <Content Include="Card\Image\nav_ico\1.png" />
+    <Content Include="Card\Image\nav_ico\1_active.png" />
+    <Content Include="Card\Image\nav_ico\2.png" />
+    <Content Include="Card\Image\nav_ico\2_active.png" />
+    <Content Include="Card\Image\nav_ico\3.png" />
+    <Content Include="Card\Image\nav_ico\3_active.png" />
+    <Content Include="Card\Image\nav_ico\4_active.png" />
+    <Content Include="Card\Image\nav_ico\7.png" />
+    <Content Include="Card\Image\nav_line.png" />
+    <Content Include="Card\Image\present_submit.png" />
+    <Content Include="Card\Image\return.png" />
+    <Content Include="Card\Index.aspx" />
+    <Content Include="Card\Js\ajaxname.js" />
+    <Content Include="Card\Js\base.js" />
+    <Content Include="Card\Js\iscroll\iscroll-probe.js" />
+    <Content Include="Card\Js\iscroll\load.js" />
+    <Content Include="Card\Js\iscroll\pullup-refresh.js" />
+    <Content Include="Card\Js\layer_mobile\layer.js" />
+    <Content Include="Card\Js\layer_mobile\need\layer.css" />
+    <Content Include="Card\Js\zepto.min.js" />
+    <Content Include="Card\LoginOut.aspx" />
+    <Content Include="Card\PayRecord.aspx" />
+    <Content Include="Card\Present.aspx" />
+    <Content Include="Card\PresentRecord.aspx" />
+    <Content Include="Card\RegisterRecord.aspx" />
+    <Content Include="Card\SetPassword.aspx" />
+    <Content Include="Card\SignOut.aspx" />
+    <Content Include="Card\Success.aspx" />
+    <Content Include="Card\UpdateAgent.aspx" />
+    <Content Include="Card\UpdatePass.aspx" />
+    <Content Include="Card\UserControl\Record_Sidebar.ascx" />
+    <Content Include="Contact\Index.aspx" />
+    <Content Include="css\base.css" />
+    <Content Include="css\common.css" />
+    <Content Include="css\contact.css" />
+    <Content Include="css\download.css" />
+    <Content Include="css\gamedetail.css" />
+    <Content Include="css\index.css" />
+    <Content Include="css\mindex.css" />
+    <Content Include="css\news.css" />
+    <Content Include="css\newsdetail.css" />
+    <Content Include="css\share.css" />
+    <Content Include="css\weixin.css" />
+    <Content Include="error.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="Game\Details.aspx" />
+    <Content Include="Game\Index.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="HAuthorize.aspx" />
+    <Content Include="HTicket.aspx" />
+    <Content Include="image\1.png" />
+    <Content Include="image\2.png" />
+    <Content Include="image\3.png" />
+    <Content Include="image\active-li.png" />
+    <Content Include="image\banner-dot-active.png" />
+    <Content Include="image\banner-dot-bg.png" />
+    <Content Include="image\banner-dot.png" />
+    <Content Include="image\banner.png" />
+    <Content Include="image\banner_focus.png" />
+    <Content Include="image\bottom-bg-max.png" />
+    <Content Include="image\bottom-bg-min.png" />
+    <Content Include="image\bottom-bg.png" />
+    <Content Include="image\bottom_bg.png" />
+    <Content Include="image\collect-icon.png" />
+    <Content Include="image\contact-banner.png" />
+    <Content Include="image\contact-icon.png" />
+    <Content Include="image\contact-mail-bg.png" />
+    <Content Include="image\contact-phone-bg.png" />
+    <Content Include="image\contact-phone.png" />
+    <Content Include="image\contact-qq-bg.png" />
+    <Content Include="image\contact-qq.png" />
+    <Content Include="image\contact-wechat-bg.png" />
+    <Content Include="image\contactus-bg.png" />
+    <Content Include="image\content-bg-max.png" />
+    <Content Include="image\content-bg-min.png" />
+    <Content Include="image\content-bg.png" />
+    <Content Include="image\custom.png" />
+    <Content Include="image\diamond.png" />
+    <Content Include="image\disband.png" />
+    <Content Include="image\download-bg.png" />
+    <Content Include="image\download-btn.png" />
+    <Content Include="image\enter-bg.png" />
+    <Content Include="image\enter-btn.png" />
+    <Content Include="image\enter-title-bg.png" />
+    <Content Include="image\enter.png" />
+    <Content Include="image\face.png" />
+    <Content Include="image\fixed-a-bg.png" />
+    <Content Include="image\footer-bg.png" />
+    <Content Include="image\fox-cry.png" />
+    <Content Include="image\game1.png" />
+    <Content Include="image\gamelist-bg.png" />
+    <Content Include="image\hotline.png" />
+    <Content Include="image\invite-bg.png" />
+    <Content Include="image\invite_bg.png" />
+    <Content Include="image\jj-title-bg.png" />
+    <Content Include="image\jjb-qrcode.png" />
+    <Content Include="image\left-fixed-arrow.png" />
+    <Content Include="image\live_weixin.png" />
+    <Content Include="image\location.png" />
+    <Content Include="image\logo.png" />
+    <Content Include="image\look-details-btn.png" />
+    <Content Include="image\main-contact-bg.png" />
+    <Content Include="image\map.png" />
+    <Content Include="image\more.png" />
+    <Content Include="image\nav-bg.png" />
+    <Content Include="image\newplayer.png" />
+    <Content Include="image\news-all-bg.png" />
+    <Content Include="image\news-banner.png" />
+    <Content Include="image\news-bg.png" />
+    <Content Include="image\news-img.png" />
+    <Content Include="image\news-recent.png" />
+    <Content Include="image\news-time.png" />
+    <Content Include="image\phone.png" />
+    <Content Include="image\qq.png" />
+    <Content Include="image\qr-bg.png" />
+    <Content Include="image\qr-title.png" />
+    <Content Include="image\qr.png" />
+    <Content Include="image\rank-active.png" />
+    <Content Include="image\rank-bg.png" />
+    <Content Include="image\rank-btn-1-active.png" />
+    <Content Include="image\rank-btn-1.png" />
+    <Content Include="image\rank-btn-2-active.png" />
+    <Content Include="image\rank-btn-2.png" />
+    <Content Include="image\rank-btn-3-active.png" />
+    <Content Include="image\rank-btn-3.png" />
+    <Content Include="image\recieve.png" />
+    <Content Include="image\refresh.png" />
+    <Content Include="image\return.png" />
+    <Content Include="image\saoyisao.png" />
+    <Content Include="image\share.png" />
+    <Content Include="image\shortcut.png" />
+    <Content Include="image\shortcut_span.png" />
+    <Content Include="image\title-bg.png" />
+    <Content Include="image\title_bg.png" />
+    <Content Include="image\top-bg-max.png" />
+    <Content Include="image\top-bg-min.png" />
+    <Content Include="image\top-bg.png" />
+    <Content Include="Index.aspx" />
+    <Content Include="js\baidumap\baidumap.js" />
+    <Content Include="js\commom.js" />
+    <Content Include="js\index.js" />
+    <Content Include="js\jquery\1.11.3\jquery.min.js" />
+    <Content Include="js\mindex.js" />
+    <Content Include="js\reset.js" />
+    <Content Include="js\slider\slider.css" />
+    <Content Include="js\slider\slider.js" />
+    <Content Include="js\weixin.js" />
+    <Content Include="js\zepto\1.1.6\zepto.min.js" />
+    <Content Include="Mobile\DownLoad.aspx" />
+    <Content Include="Mobile\Index.aspx" />
+    <Content Include="Mobile\MoblieVideoInfo.aspx" />
+    <Content Include="Mobile\RoomLink.aspx" />
+    <Content Include="Mobile\ShareLink.aspx" />
+    <Content Include="Mobile\WxRegister.aspx" />
+    <Content Include="News\Details.aspx" />
+    <Content Include="News\Index.aspx" />
+    <Content Include="Notify\Alipay.aspx" />
+    <Content Include="Notify\Apple.aspx" />
+    <Content Include="Notify\LqPay.aspx" />
+    <Content Include="Notify\WxApp.aspx" />
+    <Content Include="Notify\WxWeb.aspx" />
+    <Content Include="Sitemap.aspx" />
+    <Content Include="UserControl\Common_Banner.ascx" />
+    <Content Include="UserControl\Common_Contact.ascx" />
+    <Content Include="UserControl\Common_Download.ascx" />
+    <Content Include="UserControl\Common_Footer.ascx" />
+    <Content Include="UserControl\Common_Header.ascx" />
+    <Content Include="UserControl\Common_Rank.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agreement.aspx.cs">
+      <DependentUpon>Agreement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Agreement.aspx.designer.cs">
+      <DependentUpon>Agreement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Authorize.aspx.cs">
+      <DependentUpon>Authorize.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authorize.aspx.designer.cs">
+      <DependentUpon>Authorize.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\AddAgent.aspx.cs">
+      <DependentUpon>AddAgent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\AddAgent.aspx.designer.cs">
+      <DependentUpon>AddAgent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\AddUser.aspx.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\AddUser.aspx.designer.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\AdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\AgentChildList.aspx.cs">
+      <DependentUpon>AgentChildList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\AgentChildList.aspx.designer.cs">
+      <DependentUpon>AgentChildList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\AgentInfo.aspx.cs">
+      <DependentUpon>AgentInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\AgentInfo.aspx.designer.cs">
+      <DependentUpon>AgentInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\Under.aspx.cs">
+      <DependentUpon>Under.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\Under.aspx.designer.cs">
+      <DependentUpon>Under.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\ExchangeRecord.aspx.cs">
+      <DependentUpon>ExchangeRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\ExchangeRecord.aspx.designer.cs">
+      <DependentUpon>ExchangeRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\CostRecord.aspx.cs">
+      <DependentUpon>CostRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\CostRecord.aspx.designer.cs">
+      <DependentUpon>CostRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\DataHandler.ashx.cs">
+      <DependentUpon>DataHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\LoginOut.aspx.cs">
+      <DependentUpon>LoginOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\LoginOut.aspx.designer.cs">
+      <DependentUpon>LoginOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\PayRecord.aspx.cs">
+      <DependentUpon>PayRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\PayRecord.aspx.designer.cs">
+      <DependentUpon>PayRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\Present.aspx.cs">
+      <DependentUpon>Present.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\Present.aspx.designer.cs">
+      <DependentUpon>Present.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\PresentRecord.aspx.cs">
+      <DependentUpon>PresentRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\PresentRecord.aspx.designer.cs">
+      <DependentUpon>PresentRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\RegisterRecord.aspx.cs">
+      <DependentUpon>RegisterRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\RegisterRecord.aspx.designer.cs">
+      <DependentUpon>RegisterRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\SetPassword.aspx.cs">
+      <DependentUpon>SetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\SetPassword.aspx.designer.cs">
+      <DependentUpon>SetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\SignOut.aspx.cs">
+      <DependentUpon>SignOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\SignOut.aspx.designer.cs">
+      <DependentUpon>SignOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Card\Success.aspx.cs">
+      <DependentUpon>Success.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\Success.aspx.designer.cs">
+      <DependentUpon>Success.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\UpdateAgent.aspx.cs">
+      <DependentUpon>UpdateAgent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\UpdateAgent.aspx.designer.cs">
+      <DependentUpon>UpdateAgent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\UpdatePass.aspx.cs">
+      <DependentUpon>UpdatePass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\UpdatePass.aspx.designer.cs">
+      <DependentUpon>UpdatePass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Card\UserControl\Record_Sidebar.ascx.cs">
+      <DependentUpon>Record_Sidebar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Card\UserControl\Record_Sidebar.ascx.designer.cs">
+      <DependentUpon>Record_Sidebar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Contact\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Game\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Game\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HAuthorize.aspx.cs">
+      <DependentUpon>HAuthorize.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HAuthorize.aspx.designer.cs">
+      <DependentUpon>HAuthorize.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\LQPay.cs" />
+    <Compile Include="Helper\AlipayHelper.cs" />
+    <Compile Include="Helper\AlipayRSA.cs" />
+    <Compile Include="Helper\Log4Net.cs" />
+    <Compile Include="Helper\WxAuthorize.cs" />
+    <Compile Include="Helper\WxHttpService.cs" />
+    <Compile Include="Helper\WxPayHelper.cs" />
+    <Compile Include="HTicket.aspx.cs">
+      <DependentUpon>HTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTicket.aspx.designer.cs">
+      <DependentUpon>HTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\DownLoad.aspx.cs">
+      <DependentUpon>DownLoad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\DownLoad.aspx.designer.cs">
+      <DependentUpon>DownLoad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\MoblieVideoInfo.aspx.cs">
+      <DependentUpon>MoblieVideoInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\MoblieVideoInfo.aspx.designer.cs">
+      <DependentUpon>MoblieVideoInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\RoomLink.aspx.cs">
+      <DependentUpon>RoomLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\RoomLink.aspx.designer.cs">
+      <DependentUpon>RoomLink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\ShareLink.aspx.cs">
+      <DependentUpon>ShareLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\ShareLink.aspx.designer.cs">
+      <DependentUpon>ShareLink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\WxRegister.aspx.cs">
+      <DependentUpon>WxRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\WxRegister.aspx.designer.cs">
+      <DependentUpon>WxRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\Alipay.aspx.cs">
+      <DependentUpon>Alipay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\Alipay.aspx.designer.cs">
+      <DependentUpon>Alipay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\Apple.aspx.cs">
+      <DependentUpon>Apple.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\Apple.aspx.designer.cs">
+      <DependentUpon>Apple.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\LqPay.aspx.cs">
+      <DependentUpon>LqPay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\LqPay.aspx.designer.cs">
+      <DependentUpon>LqPay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\WxApp.aspx.cs">
+      <DependentUpon>WxApp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\WxApp.aspx.designer.cs">
+      <DependentUpon>WxApp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\WxWeb.aspx.cs">
+      <DependentUpon>WxWeb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\WxWeb.aspx.designer.cs">
+      <DependentUpon>WxWeb.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sitemap.aspx.cs">
+      <DependentUpon>Sitemap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sitemap.aspx.designer.cs">
+      <DependentUpon>Sitemap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Banner.ascx.cs">
+      <DependentUpon>Common_Banner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Banner.ascx.designer.cs">
+      <DependentUpon>Common_Banner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Contact.ascx.cs">
+      <DependentUpon>Common_Contact.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Contact.ascx.designer.cs">
+      <DependentUpon>Common_Contact.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Download.ascx.cs">
+      <DependentUpon>Common_Download.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Download.ascx.designer.cs">
+      <DependentUpon>Common_Download.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Footer.ascx.cs">
+      <DependentUpon>Common_Footer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Footer.ascx.designer.cs">
+      <DependentUpon>Common_Footer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Header.ascx.cs">
+      <DependentUpon>Common_Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Header.ascx.designer.cs">
+      <DependentUpon>Common_Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Common_Rank.ascx.cs">
+      <DependentUpon>Common_Rank.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Common_Rank.ascx.designer.cs">
+      <DependentUpon>Common_Rank.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WS\NewMoblieInterface.ashx.cs">
+      <DependentUpon>NewMoblieInterface.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WS\UserFace.ashx.cs">
+      <DependentUpon>UserFace.ashx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config" />
+    <Content Include="Card\Site.Master" />
+    <Content Include="Card\DataHandler.ashx" />
+    <None Include="Properties\PublishProfiles\WHJHFront-ol.pubxml" />
+    <None Include="Properties\PublishProfiles\WHJHFront.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="WS\NewMoblieInterface.ashx" />
+    <Content Include="WS\UserFace.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Game.Entity\Game.Entity.csproj">
+      <Project>{814f2036-7826-4944-b81f-296c14e244f2}</Project>
+      <Name>Game.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Game.Facade\Game.Facade.csproj">
+      <Project>{fca5515f-85c3-41a6-97bf-433e82954d12}</Project>
+      <Name>Game.Facade</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>24155</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:24155/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

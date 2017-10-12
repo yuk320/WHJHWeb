@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+'use strict';
+
+
+const fextract = require('files-extractor');
+const opts = {
+  start: new Date(2017, 9, 10),
+  end: new Date(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime() + 86400 * 1000)
+};
+// console.info(opts);
+const x = fextract(opts);
+// process.exec("fextract -s "+ opts.start.toISOString() + " -e "+ opts.end.toISOString(),(err,stdout,stderr)=>{
+//   console.info(stdout);
+// });
+const STATUS = fextract.STATUS;
+
+x.on('message', msg => {
+  switch (msg.status) {
+    case STATUS.FAILED:
+      console.error(msg.data);
+      break;
+    case STATUS.WARNING:
+      console.warn(msg.data);
+      break;
+    case STATUS.SEARCHED:
+      console.info("Searched");
+      break;
+    case STATUS.FILTERED:
+      console.info("Filtered");
+      break;
+    case STATUS.EXTRACTED:
+      console.info("Extracted");
+      console.info(msg.data);
+      break;
+  }
+});

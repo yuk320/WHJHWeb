@@ -1,0 +1,7 @@
+ignore:
+  - "index"
+  - "**/obj/**"
+  - "**/bin/**"
+  - "**/log*/**"
+  - "**/*.user"
+  - "node_modules/**/*"

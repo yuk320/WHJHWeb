@@ -1,0 +1,1215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6033651C-DDB5-4CF6-87A6-AA1C80E454E0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Game.Web</RootNamespace>
+    <AssemblyName>Game.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AspNetPager">
+      <HintPath>..\..\..\Library\AspNetPager.dll</HintPath>
+    </Reference>
+    <Reference Include="Game.Kernel">
+      <HintPath>..\..\..\Library\Game.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Game.Uploader">
+      <HintPath>..\..\..\Library\Game.Uploader.dll</HintPath>
+    </Reference>
+    <Reference Include="Game.Utils">
+      <HintPath>..\..\..\Library\Game.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJSON">
+      <HintPath>..\..\..\Library\LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="YYControls">
+      <HintPath>..\..\..\Library\YYControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="images\an_2.png" />
+    <Content Include="images\arrBig.gif" />
+    <Content Include="images\arrBig1.gif" />
+    <Content Include="images\arrSmall.gif" />
+    <Content Include="images\bj_01.gif" />
+    <Content Include="images\btn_calendar.gif" />
+    <Content Include="images\btn_delete.gif" />
+    <Content Include="images\btn_update.gif" />
+    <Content Include="images\down.gif" />
+    <Content Include="images\hint.gif" />
+    <Content Include="images\login01.png" />
+    <Content Include="images\login02.png" />
+    <Content Include="images\login03.png" />
+    <Content Include="images\login04.png" />
+    <Content Include="images\login05.png" />
+    <Content Include="images\loginBg.jpg" />
+    <Content Include="images\loginBtn.jpg" />
+    <Content Include="images\QpGameBg.png" />
+    <Content Include="images\sideBg.gif" />
+    <Content Include="images\up.gif" />
+    <Content Include="images\welcome_bj.jpg" />
+    <Content Include="images\welcome_i.jpg" />
+    <Content Include="images\xian.jpg" />
+    <Content Include="Index.aspx" />
+    <Content Include="Left.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="LoginOut.aspx" />
+    <Content Include="Module\AccountManager\AccountsBaseInfo.aspx" />
+    <Content Include="Module\AccountManager\AccountsList.aspx" />
+    <Content Include="Module\AccountManager\AccountsScoreList.aspx" />
+    <Content Include="Module\AccountManager\ConfineAddressInfo.aspx" />
+    <Content Include="Module\AccountManager\ConfineAddressList.aspx" />
+    <Content Include="Module\AccountManager\ConfineAddressTop.aspx" />
+    <Content Include="Module\AccountManager\ConfineMachineInfo.aspx" />
+    <Content Include="Module\AccountManager\ConfineMachineList.aspx" />
+    <Content Include="Module\AccountManager\ConfineMachineTop.aspx" />
+    <Content Include="Module\AccountManager\DiamondChangeList.aspx" />
+    <Content Include="Module\AccountManager\DiamondConsume.aspx" />
+    <Content Include="Module\AccountManager\DiamondIncome.aspx" />
+    <Content Include="Module\AccountManager\GrantGameID.aspx" />
+    <Content Include="Module\AccountManager\RecordGrantGameID.aspx" />
+    <Content Include="Module\AccountManager\TreasureChangeList.aspx" />
+    <Content Include="Module\AccountManager\TreasureConsume.aspx" />
+    <Content Include="Module\AccountManager\TreasureIncome.aspx" />
+    <Content Include="Module\AgentManager\AgentGrantDiamond.aspx" />
+    <Content Include="Module\AgentManager\AgentUserInfo.aspx" />
+    <Content Include="Module\AgentManager\AgentUserList.aspx" />
+    <Content Include="Module\AgentManager\AgentUserUnder.aspx" />
+    <Content Include="Module\AgentManager\AgentUserUpdate.aspx" />
+    <Content Include="Module\AppManager\DataBaseInfoInfo.aspx" />
+    <Content Include="Module\AppManager\DataBaseInfoList.aspx" />
+    <Content Include="Module\AppManager\GameGameItemInfo.aspx" />
+    <Content Include="Module\AppManager\GameGameItemList.aspx" />
+    <Content Include="Module\AppManager\MobileKindInfo.aspx" />
+    <Content Include="Module\AppManager\MobileKindList.aspx" />
+    <Content Include="Module\AppManager\RankingConfigInfo.aspx" />
+    <Content Include="Module\AppManager\RankingConfigList.aspx" />
+    <Content Include="Module\AppManager\RankingRecordList.aspx" />
+    <Content Include="Module\AppManager\SpreadConfigInfo.aspx" />
+    <Content Include="Module\AppManager\SpreadConfigList.aspx" />
+    <Content Include="Module\AppManager\SpreadRecordList.aspx" />
+    <Content Include="Module\AppManager\SystemMessageInfo.aspx" />
+    <Content Include="Module\AppManager\SystemMessageList.aspx" />
+    <Content Include="Module\AppManager\SystemSet.aspx" />
+    <Content Include="Module\BackManager\BaseRoleInfo.aspx" />
+    <Content Include="Module\BackManager\BaseRoleList.aspx" />
+    <Content Include="Module\BackManager\BaseRolePermission.aspx" />
+    <Content Include="Module\BackManager\BaseUserInfo.aspx" />
+    <Content Include="Module\BackManager\BaseUserList.aspx" />
+    <Content Include="Module\BackManager\BaseUserUpdate.aspx" />
+    <Content Include="Module\DataStatistics\BankRevenue.aspx" />
+    <Content Include="Module\DataStatistics\DiamondDistribute.aspx" />
+    <Content Include="Module\DataStatistics\GameRevenue.aspx" />
+    <Content Include="Module\DataStatistics\SystemStat.aspx" />
+    <Content Include="Module\DataStatistics\UserOnline.aspx" />
+    <Content Include="Module\DataStatistics\UserRegister.aspx" />
+    <Content Include="Module\DataStatistics\WealthDistribute.aspx" />
+    <Content Include="Module\Diamond\DiamondList.aspx" />
+    <Content Include="Module\Diamond\GrantDiamond.aspx" />
+    <Content Include="Module\Diamond\RecordAAGameCost.aspx" />
+    <Content Include="Module\Diamond\RecordAAGameRoom.aspx" />
+    <Content Include="Module\Diamond\RecordBuyHorn.aspx" />
+    <Content Include="Module\Diamond\RecordOpenRoom.aspx" />
+    <Content Include="Module\Diamond\RecordPersonRoom.aspx" />
+    <Content Include="Module\Diamond\RecordDiamondExch.aspx" />
+    <Content Include="Module\Diamond\RecordPresentTrade.aspx" />
+    <Content Include="Module\Diamond\RecordRoomScore.aspx" />
+    <Content Include="Module\Diamond\RecordSysPresent.aspx" />
+    <Content Include="Module\Diamond\StatisticsAgent.aspx" />
+    <Content Include="Module\Diamond\StatisticsChange.aspx" />
+    <Content Include="Module\Diamond\StatisticsDiamond.aspx" />
+    <Content Include="Module\Diamond\StatisticsProduct.aspx" />
+    <Content Include="Module\Diamond\TopBuyHorn.aspx" />
+    <Content Include="Module\Diamond\TopDiamond.aspx" />
+    <Content Include="Module\Diamond\TopOpenRoom.aspx" />
+    <Content Include="Module\Diamond\TopExchangeGold.aspx" />
+    <Content Include="Module\Diamond\TopOutDiamond.aspx" />
+    <Content Include="Module\FilledManager\AppPayConfigInfo.aspx" />
+    <Content Include="Module\FilledManager\AppPayConfigList.aspx" />
+    <Content Include="Module\FilledManager\RecordPayDiamond.aspx" />
+    <Content Include="Module\GoldManager\AccountsGoldList.aspx" />
+    <Content Include="Module\GoldManager\GoldExchConfig.aspx" />
+    <Content Include="Module\GoldManager\GoldExchConfigList.aspx" />
+    <Content Include="Module\GoldManager\GrantGold.aspx" />
+    <Content Include="Module\GoldManager\RecordBankTrade.aspx" />
+    <Content Include="Module\GoldManager\RecordGameInOut.aspx" />
+    <Content Include="Module\GoldManager\RecordGoldBuyProp.aspx" />
+    <Content Include="Module\GoldManager\RecordGoldExch.aspx" />
+    <Content Include="Module\GoldManager\RecordUserGame.aspx" />
+    <Content Include="Module\OperationLog\SystemSecurityList.aspx" />
+    <Content Include="Module\WebManager\AddAds.aspx" />
+    <Content Include="Module\WebManager\AdsList.aspx" />
+    <Content Include="Module\WebManager\KindRuleInfo.aspx" />
+    <Content Include="Module\WebManager\KindRuleList.aspx" />
+    <Content Include="Module\WebManager\LogoSet.aspx" />
+    <Content Include="Module\WebManager\OtherLogo.aspx" />
+    <Content Include="Module\WebManager\SiteConfig.aspx" />
+    <Content Include="Module\WebManager\SystemNoticeInfo.aspx" />
+    <Content Include="Module\WebManager\SystemNoticeList.aspx" />
+    <Content Include="Module\WebManager\UMessagePushAll.aspx" />
+    <Content Include="Module\WebManager\UMessagePushList.aspx" />
+    <Content Include="NotPower.html" />
+    <Content Include="Right.aspx" />
+    <Content Include="scripts\comm.js" />
+    <Content Include="scripts\common.js" />
+    <Content Include="scripts\g2.js" />
+    <Content Include="scripts\ImagePreview.js" />
+    <Content Include="scripts\jquery.js" />
+    <Content Include="scripts\kindEditor\kindeditor.js" />
+    <Content Include="scripts\kindEditor\plugins\about.html" />
+    <Content Include="scripts\kindEditor\plugins\advtable\advtable.html" />
+    <Content Include="scripts\kindEditor\plugins\advtable\cell.html" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\0.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\1.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\10.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\100.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\101.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\102.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\103.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\104.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\105.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\106.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\107.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\108.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\109.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\11.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\110.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\111.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\112.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\113.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\114.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\115.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\116.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\117.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\118.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\119.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\12.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\120.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\121.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\122.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\123.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\124.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\125.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\126.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\127.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\128.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\129.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\13.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\130.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\131.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\132.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\133.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\134.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\14.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\15.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\16.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\17.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\18.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\19.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\2.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\20.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\21.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\22.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\23.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\24.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\25.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\26.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\27.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\28.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\29.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\3.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\30.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\31.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\32.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\33.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\34.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\35.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\36.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\37.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\38.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\39.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\4.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\40.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\41.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\42.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\43.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\44.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\45.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\46.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\47.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\48.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\49.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\5.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\50.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\51.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\52.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\53.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\54.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\55.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\56.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\57.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\58.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\59.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\6.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\60.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\61.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\62.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\63.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\64.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\65.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\66.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\67.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\68.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\69.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\7.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\70.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\71.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\72.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\73.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\74.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\75.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\76.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\77.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\78.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\79.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\8.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\80.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\81.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\82.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\83.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\84.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\85.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\86.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\87.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\88.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\89.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\9.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\90.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\91.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\92.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\93.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\94.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\95.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\96.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\97.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\98.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\99.gif" />
+    <Content Include="scripts\kindEditor\plugins\emoticons\qq.gif" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\file_manager.css" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\file_manager.html" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\file_manager.js" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\images\file-16.gif" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\images\file-64.gif" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\images\folder-16.gif" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\images\folder-64.gif" />
+    <Content Include="scripts\kindEditor\plugins\file_manager\images\go-up.gif" />
+    <Content Include="scripts\kindEditor\plugins\flash.html" />
+    <Content Include="scripts\kindEditor\plugins\image\image.html" />
+    <Content Include="scripts\kindEditor\plugins\image\images\align_left.gif" />
+    <Content Include="scripts\kindEditor\plugins\image\images\align_right.gif" />
+    <Content Include="scripts\kindEditor\plugins\image\images\align_top.gif" />
+    <Content Include="scripts\kindEditor\plugins\image\images\refresh.gif" />
+    <Content Include="scripts\kindEditor\plugins\link\link.html" />
+    <Content Include="scripts\kindEditor\plugins\media.html" />
+    <Content Include="scripts\kindEditor\plugins\plainpaste.html" />
+    <Content Include="scripts\kindEditor\plugins\wordpaste.html" />
+    <Content Include="scripts\kindEditor\skins\common\blank.gif" />
+    <Content Include="scripts\kindEditor\skins\common\editor.css" />
+    <Content Include="scripts\kindEditor\skins\common\flash.gif" />
+    <Content Include="scripts\kindEditor\skins\common\loading.gif" />
+    <Content Include="scripts\kindEditor\skins\common\media.gif" />
+    <Content Include="scripts\kindEditor\skins\common\rm.gif" />
+    <Content Include="scripts\kindEditor\skins\default.css" />
+    <Content Include="scripts\kindEditor\skins\default\bg.gif" />
+    <Content Include="scripts\kindEditor\skins\default\default.gif" />
+    <Content Include="scripts\My97DatePicker\calendar.js" />
+    <Content Include="scripts\My97DatePicker\config.js" />
+    <Content Include="scripts\My97DatePicker\lang\en.js" />
+    <Content Include="scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="scripts\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="scripts\My97DatePicker\skin\blueFresh\datepicker.css" />
+    <Content Include="scripts\My97DatePicker\skin\blueFresh\img.gif" />
+    <Content Include="scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\datepicker.css" />
+    <Content Include="scripts\My97DatePicker\skin\ext\dateselect.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\glass-bg.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\hd-sprite.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\img.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\left-btn.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\left-btn2.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\right-btn.gif" />
+    <Content Include="scripts\My97DatePicker\skin\ext\right-btn2.gif" />
+    <Content Include="scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="scripts\QuickUpload.js" />
+    <Content Include="scripts\web-storage-cache.min.js" />
+    <Content Include="styles\layout.css" />
+    <Content Include="Themes\TabSiteConfig.ascx" />
+    <Content Include="Tools\ImagePreview.ashx" />
+    <Content Include="Tools\ImageUploader.ascx" />
+    <Content Include="Tools\VerifyImagePage.aspx" />
+    <Content Include="Upload\Initialize\ads_1.jpg" />
+    <Content Include="Upload\Initialize\ads_2.jpg" />
+    <Content Include="Upload\Initialize\ads_3.jpg" />
+    <Content Include="Upload\Initialize\ads_alter_1.jpg" />
+    <Content Include="Upload\Initialize\ads_alter_2.jpg" />
+    <Content Include="Upload\Initialize\ads_alter_3.jpg" />
+    <Content Include="Upload\Initialize\banner_1.png" />
+    <Content Include="Upload\Initialize\banner_2.png" />
+    <Content Include="Upload\Initialize\banner_3.png" />
+    <Content Include="Upload\Initialize\banner_contact.png" />
+    <Content Include="Upload\Initialize\banner_game.png" />
+    <Content Include="Upload\Initialize\banner_new.png" />
+    <Content Include="Upload\Site\AdminLogo.png" />
+    <Content Include="Upload\Site\frontlogo.png" />
+    <Content Include="Upload\Site\MobileBg.png" />
+    <Content Include="Upload\Site\MobileDownLad.png" />
+    <Content Include="Upload\Site\MobileLogo.png" />
+    <Content Include="Upload\Site\qrsmall.png" />
+    <Content Include="Upload\Site\toplogo.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Left.aspx.cs">
+      <DependentUpon>Left.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Left.aspx.designer.cs">
+      <DependentUpon>Left.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginOut.aspx.cs">
+      <DependentUpon>LoginOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginOut.aspx.designer.cs">
+      <DependentUpon>LoginOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsBaseInfo.aspx.cs">
+      <DependentUpon>AccountsBaseInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsBaseInfo.aspx.designer.cs">
+      <DependentUpon>AccountsBaseInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsList.aspx.cs">
+      <DependentUpon>AccountsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsList.aspx.designer.cs">
+      <DependentUpon>AccountsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsScoreList.aspx.cs">
+      <DependentUpon>AccountsScoreList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\AccountsScoreList.aspx.designer.cs">
+      <DependentUpon>AccountsScoreList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressInfo.aspx.cs">
+      <DependentUpon>ConfineAddressInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressInfo.aspx.designer.cs">
+      <DependentUpon>ConfineAddressInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressList.aspx.cs">
+      <DependentUpon>ConfineAddressList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressList.aspx.designer.cs">
+      <DependentUpon>ConfineAddressList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressTop.aspx.cs">
+      <DependentUpon>ConfineAddressTop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineAddressTop.aspx.designer.cs">
+      <DependentUpon>ConfineAddressTop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineInfo.aspx.cs">
+      <DependentUpon>ConfineMachineInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineInfo.aspx.designer.cs">
+      <DependentUpon>ConfineMachineInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineList.aspx.cs">
+      <DependentUpon>ConfineMachineList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineList.aspx.designer.cs">
+      <DependentUpon>ConfineMachineList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineTop.aspx.cs">
+      <DependentUpon>ConfineMachineTop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\ConfineMachineTop.aspx.designer.cs">
+      <DependentUpon>ConfineMachineTop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondChangeList.aspx.cs">
+      <DependentUpon>DiamondChangeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondChangeList.aspx.designer.cs">
+      <DependentUpon>DiamondChangeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondConsume.aspx.cs">
+      <DependentUpon>DiamondConsume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondConsume.aspx.designer.cs">
+      <DependentUpon>DiamondConsume.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondIncome.aspx.cs">
+      <DependentUpon>DiamondIncome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\DiamondIncome.aspx.designer.cs">
+      <DependentUpon>DiamondIncome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\GrantGameID.aspx.cs">
+      <DependentUpon>GrantGameID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\GrantGameID.aspx.designer.cs">
+      <DependentUpon>GrantGameID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\RecordGrantGameID.aspx.cs">
+      <DependentUpon>RecordGrantGameID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\RecordGrantGameID.aspx.designer.cs">
+      <DependentUpon>RecordGrantGameID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureChangeList.aspx.cs">
+      <DependentUpon>TreasureChangeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureChangeList.aspx.designer.cs">
+      <DependentUpon>TreasureChangeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureConsume.aspx.cs">
+      <DependentUpon>TreasureConsume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureConsume.aspx.designer.cs">
+      <DependentUpon>TreasureConsume.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureIncome.aspx.cs">
+      <DependentUpon>TreasureIncome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\TreasureIncome.aspx.designer.cs">
+      <DependentUpon>TreasureIncome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentGrantDiamond.aspx.cs">
+      <DependentUpon>AgentGrantDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentGrantDiamond.aspx.designer.cs">
+      <DependentUpon>AgentGrantDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserInfo.aspx.cs">
+      <DependentUpon>AgentUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserInfo.aspx.designer.cs">
+      <DependentUpon>AgentUserInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserList.aspx.cs">
+      <DependentUpon>AgentUserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserList.aspx.designer.cs">
+      <DependentUpon>AgentUserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserUnder.aspx.cs">
+      <DependentUpon>AgentUserUnder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserUnder.aspx.designer.cs">
+      <DependentUpon>AgentUserUnder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserUpdate.aspx.cs">
+      <DependentUpon>AgentUserUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AgentManager\AgentUserUpdate.aspx.designer.cs">
+      <DependentUpon>AgentUserUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\DataBaseInfoInfo.aspx.cs">
+      <DependentUpon>DataBaseInfoInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\DataBaseInfoInfo.aspx.designer.cs">
+      <DependentUpon>DataBaseInfoInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\DataBaseInfoList.aspx.cs">
+      <DependentUpon>DataBaseInfoList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\DataBaseInfoList.aspx.designer.cs">
+      <DependentUpon>DataBaseInfoList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\GameGameItemInfo.aspx.cs">
+      <DependentUpon>GameGameItemInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\GameGameItemInfo.aspx.designer.cs">
+      <DependentUpon>GameGameItemInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\GameGameItemList.aspx.cs">
+      <DependentUpon>GameGameItemList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\GameGameItemList.aspx.designer.cs">
+      <DependentUpon>GameGameItemList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\MobileKindInfo.aspx.cs">
+      <DependentUpon>MobileKindInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\MobileKindInfo.aspx.designer.cs">
+      <DependentUpon>MobileKindInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\MobileKindList.aspx.cs">
+      <DependentUpon>MobileKindList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\MobileKindList.aspx.designer.cs">
+      <DependentUpon>MobileKindList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingConfigInfo.aspx.cs">
+      <DependentUpon>RankingConfigInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingConfigInfo.aspx.designer.cs">
+      <DependentUpon>RankingConfigInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingConfigList.aspx.cs">
+      <DependentUpon>RankingConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingConfigList.aspx.designer.cs">
+      <DependentUpon>RankingConfigList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingRecordList.aspx.cs">
+      <DependentUpon>RankingRecordList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\RankingRecordList.aspx.designer.cs">
+      <DependentUpon>RankingRecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadConfigInfo.aspx.cs">
+      <DependentUpon>SpreadConfigInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadConfigInfo.aspx.designer.cs">
+      <DependentUpon>SpreadConfigInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadConfigList.aspx.cs">
+      <DependentUpon>SpreadConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadConfigList.aspx.designer.cs">
+      <DependentUpon>SpreadConfigList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadRecordList.aspx.cs">
+      <DependentUpon>SpreadRecordList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadRecordList.aspx.designer.cs">
+      <DependentUpon>SpreadRecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemMessageInfo.aspx.cs">
+      <DependentUpon>SystemMessageInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemMessageInfo.aspx.designer.cs">
+      <DependentUpon>SystemMessageInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemMessageList.aspx.cs">
+      <DependentUpon>SystemMessageList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemMessageList.aspx.designer.cs">
+      <DependentUpon>SystemMessageList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemSet.aspx.cs">
+      <DependentUpon>SystemSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SystemSet.aspx.designer.cs">
+      <DependentUpon>SystemSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRoleInfo.aspx.cs">
+      <DependentUpon>BaseRoleInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRoleInfo.aspx.designer.cs">
+      <DependentUpon>BaseRoleInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRoleList.aspx.cs">
+      <DependentUpon>BaseRoleList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRoleList.aspx.designer.cs">
+      <DependentUpon>BaseRoleList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRolePermission.aspx.cs">
+      <DependentUpon>BaseRolePermission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseRolePermission.aspx.designer.cs">
+      <DependentUpon>BaseRolePermission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserInfo.aspx.cs">
+      <DependentUpon>BaseUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserInfo.aspx.designer.cs">
+      <DependentUpon>BaseUserInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserList.aspx.cs">
+      <DependentUpon>BaseUserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserList.aspx.designer.cs">
+      <DependentUpon>BaseUserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserUpdate.aspx.cs">
+      <DependentUpon>BaseUserUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\BackManager\BaseUserUpdate.aspx.designer.cs">
+      <DependentUpon>BaseUserUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\BankRevenue.aspx.cs">
+      <DependentUpon>BankRevenue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\BankRevenue.aspx.designer.cs">
+      <DependentUpon>BankRevenue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\DiamondDistribute.aspx.cs">
+      <DependentUpon>DiamondDistribute.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\DiamondDistribute.aspx.designer.cs">
+      <DependentUpon>DiamondDistribute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\GameRevenue.aspx.cs">
+      <DependentUpon>GameRevenue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\GameRevenue.aspx.designer.cs">
+      <DependentUpon>GameRevenue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\SystemStat.aspx.cs">
+      <DependentUpon>SystemStat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\SystemStat.aspx.designer.cs">
+      <DependentUpon>SystemStat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\UserOnline.aspx.cs">
+      <DependentUpon>UserOnline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\UserOnline.aspx.designer.cs">
+      <DependentUpon>UserOnline.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\UserRegister.aspx.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\UserRegister.aspx.designer.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\DataStatistics\WealthDistribute.aspx.cs">
+      <DependentUpon>WealthDistribute.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\DataStatistics\WealthDistribute.aspx.designer.cs">
+      <DependentUpon>WealthDistribute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\DiamondList.aspx.cs">
+      <DependentUpon>DiamondList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\DiamondList.aspx.designer.cs">
+      <DependentUpon>DiamondList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\GrantDiamond.aspx.cs">
+      <DependentUpon>GrantDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\GrantDiamond.aspx.designer.cs">
+      <DependentUpon>GrantDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordAAGameCost.aspx.cs">
+      <DependentUpon>RecordAAGameCost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordAAGameCost.aspx.designer.cs">
+      <DependentUpon>RecordAAGameCost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordAAGameRoom.aspx.cs">
+      <DependentUpon>RecordAAGameRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordAAGameRoom.aspx.designer.cs">
+      <DependentUpon>RecordAAGameRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordBuyHorn.aspx.cs">
+      <DependentUpon>RecordBuyHorn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordBuyHorn.aspx.designer.cs">
+      <DependentUpon>RecordBuyHorn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordOpenRoom.aspx.cs">
+      <DependentUpon>RecordOpenRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordOpenRoom.aspx.designer.cs">
+      <DependentUpon>RecordOpenRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordPersonRoom.aspx.cs">
+      <DependentUpon>RecordPersonRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordPersonRoom.aspx.designer.cs">
+      <DependentUpon>RecordPersonRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordDiamondExch.aspx.cs">
+      <DependentUpon>RecordDiamondExch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordDiamondExch.aspx.designer.cs">
+      <DependentUpon>RecordDiamondExch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordPresentTrade.aspx.cs">
+      <DependentUpon>RecordPresentTrade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordPresentTrade.aspx.designer.cs">
+      <DependentUpon>RecordPresentTrade.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordRoomScore.aspx.cs">
+      <DependentUpon>RecordRoomScore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordRoomScore.aspx.designer.cs">
+      <DependentUpon>RecordRoomScore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordSysPresent.aspx.cs">
+      <DependentUpon>RecordSysPresent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\RecordSysPresent.aspx.designer.cs">
+      <DependentUpon>RecordSysPresent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsAgent.aspx.cs">
+      <DependentUpon>StatisticsAgent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsAgent.aspx.designer.cs">
+      <DependentUpon>StatisticsAgent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsChange.aspx.cs">
+      <DependentUpon>StatisticsChange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsChange.aspx.designer.cs">
+      <DependentUpon>StatisticsChange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsDiamond.aspx.cs">
+      <DependentUpon>StatisticsDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsDiamond.aspx.designer.cs">
+      <DependentUpon>StatisticsDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsProduct.aspx.cs">
+      <DependentUpon>StatisticsProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\StatisticsProduct.aspx.designer.cs">
+      <DependentUpon>StatisticsProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\TopBuyHorn.aspx.cs">
+      <DependentUpon>TopBuyHorn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\TopBuyHorn.aspx.designer.cs">
+      <DependentUpon>TopBuyHorn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\TopDiamond.aspx.cs">
+      <DependentUpon>TopDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\TopDiamond.aspx.designer.cs">
+      <DependentUpon>TopDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\TopOpenRoom.aspx.cs">
+      <DependentUpon>TopOpenRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\TopOpenRoom.aspx.designer.cs">
+      <DependentUpon>TopOpenRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\TopExchangeGold.aspx.cs">
+      <DependentUpon>TopExchangeGold.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\TopExchangeGold.aspx.designer.cs">
+      <DependentUpon>TopExchangeGold.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Diamond\TopOutDiamond.aspx.cs">
+      <DependentUpon>TopOutDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\Diamond\TopOutDiamond.aspx.designer.cs">
+      <DependentUpon>TopOutDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\FilledManager\AppPayConfigInfo.aspx.cs">
+      <DependentUpon>AppPayConfigInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\FilledManager\AppPayConfigInfo.aspx.designer.cs">
+      <DependentUpon>AppPayConfigInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\FilledManager\AppPayConfigList.aspx.cs">
+      <DependentUpon>AppPayConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\FilledManager\AppPayConfigList.aspx.designer.cs">
+      <DependentUpon>AppPayConfigList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\FilledManager\RecordPayDiamond.aspx.cs">
+      <DependentUpon>RecordPayDiamond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\FilledManager\RecordPayDiamond.aspx.designer.cs">
+      <DependentUpon>RecordPayDiamond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\AccountsGoldList.aspx.cs">
+      <DependentUpon>AccountsGoldList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\AccountsGoldList.aspx.designer.cs">
+      <DependentUpon>AccountsGoldList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\GoldExchConfig.aspx.cs">
+      <DependentUpon>GoldExchConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\GoldExchConfig.aspx.designer.cs">
+      <DependentUpon>GoldExchConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\GoldExchConfigList.aspx.cs">
+      <DependentUpon>GoldExchConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\GoldExchConfigList.aspx.designer.cs">
+      <DependentUpon>GoldExchConfigList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\GrantGold.aspx.cs">
+      <DependentUpon>GrantGold.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\GrantGold.aspx.designer.cs">
+      <DependentUpon>GrantGold.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordBankTrade.aspx.cs">
+      <DependentUpon>RecordBankTrade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordBankTrade.aspx.designer.cs">
+      <DependentUpon>RecordBankTrade.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGameInOut.aspx.cs">
+      <DependentUpon>RecordGameInOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGameInOut.aspx.designer.cs">
+      <DependentUpon>RecordGameInOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGoldBuyProp.aspx.cs">
+      <DependentUpon>RecordGoldBuyProp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGoldBuyProp.aspx.designer.cs">
+      <DependentUpon>RecordGoldBuyProp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGoldExch.aspx.cs">
+      <DependentUpon>RecordGoldExch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordGoldExch.aspx.designer.cs">
+      <DependentUpon>RecordGoldExch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordUserGame.aspx.cs">
+      <DependentUpon>RecordUserGame.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\GoldManager\RecordUserGame.aspx.designer.cs">
+      <DependentUpon>RecordUserGame.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\OperationLog\SystemSecurityList.aspx.cs">
+      <DependentUpon>SystemSecurityList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\OperationLog\SystemSecurityList.aspx.designer.cs">
+      <DependentUpon>SystemSecurityList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\AddAds.aspx.cs">
+      <DependentUpon>AddAds.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\AddAds.aspx.designer.cs">
+      <DependentUpon>AddAds.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\AdsList.aspx.cs">
+      <DependentUpon>AdsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\AdsList.aspx.designer.cs">
+      <DependentUpon>AdsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\KindRuleInfo.aspx.cs">
+      <DependentUpon>KindRuleInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\KindRuleInfo.aspx.designer.cs">
+      <DependentUpon>KindRuleInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\KindRuleList.aspx.cs">
+      <DependentUpon>KindRuleList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\KindRuleList.aspx.designer.cs">
+      <DependentUpon>KindRuleList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\LogoSet.aspx.cs">
+      <DependentUpon>LogoSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\LogoSet.aspx.designer.cs">
+      <DependentUpon>LogoSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\OtherLogo.aspx.cs">
+      <DependentUpon>OtherLogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\OtherLogo.aspx.designer.cs">
+      <DependentUpon>OtherLogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\SiteConfig.aspx.cs">
+      <DependentUpon>SiteConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\SiteConfig.aspx.designer.cs">
+      <DependentUpon>SiteConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\SystemNoticeInfo.aspx.cs">
+      <DependentUpon>SystemNoticeInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\SystemNoticeInfo.aspx.designer.cs">
+      <DependentUpon>SystemNoticeInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\SystemNoticeList.aspx.cs">
+      <DependentUpon>SystemNoticeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\SystemNoticeList.aspx.designer.cs">
+      <DependentUpon>SystemNoticeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\UMessagePushAll.aspx.cs">
+      <DependentUpon>UMessagePushAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\UMessagePushAll.aspx.designer.cs">
+      <DependentUpon>UMessagePushAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\UMessagePushList.aspx.cs">
+      <DependentUpon>UMessagePushList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\UMessagePushList.aspx.designer.cs">
+      <DependentUpon>UMessagePushList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Right.aspx.cs">
+      <DependentUpon>Right.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Right.aspx.designer.cs">
+      <DependentUpon>Right.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\TabSiteConfig.ascx.cs">
+      <DependentUpon>TabSiteConfig.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Themes\TabSiteConfig.ascx.designer.cs">
+      <DependentUpon>TabSiteConfig.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ImagePreview.ashx.cs">
+      <DependentUpon>ImagePreview.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\KindEditorFileManager.ashx.cs">
+      <DependentUpon>KindEditorFileManager.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\KindEditorUpload.ashx.cs">
+      <DependentUpon>KindEditorUpload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Operating.ashx.cs">
+      <DependentUpon>Operating.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\VerifyImagePage.aspx.cs">
+      <DependentUpon>VerifyImagePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\VerifyImagePage.aspx.designer.cs">
+      <DependentUpon>VerifyImagePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\power.config" />
+    <Content Include="ipconfig\ipdata.config" />
+    <Content Include="Tools\KindEditorFileManager.ashx" />
+    <Content Include="Tools\KindEditorUpload.ashx" />
+    <Content Include="Tools\Operating.ashx" />
+    <None Include="Properties\PublishProfiles\WHJHAdmin-OL.pubxml" />
+    <None Include="Properties\PublishProfiles\WHJHAdmin.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Game.Entity\Game.Entity.csproj">
+      <Project>{5482f5b0-0120-4f8c-a3d1-e5771b124da0}</Project>
+      <Name>Game.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Game.Facade\Game.Facade.csproj">
+      <Project>{96de8061-5b74-4d3a-b389-e77c4ca2f02c}</Project>
+      <Name>Game.Facade</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\kindEditor\attached\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>24126</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:24226/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

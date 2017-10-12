@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>系统出现错误，我们会尽快修复，对您造成不便我们感到非常抱歉</title>
+    <style>
+        .ui-btn {
+            text-align: center;
+            margin-top: 45px;
+        }
+
+            .ui-btn a {
+                display: inline-block;
+                vertical-align: middle;
+                cursor: pointer;
+                margin: 0 30px;
+                text-decoration: none;
+                color: #155eaa;
+                font-size: 0;
+                -webkit-font-size-adjust: none;
+                line-height: 0;
+            }
+
+            .ui-btn span {
+                line-height: 30px;
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 24px;
+            }
+
+            .ui-btn a img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+        a.ui-prev {
+            margin-left: -35px;
+        }
+
+        a.ui-home span {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main" style="width:1000px;margin:50px auto 0; text-align:center;">
+        <div class="tip-box" style="position:relative;">
+            <img src="/image/fox-cry.png" style="margin:50px 0 0 0">
+            <span class="ui-message" style="position:absolute; font-size:21px; left:376px; color:#3f3f3f; line-height:1.3; top:92px; width:232px;text-align:left;">抱歉，您访问的页面出错啦，正在努力抢修中！</span>
+        </div>
+        <div class="ui-btn">
+            <a href="javascript:history.back(-1)" class="ui-prev"><img src="/image/return.png"><span>返回上一页</span></a>
+            <a href="/" class="ui-home"><img src="/image/refresh.png"><span>返回首页</span></a>
+        </div>
+    </div>
+</body>
+
+</html>

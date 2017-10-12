@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Game.Web.Card.Site" %>
+
+<!DOCTYPE html>
+
+<html lang="zh">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+    <title>代理管理后台</title>
+    <link href="/Card/Css/base.css" rel="stylesheet" />
+    <link href="/Card/Css/default.css" rel="stylesheet" />
+    <script src="/Card/Js/zepto.min.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="Css" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <main>
+      <div class="ui-top">
+        <a id="clickmenu" href="javascript:;">
+          <img src="/Card/Image/menu.png">
+        </a>
+        <a class="ui-return" href="javascript:history.go(-1);"><img src='/Card/Image/return.png'></a>
+        <div id="menu" class="menu fn-hide">
+            <ul>
+                <li><img src='/Card/Image/add.png'><a href="/Card/AddAgent.aspx">添加代理</a></li>
+                <li><img src='/Card/Image/adduser.png'><a href="/Card/AddUser.aspx">添加下线</a></li>
+                <li><img src='/Card/Image/editor.png'><a href="/Card/UpdateAgent.aspx">修改资料</a></li>
+                <li><img src='/Card/Image/change_password.png'><a href="/Card/UpdatePass.aspx">修改密码</a></li>
+                <li><img src='/Card/Image/login_out.png'><a href="/Card/SignOut.aspx">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出</a></li>
+            </ul>
+        </div>
+        <span><em></em><img src='/Card/Image/card_title.png'></span>
+      </div>
+        <ul class='nav fn-clear'>
+          <li <%= (Menu == 0 ? "class='active'" : "") %>><i><img src='/Card/Image/nav_line.png'></i><a href="/Card/AgentInfo.aspx"><span><img src='/Card/Image/nav_ico/1.png'></span>首页</a><em><img src='/Card/Image/nav_bg.png'></em></li>
+          <li <%= (Menu == 3 ? "class='active'" : "") %>><i><img src='/Card/Image/nav_line.png'></i><a href="/Card/Present.aspx"><span><img src='/Card/Image/nav_ico/2.png'></span>赠送</a><em><img src='/Card/Image/nav_bg.png'></em></li>
+          <li <%= (Menu == 4 ? "class='active'" : "") %>><a href="/Card/PayRecord.aspx"><span><img src='/Card/Image/nav_ico/3.png'></span>记录</a><em><img src='/Card/Image/nav_bg.png'></em></li>
+        </ul>
+      <asp:ContentPlaceHolder ID="MainContent" runat="server">
+      </asp:ContentPlaceHolder>
+    </main>
+    <script src="/Card/Js/base.js" type="text/javascript"></script>
+</body>
+</html>

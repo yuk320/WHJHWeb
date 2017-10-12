@@ -1,0 +1,129 @@
+.ui-main-contact {
+  position: relative;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .12);
+  border-radius: 10px;
+  width: 1352px;
+  margin: 54px auto 0;
+}
+
+.ui-contact-leader {
+  padding-top: 60px;
+  margin: 0 27px 30px;
+}
+
+.ui-contact-leader p {
+  padding: 24px 32px;
+  background: #efefef;
+  font-size: 20px;
+  border-radius: 8px;
+  text-indent: 40px;
+}
+
+.ui-contact-list {
+  margin: 0 27px;
+  padding-bottom: 40px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.ui-contact-list li {
+  float: left;
+  width: 300px;
+  height: 237px;
+  text-align: center;
+  margin-right: 32px;
+}
+
+.ui-contact-list h2 {
+  font-size: 22px;
+  line-height: 1;
+  margin: 142px 0 20px;
+}
+
+.ui-contact-list p {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ui-contact-1 {
+  background: url("/image/contact-phone-bg.png") no-repeat center;
+}
+
+.ui-contact-1 h2,
+.ui-contact-1 p {
+  color: #e77976;
+}
+
+.ui-contact-2 {
+  background: url("/image/contact-mail-bg.png") no-repeat center;
+}
+
+.ui-contact-2 h2,
+.ui-contact-2 p {
+  color: #4dc1cb;
+}
+
+.ui-contact-3 {
+  background: url("/image/contact-wechat-bg.png") no-repeat center;
+}
+
+.ui-contact-3 h2,
+.ui-contact-3 p {
+  color: #95c140;
+}
+
+.ui-contact-4 {
+  background: url("/image/contact-qq-bg.png") no-repeat center;
+}
+
+.ui-contact-4 h2,
+.ui-contact-4 p {
+  color: #73b2d6;
+}
+
+.ui-contact-list .ui-contact-4 {
+  margin-right: 0;
+}
+
+.ui-location {
+  margin: 34px 27px 0;
+}
+
+.ui-location h2 {
+  font-size: 20px;
+  color: #484848;
+  margin-bottom: 20px;
+}
+
+.ui-location h2 span {
+  font-size: 22px;
+  color: #1b81c2;
+  font-weight: bold;
+}
+
+.ui-location h2 img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+}
+
+#ui-baidu-map {
+  height: 513px;
+  margin: 0 auto;
+}
+
+.ui-content-box{
+  width: 100%;
+  padding: 0;
+}
+
+.BMap_cpyCtrl  
+{  
+    display:none;   
+}  
+.anchorBL{  
+    display:none;   
+}   
+.ui-border{
+  padding: 2px;
+  border: 1px solid #666;
+}

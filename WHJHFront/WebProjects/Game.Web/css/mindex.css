@@ -1,0 +1,153 @@
+﻿html,
+body {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+}
+
+body a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.ui-main {
+  width: 100%;
+}
+
+.ui-bg {
+  display: block;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.ui-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.ui-top {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 3.1% 0 3.4%;
+  top: 0.25rem;
+}
+
+.ui-logo {
+  width: 40%;
+}
+
+.ui-share {
+ width: 0.7rem;
+ height: 0.7rem;
+ margin-left: 3rem;
+}
+
+.ui-logo img {
+  width: 100%;
+  display: block;
+}
+
+.ui-share a {
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.ui-top .bdshare-button-style1-16 a,
+.bdshare-button-style1-16 .bds_more {
+  background: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-share img {
+  display: block;
+  width: 100%;
+}
+
+a.ui-download-btn {
+  display: block;
+  width: 46%;
+  margin: 7.3rem auto 0;
+}
+
+a.ui-download-btn img {
+  width: 100%;
+}
+
+.ui-bottom {
+  width: 100%;
+  position: fixed;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  bottom: 0;
+  left: 0;
+  background: url("/image/bottom_bg.png") no-repeat center;
+  background-size: cover;
+}
+
+.ui-bottom a {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ui-bottom a i {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.ui-bottom a img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+a.ui-qq img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+a.ui-phone img {
+  width: 56%;
+  margin: 0 auto;
+}
+
+.ui-weixin-tip {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, .7);
+}
+
+.ui-weixin-tip p {
+  width: 100%;
+  text-align: center;
+}
+
+.ui-weixin-tip p img {
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media only screen  and (min-width: 1024px) {
+  a.ui-download-btn{
+    margin-top: 10rem;
+  }
+}
