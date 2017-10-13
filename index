@@ -2,36 +2,110 @@
 
 'use strict';
 const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-
+const fs = require('fs-extra');
+const path = require('path');
+const util = require('util');
+const exec = require('child_process').exec;
 const fextract = require('files-extractor');
+const STATUS = fextract.STATUS;
+const eventproxy = require('eventproxy');
+const async = require('async');
 const opts = {
   start: today,
   end: new Date(today.getTime() + 86400 * 1000)
 };
+let x;
+let NEED_PUBLISH_PROJS = [{
+    name: "WHJHFront",
+    path: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Game.Web.csproj")
+  },
+  {
+    name: "WHJHAdmin",
+    path: path.join(__dirname, "./WHJHAdmin/WebProjects/Game.Web/Game.Web.csproj")
+  },
+]
+console.time("Total");
+console.info("自动化工具启动...（发布前后台到发布目录、提取当日0点到次日0点的差异文件到.fextract文件夹、迁移差异文件中的脚本到发布目录）");
+console.time("Publish");
+let epPublish = new eventproxy();
+epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
+  console.timeEnd("Publish");
+  x = fextract(opts);
+
+  x.on('message', msg => {
+    switch (msg.status) {
+      case STATUS.FAILED:
+        console.error(msg.data);
+        break;
+      case STATUS.WARNING:
+        console.warn(msg.data);
+        break;
+      case STATUS.BOOTSTRAP:
+        console.time("Files Search");
+        break;
+      case STATUS.SEARCHED:
+        console.timeEnd("Files Search");
+        console.time("Files Filter");
+        break;
+      case STATUS.FILTERED:
+        console.timeEnd("Files Filter");
+        console.time("Files Extract");
+        if (Array.isArray(msg.data)) {
+          console.time('Sqls Copy');
+          let epSql = new eventproxy();
+          epSql.after('sqlscript', msg.data.length, sqlscript => {
+            let flagObj = {
+              true: 0,
+              false: 0
+            };
+            sqlscript.forEach(flag => {
+              flagObj[flag]++;
+            });
+            console.timeEnd("Sqls Copy");
+            console.info(`项目文件数量: ${flagObj['false']} 脚本数量: ${flagObj['true']} `);
+          })
+          msg.data.forEach(function (_path) {
+            if (_path.indexOf('脚本代码') > -1) {
+              let originPath = path.join(__dirname, _path);
+              let mvPath = path.join(__dirname, '../../../../最新发布包/网狐精华版演示平台/' + _path);
+              // console.info(originPath, mvPath);
+              fs.copySync(originPath, mvPath, {
+                preserveTimestamps: true
+              });
+              epSql.emit('sqlscript', true);
+            } else {
+              epSql.emit('sqlscript', false);
+            }
+          });
+        }
+        break;
+      case STATUS.EXTRACTED:
+        console.timeEnd("Files Extract");
+        console.timeEnd("Total");
+        console.info("自动化工具完成!");
+        break;
+    }
+  });
+});
+
+function publishExec(proj) {
+  let pOutPath = path.join(__dirname, '../../../../最新发布包/网狐精华版演示平台/' + proj.name);
+  let MSBuild_Publish = "MSBuild " + proj.path + " /t:_WPPCopyWebApplication /p:Configuration=Release /p:WebProjectOutputDir=" + pOutPath;
+
+  exec(MSBuild_Publish, {
+    encoding: 'utf8',
+    timeout: 0,
+    maxBuffer: 5000 * 1024, // 默认 200 * 1024
+    killSignal: 'SIGTERM'
+  }, (err, stdout, stderr) => {
+    console.info(proj.name + ' 发布完成!')
+    epPublish.emit('publish', true);
+  });
+};
+
+async.each(NEED_PUBLISH_PROJS, publishExec);
+
 // console.info(opts);
-const x = fextract(opts);
 // process.exec("fextract -s "+ opts.start.toISOString() + " -e "+ opts.end.toISOString(),(err,stdout,stderr)=>{
 //   console.info(stdout);
 // });
-const STATUS = fextract.STATUS;
-
-x.on('message', msg => {
-  switch (msg.status) {
-    case STATUS.FAILED:
-      console.error(msg.data);
-      break;
-    case STATUS.WARNING:
-      console.warn(msg.data);
-      break;
-    case STATUS.SEARCHED:
-      console.info("Searched");
-      break;
-    case STATUS.FILTERED:
-      console.info("Filtered");
-      break;
-    case STATUS.EXTRACTED:
-      console.info("Extracted");
-      console.info(msg.data);
-      break;
-  }
-});

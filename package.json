@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index",
   "dependencies": {
+    "async": "^2.5.0",
+    "eventproxy": "^1.0.0",
     "files-extractor": "^0.3.3"
   },
   "devDependencies": {},
