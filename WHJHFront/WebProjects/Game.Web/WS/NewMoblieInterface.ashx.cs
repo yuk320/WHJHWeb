@@ -48,6 +48,7 @@ namespace Game.Web.WS
             _ajv =
 Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _userid.ToString()) + AppConfig.MoblieInterfaceKey + time,
                 sign);
+            Log4Net.WriteInfoLog("signStr:"+(context.Request.QueryString["userid"] == null ? "" : _userid.ToString()) + AppConfig.MoblieInterfaceKey + time + " sign:"+sign);
             if (_ajv.code == (int)ApiCode.VertySignErrorCode)
             {
                 context.Response.Write(_ajv.SerializeToJson());
@@ -64,7 +65,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
             //获取其他参数
             int configid = GameRequest.GetQueryInt("configid", 0);
-            int gameid = GameRequest.GetQueryInt("gameid", 0);
             int typeid = GameRequest.GetQueryInt("typeid", 0);
 
             switch (action)
@@ -102,14 +102,14 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     string openid = GameRequest.GetQueryString("openid");
 
                     //参数验证
-                    if (gameid <= 0 || configid <= 0 || paytype.Equals(""))
+                    if ( configid <= 0 || paytype.Equals(""))
                     {
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
                         _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
                         context.Response.Write(_ajv.SerializeToJson());
                         return;
                     }
-                    context.Response.Write(CreatePayOrder(gameid, configid, paytype, openid).SerializeToJson());
+                    context.Response.Write(CreatePayOrder(configid, paytype, openid).SerializeToJson());
                     return;
                 //获取排行榜数据
                 case "getrankingdata":
@@ -248,7 +248,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             DataSet ds = FacadeManage.aideTreasureFacade.GetAppPayConfigList(typeId, _userid);
             //获取首充状态
             DataTable table = ds.Tables[0];
-            bool flag = (table != null && table.Rows.Count > 0);
+            bool flag = (table != null && table.Rows.Count == 0);
             //获取充值产品列表
             IList<AppPayConfigMoile> list = DataHelper.ConvertDataTableToObjects<AppPayConfigMoile>(ds.Tables[1]);
             //获取兑换产品列表
@@ -275,17 +275,18 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <summary>
         /// 钻石充值下单
         /// </summary>
-        /// <param name="gameid"></param>
         /// <param name="configid"></param>
         /// <param name="paytype"></param>
         /// <param name="openid"></param>
         /// <returns>AjaxJsonValid</returns>
-        private static AjaxJsonValid CreatePayOrder(int gameid, int configid, string paytype, string openid)
+        private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid)
         {
+            //接口特殊版本
+            _ajv.data["apiVersion"] = 20171013;
             //下单信息
             OnLinePayOrder order = new OnLinePayOrder
             {
-                GameID = gameid,
+                UserID = _userid,
                 ConfigID = configid,
                 OrderAddress = GameRequest.GetUserIP()
             };
@@ -499,7 +500,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         SerialTime = Convert.ToDateTime(item["CollectDate"]).ToString("yyyy-MM-dd HH:mm:ss"),
                         BeforeGold = Convert.ToInt64(item["CurScore"]) + Convert.ToInt64(item["CurInsureScore"]),
                         ChangeGold = Convert.ToInt32(item["ChangeScore"]),
-                        AfterGold = Convert.ToInt64(item["CurScore"]) + Convert.ToInt32(item["ChangeScore"]) +
+                        AfterGold = Convert.ToInt64(item["CurScore"]) + Convert.ToInt64(item["CurInsureScore"]) +
                                     Convert.ToInt32(item["ChangeScore"]),
                         TypeName = EnumHelper.GetDesc((RecordTreasureType) item["TypeID"])
                     };

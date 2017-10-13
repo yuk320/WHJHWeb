@@ -173,14 +173,12 @@
     <Content Include="image\banner-dot-active.png" />
     <Content Include="image\banner-dot-bg.png" />
     <Content Include="image\banner-dot.png" />
-    <Content Include="image\banner.png" />
     <Content Include="image\banner_focus.png" />
     <Content Include="image\bottom-bg-max.png" />
     <Content Include="image\bottom-bg-min.png" />
     <Content Include="image\bottom-bg.png" />
     <Content Include="image\bottom_bg.png" />
     <Content Include="image\collect-icon.png" />
-    <Content Include="image\contact-banner.png" />
     <Content Include="image\contact-icon.png" />
     <Content Include="image\contact-mail-bg.png" />
     <Content Include="image\contact-phone-bg.png" />
@@ -223,7 +221,6 @@
     <Content Include="image\nav-bg.png" />
     <Content Include="image\newplayer.png" />
     <Content Include="image\news-all-bg.png" />
-    <Content Include="image\news-banner.png" />
     <Content Include="image\news-bg.png" />
     <Content Include="image\news-img.png" />
     <Content Include="image\news-recent.png" />

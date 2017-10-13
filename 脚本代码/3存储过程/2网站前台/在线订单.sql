@@ -19,7 +19,7 @@ GO
 ----------------------------------------------------------------------------------
 -- 申请订单
 CREATE PROCEDURE NET_PW_CreateOnLineOrder
-	@dwGameID			INT,						-- 操作用户
+	@dwUserID			INT,						-- 操作用户
 	@dwShareID			INT,						-- 服务类型
 	@dwConfigID			INT,						-- 充值标识
 	@strOrderID			NVARCHAR(32),				-- 订单标识
@@ -34,6 +34,7 @@ SET NOCOUNT ON
 DECLARE @Accounts NVARCHAR(31)
 DECLARE @NickName NVARCHAR(31)
 DECLARE @UserID INT
+DECLARE @GameID INT
 DECLARE @SpreaderID INT
 DECLARE @Nullity TINYINT
 
@@ -58,7 +59,7 @@ DECLARE @EndTime NVARCHAR(20)
 -- 执行逻辑
 BEGIN
 	-- 充值渠道验证
-	SELECT @PayChannel=StatusValue FROM WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayChannel'
+	SELECT @PayChannel=StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayChannel'
 	IF @PayChannel IS NULL OR @PayChannel=0 
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
@@ -99,7 +100,7 @@ BEGIN
 	END
 
 	-- 获取用户信息
-	SELECT @UserID=UserID,@SpreaderID=SpreaderID,@Accounts=Accounts,@NickName=NickName,@Nullity=Nullity FROM WHJHAccountsDB.dbo.AccountsInfo WITH(NOLOCK) WHERE GameID = @dwGameID
+	SELECT @UserID=UserID,@SpreaderID=SpreaderID,@Accounts=Accounts,@NickName=NickName,@Nullity=Nullity,@GameID=GameID FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsInfo WITH(NOLOCK) WHERE UserID = @dwUserID
 	IF @UserID IS NULL
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值账号不存在！'
@@ -112,7 +113,7 @@ BEGIN
 	END
 
 	-- 充值推广验证
-	SELECT @BindSpread=StatusValue FROM WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayBindSpread'
+	SELECT @BindSpread=StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayBindSpread'
 	IF @SpreaderID<=0 AND @BindSpread=0
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值账号未绑定推广人！'
@@ -137,10 +138,10 @@ BEGIN
 
 	-- 写入订单信息
 	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,PresentScale,OtherPresent,OrderStatus,OrderDate,OrderAddress) 
-	VALUES(@dwConfigID,@dwShareID,@UserID,@dwGameID,@Accounts,@NickName,@strOrderID,@PayType,@Amount,@Diamond,@PresentScale,@OtherPresent,0,@CurrentTime,@strIPAddress)
+	VALUES(@dwConfigID,@dwShareID,@UserID,@GameID,@Accounts,@NickName,@strOrderID,@PayType,@Amount,@Diamond,@PresentScale,@OtherPresent,0,@CurrentTime,@strIPAddress)
 
 	-- 输出对象变量
-	SELECT @dwConfigID AS ConfigID,@dwShareID AS ShareID,@UserID AS UserID,@dwGameID AS GameID,@Accounts AS Accounts,@NickName AS NickName,@strOrderID AS OrderID,@PayType AS OrderType,
+	SELECT @dwConfigID AS ConfigID,@dwShareID AS ShareID,@UserID AS UserID,@GameID AS GameID,@Accounts AS Accounts,@NickName AS NickName,@strOrderID AS OrderID,@PayType AS OrderType,
 	@Amount AS Amount,@Diamond AS Diamond,@PresentScale AS PresentScale,@OtherPresent AS OtherPresent,0 AS OrderStatus,@CurrentTime AS OrderDate,@strIPAddress AS OrderAddress
 	
 END
