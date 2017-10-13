@@ -102,7 +102,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     string openid = GameRequest.GetQueryString("openid");
 
                     //参数验证
-                    if ( configid <= 0 || paytype.Equals(""))
+                    if (configid <= 0 || paytype.Equals(""))
                     {
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
                         _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
@@ -164,7 +164,8 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     if (configid <= 0 || typeid < 0)
                     {
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " configid或typeid 错误");
+                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                            " configid或typeid 错误");
                         context.Response.Write(_ajv.SerializeToJson());
                         return;
                     }
@@ -501,7 +502,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         BeforeGold = Convert.ToInt64(item["CurScore"]) + Convert.ToInt64(item["CurInsureScore"]),
                         ChangeGold = Convert.ToInt32(item["ChangeScore"]),
                         AfterGold = Convert.ToInt64(item["CurScore"]) + Convert.ToInt64(item["CurInsureScore"]) +
-                                    Convert.ToInt32(item["ChangeScore"]),
+                                    //银行存取操作不需要加上变化值
+                                    ((RecordTreasureType) item["TypeID"] == RecordTreasureType.存入银行 ||
+                                     (RecordTreasureType) item["TypeID"] == RecordTreasureType.银行取出
+                                        ? 0
+                                        : Convert.ToInt32(item["ChangeScore"])),
                         TypeName = EnumHelper.GetDesc((RecordTreasureType) item["TypeID"])
                     };
                     list.Add(stream);
@@ -560,10 +565,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 var dataSet = msg.EntityList[0] as DataSet;
                 if (dataSet != null)
                 {
-                    DiamondExchRecord record = DataHelper.ConvertRowToObject<DiamondExchRecord>(dataSet.Tables[0].Rows[0]);
+                    DiamondExchRecord record =
+                        DataHelper.ConvertRowToObject<DiamondExchRecord>(dataSet.Tables[0].Rows[0]);
                     if (record == null) return;
                     _ajv.SetValidDataValue(true);
-                    _ajv.AddDataItem("AfterDiamond",record.AfterDiamond);
+                    _ajv.AddDataItem("AfterDiamond", record.AfterDiamond);
                     _ajv.AddDataItem("AfterInsureScore", record.AfterInsureScore);
                     _ajv.AddDataItem("AfterScore", record.AfterScore);
                     _ajv.AddDataItem("ExchDiamond", record.ExchDiamond);
