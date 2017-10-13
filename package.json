@@ -1,0 +1,23 @@
+{
+  "name": "whjhweb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "files-extractor": "^0.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuk320/WHJHWeb.git"
+  },
+  "author": "yuppies@vip.qq.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuk320/WHJHWeb/issues"
+  },
+  "homepage": "https://github.com/yuk320/WHJHWeb#readme",
+  "description": ""
+}
