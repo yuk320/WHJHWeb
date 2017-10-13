@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 'use strict';
-const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+const start = process.argv[2]?new Date(process.argv[2]):null;
+const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(),8);
+const tomorrow = new Date(today.getTime() + 86400 * 1000)
 const fs = require('fs-extra');
 const path = require('path');
 const util = require('util');
@@ -11,7 +13,7 @@ const STATUS = fextract.STATUS;
 const eventproxy = require('eventproxy');
 const async = require('async');
 const opts = {
-  start: today,
+  start: start||today,
   end: new Date(today.getTime() + 86400 * 1000)
 };
 let x;
@@ -82,7 +84,12 @@ epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
       case STATUS.EXTRACTED:
         console.timeEnd("Files Extract");
         console.timeEnd("Total");
-        console.info("自动化工具完成!");
+        console.info("自动化工具完成! ... 执行自动更新包提取");
+        exec("cd "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台') +" && node "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台/index '+(start||today).toISOString()),function (err,stdout,stderr){
+          console.info(stdout);
+          console.info('更新包提取完成 为您打开');
+          exec("start "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台/更新包'));
+        });
         break;
     }
   });

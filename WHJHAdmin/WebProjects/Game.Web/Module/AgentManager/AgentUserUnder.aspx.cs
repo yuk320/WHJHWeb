@@ -34,7 +34,7 @@ namespace Game.Web.Module.AgentManager
         {
             DataSet ds = FacadeManage.aideAccountsFacade.GetAgentUserUnderRegister(IntParam);
             lbTotal.Text = ds.Tables[0].Rows.Count.ToString();
-            litNoData.Visible = ds.Tables[0].Rows.Count > 0 ? false : true;
+            litNoData.Visible = ds.Tables[0].Rows.Count <= 0;
             rptDataList.DataSource = ds;
             rptDataList.DataBind();
         }

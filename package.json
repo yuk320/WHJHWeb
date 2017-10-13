@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "diff": "node index"
+    "auto": "node index"
   },
   "repository": {
     "type": "git",
