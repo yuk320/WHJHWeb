@@ -48,14 +48,14 @@ $(function (){
           // 表格对齐
           var tds = $('#list tr').eq(0).children();
             if (!tds.attr('colspan')) {
-              tds.each(function(index, td) {
-                if(index === tds.length-1) {
-                  $(td).width('4rem');
+              ths.each(function(index,th) {
+                if($(th).text().indexOf('时间')>-1) {
+                  $(th).width('8rem');
                 }
               });
           
-              ths.each(function(index, th) {
-                $(th).width(tds.eq(index).width());
+              tds.each(function(index, td) {
+                $(td).width(ths.eq(index).width());
               });
             }
         } else {

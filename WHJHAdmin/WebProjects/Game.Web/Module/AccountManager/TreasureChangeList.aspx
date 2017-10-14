@@ -100,6 +100,7 @@
                                 <asp:ListItem Text="钻石兑换" Value="5"></asp:ListItem>
                                 <asp:ListItem Text="存入银行" Value="6"></asp:ListItem>
                                 <asp:ListItem Text="银行取出" Value="7"></asp:ListItem>
+                                <asp:ListItem Text="银行服务费" Value="8"></asp:ListItem>
                             </asp:CheckBoxList>
                             <span class="s-btn">
                                 <asp:Button ID="btnType" runat="server" CssClass="btn wd2" Text="确认" OnClick="btnType_Click" /></span>

@@ -330,6 +330,8 @@ namespace Game.Web.UI
                     return "存入银行";
                 case 7:
                     return "银行取出";
+                case 8:
+                    return "银行服务费";
                 default:
                     return "";
             }

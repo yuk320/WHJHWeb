@@ -190,9 +190,9 @@ namespace Game.Web.Card
             int number = GameRequest.GetQueryInt("pageSize", 10);
             int page = GameRequest.GetQueryInt("page", 1);
 
-            string where = string.Format("WHERE UserID = {0}", uti.UserID);
+            string where = $"WHERE UserID = {uti.UserID}";
             PagerSet pagerSet = FacadeManage.aidePlatformFacade.GetCreateRoomCost(where, page, number);
-            string html = string.Empty;
+            string html;
             if (pagerSet.PageSet.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow item in pagerSet.PageSet.Tables[0].Rows)
@@ -202,7 +202,7 @@ namespace Game.Web.Card
                     sb.AppendFormat("<td>{0}</td>", item["RoomID"]);
                     sb.AppendFormat("<td>{0}</td>", item["CreateTableFee"]);
                     sb.AppendFormat("<td>{0}</td>",
-                        item["DissumeDate"] != null
+                           !item["DissumeDate"].ToString().Equals("")
                             ? Fetch.FormatTimeWrap(Convert.ToDateTime(item["DissumeDate"]))
                             : "");
                     sb.Append("</tr>");
@@ -382,7 +382,7 @@ namespace Game.Web.Card
                             list.dataList.Add(data);
                         }
                     }
-                    pCount = FacadeManage.aideAccountsFacade.GetAgentBelowAgentCount(uti.UserID);
+                    pCount = FacadeManage.aideRecordFacade.GetAgentBelowAccountsCount(uti.UserID);
                     break;
                 case "agent":
                     sqlWhere =
@@ -422,7 +422,7 @@ namespace Game.Web.Card
                             list.dataList.Add(data);
                         }
                     }
-                    pCount = FacadeManage.aideRecordFacade.GetAgentBelowAccountsCount(uti.UserID);
+                    pCount = FacadeManage.aideAccountsFacade.GetAgentBelowAgentCount(uti.UserID);
                     break;
                 default:
                     ajv.msg = "类型参数丢失！";

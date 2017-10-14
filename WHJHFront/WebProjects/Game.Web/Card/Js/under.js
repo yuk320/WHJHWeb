@@ -1,6 +1,6 @@
 ﻿$(function() {
     var orderList = $('#list');
-    var baseUrl = "DataHandler.ashx?action=getunderlist";
+    var baseUrl = 'DataHandler.ashx?action=getunderlist';
     var page = 0;
     var pages = 1;
     var size = 10;
@@ -8,37 +8,37 @@
 
     var ths = $('#thead tr').children();
 
-    var orderListRender = function (list) {
-        var html = "";
+    var orderListRender = function(list) {
+        var html = '';
         if (list.length === 0) {
-            html = "<tr><td colspan='4'>暂无记录！</td></tr>";
+            html = '<tr><td colspan=4>暂无记录！</td></tr>';
         }
-        list.forEach(function (info) {
-            html += "<tr><td>" +
+        list.forEach(function(info) {
+            html += '<tr><td>' +
                 info.RankID +
-                "|" +
+                '|' +
                 info.NickName +
-                "|" +
+                '|' +
                 info.GameID +
-                "</td><td>" +
+                '</td><td>' +
                 info.Diamond +
-                "</td><td>" +
+                '</td><td>' +
                 info.MonthDiamond +
-                "</td><td>" +
+                '</td><td>' +
                 info.TotalDiamond +
-                "</td></tr>";
+                '</td></tr>';
         });
         orderList.html(html);
     }
 
-    var load = function (next, pull, pageSize) {
-            $.ajax({
-                url: orderList.attr('data-url'),
-                data: {
-                    page: next ? (page < pages ? ++page : page) : (page > 1 ? --page : page),
-                    pageSize: pageSize ? pageSize:size
+    var load = function(next, pull, pageSize) {
+        $.ajax({
+            url: orderList.attr('data-url'),
+            data: {
+                page: next ? (page < pages ? ++page : page) : (page > 1 ? --page : page),
+                pageSize: pageSize ? pageSize : size
             },
-            success: function (result) {
+            success: function(result) {
                 if (result.data.valid) {
 
                     pages = Math.max(Math.ceil(result.data.total / size), 1);
@@ -47,27 +47,22 @@
                     // 表格对齐
                     var tds = $('#list tr').eq(0).children();
                     if (!tds.attr('colspan')) {
-                        tds.each(function (index, td) {
-                            if (index === tds.length - 1) {
-                                $(td).width('4rem');
-                            }
-                        });
-
-                        ths.each(function (index, th) {
-                            $(th).width(tds.eq(index).width());
+                        tds.each(function(index, td) {
+                            $(td).width(ths.eq(index).width());
                         });
                     }
                 } else {
                     alert(result.msg);
                 }
             },
-            complete: function () {
+            complete: function() {
                 if (pull) {
                     iScroll.loaded(pull);
                 }
             }
         });
-    };  
+    };
+
     var parameter = {
         options: {},
         canPullDown: true,
@@ -76,10 +71,10 @@
         content: 'table',
         pullHeight: 40,
         pullMaxHeight: 60,
-        upBeginText: "上拉加载",
-        upAfterText: "松开加载下一页",
-        downBeginText: "下拉加载",
-        downAfterText: "松开加载上一页",
+        upBeginText: '上拉加载',
+        upAfterText: '松开加载下一页',
+        downBeginText: '下拉加载',
+        downAfterText: '松开加载上一页',
         pullDownAction: function(pull) {
             load(null, pull);
         },
@@ -87,8 +82,6 @@
             load(true, pull);
         }
     };
-
-    var ths = $('#thead tr').children();
 
     iScroll.init(parameter);
 
@@ -101,10 +94,10 @@
         typeLab = $('#typeLab');
     if (type === 'user') {
         typeTitle = '购卡';
-        typeLab.text("玩家");
+        typeLab.text('玩家');
     } else if (type === 'agent') {
         typeTitle = '售卡';
-        typeLab.text("代理");
+        typeLab.text('代理');
     }
 
     thMonth.html(monthTitle + typeTitle);
@@ -126,7 +119,7 @@
             var range = that.attr('data-range');
             that.addClass('active');
             orderList[0].dataset['url'] = baseUrl + '&type=' + type + '&range=' + range;
-            load(true,null,range!=='all'?50:null);
+            load(true, null, range !== 'all' ? 50 : null);
         });
 
     load(true);

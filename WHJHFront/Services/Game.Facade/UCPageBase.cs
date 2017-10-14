@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 using Game.Utils;
-using Game.Kernel;
-using Game.IData;
-using System.Security.Cryptography;
 
 namespace Game.Facade
 {
@@ -64,9 +56,11 @@ namespace Game.Facade
         /// <param name="value">标签值</param>
         protected virtual void AddMetaTag(string name, string value)
         {
-            HtmlMeta meta = new HtmlMeta();
-            meta.Name = name;
-            meta.Content = value;
+            HtmlMeta meta = new HtmlMeta
+            {
+                Name = name,
+                Content = value
+            };
             Page.Header.Controls.Add(meta);
         }
         #endregion

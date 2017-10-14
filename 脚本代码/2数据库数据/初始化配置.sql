@@ -8,18 +8,18 @@ INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Fi
 N'参数说明
 字段1：下载地址 
 字段2：大厅版本号
-字段3：大厅否强制更新 1：是 0：否',N'http://jj.foxuc.net/Download/Plaza.apk',N'V1.0',N'0',N'',2)
+字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.apk',N'V1.0',N'0',N'',2)
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'GameIosConfig',N'苹果大厅配置',
 N'参数说明
 字段1：下载地址   
 字段2：大厅版本号 
-字段3：大厅否强制更新 1：是 0：否',N'http://jj.foxuc.net/Download/Plaza.ipa',N'V1.0',N'0',N'',3)
+字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.ipa',N'V1.0',N'0',N'',3)
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'MobilePlatformVersion',N'移动版大厅配置',
 N'参数说明
 字段1：热更新下载路径   
 字段2：大厅版本号 
 字段3：资源版本号
-字段4：ios企业版本的下载地址',N'http://jj.foxuc.net/Download/',N'0',N'0',N'',4)
+字段4：ios企业版本的下载地址',N'http://jh.foxuc.net/Download/',N'0',N'0',N'',4)
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,Field5,Field6,Field7,Field8,SortID) VALUES(N'SysCustomerService',N'系统客服配置',
 N'参数说明
 字段1：客服电话   
@@ -30,7 +30,7 @@ N'参数说明
 字段6：公司地址
 字段7：公司地址百度坐标
 字段8：联系我们公司简介',
-N'400-000-7043',N'4000007043',N'4000007043',N'http://jj.foxuc.net/',N'UCBusiness@foxuc.cn',
+N'400-000-7043',N'4000007043',N'4000007043',N'http://jh.foxuc.net/',N'UCBusiness@foxuc.cn',
 N'深圳市南山区海信南方大厦27楼',N'113.946857,22.518271',N'欢迎来到网狐科技，我公司将以高度的责任感和使命感。以多年的经验，技术创造出更完美的作品回馈广大玩家及客户，感谢您的关注与 支持。让广大客户及玩家满意的同时，积极提高自身的热忱服务，努力给予更前卫的技术支持！',5)
 
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,Field5,Field6,Field7,Field8,SortID) VALUES(N'WebSiteConfig',N'网站站点配置',
@@ -39,7 +39,7 @@ N'参数说明
 字段2：网站图片服务器地址
 字段3：网站前台服务器地址
 字段4：H5游戏服务器地址
-字段8：网站前台底部内容',N'http://jj.foxuc.net',N'http://www.image.com/',N'http://www.front.com/',N'http://jj.foxuc.net',N'',N'',N'',N'<p class="ui-footer-link">
+字段8：网站前台底部内容',N'http://jh.foxuc.net',N'http://www.image.com/',N'http://www.front.com/',N'http://jh.foxuc.net',N'',N'',N'',N'<p class="ui-footer-link">
             <a href="/Contact/Index.aspx" target="_blank">关于我们</a>|
             <a href="/Contact/Index.aspx" target="_blank">联系我们</a>|
             <a href="/Contact/Index.aspx" target="_blank">客服中心</a>|

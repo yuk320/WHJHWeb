@@ -234,7 +234,7 @@ namespace Game.Data
             int start = (pageIndex - 1) * pageSize + 1;
             int end = pageIndex * pageSize;
             string sql =
-                $"SELECT * FROM (SELECT ROW_NUMBER() OVER( ORDER BY RegisterDate DESC) AS RowNumber,* FROM [WF_GetAgentBelowAccountsRegister]({userid}) WHERE UserID!={userid}) AS A WHERE RowNumber>={start} AND RowNumber<={end}";
+                $"SELECT * FROM (SELECT ROW_NUMBER() OVER( ORDER BY RegisterDate DESC) AS RowNumber,* FROM [WF_GetAgentBelowAccountsRegister]({userid}) WHERE UserID<>{userid}) AS A WHERE RowNumber>={start} AND RowNumber<={end}";
 
             return Database.ExecuteDataset(sql);
         }
@@ -288,7 +288,7 @@ namespace Game.Data
         public IList<AccountsAgentInfo> GetAgentBelowAgentList(int userId)
         {
             return Database.ExecuteObjectList<AccountsAgentInfo>(
-                "SELECT * FROM AccountsAgentInfo WHERE UserID IN (SELECT UserID FROM AccountsInfo(NOLOCK) WHERE SpreaderID = @UserID)",
+                "SELECT * FROM AccountsAgentInfo WHERE ParentAgent IN (SELECT AgentID FROM AccountsAgentInfo(NOLOCK) WHERE UserID = @UserID)",
                 new List<DbParameter> {Database.MakeInParam("UserID", userId)});
         }
 

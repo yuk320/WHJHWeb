@@ -54,7 +54,13 @@ namespace Game.Facade.Enum
         /// 银行取出
         /// </summary>
         [EnumDescription("银行取出")]
-        银行取出 = 7
+        银行取出 = 7,
+
+        /// <summary>
+        /// 银行服务费
+        /// </summary>
+        [EnumDescription("银行服务费")]
+        银行服务费 = 8
     }
 
     /// <summary>

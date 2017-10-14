@@ -652,12 +652,6 @@
     <Content Include="Card\DataHandler.ashx" />
     <None Include="Properties\PublishProfiles\WHJHFront-ol.pubxml" />
     <None Include="Properties\PublishProfiles\WHJHFront.pubxml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <Content Include="WS\NewMoblieInterface.ashx" />
     <Content Include="WS\UserFace.ashx" />
   </ItemGroup>
