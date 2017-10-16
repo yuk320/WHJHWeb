@@ -2,12 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Css" runat="server">
     <link href="/Card/Css/record.css" rel="stylesheet"/>
+    <link href="/Card/Js/layer_mobile/need/layer.css" rel="stylesheet"/>
     <link href="/Card/Js/iscroll/pullup-refresh.css" rel="stylesheet"/>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <input id="hidType" type="hidden" value="<%= Type %>"/>
     <p class="ui-tab-num">总<em id="typeLab">代理</em>人数： <span id="pCount"></span>
-    </p>
+      <a id="btnAddAgent" href="/Card/AddAgent.aspx" style="float: right;padding-right: 150px;">添加代理</a></p>
     <ul class="ui-tab ui-tab-under fn-clean-space">
         <li data-range="all" class="active">
             <a id="aAll" href="javascript:;">所有</a>
@@ -41,5 +42,6 @@
     </div>
     <script src="/Card/Js/iscroll/iscroll-probe.js"></script>
     <script src="/Card/Js/iscroll/pullup-refresh.js"></script>
+    <script src="/Card/Js/layer_mobile/layer.js"></script>
     <script src="/Card/Js/under.js"></script>
 </asp:Content>

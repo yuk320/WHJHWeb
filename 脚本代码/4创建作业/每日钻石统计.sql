@@ -1,5 +1,7 @@
 USE [msdb]
 GO
+DECLARE @JOBNAME NVARCHAR(16)
+SET @JOBNAME = N'每日钻石统计'
 
 /****** Object:  Job [每日钻石统计]    Script Date: 2017/6/14 17:18:40 ******/
 BEGIN TRANSACTION
@@ -13,20 +15,28 @@ IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 
 END
 
+-- 删除重复
+IF EXISTS (SELECT 1 FROM sysjobs where name=@JOBNAME)
+BEGIN
+	EXEC msdb.dbo.sp_delete_jobschedule @job_name=@JOBNAME,@name=@JOBNAME
+	EXEC msdb.dbo.sp_delete_jobstep @job_name=@JOBNAME,@step_id=1
+	EXEC msdb.dbo.sp_delete_job @job_name=@JOBNAME
+END
+
 DECLARE @jobId BINARY(16)
-EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'每日钻石统计', 
+EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=@JOBNAME, 
 		@enabled=1, 
 		@notify_level_eventlog=0, 
 		@notify_level_email=0, 
 		@notify_level_netsend=0, 
 		@notify_level_page=0, 
 		@delete_level=0, 
-		@description=N'每日钻石统计', 
+		@description=@JOBNAME, 
 		@category_name=N'[Uncategorized (Local)]', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [每日钻石统计]    Script Date: 2017/6/14 17:18:41 ******/
-EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'每日钻石统计', 
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=@JOBNAME, 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
 		@on_success_action=1, 
@@ -42,7 +52,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'每日钻石
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'每日钻石统计', 
+EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=@JOBNAME, 
 		@enabled=1, 
 		@freq_type=4, 
 		@freq_interval=1, 

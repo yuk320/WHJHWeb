@@ -39,6 +39,10 @@ namespace Game.Facade.DataStruct
         /// </summary>
         public int GameID { get; set; }
         /// <summary>
+        /// 代理标识
+        /// </summary>
+        public int AgentID { get; set; }
+        /// <summary>
         /// 用户昵称
         /// </summary>
         public string NickName { get; set; }
@@ -65,6 +69,25 @@ namespace Game.Facade.DataStruct
         }
     }
 
+    [Serializable]
+    public class UnderDetail : UnderData
+    {
+        public bool IsAgent => AgentID > 0;
+
+        public string Compellation { get; set; } = "";
+
+        public string QQAccount { get; set; } = "";
+
+        public string ContactPhone { get; set; } = "";
+
+        public string ContactAddress { get; set; } = "";
+
+        public override string ToString()
+        {
+            return new JavaScriptSerializer().Serialize(this);
+        }
+    }
+
     /// <summary>
     /// 我的玩家、我的代理 IList类
     /// </summary>
@@ -76,6 +99,7 @@ namespace Game.Facade.DataStruct
         public UnderList()
         {
             dataList = new List<UnderData>();
+            Link = false;
             PageCount = 0;
             RecordCount = 0;
             PageSize = 0;
@@ -84,6 +108,7 @@ namespace Game.Facade.DataStruct
 
         public IList<UnderData> dataList { get; set; }
 
+        public bool Link { get; set; }
         public int PageCount { get; set; }
         public int RecordCount { get; set; }
         public int PageSize { get; set; }

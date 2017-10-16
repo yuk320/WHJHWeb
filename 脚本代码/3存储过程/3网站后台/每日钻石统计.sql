@@ -80,6 +80,7 @@ BEGIN
 
 	-- 写入统计表
 	SET @DateID = CAST(CAST(@TodayTime AS FLOAT) AS INT)
+	DELETE WHJHRecordDBLink.WHJHRecordDB.dbo.RecordEveryDayCurrency WHERE DateID = @DateID
 	INSERT INTO WHJHRecordDBLink.WHJHRecordDB.dbo.RecordEveryDayCurrency 
 	VALUES(@DateID,@FirstDiamond,@SecondDiamond,@ThirdDiamond,@TotalDiamond,@SysPresentDiamond,@AdminPresentDiamond,@PayDiamond,@RoomCostDiamond,@PropCostDiamond,@AAGameDiamond,@TodayTime)
 

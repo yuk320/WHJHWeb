@@ -46,6 +46,9 @@ namespace Game.Web.Card
                 case "getunderlist":
                     GetUnderList(context);
                     break;
+                case "getunderdetail":
+                    GetUnderDetail(context);
+                    break;
                 default:
                     break;
             }
@@ -202,7 +205,7 @@ namespace Game.Web.Card
                     sb.AppendFormat("<td>{0}</td>", item["RoomID"]);
                     sb.AppendFormat("<td>{0}</td>", item["CreateTableFee"]);
                     sb.AppendFormat("<td>{0}</td>",
-                           !item["DissumeDate"].ToString().Equals("")
+                        !item["DissumeDate"].ToString().Equals("")
                             ? Fetch.FormatTimeWrap(Convert.ToDateTime(item["DissumeDate"]))
                             : "");
                     sb.Append("</tr>");
@@ -347,7 +350,8 @@ namespace Game.Web.Card
             switch (type)
             {
                 case "user":
-                    sqlWhere = $" WHERE SourceUserID = {uti.UserID} AND TargetUserID NOT IN (SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsAgentInfo) {sqlRange} GROUP BY TargetUserID,SourceUserID ";
+                    sqlWhere =
+                        $" WHERE SourceUserID = {uti.UserID} AND TargetUserID NOT IN (SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsAgentInfo) {sqlRange} GROUP BY TargetUserID,SourceUserID ";
                     ps = FacadeManage.aideRecordFacade.GetAgentBelowUserPresentDiamondRecord(sqlWhere, page, number);
                     list.PageCount = ps.PageCount;
                     list.RecordCount = ps.RecordCount;
@@ -385,41 +389,79 @@ namespace Game.Web.Card
                     pCount = FacadeManage.aideRecordFacade.GetAgentBelowAccountsCount(uti.UserID);
                     break;
                 case "agent":
-                    sqlWhere =
-                        $" WHERE SourceUserID IN ( SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsAgentInfo WHERE ParentAgent = {uti.AgentID} )  {sqlRange} GROUP BY SourceUserID ";
-                    ps =
-                        FacadeManage.aideRecordFacade.GetAgentBelowAgentPresentDiamondRecord(sqlWhere, page, number);
-                    list.PageCount = ps.PageCount;
-                    list.RecordCount = ps.RecordCount;
-                    list.PageIndex = ps.PageIndex;
-                    list.PageSize = ps.PageSize;
-                    if (ps.RecordCount > 0)
+                    list.Link = true;
+                    if (range == "all")
                     {
-                        foreach (DataRow row in ps.PageSet.Tables[0].Rows)
-                        {
-                            UnderData data = new UnderData()
+                        IList<AccountsAgentInfo> belowList =
+                            FacadeManage.aideAccountsFacade.GetAgentBelowAgentList(uti.UserID);
+                        list.PageCount = 1;
+                        list.RecordCount = belowList?.Count ?? 0;
+                        list.PageIndex = 1;
+                        list.PageSize = belowList?.Count ?? 0;
+                        var iCount = 0;
+                        if (belowList != null)
+                            foreach (AccountsAgentInfo agentInfo in belowList)
                             {
-                                UserID = Convert.ToInt32(row["UserID"]),
-                                RankID = Convert.ToInt32(row["PageView_RowNo"])
-                            };
-                            data.GameID = FacadeManage.aideAccountsFacade.GetGameIDByUserID(data.UserID);
-                            data.NickName = FacadeManage.aideAccountsFacade.GetNickNameByUserID(data.UserID);
-                            data.Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(data.UserID)?.Diamond ?? 0;
-                            if (type == "month")
-                            {
-                                data.MonthDiamond = Convert.ToInt64(row["SumDiamond"]);
-                                data.TotalDiamond =
-                                    FacadeManage.aideRecordFacade.GetTotalPresentCount(uti.UserID, data.UserID);
-                            }
-                            else
-                            {
-                                data.TotalDiamond = Convert.ToInt64(row["SumDiamond"]);
+                                iCount++;
+                                UnderData data = new UnderData()
+                                {
+                                    UserID = agentInfo.UserID,
+                                    RankID = iCount
+                                };
+                                data.GameID = FacadeManage.aideAccountsFacade.GetGameIDByUserID(data.UserID);
+                                data.NickName = FacadeManage.aideAccountsFacade.GetNickNameByUserID(data.UserID);
+                                data.Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(data.UserID)?.Diamond ??
+                                               0;
+                                data.TotalDiamond = FacadeManage.aideRecordFacade.GetTotalPresentCount(uti.UserID,
+                                    data.UserID,
+                                    sqlMonth);
                                 data.MonthDiamond =
                                     FacadeManage.aideRecordFacade.GetTotalPresentCount(uti.UserID, data.UserID,
                                         sqlMonth);
-                            }
 
-                            list.dataList.Add(data);
+                                list.dataList.Add(data);
+                            }
+                    }
+                    else
+                    {
+                        sqlWhere =
+                            $" WHERE SourceUserID IN ( SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsAgentInfo WHERE ParentAgent = {uti.AgentID} )  {sqlRange} GROUP BY SourceUserID ";
+                        ps =
+                            FacadeManage.aideRecordFacade
+                                .GetAgentBelowAgentPresentDiamondRecord(sqlWhere, page, number);
+                        list.PageCount = ps.PageCount;
+                        list.RecordCount = ps.RecordCount;
+                        list.PageIndex = ps.PageIndex;
+                        list.PageSize = ps.PageSize;
+                        if (ps.RecordCount > 0)
+                        {
+                            foreach (DataRow row in ps.PageSet.Tables[0].Rows)
+                            {
+                                UnderData data = new UnderData()
+                                {
+                                    UserID = Convert.ToInt32(row["UserID"]),
+                                    RankID = Convert.ToInt32(row["PageView_RowNo"])
+                                };
+                                data.GameID = FacadeManage.aideAccountsFacade.GetGameIDByUserID(data.UserID);
+                                data.NickName = FacadeManage.aideAccountsFacade.GetNickNameByUserID(data.UserID);
+                                data.Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(data.UserID)?.Diamond ??
+                                               0;
+                                if (type == "month")
+                                {
+                                    data.MonthDiamond = Convert.ToInt64(row["SumDiamond"]);
+                                    data.TotalDiamond =
+                                        FacadeManage.aideRecordFacade.GetTotalPresentCount(uti.UserID, data.UserID);
+                                }
+                                else
+                                {
+                                    data.TotalDiamond = Convert.ToInt64(row["SumDiamond"]);
+                                    data.MonthDiamond =
+                                        FacadeManage.aideRecordFacade.GetTotalPresentCount(uti.UserID, data.UserID,
+                                            sqlMonth);
+                                }
+
+                                list.dataList.Add(data);
+                            }
                         }
                     }
                     pCount = FacadeManage.aideAccountsFacade.GetAgentBelowAgentCount(uti.UserID);
@@ -432,14 +474,50 @@ namespace Game.Web.Card
 
             ajv.AddDataItem("list", list.dataList);
             ajv.AddDataItem("total", list.RecordCount);
+            if (list.Link) ajv.AddDataItem("link", true);
             ajv.AddDataItem("count", pCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
 
-        public bool IsReusable
+        private static void GetUnderDetail(HttpContext context)
         {
-            get { return false; }
+            AjaxJsonValid ajv = new AjaxJsonValid();
+
+            //判断登录
+            UserTicketInfo uti = Fetch.GetUserCookie();
+            if (uti == null || uti.UserID <= 0)
+            {
+                ajv.code = 0;
+                ajv.msg = "登录已失效，请重新打开页面";
+                context.Response.Write(ajv.SerializeToJson());
+                return;
+            }
+
+            int userid = GameRequest.GetQueryInt("userid", 0);
+            AccountsInfo ai = FacadeManage.aideAccountsFacade.GetAccountsInfoByUserID(userid);
+            if (ai.AgentID > 0)
+            {
+                AccountsAgentInfo aai = FacadeManage.aideAccountsFacade.GetAccountsAgentInfoByAgentID(ai.AgentID);
+                UnderDetail underDetail = new UnderDetail()
+                {
+                    UserID = ai.UserID,
+                    GameID = ai.GameID,
+                    NickName = ai.NickName,
+                    Compellation = aai.Compellation,
+                    QQAccount = aai.QQAccount,
+                    ContactAddress = aai.ContactAddress,
+                    ContactPhone = aai.ContactPhone,
+                    AgentID = ai.AgentID,
+                    Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(ai.UserID)?.Diamond ?? 0
+                };
+                ajv.AddDataItem("info",underDetail.ToString());
+                ajv.SetValidDataValue(true);
+            }
+
+            context.Response.Write(ajv.SerializeToJson());
         }
+
+        public bool IsReusable => false;
     }
 }
