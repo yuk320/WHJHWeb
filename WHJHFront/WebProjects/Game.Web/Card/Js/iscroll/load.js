@@ -3,7 +3,7 @@
  */
 'use strict';
 
-$(function (){
+$(function () {
   var orderList = $('#list');
   var page = 0;
   var pages = 1;
@@ -28,12 +28,19 @@ $(function (){
       load(true, pull);
     }
   };
-  
+  var ajaxLayer = function () {
+    return layer.open({
+      type: 2,
+      content: "页面加载中...",
+      shadeClose: false
+    });
+  }
   var ths = $('#thead tr').children();
-  
+
   iScroll.init(parameter);
 
   var load = function (next, pull) {
+    var layerId = ajaxLayer();
     $.ajax({
       url: orderList.attr('data-url'),
       data: {
@@ -47,20 +54,23 @@ $(function (){
 
           // 表格对齐
           var tds = $('#list tr').eq(0).children();
-            if (!tds.attr('colspan')) {
-              ths.each(function(index,th) {
-                if($(th).text().indexOf('时间')>-1) {
-                  $(th).width('8rem');
-                }
-              });
-          
-              tds.each(function(index, td) {
-                $(td).width(ths.eq(index).width());
-              });
-            }
+          if (!tds.attr('colspan')) {
+            ths.each(function (index, th) {
+              if ($(th).text().indexOf('时间') > -1) {
+                $(th).width('8rem');
+              }
+            });
+
+            tds.each(function (index, td) {
+              $(td).width(ths.eq(index).width());
+            });
+          }
         } else {
           alert(result.msg);
         }
+        setTimeout(function () {
+          layer.close(layerId);
+        }, 500);
       },
       complete: function () {
         if (pull) {

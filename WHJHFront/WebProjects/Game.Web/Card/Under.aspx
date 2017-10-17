@@ -25,7 +25,7 @@
             <table class="ui-detail active">
                 <thead id="thead">
                 <tr>
-                    <th>序号|昵称| I D </th>
+                    <th>序号 | 昵称 | I D </th>
                     <th>当前房卡</th>
                     <th id="thMonth">本月售卡</th>
                     <th id="thTotal">累计售卡</th>

@@ -48,7 +48,7 @@ namespace Game.Web.WS
             _ajv =
 Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _userid.ToString()) + AppConfig.MoblieInterfaceKey + time,
                 sign);
-            Log4Net.WriteInfoLog("signStr:"+(context.Request.QueryString["userid"] == null ? "" : _userid.ToString()) + AppConfig.MoblieInterfaceKey + time + " sign:"+sign);
+//            Log4Net.WriteInfoLog("signStr:"+(context.Request.QueryString["userid"] == null ? "" : _userid.ToString()) + AppConfig.MoblieInterfaceKey + time + " sign:"+sign);
             if (_ajv.code == (int)ApiCode.VertySignErrorCode)
             {
                 context.Response.Write(_ajv.SerializeToJson());
@@ -185,6 +185,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// </summary>
         private static void GetMobileLoginData()
         {
+            _ajv.data["apiVersion"] = 20171017;
+
+            ConfigInfo webConfig = Fetch.GetWebSiteConfig();
+            string imageServerHost = webConfig.Field2;
             //获取登录数据
             DataSet ds = FacadeManage.aideNativeWebFacade.GetMobileLoginInfo();
             //获取系统配置信息
@@ -196,7 +200,18 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             //获取手机广告图
             IList<AdsMobile> plate = DataHelper.ConvertDataTableToObjects<AdsMobile>(ds.Tables[3]);
             IList<AdsMobile> alert = DataHelper.ConvertDataTableToObjects<AdsMobile>(ds.Tables[4]);
-
+            foreach (AdsMobile adsMobile in plate)
+            {
+                adsMobile.ResourceURL = adsMobile.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
+                    ? imageServerHost + adsMobile.ResourceURL
+                    : adsMobile.ResourceURL;
+            }
+            foreach (AdsMobile adsMobile in alert)
+            {
+                adsMobile.ResourceURL = adsMobile.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
+                    ? imageServerHost + adsMobile.ResourceURL
+                    : adsMobile.ResourceURL;
+            }
             //输出数据
             _ajv.SetValidDataValue(true);
             _ajv.AddDataItem("systemConfig", config);

@@ -27,19 +27,19 @@ namespace Game.Web
             {
                 #region 内部测试
 
-                Random rd = new Random();
-                string unionid = Utility.MD5(rd.Next(1000000, 9999999).ToString());
-                string nickname = "网站" + rd.Next(10000, 99999).ToString();
-                string headimgurl =
-                    "http://wx.qlogo.cn/mmopen/ajNVdqHZLLAMfyaTEB7juwPCNXBEC5SNBkgUgLuQjeu8bgcsiaEM77Y1F83qb05w0UjGJkVCqqgrs1EWic1Pmn5LjYYKJxSgRwwXz7iaxia6to0/0";
-                if (LinkUrl.IndexOf("Card/Index", StringComparison.Ordinal) > 0)
-                {
-                    unionid = "o9ZMqwltMdZANFwT5P8FAGS2ZDkk";
-                }
-                string wxParam = $"<{unionid}>,<{unionid}>,<{nickname}>,<{1}>,<{headimgurl}>";
-                LinkUrl = LinkUrl + "&w=" + Server.UrlEncode(Fetch.DESEncrypt(wxParam, AppConfig.WxUrlKey));
-
-                Response.Redirect(LinkUrl);
+//                Random rd = new Random();
+//                string unionid = Utility.MD5(rd.Next(1000000, 9999999).ToString());
+//                string nickname = "网站" + rd.Next(10000, 99999).ToString();
+//                string headimgurl =
+//                    "http://wx.qlogo.cn/mmopen/ajNVdqHZLLAMfyaTEB7juwPCNXBEC5SNBkgUgLuQjeu8bgcsiaEM77Y1F83qb05w0UjGJkVCqqgrs1EWic1Pmn5LjYYKJxSgRwwXz7iaxia6to0/0";
+//                if (LinkUrl.IndexOf("Card/Index", StringComparison.Ordinal) > 0)
+//                {
+//                    unionid = "o9ZMqwltMdZANFwT5P8FAGS2ZDkk";
+//                }
+//                string wxParam = $"<{unionid}>,<{unionid}>,<{nickname}>,<{1}>,<{headimgurl}>";
+//                LinkUrl = LinkUrl + "&w=" + Server.UrlEncode(Fetch.DESEncrypt(wxParam, AppConfig.WxUrlKey));
+//
+//                Response.Redirect(LinkUrl);
 
                 #endregion
 
@@ -78,7 +78,7 @@ namespace Game.Web
 
                 #region 演示版本
 
-//                Response.Redirect("http://ry.foxuc.net/JJAuthorize.aspx?url=" + Server.UrlEncode(LinkUrl));
+                Response.Redirect("http://ry.foxuc.net/JJAuthorize.aspx?url=" + Server.UrlEncode(LinkUrl));
 
                 #endregion
             }

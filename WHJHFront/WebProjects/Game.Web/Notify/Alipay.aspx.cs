@@ -4,6 +4,7 @@ using Game.Utils;
 using Game.Web.Helper;
 using System;
 using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace Game.Web.Notify
 {
@@ -17,7 +18,9 @@ namespace Game.Web.Notify
             if(!IsPostBack)
             {
                 SortedDictionary<string, string> sPara = AlipayHelper.GetRequestPost();
-                if(sPara.Count > 0)//判断是否有带返回参数
+                Log4Net.WriteInfoLog("收到支付宝支付回调：" + new JavaScriptSerializer().Serialize(sPara));
+
+                if (sPara.Count > 0)//判断是否有带返回参数
                 {
                     bool verifyResult = AlipayHelper.Verify(sPara, Request.Form["notify_id"], Request.Form["sign"], Request.Form["sign_type"]);
                     if(verifyResult)

@@ -45,7 +45,7 @@
                     </p>
                 </li>
                 <li class="ui-contact-3">
-                    <h2>联系微信</h2>
+                    <h2>微信公众号</h2>
                     <p>
                         <%=contactWeChat %>
                     </p>

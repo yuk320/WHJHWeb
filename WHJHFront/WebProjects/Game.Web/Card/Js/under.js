@@ -38,17 +38,38 @@
                 '</td></tr>';
         });
         orderList.html(html);
-        if(link) {
+        if (link) {
             $('#list a[data-dialog]').on('touchend click', function (e) {
                 var that = $(e.target);
-                $.ajax({url:that.attr('data-dialog'),success:function(result){
-                    if (result.code===0&&result.data.valid){
-                        var info = JSON.parse(result.data.info);
-                        layer.open({content:result.data.info});
+                $.ajax({
+                    url: that.attr('data-dialog'),
+                    success: function (result) {
+                        if (result.code === 0 && result.data.valid) {
+                            var info = JSON.parse(result.data.info);
+                            underDetailRender(info);
+                        }
                     }
-                }});
+                });
             });
         }
+    }
+    var underDetailRender = function (info) {
+        var html = "<table style='width:100%;line-height:2;font-size:16px;'><tbody>";
+            html+="<tr><td>游戏ID：</td><td align=left>"+info.GameID+"</td></tr>";
+            html+="<tr><td>昵称：</td><td align=left>"+info.NickName+"</td></tr>";
+            html+="<tr><td>当前钻石：</td><td align=left>"+info.Diamond+"</td></tr>";
+            if (info.QQAccount) html+="<tr><td>QQ：</td><td align=left>"+info.QQAccount+"</td></tr>";
+            if (info.Compellation) html+="<tr><td>真实姓名：</td><td align=left>"+info.Compellation+"</td></tr>";
+            if (info.ContactPhone) html+="<tr><td>联系电话：</td><td align=left>"+info.ContactPhone+"</td></tr>";
+            if (info.ContactAddress) html+="<tr><td>联系地址：</td><td align=left>"+info.ContactAddress+"</td></tr>";
+            html+="</tbody></table>";
+        layer.open({
+            btn: "关闭",
+            title: ["代理详情 <em style='font-size:10px;color:#ff6666'>(提示:点击阴影处可关闭详情页)</em>", 
+            "background-color: #8966ca;color: #feac99;"],
+            content: html,
+            style:"background-color:rgb(233, 233, 233);"
+        });
     }
 
     var load = function (next, pull, pageSize) {
@@ -151,5 +172,5 @@
         });
 
     load(true);
-   
+
 });

@@ -4,6 +4,7 @@ using Game.Utils;
 using Game.Web.Helper;
 using System;
 using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace Game.Web.Notify
 {
@@ -19,6 +20,8 @@ namespace Game.Web.Notify
                 WxPayHelper wx = new WxPayHelper();
                 string returnMsg = "<xml> <return_code><![CDATA[{0}]]></return_code> <return_msg><![CDATA[{1}]]></return_msg> </xml>";
                 SortedDictionary<string, object> dic = wx.GetReturnData();
+                Log4Net.WriteInfoLog("收到微信App支付回调：" + new JavaScriptSerializer().Serialize(dic));
+
                 string sign = dic["sign"].ToString();
                 if(dic["return_code"].ToString() == "SUCCESS")
                 {
