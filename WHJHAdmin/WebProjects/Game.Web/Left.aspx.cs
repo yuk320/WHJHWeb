@@ -29,7 +29,7 @@ namespace Game.Web
                 return;
             }
 
-            ds = FacadeManage.aidePlatformManagerFacade.GetMenuByUserID(userExt.UserID);
+            ds = FacadeManage.aidePlatformManagerFacade.GetMenuByUserId(userExt.UserID);
             LeftMenu.DataSource = ds.Tables[0];
             LeftMenu.DataBind();
         }

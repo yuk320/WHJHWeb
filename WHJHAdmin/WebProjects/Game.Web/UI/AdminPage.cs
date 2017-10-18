@@ -278,7 +278,7 @@ namespace Game.Web.UI
         /// <returns>用户ID</returns>
         protected int GetUserIDByGameID(int gameID)
         {
-            AccountsInfo accountsInfo = FacadeManage.aideAccountsFacade.GetAccountInfoByGameID(gameID);
+            AccountsInfo accountsInfo = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameID);
             return accountsInfo == null ? 0 : accountsInfo.UserID;
         }
         /// <summary>
@@ -288,7 +288,7 @@ namespace Game.Web.UI
         /// <returns></returns>
         public string GetNickNameByUserID(int userID)
         {
-            AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userID);
+            AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userID);
             return model != null ? model.NickName : "";
         }
         /// <summary>
@@ -298,7 +298,7 @@ namespace Game.Web.UI
         /// <returns></returns>
         protected string GetGameID(int userID)
         {
-            AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userID);
+            AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userID);
             return accounts != null ? accounts.GameID.ToString() : "";
         }
         #endregion
@@ -372,6 +372,8 @@ namespace Game.Web.UI
                     return "AA制游戏";
                 case 12:
                     return "兑换金币";
+                case 13:
+                    return "";
                 default:
                     return "";
             }
@@ -387,7 +389,7 @@ namespace Game.Web.UI
         /// <returns></returns>
         protected string GetMasterName(int masterID)
         {
-            Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserID(masterID);
+            Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(masterID);
             return user != null ? user.Username : "";
         }
         /// <summary>

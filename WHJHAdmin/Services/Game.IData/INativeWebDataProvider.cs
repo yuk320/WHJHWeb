@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using Game.Kernel;
+﻿using Game.Kernel;
 using Game.Entity.NativeWeb;
 
 
@@ -104,7 +99,7 @@ namespace Game.IData
         /// </summary>
         /// <param name="configid">配置标识</param>
         /// <returns></returns>
-        RankingConfig GetRankingConfigByID(int configid);
+        RankingConfig GetRankingConfigById(int configid);
         /// <summary>
         /// 判断排行榜配置是否存在
         /// </summary>

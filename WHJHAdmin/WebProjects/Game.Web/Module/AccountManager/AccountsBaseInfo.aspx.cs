@@ -29,7 +29,7 @@ namespace Game.Web.Module.AccountManager
             {
                 if(IntParam > 0)
                 {
-                    AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(IntParam);
+                    AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(IntParam);
                     if(model != null)
                     {
                         int logonTimes = model.WebLogonTimes + model.GameLogonTimes;
@@ -59,7 +59,7 @@ namespace Game.Web.Module.AccountManager
                         ckbNullity.Checked = model.Nullity == 1 ? true : false;
                         ckbLock.Checked = model.MoorMachine == 1 ? true : false;
 
-                        imgFace.ImageUrl = FacadeManage.aideAccountsFacade.GetAccountsFaceByID(model.CustomID);
+                        imgFace.ImageUrl = FacadeManage.aideAccountsFacade.GetAccountsFaceById(model.CustomID);
                     }
                 }
             }
@@ -81,7 +81,7 @@ namespace Game.Web.Module.AccountManager
                 string underwrite = CtrlHelper.GetText(txtUnderWrite);
 
                 //输入验证
-                AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(IntParam);
+                AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(IntParam);
                 if(model != null && model.Compellation.Length > 0 && string.IsNullOrEmpty(realname))
                 {
                     MessageBox("已实名认证信息保存不能为空");

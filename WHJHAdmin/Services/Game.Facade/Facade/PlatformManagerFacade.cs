@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Data.Factory;
+﻿using Game.Data.Factory;
 using Game.IData;
 using Game.Kernel;
 using Game.Entity.PlatformManager;
-using Game.Utils;
 using System.Data;
-using Game.Entity;
-using Game.Utils.Cache;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     public class PlatformManagerFacade
     {
         #region Fields
 
-        private IPlatformManagerDataProvider aidePlatformManagerData;
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private IPlatformManagerDataProvider _aidePlatformManagerData;
 
         #endregion
 
@@ -33,7 +28,7 @@ namespace Game.Facade
         /// <returns></returns>
         public PagerSet GetList(string tableName, int pageIndex, int pageSize, string condition, string orderby)
         {
-            return aidePlatformManagerData.GetList(tableName, pageIndex, pageSize, condition, orderby);
+            return _aidePlatformManagerData.GetList(tableName, pageIndex, pageSize, condition, orderby);
         }
         #endregion
 
@@ -43,7 +38,7 @@ namespace Game.Facade
         /// </summary>
         public PlatformManagerFacade()
         {
-            aidePlatformManagerData = ClassFactory.GetIPlatformManagerDataProvider();
+            _aidePlatformManagerData = ClassFactory.GetIPlatformManagerDataProvider();
         }
         #endregion
 
@@ -55,7 +50,7 @@ namespace Game.Facade
         /// <returns></returns>
         public Message UserLogon(Base_Users user)
         {
-            return aidePlatformManagerData.UserLogon(user);
+            return _aidePlatformManagerData.UserLogon(user);
         }
         /// <summary>
         /// 添加管理员
@@ -63,15 +58,15 @@ namespace Game.Facade
         /// <param name="user">管理员信息</param>
         public int RegisterUser(Base_Users user)
         {
-            return aidePlatformManagerData.RegisterUser(user);
+            return _aidePlatformManagerData.RegisterUser(user);
         }
         /// <summary>
         /// 删除管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
-        public int DeleteUser(string userIDList)
+        /// <param name="userIdList">管理员列表</param>
+        public int DeleteUser(string userIdList)
         {
-            return aidePlatformManagerData.DeleteUser(userIDList);
+            return _aidePlatformManagerData.DeleteUser(userIdList);
         }
         /// <summary>
         /// 修改管理员密码
@@ -80,16 +75,16 @@ namespace Game.Facade
         /// <param name="password">新登录密码</param>
         public int ModifyUserLogonPass(int userid, string password)
         {
-            return aidePlatformManagerData.ModifyUserLogonPass(userid, password);
+            return _aidePlatformManagerData.ModifyUserLogonPass(userid, password);
         }
         /// <summary>
         /// 冻结解冻管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
+        /// <param name="userIdList">管理员列表</param>
         /// <param name="nullity">管理员状态</param>
-        public int NullityUser(string userIDList, int nullity)
+        public int NullityUser(string userIdList, int nullity)
         {
-            return aidePlatformManagerData.NullityUser(userIDList, nullity);
+            return _aidePlatformManagerData.NullityUser(userIdList, nullity);
         }
         /// <summary>
         /// 修改管理员信息
@@ -97,16 +92,16 @@ namespace Game.Facade
         /// <param name="user">管理员信息</param>
         public int ModifyUserInfo(Base_Users user)
         {
-            return aidePlatformManagerData.ModifyUserInfo(user);
+            return _aidePlatformManagerData.ModifyUserInfo(user);
         }
         /// <summary>
         /// 获取管理员信息
         /// </summary>
-        /// <param name="userID">管理员标识</param>
+        /// <param name="userId">管理员标识</param>
         /// <returns></returns>
-        public Base_Users GetUserByUserID(int userID)
+        public Base_Users GetUserByUserId(int userId)
         {
-            return aidePlatformManagerData.GetUserByUserID(userID);
+            return _aidePlatformManagerData.GetUserByUserId(userId);
         }
         /// <summary>
         /// 获取用户列表
@@ -114,7 +109,7 @@ namespace Game.Facade
         /// <returns></returns>
         public DataSet GetUserList()
         {
-            return aidePlatformManagerData.GetUserList();
+            return _aidePlatformManagerData.GetUserList();
         }
         #endregion
 
@@ -122,11 +117,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取管理员角色
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public Base_Roles GetRoleInfo(int roleID)
+        public Base_Roles GetRoleInfo(int roleId)
         {
-            return aidePlatformManagerData.GetRoleInfo(roleID);
+            return _aidePlatformManagerData.GetRoleInfo(roleId);
         }
         /// <summary>
         /// 新增管理员角色
@@ -135,7 +130,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertRole(Base_Roles role)
         {
-            return aidePlatformManagerData.InsertRole(role);
+            return _aidePlatformManagerData.InsertRole(role);
         }
         /// <summary>
         /// 修改管理员角色
@@ -144,7 +139,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateRole(Base_Roles role)
         {
-            return aidePlatformManagerData.UpdateRole(role);
+            return _aidePlatformManagerData.UpdateRole(role);
         }
         /// <summary>
         /// 删除管理员角色
@@ -152,7 +147,7 @@ namespace Game.Facade
         /// <param name="idlist">标识列表</param>
         public int DeleteRole(string idlist)
         {
-            return aidePlatformManagerData.DeleteRole(idlist);
+            return _aidePlatformManagerData.DeleteRole(idlist);
         }
         #endregion
 
@@ -160,20 +155,20 @@ namespace Game.Facade
         /// <summary>
         /// 获取用户菜单列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        public DataSet GetMenuByUserID(int userID)
+        public DataSet GetMenuByUserId(int userId)
         {
-            return aidePlatformManagerData.GetMenuByUserID(userID);
+            return _aidePlatformManagerData.GetMenuByUserId(userId);
         }
         /// <summary>
         /// 获取用户权限列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        public DataSet GetPermissionByUserID(int userID)
+        public DataSet GetPermissionByUserId(int userId)
         {
-            return aidePlatformManagerData.GetPermissionByUserID(userID);
+            return _aidePlatformManagerData.GetPermissionByUserId(userId);
         }
         /// <summary>
         /// 获取父级菜单列表
@@ -181,34 +176,34 @@ namespace Game.Facade
         /// <returns></returns>
         public DataSet GetModuleParentList()
         {
-            return aidePlatformManagerData.GetModuleParentList();
+            return _aidePlatformManagerData.GetModuleParentList();
         }
         /// <summary>
         /// 获取子级菜单列表
         /// </summary>
-        /// <param name="moduleID">父级菜单标识</param>
+        /// <param name="moduleId">父级菜单标识</param>
         /// <returns></returns>
-        public DataSet GetModuleListByModuleID(int moduleID)
+        public DataSet GetModuleListByModuleId(int moduleId)
         {
-            return aidePlatformManagerData.GetModuleListByModuleID(moduleID);
+            return _aidePlatformManagerData.GetModuleListByModuleId(moduleId);
         }
         /// <summary>
         /// 获取菜单权限列表
         /// </summary>
-        /// <param name="moduleID">菜单标识</param>
+        /// <param name="moduleId">菜单标识</param>
         /// <returns></returns>
-        public DataSet GetModulePermissionList(int moduleID)
+        public DataSet GetModulePermissionList(int moduleId)
         {
-            return aidePlatformManagerData.GetModulePermissionList(moduleID);
+            return _aidePlatformManagerData.GetModulePermissionList(moduleId);
         }
         /// <summary>
         /// 获取角色权限列表
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public DataSet GetRolePermissionList(int roleID)
+        public DataSet GetRolePermissionList(int roleId)
         {
-            return aidePlatformManagerData.GetRolePermissionList(roleID);
+            return _aidePlatformManagerData.GetRolePermissionList(roleId);
         }
         /// <summary>
         /// 新增角色权限
@@ -217,16 +212,16 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertRolePermission(Base_RolePermission rolePermission)
         {
-            return aidePlatformManagerData.InsertRolePermission(rolePermission);
+            return _aidePlatformManagerData.InsertRolePermission(rolePermission);
         }
         /// <summary>
         /// 删除角色权限
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public int DeleteRolePermission(int roleID)
+        public int DeleteRolePermission(int roleId)
         {
-            return aidePlatformManagerData.DeleteRolePermission(roleID);
+            return _aidePlatformManagerData.DeleteRolePermission(roleId);
         }
         #endregion
     }

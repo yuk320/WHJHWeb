@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Game.Data.Factory;
 using Game.Entity.Accounts;
 using Game.IData;
 using Game.Kernel;
 using System.Collections.Generic;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -15,6 +15,8 @@ namespace Game.Facade
     {
         #region Fields
 
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        // ReSharper disable once InconsistentNaming
         private IAccountsDataProvider aideAccountsData;
 
         #endregion Fields
@@ -26,7 +28,7 @@ namespace Game.Facade
         /// </summary>
         public AccountsFacade()
         {
-            aideAccountsData = ClassFactory.IAccountsDataProvider();
+            aideAccountsData = ClassFactory.GetAccountsDataProvider();
         }
 
         #endregion 构造函数
@@ -51,20 +53,20 @@ namespace Game.Facade
         /// <summary>
         /// 根据用户标识获取用户信息
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        public AccountsInfo GetAccountInfoByUserID(int userID)
+        public AccountsInfo GetAccountInfoByUserId(int userId)
         {
-            return aideAccountsData.GetAccountInfoByUserID(userID);
+            return aideAccountsData.GetAccountInfoByUserId(userId);
         }
         /// <summary>
         /// 根据游戏ID获取用户信息
         /// </summary>
-        /// <param name="gameID">游戏ID</param>
+        /// <param name="gameId">游戏ID</param>
         /// <returns></returns>
-        public AccountsInfo GetAccountInfoByGameID(int gameID)
+        public AccountsInfo GetAccountInfoByGameId(int gameId)
         {
-            return aideAccountsData.GetAccountInfoByGameID(gameID);
+            return aideAccountsData.GetAccountInfoByGameId(gameId);
         }
         /// <summary>
         /// 冻结解冻账号
@@ -165,9 +167,9 @@ namespace Game.Facade
         /// 获取IP注册前100名
         /// </summary>
         /// <returns></returns>
-        public DataSet GetIPRegisterTop100()
+        public DataSet GetIpRegisterTop100()
         {
-            return aideAccountsData.GetIPRegisterTop100();
+            return aideAccountsData.GetIpRegisterTop100();
         }
         /// <summary>
         /// 批量插入限制IP
@@ -236,9 +238,9 @@ namespace Game.Facade
         /// </summary>
         /// <param name="customid">头像标识</param>
         /// <returns></returns>
-        public string GetAccountsFaceByID(int customid)
+        public string GetAccountsFaceById(int customid)
         {
-            return aideAccountsData.GetAccountsFaceByID(customid);
+            return aideAccountsData.GetAccountsFaceById(customid);
         }
         #endregion
 
@@ -267,21 +269,21 @@ namespace Game.Facade
         /// <summary>
         /// 获取代理信息
         /// </summary>
-        /// <param name="agentID">代理标识</param>
+        /// <param name="agentId">代理标识</param>
         /// <returns></returns>
-        public AccountsAgentInfo GetAccountsAgentInfo(int agentID)
+        public AccountsAgentInfo GetAccountsAgentInfo(int agentId)
         {
-            return aideAccountsData.GetAccountsAgentInfo(agentID);
+            return aideAccountsData.GetAccountsAgentInfo(agentId);
         }
         /// <summary>
         /// 添加代理信息
         /// </summary>
         /// <param name="agent">代理信息</param>
-        /// <param name="pGameID">父级代理游戏ID</param>
+        /// <param name="pGameId">父级代理游戏ID</param>
         /// <returns></returns>
-        public Message InsertAgentUser(AccountsAgentInfo agent, int pGameID)
+        public Message InsertAgentUser(AccountsAgentInfo agent, int pGameId)
         {
-            return aideAccountsData.InsertAgentUser(agent, pGameID);
+            return aideAccountsData.InsertAgentUser(agent, pGameId);
         }
         /// <summary>
         /// 更新代理基本信息
@@ -338,12 +340,12 @@ namespace Game.Facade
         /// <summary>
         /// 获取用户注册每日统计
         /// </summary>
-        /// <param name="sDateID">起始时间标识</param>
-        /// <param name="eDateID">结束时间标识</param>
+        /// <param name="sDateId">起始时间标识</param>
+        /// <param name="eDateId">结束时间标识</param>
         /// <returns></returns>
-        public IList<SystemStreamInfo> GetRecordEveryDayRegister(string sDateID, string eDateID)
+        public IList<SystemStreamInfo> GetRecordEveryDayRegister(string sDateId, string eDateId)
         {
-            return aideAccountsData.GetRecordEveryDayRegister(sDateID, eDateID);
+            return aideAccountsData.GetRecordEveryDayRegister(sDateId, eDateId);
         }
         #endregion
     }

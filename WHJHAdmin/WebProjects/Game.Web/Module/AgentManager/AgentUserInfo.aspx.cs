@@ -1,16 +1,10 @@
 ﻿using Game.Entity.Accounts;
 using Game.Entity.Enum;
-using Game.Entity.NativeWeb;
 using Game.Facade;
 using Game.Kernel;
 using Game.Utils;
 using Game.Web.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Game.Web.Module.AgentManager
 {
@@ -41,7 +35,7 @@ namespace Game.Web.Module.AgentManager
             int level = Convert.ToInt32(ddlLevel.SelectedValue);
 
             //判断用户是否存在
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameID(gameid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameid);
             if(info==null || info.UserID <= 0)
             {
                 MessageBox("游戏ID无效，请重新输入");
@@ -52,21 +46,18 @@ namespace Game.Web.Module.AgentManager
                 MessageBox("真实姓名与实名认证资料不符");
                 return;
             }
-            if(!string.IsNullOrEmpty(info.NickName) && !info.NickName.Equals(wxnickname))
+            AccountsAgentInfo agent = new AccountsAgentInfo
             {
-                MessageBox("微信昵称与真实昵称不符");
-                return;
-            }
-            AccountsAgentInfo agent = new AccountsAgentInfo();
-            agent.AgentDomain = domain;
-            agent.AgentLevel = Convert.ToByte(level);
-            agent.AgentNote = agentNote;
-            agent.Compellation = compellation;
-            agent.ContactAddress = address;
-            agent.ContactPhone = phone;
-            agent.QQAccount = qqaccount;
-            agent.WCNickName = wxnickname;
-            agent.UserID = info.UserID;
+                AgentDomain = domain,
+                AgentLevel = Convert.ToByte(level),
+                AgentNote = agentNote,
+                Compellation = compellation,
+                ContactAddress = address,
+                ContactPhone = phone,
+                QQAccount = qqaccount,
+                WCNickName = wxnickname,
+                UserID = info.UserID
+            };
 
             Message msg = FacadeManage.aideAccountsFacade.InsertAgentUser(agent, pgameid);
             if(msg.Success)
@@ -85,12 +76,10 @@ namespace Game.Web.Module.AgentManager
         protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
             int level = Convert.ToInt32(ddlLevel.SelectedValue);
-            parent.Visible = level > 1 ? true : false;
-            if(level <= 1)
-            {
-                txtParentGameID.Text = "";
-                txtParentNickName.Text = "";
-            }
+            parent.Visible = level > 1;
+            if (level > 1) return;
+            txtParentGameID.Text = "";
+            txtParentNickName.Text = "";
         }
     }
 }

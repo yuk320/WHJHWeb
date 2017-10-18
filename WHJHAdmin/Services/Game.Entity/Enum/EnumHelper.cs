@@ -9,11 +9,12 @@ namespace Game.Entity.Enum
         /// <summary>
         /// 基类
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetDesc(object type)
+        public static string GetDesc(Type t,object type)
         {
-            return EnumDescription.GetFieldText(type);
+            return EnumDescription.GetFieldText(t,type);
         }
 
         /// <summary>

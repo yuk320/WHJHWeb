@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Kernel;
+﻿using Game.Kernel;
 using Game.Entity.PlatformManager;
 using System.Data;
 
@@ -41,8 +37,8 @@ namespace Game.IData
         /// <summary>
         /// 删除管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
-        int DeleteUser(string userIDList);
+        /// <param name="userIdList">管理员列表</param>
+        int DeleteUser(string userIdList);
         /// <summary>
         /// 修改管理员密码
         /// </summary>
@@ -52,9 +48,9 @@ namespace Game.IData
         /// <summary>
         /// 冻结解冻管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
+        /// <param name="userIdList">管理员列表</param>
         /// <param name="nullity">管理员状态</param>
-        int NullityUser(string userIDList, int nullity);
+        int NullityUser(string userIdList, int nullity);
         /// <summary>
         /// 修改管理员信息
         /// </summary>
@@ -63,9 +59,9 @@ namespace Game.IData
         /// <summary>
         /// 获取管理员信息
         /// </summary>
-        /// <param name="userID">管理员标识</param>
+        /// <param name="userId">管理员标识</param>
         /// <returns></returns>
-        Base_Users GetUserByUserID(int userID);
+        Base_Users GetUserByUserId(int userId);
         /// <summary>
         /// 获取用户列表
         /// </summary>
@@ -77,9 +73,9 @@ namespace Game.IData
         /// <summary>
         /// 获取管理员角色
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        Base_Roles GetRoleInfo(int roleID);
+        Base_Roles GetRoleInfo(int roleId);
         /// <summary>
         /// 新增管理员角色
         /// </summary>
@@ -103,15 +99,15 @@ namespace Game.IData
         /// <summary>
         /// 获取用户菜单列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        DataSet GetMenuByUserID(int userID);
+        DataSet GetMenuByUserId(int userId);
         /// <summary>
         /// 获取用户权限列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        DataSet GetPermissionByUserID(int userID);
+        DataSet GetPermissionByUserId(int userId);
         /// <summary>
         /// 获取父级菜单列表
         /// </summary>
@@ -120,21 +116,21 @@ namespace Game.IData
         /// <summary>
         /// 获取子级菜单列表
         /// </summary>
-        /// <param name="moduleID">父级菜单标识</param>
+        /// <param name="moduleId">父级菜单标识</param>
         /// <returns></returns>
-        DataSet GetModuleListByModuleID(int moduleID);
+        DataSet GetModuleListByModuleId(int moduleId);
         /// <summary>
         /// 获取菜单权限列表
         /// </summary>
-        /// <param name="moduleID">菜单标识</param>
+        /// <param name="moduleId">菜单标识</param>
         /// <returns></returns>
-        DataSet GetModulePermissionList(int moduleID);
+        DataSet GetModulePermissionList(int moduleId);
         /// <summary>
         /// 获取角色权限列表
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        DataSet GetRolePermissionList(int roleID);
+        DataSet GetRolePermissionList(int roleId);
         /// <summary>
         /// 新增角色权限
         /// </summary>
@@ -144,9 +140,9 @@ namespace Game.IData
         /// <summary>
         /// 删除角色权限
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        int DeleteRolePermission(int roleID);
+        int DeleteRolePermission(int roleId);
         #endregion
     }
 }

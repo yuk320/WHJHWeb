@@ -128,7 +128,7 @@
                                 <%# Eval( "CurInsureScore" )%>
                             </td>
                             <td>
-                                <%# Convert.ToInt32(Eval("ChangeScore"))<0?(Eval("ChangeScore").ToString()) : ("+" + Eval("ChangeScore").ToString()) %>
+                                <%# Convert.ToInt32(Eval( "TypeID" ))!=6&&Convert.ToInt32(Eval( "TypeID" ))!=7?Convert.ToInt32(Eval("ChangeScore"))<0?Eval("ChangeScore").ToString() : "+" + Eval("ChangeScore"):"" %>
                             </td>
                             <td>
                                 <%# Eval( "ClientIP" ) %>
@@ -154,7 +154,7 @@
                                 <%# Eval( "CurInsureScore" )%>
                             </td>
                             <td>
-                                <%# Convert.ToInt32(Eval("ChangeScore"))<0?(Eval("ChangeScore").ToString()) : ("+" + Eval("ChangeScore").ToString()) %>
+                                <%# Convert.ToInt32(Eval( "TypeID" ))!=6&&Convert.ToInt32(Eval( "TypeID" ))!=7?Convert.ToInt32(Eval("ChangeScore"))<0?Eval("ChangeScore").ToString() : "+" + Eval("ChangeScore"):"" %>
                             </td>
                             <td>
                                 <%# Eval( "ClientIP" ) %>

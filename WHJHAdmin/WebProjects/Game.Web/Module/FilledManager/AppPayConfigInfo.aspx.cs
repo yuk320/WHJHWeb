@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 using Game.Web.UI;
 using Game.Utils;
 using Game.Entity.Treasure;
 using Game.Facade;
-using System.Data;
-using Game.Kernel;
+using System.Globalization;
 using Game.Entity.Enum;
 
 namespace Game.Web.Module.FilledManager
@@ -53,7 +47,7 @@ namespace Game.Web.Module.FilledManager
             config.SortID = CtrlHelper.GetInt(txtSortID, 0);
             config.ImageType = Convert.ToByte(rbImage.SelectedValue);
 
-            string where = string.Empty;
+            string where;
             //验证苹果产品标识
             if(config.PayType == 1)
             {
@@ -62,7 +56,7 @@ namespace Game.Web.Module.FilledManager
                     ShowError("操作失败，苹果产品标识不能为空");
                     return;
                 }
-                where = IntParam > 0 ? string.Format("WHERE ConfigID!={0} AND PayType = 1 AND AppleID = '{1}'", IntParam, config.AppleID) : string.Format("WHERE PayType = 1 AND AppleID = '{0}'", config.AppleID);
+                where = IntParam > 0 ? $"WHERE ConfigID!={IntParam} AND PayType = 1 AND AppleID = '{config.AppleID}'" : $"WHERE PayType = 1 AND AppleID = '{config.AppleID}'";
                 if(FacadeManage.aideTreasureFacade.IsExistAppPayConfig(where))
                 {
                     ShowError("操作失败，苹果产品标识已存在");
@@ -72,7 +66,7 @@ namespace Game.Web.Module.FilledManager
             //验证首充是否重复
             if(config.PayIdentity == 2)
             {
-                where = string.Format("WHERE PayType = {0} AND PayIdentity = 2", config.PayType);
+                where = $"WHERE PayType = {config.PayType} AND PayIdentity = 2";
                 if(FacadeManage.aideTreasureFacade.IsExistAppPayConfig(where))
                 {
                     ShowError("操作失败，首充产品仅限配置一个");
@@ -103,18 +97,20 @@ namespace Game.Web.Module.FilledManager
                 {
                     CtrlHelper.SetText(txtAppleID, config.AppleID);
                     CtrlHelper.SetText(txtCurrency, config.Diamond.ToString());
-                    CtrlHelper.SetText(txtPrice, config.PayPrice.ToString());
-                    CtrlHelper.SetText(txtProductName, config.PayName.ToString());
+                    CtrlHelper.SetText(txtPrice, config.PayPrice.ToString(CultureInfo.InvariantCulture));
+                    CtrlHelper.SetText(txtProductName, config.PayName);
                     CtrlHelper.SetText(txtScale, Convert.ToInt32(config.PresentScale * 100).ToString());
                     CtrlHelper.SetText(txtSortID, config.SortID.ToString());
                     ddlProductType.SelectedValue = config.PayType.ToString();
                     rbIdentity.SelectedValue = config.PayIdentity.ToString();
                     rbImage.SelectedValue = config.ImageType.ToString();
-                    apple.Visible = config.PayType <= 0 ? false : true;
+                    apple.Visible = config.PayType > 0;
+                    scale.Visible = config.PayIdentity == 2;
                 }
             }
             else
             {
+                scale.Visible = false;
                 apple.Visible = false;
             }
         }
@@ -124,7 +120,13 @@ namespace Game.Web.Module.FilledManager
         protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
             int typeid = Convert.ToInt32(ddlProductType.SelectedValue);
-            apple.Visible = typeid > 0 ? true : false;
+            apple.Visible = typeid > 0;
+        }
+
+        protected void rbIdentity_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int payIdentity = Convert.ToInt32(rbIdentity.SelectedValue);
+            scale.Visible = payIdentity == 2;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Game.Web.Module.AccountManager
         /// </summary>
         private void BindData()
         {
-            DataSet ds = FacadeManage.aideAccountsFacade.GetIPRegisterTop100();
+            DataSet ds = FacadeManage.aideAccountsFacade.GetIpRegisterTop100();
             litNoData.Visible = ds.Tables[0].Rows.Count > 0 ? false : true;
             rptDataList.DataSource = ds;
             rptDataList.DataBind();

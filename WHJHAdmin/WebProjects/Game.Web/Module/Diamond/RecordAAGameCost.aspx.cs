@@ -154,7 +154,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetAccountsInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
                 return string.Format("<td>{0}</td><td>{1}</td>", info.GameID, info.NickName);
@@ -171,7 +171,7 @@ namespace Game.Web.Module.Diamond
             litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
             rptDataList.DataSource = pagerSet.PageSet;
             rptDataList.DataBind();
-            lbDiamond.Text = FacadeManage.aideRecordFacade.GetTotalAAGameDiamond(SearchItems).ToString();
+            lbDiamond.Text = FacadeManage.aideRecordFacade.GetTotalAaGameDiamond(SearchItems).ToString();
         }
         /// <summary>
         /// 查询条件

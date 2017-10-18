@@ -406,7 +406,7 @@ namespace Game.Facade
                 List<ModulePage> pagePowerList = SerializationHelper.Deserialize(typeof(List<ModulePage>), TextUtility.GetRealPath("/config/power.config")) as List<ModulePage>;
                 //用户权限
                 Dictionary<string, long> userPermission = new Dictionary<string, long>();
-                DataSet ds = FacadeManage.aidePlatformManagerFacade.GetPermissionByUserID(userid);
+                DataSet ds = FacadeManage.aidePlatformManagerFacade.GetPermissionByUserId(userid);
                 if(ds.Tables.Count != 0 && ds.Tables[0].Rows.Count != 0)
                 {
                     for(int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -479,7 +479,7 @@ namespace Game.Facade
                 if(cookie != null && Validate.IsPositiveInt(cookie.ToString()))
                 {
                     int userid = Convert.ToInt32(cookie);
-                    Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserID(userid);
+                    Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(userid);
                     if(user != null)
                     {
                         Base_Roles role = FacadeManage.aidePlatformManagerFacade.GetRoleInfo(user.RoleID);

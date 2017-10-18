@@ -150,7 +150,7 @@ namespace Game.Web.Module.GoldManager
         /// </summary>
         public string GetUserInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
                 return string.Format("<td>{0}</td><td>{1}</td>", info.NickName, info.IsAndroid == 1 ? "是" : "否");

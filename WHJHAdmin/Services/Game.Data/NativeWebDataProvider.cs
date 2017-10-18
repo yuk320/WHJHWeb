@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 using Game.Entity.NativeWeb;
 using Game.IData;
 using Game.Kernel;
@@ -51,7 +49,7 @@ namespace Game.Data
         /// <returns></returns>
         public ConfigInfo GetConfigInfo(int id)
         {
-            string sql = string.Format("SELECT * FROM ConfigInfo WITH(NOLOCK) WHERE ConfigID={0}", id);
+            string sql = $"SELECT * FROM ConfigInfo WITH(NOLOCK) WHERE ConfigID={id}";
             return Database.ExecuteObject<ConfigInfo>(sql);
         }
         /// <summary>
@@ -62,8 +60,7 @@ namespace Game.Data
         public ConfigInfo GetConfigInfo(string configKey)
         {
             string sql = "SELECT * FROM ConfigInfo WITH(NOLOCK) WHERE ConfigKey=@ConfigKey";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("ConfigKey", configKey));
+            var prams = new List<DbParameter> {Database.MakeInParam("ConfigKey", configKey)};
             return Database.ExecuteObject<ConfigInfo>(sql, prams);
         }
         /// <summary>
@@ -75,19 +72,21 @@ namespace Game.Data
             string sqlQuery = @"UPDATE ConfigInfo SET Field1=@Field1,Field2=@Field2,Field3=@Field3,Field4=@Field4,Field5=@Field5,
                                 Field6=@Field6,Field7=@Field7,Field8=@Field8,ConfigString=@ConfigString WHERE ConfigID=@ConfigID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("Field1", config.Field1));
-            prams.Add(Database.MakeInParam("Field2", config.Field2));
-            prams.Add(Database.MakeInParam("Field3", config.Field3));
-            prams.Add(Database.MakeInParam("Field4", config.Field4));
-            prams.Add(Database.MakeInParam("Field5", config.Field5));
-            prams.Add(Database.MakeInParam("Field6", config.Field6));
-            prams.Add(Database.MakeInParam("Field7", config.Field7));
-            prams.Add(Database.MakeInParam("Field8", config.Field8));
-            prams.Add(Database.MakeInParam("ConfigString", config.ConfigString));
-            prams.Add(Database.MakeInParam("ConfigID", config.ConfigID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("Field1", config.Field1),
+                Database.MakeInParam("Field2", config.Field2),
+                Database.MakeInParam("Field3", config.Field3),
+                Database.MakeInParam("Field4", config.Field4),
+                Database.MakeInParam("Field5", config.Field5),
+                Database.MakeInParam("Field6", config.Field6),
+                Database.MakeInParam("Field7", config.Field7),
+                Database.MakeInParam("Field8", config.Field8),
+                Database.MakeInParam("ConfigString", config.ConfigString),
+                Database.MakeInParam("ConfigID", config.ConfigID)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         #endregion 站点配置
 
@@ -99,7 +98,7 @@ namespace Game.Data
         /// <returns>广告实体</returns>
         public Ads GetAds(int id)
         {
-            string sqlQuery = string.Format("SELECT * FROM Ads WITH(NOLOCK) WHERE ID={0}", id);
+            string sqlQuery = $"SELECT * FROM Ads WITH(NOLOCK) WHERE ID={id}";
             return Database.ExecuteObject<Ads>(sqlQuery);
         }
         /// <summary>
@@ -108,7 +107,7 @@ namespace Game.Data
         /// <param name="idlist">标识列表</param>
         public int DeleteAds(string idlist)
         {
-            string sqlQuery = string.Format("DELETE Ads WHERE ID IN({0})", idlist);
+            string sqlQuery = $"DELETE Ads WHERE ID IN({idlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         /// <summary>
@@ -119,15 +118,17 @@ namespace Game.Data
         {
             string sqlQuery = @"INSERT Ads(Title,ResourceURL,LinkURL,Type,SortID,Remark) VALUES(@Title,@ResourceURL,@LinkURL,@Type,@SortID,@Remark)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("Title", ads.Title));
-            prams.Add(Database.MakeInParam("ResourceURL", ads.ResourceURL));
-            prams.Add(Database.MakeInParam("LinkURL", ads.LinkURL));
-            prams.Add(Database.MakeInParam("Type", ads.Type));
-            prams.Add(Database.MakeInParam("SortID", ads.SortID));
-            prams.Add(Database.MakeInParam("Remark", ads.Remark));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("Title", ads.Title),
+                Database.MakeInParam("ResourceURL", ads.ResourceURL),
+                Database.MakeInParam("LinkURL", ads.LinkURL),
+                Database.MakeInParam("Type", ads.Type),
+                Database.MakeInParam("SortID", ads.SortID),
+                Database.MakeInParam("Remark", ads.Remark)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 修改广告
@@ -138,16 +139,18 @@ namespace Game.Data
             string sqlQuery = @"UPDATE Ads SET Title=@Title,ResourceURL=@ResourceURL,LinkUrl= @LinkUrl,
                         Type=@Type,SortID=@SortID,Remark=@Remark WHERE ID= @ID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("ID", ads.ID));
-            prams.Add(Database.MakeInParam("Title", ads.Title));
-            prams.Add(Database.MakeInParam("ResourceURL", ads.ResourceURL));
-            prams.Add(Database.MakeInParam("LinkURL", ads.LinkURL));
-            prams.Add(Database.MakeInParam("Type", ads.Type));
-            prams.Add(Database.MakeInParam("SortID", ads.SortID));
-            prams.Add(Database.MakeInParam("Remark", ads.Remark));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("ID", ads.ID),
+                Database.MakeInParam("Title", ads.Title),
+                Database.MakeInParam("ResourceURL", ads.ResourceURL),
+                Database.MakeInParam("LinkURL", ads.LinkURL),
+                Database.MakeInParam("Type", ads.Type),
+                Database.MakeInParam("SortID", ads.SortID),
+                Database.MakeInParam("Remark", ads.Remark)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         #endregion 广告管理
 
@@ -159,7 +162,7 @@ namespace Game.Data
         /// <returns></returns>
         public SystemNotice GetSystemNoticeInfo(int id)
         {
-            string sql = string.Format("SELECT * FROM SystemNotice WITH(NOLOCK) WHERE NoticeID = {0}", id);
+            string sql = $"SELECT * FROM SystemNotice WITH(NOLOCK) WHERE NoticeID = {id}";
             return Database.ExecuteObject<SystemNotice>(sql);
         }
         /// <summary>
@@ -171,18 +174,20 @@ namespace Game.Data
         {
             string sql = @"INSERT INTO SystemNotice(NoticeTitle,MoblieContent,WebContent,SortID,Publisher,PublisherTime,IsHot,IsTop,Nullity) 
                             VALUES(@NoticeTitle,@MoblieContent,@WebContent,@SortID,@Publisher,@PublisherTime,@IsHot,@IsTop,@Nullity)";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("NoticeTitle", notice.NoticeTitle));
-            prams.Add(Database.MakeInParam("MoblieContent", notice.MoblieContent));
-            prams.Add(Database.MakeInParam("WebContent", notice.WebContent));
-            prams.Add(Database.MakeInParam("SortID", notice.SortID));
-            prams.Add(Database.MakeInParam("Publisher", notice.Publisher));
-            prams.Add(Database.MakeInParam("PublisherTime", notice.PublisherTime));
-            prams.Add(Database.MakeInParam("IsHot", notice.IsHot));
-            prams.Add(Database.MakeInParam("IsTop", notice.IsTop));
-            prams.Add(Database.MakeInParam("Nullity", notice.Nullity));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("NoticeTitle", notice.NoticeTitle),
+                Database.MakeInParam("MoblieContent", notice.MoblieContent),
+                Database.MakeInParam("WebContent", notice.WebContent),
+                Database.MakeInParam("SortID", notice.SortID),
+                Database.MakeInParam("Publisher", notice.Publisher),
+                Database.MakeInParam("PublisherTime", notice.PublisherTime),
+                Database.MakeInParam("IsHot", notice.IsHot),
+                Database.MakeInParam("IsTop", notice.IsTop),
+                Database.MakeInParam("Nullity", notice.Nullity)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sql.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
         /// <summary>
         /// 修改公告信息
@@ -194,18 +199,20 @@ namespace Game.Data
             string sqlQuery = @"UPDATE SystemNotice SET NoticeTitle=@NoticeTitle,MoblieContent=@MoblieContent,WebContent=@WebContent,SortID= @SortID,
                     Publisher= @Publisher,PublisherTime= @PublisherTime,IsHot=@IsHot,IsTop=@IsTop,Nullity=@Nullity WHERE NoticeID= @NoticeID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("NoticeTitle", notice.NoticeTitle));
-            prams.Add(Database.MakeInParam("MoblieContent", notice.MoblieContent));
-            prams.Add(Database.MakeInParam("WebContent", notice.WebContent));
-            prams.Add(Database.MakeInParam("SortID", notice.SortID));
-            prams.Add(Database.MakeInParam("Publisher", notice.Publisher));
-            prams.Add(Database.MakeInParam("PublisherTime", notice.PublisherTime));
-            prams.Add(Database.MakeInParam("IsHot", notice.IsHot));
-            prams.Add(Database.MakeInParam("IsTop", notice.IsTop));
-            prams.Add(Database.MakeInParam("Nullity", notice.Nullity));
-            prams.Add(Database.MakeInParam("NoticeID", notice.NoticeID));
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("NoticeTitle", notice.NoticeTitle),
+                Database.MakeInParam("MoblieContent", notice.MoblieContent),
+                Database.MakeInParam("WebContent", notice.WebContent),
+                Database.MakeInParam("SortID", notice.SortID),
+                Database.MakeInParam("Publisher", notice.Publisher),
+                Database.MakeInParam("PublisherTime", notice.PublisherTime),
+                Database.MakeInParam("IsHot", notice.IsHot),
+                Database.MakeInParam("IsTop", notice.IsTop),
+                Database.MakeInParam("Nullity", notice.Nullity),
+                Database.MakeInParam("NoticeID", notice.NoticeID)
+            };
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 删除公告
@@ -214,7 +221,7 @@ namespace Game.Data
         /// <returns></returns>
         public int DeleteSystemNotice(string idlist)
         {
-            string sqlQuery = string.Format("DELETE SystemNotice WHERE NoticeID IN({0})", idlist);
+            string sqlQuery = $"DELETE SystemNotice WHERE NoticeID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
         #endregion
@@ -225,9 +232,9 @@ namespace Game.Data
         /// </summary>
         /// <param name="configid">配置标识</param>
         /// <returns></returns>
-        public RankingConfig GetRankingConfigByID(int configid)
+        public RankingConfig GetRankingConfigById(int configid)
         {
-            string sql = string.Format("SELECT * FROM RankingConfig WITH(NOLOCK) WHERE ConfigID ={0}", configid);
+            string sql = $"SELECT * FROM RankingConfig WITH(NOLOCK) WHERE ConfigID ={configid}";
             return Database.ExecuteObject<RankingConfig>(sql);
         }
         /// <summary>
@@ -238,9 +245,9 @@ namespace Game.Data
         /// <returns></returns>
         public bool ExistRankingConfig(int typeid, int rankid)
         {
-            string sql = string.Format("SELECT ConfigID FROM RankingConfig WITH(NOLOCK) WHERE TypeID ={0} AND RankID ={1}", typeid, rankid);
+            string sql = $"SELECT ConfigID FROM RankingConfig WITH(NOLOCK) WHERE TypeID ={typeid} AND RankID ={rankid}";
             object obj = Database.ExecuteScalar(CommandType.Text, sql);
-            return obj != null ? true : false;
+            return obj != null;
         }
         /// <summary>
         /// 新增排行榜配置
@@ -251,12 +258,14 @@ namespace Game.Data
         {
             string sql = @"INSERT INTO RankingConfig(TypeID,RankID,Diamond,ValidityTime,UpdateTime) 
                             VALUES(@TypeID,@RankID,@Diamond,@ValidityTime,@UpdateTime)";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("TypeID", config.TypeID));
-            prams.Add(Database.MakeInParam("RankID", config.RankID));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("ValidityTime", config.ValidityTime));
-            prams.Add(Database.MakeInParam("UpdateTime", config.UpdateTime));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("TypeID", config.TypeID),
+                Database.MakeInParam("RankID", config.RankID),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("ValidityTime", config.ValidityTime),
+                Database.MakeInParam("UpdateTime", config.UpdateTime)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
@@ -269,13 +278,15 @@ namespace Game.Data
         {
             string sql = @"UPDATE RankingConfig SET TypeID=@TypeID,RankID=@RankID,Diamond=@Diamond,
                     ValidityTime=@ValidityTime,UpdateTime=@UpdateTime WHERE ConfigID=@ConfigID";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("TypeID", config.TypeID));
-            prams.Add(Database.MakeInParam("RankID", config.RankID));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("ValidityTime", config.ValidityTime));
-            prams.Add(Database.MakeInParam("UpdateTime", config.UpdateTime));
-            prams.Add(Database.MakeInParam("ConfigID", config.ConfigID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("TypeID", config.TypeID),
+                Database.MakeInParam("RankID", config.RankID),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("ValidityTime", config.ValidityTime),
+                Database.MakeInParam("UpdateTime", config.UpdateTime),
+                Database.MakeInParam("ConfigID", config.ConfigID)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
@@ -286,7 +297,7 @@ namespace Game.Data
         /// <returns></returns>
         public int DeleteRankingConfig(int configid)
         {
-            string sql = string.Format("DELETE RankingConfig WHERE ConfigID={0}", configid);
+            string sql = $"DELETE RankingConfig WHERE ConfigID={configid}";
             return Database.ExecuteNonQuery(sql);
         }
         #endregion
@@ -299,7 +310,7 @@ namespace Game.Data
         /// <returns></returns>
         public GameRule GetGameRuleInfo(int kindid)
         {
-            string sql = string.Format("SELECT * FROM GameRule WITH(NOLOCK) WHERE KindID = {0}", kindid);
+            string sql = $"SELECT * FROM GameRule WITH(NOLOCK) WHERE KindID = {kindid}";
             return Database.ExecuteObject<GameRule>(sql);
         }
         /// <summary>
@@ -310,16 +321,18 @@ namespace Game.Data
         public int InsertGameRule(GameRule rule)
         {
             string sql = @"INSERT INTO GameRule VALUES(@KindID,@KindName,@KindIcon,@KindIntro,@KindRule,@Nullity,@CollectDate)";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("KindID", rule.KindID));
-            prams.Add(Database.MakeInParam("KindName", rule.KindName));
-            prams.Add(Database.MakeInParam("KindIcon", rule.KindIcon));
-            prams.Add(Database.MakeInParam("KindIntro", rule.KindIntro));
-            prams.Add(Database.MakeInParam("KindRule", rule.KindRule));
-            prams.Add(Database.MakeInParam("Nullity", rule.Nullity));
-            prams.Add(Database.MakeInParam("CollectDate", rule.CollectDate));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("KindID", rule.KindID),
+                Database.MakeInParam("KindName", rule.KindName),
+                Database.MakeInParam("KindIcon", rule.KindIcon),
+                Database.MakeInParam("KindIntro", rule.KindIntro),
+                Database.MakeInParam("KindRule", rule.KindRule),
+                Database.MakeInParam("Nullity", rule.Nullity),
+                Database.MakeInParam("CollectDate", rule.CollectDate)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sql.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
         /// <summary>
         /// 修改游戏规则
@@ -330,13 +343,15 @@ namespace Game.Data
         {
             string sqlQuery = @"UPDATE GameRule SET KindIcon=@KindIcon,KindIntro=@KindIntro,KindRule=@KindRule,Nullity= @Nullity WHERE KindID= @KindID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("KindIcon", rule.KindIcon));
-            prams.Add(Database.MakeInParam("KindIntro", rule.KindIntro));
-            prams.Add(Database.MakeInParam("KindRule", rule.KindRule));
-            prams.Add(Database.MakeInParam("Nullity", rule.Nullity));
-            prams.Add(Database.MakeInParam("KindID", rule.KindID));
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("KindIcon", rule.KindIcon),
+                Database.MakeInParam("KindIntro", rule.KindIntro),
+                Database.MakeInParam("KindRule", rule.KindRule),
+                Database.MakeInParam("Nullity", rule.Nullity),
+                Database.MakeInParam("KindID", rule.KindID)
+            };
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 删除游戏规则
@@ -345,7 +360,7 @@ namespace Game.Data
         /// <returns></returns>
         public int DeleteGameRule(string idlist)
         {
-            string sqlQuery = string.Format("DELETE GameRule WHERE KindID IN({0})", idlist);
+            string sqlQuery = $"DELETE GameRule WHERE KindID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
         /// <summary>
@@ -356,7 +371,7 @@ namespace Game.Data
         /// <returns></returns>
         public int NullityGameRule(string idlist, int nullity)
         {
-            string sqlQuery = string.Format("UPDATE GameRule SET Nullity={0} WHERE KindID IN({1})", nullity, idlist);
+            string sqlQuery = $"UPDATE GameRule SET Nullity={nullity} WHERE KindID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
         #endregion

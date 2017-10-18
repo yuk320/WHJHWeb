@@ -29,7 +29,7 @@ namespace Game.Web.Module.AgentManager
                     AccountsAgentInfo info = FacadeManage.aideAccountsFacade.GetAccountsAgentInfo(IntParam);
                     if(info != null)
                     {
-                        AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(info.UserID);
+                        AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(info.UserID);
 
                         CtrlHelper.SetText(txtAgentNote, info.AgentNote);
                         CtrlHelper.SetText(txtCompellation, accounts.Compellation);
@@ -63,7 +63,7 @@ namespace Game.Web.Module.AgentManager
                     info.WCNickName = CtrlHelper.GetText(txtWCNickName);
                     info.AgentLevel = Convert.ToByte(ddlLevel.SelectedValue);
 
-                    AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(info.UserID);
+                    AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(info.UserID);
                     if(accounts == null || accounts.UserID <= 0)
                     {
                         MessageBox("代理信息异常，请联系管理员");

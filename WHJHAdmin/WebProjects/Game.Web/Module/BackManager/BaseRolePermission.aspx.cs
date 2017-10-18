@@ -81,7 +81,7 @@ namespace Game.Web.Module.BackManager
             {
                 ((Label)e.Item.FindControl("lblParentName")).Text = DataBinder.Eval(e.Item.DataItem, "Title").ToString();
                 int moduleID = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "ModuleID").ToString().Trim());
-                DataSet dsCModule = FacadeManage.aidePlatformManagerFacade.GetModuleListByModuleID(moduleID);
+                DataSet dsCModule = FacadeManage.aidePlatformManagerFacade.GetModuleListByModuleId(moduleID);
                 GridView gvRolePermission = (GridView)e.Item.FindControl("gvRolePermission");
                 CheckBox chkAll = (CheckBox)e.Item.FindControl("chkAll");
                 chkAll.Attributes.Add("onclick", "SelectAllTable(this.checked,'" + gvRolePermission.ClientID + "');");

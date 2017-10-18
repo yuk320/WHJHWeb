@@ -5,6 +5,7 @@ using Game.IData;
 using Game.Kernel;
 using System.Collections.Generic;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -14,6 +15,8 @@ namespace Game.Facade
     {
         #region Fields
 
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        // ReSharper disable once InconsistentNaming
         private IRecordDataProvider aideRecordData;
 
         #endregion Fields
@@ -75,12 +78,12 @@ namespace Game.Facade
         /// <summary>
         /// 获取统计数据
         /// </summary>
-        /// <param name="sDateID">起始时间</param>
-        /// <param name="eDateID">结束时间</param>
+        /// <param name="sDateId">起始时间</param>
+        /// <param name="eDateId">结束时间</param>
         /// <returns></returns>
-        public IList<RecordEveryDayCurrency> GetRecordEveryDayCurrency(string sDateID, string eDateID)
+        public IList<RecordEveryDayCurrency> GetRecordEveryDayCurrency(string sDateId, string eDateId)
         {
-            return aideRecordData.GetRecordEveryDayCurrency(sDateID, eDateID);
+            return aideRecordData.GetRecordEveryDayCurrency(sDateId, eDateId);
         }
 
         /// <summary>
@@ -157,9 +160,9 @@ namespace Game.Facade
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public long GetTotalAAGameDiamond(string where)
+        public long GetTotalAaGameDiamond(string where)
         {
-            return aideRecordData.GetTotalAAGameDiamond(where);
+            return aideRecordData.GetTotalAaGameDiamond(where);
         }
         /// <summary>
         /// 获取钻石兑换金币统计
@@ -204,15 +207,15 @@ namespace Game.Facade
         /// <summary>
         /// 赠送靓号
         /// </summary>
-        /// <param name="userID">用户标识</param>
-        /// <param name="gameID">游戏ID</param>
-        /// <param name="masterID">管理员标识</param>
+        /// <param name="userId">用户标识</param>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="masterId">管理员标识</param>
         /// <param name="strReason">赠送原因</param>
-        /// <param name="strIP">赠送ip</param>
+        /// <param name="strIp">赠送ip</param>
         /// <returns></returns>
-        public Message GrantGameID(int userID, int gameID, int masterID, string strReason, string strIP)
+        public Message GrantGameId(int userId, int gameId, int masterId, string strReason, string strIp)
         {
-            return aideRecordData.GrantGameID(userID, gameID, masterID, strReason, strIP);
+            return aideRecordData.GrantGameId(userId, gameId, masterId, strReason, strIp);
         }
         #endregion 赠送靓号
 

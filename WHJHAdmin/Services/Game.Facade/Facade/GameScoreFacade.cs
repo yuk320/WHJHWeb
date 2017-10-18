@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Game.IData;
-using Game.Data.Factory;
-using Game.Kernel;
-using Game.Entity.GameScore;
+﻿using Game.Data.Factory;
 
 namespace Game.Facade.Facade
 {
     public class GameScoreFacade
     {
         #region Fields
-
-        private IGameScoreDataProvider aideGameScoreData;
 
         #endregion
 
@@ -25,7 +15,7 @@ namespace Game.Facade.Facade
         /// </summary>
         public GameScoreFacade( string conn )
         {
-            aideGameScoreData = ClassFactory.GetIGameScoreDataProvider( conn );
+            ClassFactory.GetIGameScoreDataProvider( conn );
         }
 
         #endregion

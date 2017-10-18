@@ -1,5 +1,4 @@
 ﻿using Game.Entity.Accounts;
-using Game.Entity.Treasure;
 using Game.Entity.Enum;
 using Game.Facade;
 using Game.Kernel;
@@ -7,12 +6,7 @@ using Game.Utils;
 using Game.Web.UI;
 using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Game.Web.Module.AgentManager
 {
@@ -157,10 +151,10 @@ namespace Game.Web.Module.AgentManager
         /// <returns></returns>
         protected string GetAccountsInfo(int userid, int agentid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
-                return string.Format("<td>{0}</td><td><a class=\"l\" href=\"javascript:void(0)\" onclick=\"openWindowOwn('AgentUserUpdate.aspx?param={1}', '{1}', 700,490);\">{2}</a></td>", 
+                return string.Format("<td>{0}</td><td><a class=\"l\" href=\"javascript:void(0)\" onclick=\"openWindowOwn('AgentUserUpdate.aspx?param={1}', '{2}', 700,490);\">{2}</a></td>", 
                     info.GameID, agentid, info.NickName);
             }
             return "<td></td><td></td>";
@@ -172,7 +166,7 @@ namespace Game.Web.Module.AgentManager
         {
             PagerSet pagerSet = FacadeManage.aideAccountsFacade.GetList(AccountsAgentInfo.Tablename, anpPage.CurrentPageIndex, anpPage.PageSize, SearchItems, Orderby);
             anpPage.RecordCount = pagerSet.RecordCount;
-            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
+            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count <= 0;
             rptDataList.DataSource = pagerSet.PageSet;
             rptDataList.DataBind();
         }
@@ -185,19 +179,29 @@ namespace Game.Web.Module.AgentManager
         {
             DataSet ds = FacadeManage.aideRecordFacade.GetQueryAgentDiamond(userid);
             DataTable table = ds.Tables[0];
-            if(table.Rows.Count > 0)
-            {
-                string Diamond = table.Rows[0]["Diamond"] == null ? "0" : table.Rows[0]["Diamond"].ToString();
-                string InDiamond = table.Rows[0]["InDiamond"] == null ? "0" : table.Rows[0]["InDiamond"].ToString();
-                string OutDiamond = table.Rows[0]["OutDiamond"] == null ? "0" : table.Rows[0]["OutDiamond"].ToString();
+            if (table.Rows.Count <= 0) return "<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>";
+            string diamond = table.Rows[0]["Diamond"]?.ToString() ?? "0";
+            string inDiamond = table.Rows[0]["InDiamond"]?.ToString() ?? "0";
+            string outDiamond = table.Rows[0]["OutDiamond"]?.ToString() ?? "0";
+            string agentDiamond = table.Rows[0]["AgentDiamond"]?.ToString() ?? "0";
+            string userDiamond = table.Rows[0]["UserDiamond"]?.ToString() ?? "0";
 
-                string AgentDiamond = table.Rows[0]["AgentDiamond"] == null ? "0" : table.Rows[0]["AgentDiamond"].ToString();
-                string UserDiamond = table.Rows[0]["UserDiamond"] == null ? "0" : table.Rows[0]["UserDiamond"].ToString();
-
-                return "<td>" + Diamond + "</td><td>" + InDiamond + "</td><td>" + OutDiamond + "</td><td>" + AgentDiamond + "</td><td>" + UserDiamond + "</td>";
-            }
-            return "<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>";
+            return $"<td>{diamond}</td><td>{inDiamond}</td><td>{outDiamond}</td><td>{agentDiamond}</td><td>{userDiamond}</td>";
         }
+
+        /// <summary>
+        /// 通过代理ID获取代理信息
+        /// </summary>
+        /// <param name="agentid"></param>
+        /// <returns></returns>
+        protected string GetAgentInfo(int agentid)
+        {
+            if (agentid<=0) return "";
+            string nickName = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(FacadeManage.aideAccountsFacade.GetAccountsAgentInfo(agentid).UserID).NickName;
+            return
+                $"<a class=\"l\" href=\"javascript:void(0)\" onclick=\"openWindowOwn('AgentUserUpdate.aspx?param={agentid}', '{nickName}', 700,490);\">{nickName}</a>";
+        }
+
         /// <summary>
         /// 查询条件
         /// </summary>

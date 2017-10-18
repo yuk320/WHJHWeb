@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -8,6 +7,7 @@ using Game.Utils;
 using System.Web.Security;
 using Game.Entity.PlatformManager;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -41,15 +41,15 @@ namespace Game.Facade
                 return null;
 
             Base_Users user = new Base_Users( );
-            object objUserID = GetValue( Base_Users._UserID );
+            object objUserId = GetValue( Base_Users._UserID );
             object objAccount = GetValue( Base_Users._Username );
-            object objRoleID = GetValue( Base_Users._RoleID );
+            object objRoleId = GetValue( Base_Users._RoleID );
             object objIsBand = GetValue( Base_Users._IsBand );
-            if ( objUserID == null || objAccount == null || objRoleID == null || objIsBand == null )
+            if ( objUserId == null || objAccount == null || objRoleId == null || objIsBand == null )
                 return null;
-            user.UserID = int.Parse( objUserID.ToString( ) );
+            user.UserID = int.Parse( objUserId.ToString( ) );
             user.Username = objAccount.ToString( );
-            user.RoleID = int.Parse( objRoleID.ToString( ) );
+            user.RoleID = int.Parse( objRoleId.ToString( ) );
             user.IsBand = int.Parse( objIsBand.ToString( ) );
             SetUserCookie( user );
             return user;
@@ -64,8 +64,11 @@ namespace Game.Facade
                 return;
 
             HttpCookie cookie = HttpContext.Current.Request.Cookies[Fetch.GetCookieName];
-            cookie.Expires = DateTime.Now.AddYears( -1 );
-            HttpContext.Current.Response.Cookies.Add( cookie );
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddYears( -1 );
+                HttpContext.Current.Response.Cookies.Add( cookie );
+            }
         }
 
         /// <summary>
@@ -74,20 +77,16 @@ namespace Game.Facade
         /// <returns></returns>
         public static bool CheckedUserLogon( )
         {
-            Base_Users user = AdminCookie.GetUserFromCookie( );
+            Base_Users user = GetUserFromCookie( );
             if ( user == null || user.UserID <= 0 || user.RoleID <= 0 )
                 return false;
             else
-                AdminCookie.SetUserCookie( user );
+                SetUserCookie( user );
 
             return true;
         }
 
         //根据键值获取Cookie值
-        private static string GetCookie( string strKey )
-        {
-            return Utility.UrlDecode( Utility.GetCookie( Fetch.GetCookieName, strKey ) );
-        }
 
         #region Cookie操作
         private static string ValidateKey = "{2EF1D4CB-16BA-471D-9DFC-12C1E4D15253}";
@@ -124,7 +123,7 @@ namespace Game.Facade
                 {
                     num = 30;
                 }
-                return DateTime.Now.AddMinutes( ( double ) num );
+                return DateTime.Now.AddMinutes( num );
             }
         }
         /// <summary>
@@ -173,7 +172,7 @@ namespace Game.Facade
             ck.Expires = DateTime.Now.AddYears( 50 );
             ck.Domain = CookiesDomain;
             ck.Values[key] = HttpUtility.UrlEncode( value.ToString( ) );
-            ck.Values[key + ExpireTimeStr] = !timeout.HasValue ? HttpUtility.UrlEncode( CookiesExpire.ToString( "yyyy-MM-dd HH:mm:ss" ) ) : HttpUtility.UrlEncode( DateTime.Now.AddMinutes( ( double ) timeout.Value ).ToString( "yyyy-MM-dd HH:mm:ss" ) );
+            ck.Values[key + ExpireTimeStr] = !timeout.HasValue ? HttpUtility.UrlEncode( CookiesExpire.ToString( "yyyy-MM-dd HH:mm:ss" ) ) : HttpUtility.UrlEncode( DateTime.Now.AddMinutes( timeout.Value ).ToString( "yyyy-MM-dd HH:mm:ss" ) );
             ck.Values[ValidateName] = GetValidateStr( ck );
             HttpContext.Current.Response.Cookies.Add( ck );
         }
@@ -194,7 +193,7 @@ namespace Game.Facade
             foreach ( KeyValuePair<string, object> pair in dic )
             {
                 ck.Values[pair.Key] = HttpUtility.UrlEncode( pair.Value.ToString( ) );
-                ck.Values[pair.Key + ExpireTimeStr] = !timeout.HasValue ? HttpUtility.UrlEncode( CookiesExpire.ToString( "yyyy-MM-dd HH:mm:ss" ) ) : HttpUtility.UrlEncode( DateTime.Now.AddMinutes( ( double ) timeout.Value ).ToString( "yyyy-MM-dd HH:mm:ss" ) );
+                ck.Values[pair.Key + ExpireTimeStr] = !timeout.HasValue ? HttpUtility.UrlEncode( CookiesExpire.ToString( "yyyy-MM-dd HH:mm:ss" ) ) : HttpUtility.UrlEncode( DateTime.Now.AddMinutes( timeout.Value ).ToString( "yyyy-MM-dd HH:mm:ss" ) );
             }
             ck.Values[ValidateName] = GetValidateStr( ck );
             HttpContext.Current.Response.Cookies.Add( ck );
@@ -262,7 +261,11 @@ namespace Game.Facade
             builder.Append( HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"] );
             builder.Append( HttpContext.Current.Request.ServerVariables["INSTANCE_ID"] );
             builder.Append( HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"] );
-            return FormsAuthentication.HashPasswordForStoringInConfigFile( builder.ToString( ), "md5" ).ToLower( ).Substring( 8, 0x10 );
+            var hashPasswordForStoringInConfigFile = FormsAuthentication.HashPasswordForStoringInConfigFile(builder.ToString(), "md5");
+            if (hashPasswordForStoringInConfigFile != null)
+                return hashPasswordForStoringInConfigFile.ToLower()
+                    .Substring(8, 0x10);
+            return "";
         }
         /// <summary>
         ///  验证

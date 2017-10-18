@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Game.Kernel;
+﻿using Game.Kernel;
 using Game.IData;
-using System.Data;
-using Game.Entity.GameScore;
-using System.Data.Common;
 
 namespace Game.Data
 {
-    public class GameScoreDataProvider : BaseDataProvider,IGameScoreDataProvider
+    public sealed class GameScoreDataProvider : BaseDataProvider,IGameScoreDataProvider
     {
         #region Fields
 
-        private ITableProvider aideGameScoreInfo;
 
         #endregion
 
@@ -27,7 +18,6 @@ namespace Game.Data
         public GameScoreDataProvider( string connString )
             : base( connString )
         {
-            aideGameScoreInfo = GetTableProvider( GameScoreInfo.Tablename );
         }
 
         #endregion

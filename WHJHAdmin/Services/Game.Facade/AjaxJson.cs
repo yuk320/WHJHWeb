@@ -11,58 +11,17 @@ namespace Game.Facade
         /// <summary>
         /// 状态码
         /// </summary>
-        private int _code;
-        public int code
-        {
-            get
-            {
-                return _code;
-            }
-            set
-            {
-                _code = value;
-            }
-        }
+        public int code { get; set; } = 0;
 
         /// <summary>
         /// 消息内容
         /// </summary>
-        private string _msg;
-        public string msg
-        {
-            get
-            {
-                return _msg;
-            }
-            set
-            {
-                _msg = value;
-            }
-        }
+        public string msg { get; set; } = "";
 
         /// <summary>
         /// 数据项列表
         /// </summary>
-        private Dictionary<string, object> _data = new Dictionary<string, object>();
-        public Dictionary<string, object> data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
-                _data = value;
-            }
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public AjaxJson()
-        {
-            _code = 0;
-        }
+        public Dictionary<string, object> data { get; set; } = new Dictionary<string, object>();
 
         /// <summary>
         /// 为数据项添加数据
@@ -71,7 +30,7 @@ namespace Game.Facade
         /// <param name="value">值</param>
         public void AddDataItem( string key, object value )
         {
-            _data.Add( key, value );
+            data.Add( key, value );
         }
 
         /// <summary>
@@ -81,7 +40,7 @@ namespace Game.Facade
         /// <param name="value">值</param>
         public void SetDataItem( string key, object value )
         {
-            _data[key] = value;
+            data[key] = value;
         }
 
         /// <summary>
@@ -91,7 +50,7 @@ namespace Game.Facade
         /// <param name="value">值</param>
         public object GetDataItemValue( string key, object value )
         {
-            return _data[key];
+            return data[key];
         }
 
         /// <summary>
@@ -100,8 +59,7 @@ namespace Game.Facade
         /// <returns>Json字符串</returns>
         public string SerializeToJson()
         {
-            string data = new JavaScriptSerializer().Serialize( this );
-            return data;
+            return new JavaScriptSerializer().Serialize(this);
         }
     }
 }

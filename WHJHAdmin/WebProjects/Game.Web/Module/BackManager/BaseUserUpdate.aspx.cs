@@ -74,7 +74,7 @@ namespace Game.Web.Module.BackManager
             }
 
             //获取用户信息
-            Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserID(IntParam);
+            Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(IntParam);
             if(user != null)
             {
                 CtrlHelper.SetText(lblAccounts, user.Username);

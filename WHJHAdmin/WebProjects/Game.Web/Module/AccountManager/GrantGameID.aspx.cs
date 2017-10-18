@@ -29,7 +29,7 @@ namespace Game.Web.Module.AccountManager
             {
                 if(IntParam > 0)
                 {
-                    AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(IntParam);
+                    AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(IntParam);
                     if(model != null)
                     {
                         CtrlHelper.SetText(ltNickName, model.NickName);
@@ -69,7 +69,7 @@ namespace Game.Web.Module.AccountManager
                 return;
             }
 
-            Message msg = FacadeManage.aideRecordFacade.GrantGameID(IntParam, Convert.ToInt32(gameid),
+            Message msg = FacadeManage.aideRecordFacade.GrantGameId(IntParam, Convert.ToInt32(gameid),
                userExt.UserID, strReason, GameRequest.GetUserIP());
             if(msg.Success)
             {

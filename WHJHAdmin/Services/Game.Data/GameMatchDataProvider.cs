@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Game.Entity;
-using Game.Kernel;
-
+﻿using Game.Kernel;
 using Game.IData;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 
 namespace Game.Data
 {

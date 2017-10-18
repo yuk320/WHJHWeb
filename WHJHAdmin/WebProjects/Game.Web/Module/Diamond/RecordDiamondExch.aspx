@@ -98,15 +98,12 @@
                         <td>
                             <%# Eval( "CollectDate" )%>
                         </td>
-                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "SourceUserID" ))) %>
+                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "UserID" ))) %>
                         <td>
                             <%# GetTypeDesc(Eval( "TypeID ")) %>
                         </td>
                         <td>
                             <%# Eval( "CurDiamond" )%>
-                        </td>
-                        <td>
-                            <%# Eval( "PresentDiamond" )%>
                         </td>
                         <td>
                             <%# Eval( "ExchDiamond" )%>
@@ -125,15 +122,12 @@
                         <td>
                             <%# Eval( "CollectDate" )%>
                         </td>
-                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "SourceUserID" ))) %>
+                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "UserID" ))) %>
                         <td>
-                            <%# Eval( "TypeID ") %>
+                            <%# GetTypeDesc(Eval( "TypeID ")) %>
                         </td>
                         <td>
                             <%# Eval( "CurDiamond" )%>
-                        </td>
-                        <td>
-                            <%# Eval( "PresentDiamond" )%>
                         </td>
                         <td>
                             <%# Eval( "ExchDiamond" )%>

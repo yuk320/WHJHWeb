@@ -64,7 +64,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetAccountsInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
                 return string.Format("<td>{0}</td><td><a class=\"l\" href=\"javascript: void(0)\" onclick=\"openWindowOwn('/Module/AccountManager/AccountsBaseInfo.aspx?param={1}', 'RecordPersonRoom', 850,790);\">{2}</a></td>", info.GameID, info.UserID, info.NickName);

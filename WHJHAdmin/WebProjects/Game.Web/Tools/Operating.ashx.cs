@@ -77,7 +77,7 @@ namespace Game.Web.Tools
                 return;
             }
 
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameID(gameID);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameID);
             if(info.UserID != 0)
             {
                 ajv.SetValidDataValue(true);

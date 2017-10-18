@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 using Game.Entity.Record;
 using Game.IData;
 using Game.Kernel;
 using System.Data.SqlClient;
-using Game.Entity.Accounts;
 
 namespace Game.Data
 {
@@ -53,8 +51,7 @@ namespace Game.Data
         /// <returns></returns>
         public DataSet GetQueryAgentDiamond(int userid)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("dwUserID", userid));
+            var prams = new List<DbParameter> {Database.MakeInParam("dwUserID", userid)};
 
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PW_QueryAgentDiamond", prams.ToArray());
         }
@@ -84,14 +81,13 @@ namespace Game.Data
         /// <summary>
         /// 获取统计数据
         /// </summary>
-        /// <param name="sDateID">起始时间</param>
-        /// <param name="eDateID">结束时间</param>
+        /// <param name="sDateId">起始时间</param>
+        /// <param name="eDateId">结束时间</param>
         /// <returns></returns>
-        public IList<RecordEveryDayCurrency> GetRecordEveryDayCurrency(string sDateID, string eDateID)
+        public IList<RecordEveryDayCurrency> GetRecordEveryDayCurrency(string sDateId, string eDateId)
         {
-            string sqlQuery = string.Format(
-                "SELECT * FROM RecordEveryDayCurrency WITH(NOLOCK) WHERE DateID>={0} AND DateID<={1} ORDER BY DateID ASC",
-                sDateID, eDateID);
+            string sqlQuery =
+                $"SELECT * FROM RecordEveryDayCurrency WITH(NOLOCK) WHERE DateID>={sDateId} AND DateID<={eDateId} ORDER BY DateID ASC";
             return Database.ExecuteObjectList<RecordEveryDayCurrency>(sqlQuery);
         }
 
@@ -122,11 +118,13 @@ namespace Game.Data
             {
                 using (SqlConnection conn = new SqlConnection(connStr))
                 {
-                    SqlBulkCopy bulkCopy = new SqlBulkCopy(conn);
-                    bulkCopy.DestinationTableName = "RecordAccountsUmeng";
-                    bulkCopy.BatchSize = table.Rows.Count;
+                    SqlBulkCopy bulkCopy = new SqlBulkCopy(conn)
+                    {
+                        DestinationTableName = "RecordAccountsUmeng",
+                        BatchSize = table.Rows.Count
+                    };
                     conn.Open();
-                    if (table != null && table.Rows.Count != 0)
+                    if (table.Rows.Count != 0)
                     {
                         bulkCopy.WriteToServer(table);
                     }
@@ -134,7 +132,7 @@ namespace Game.Data
                 }
                 return table.Rows.Count;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }
@@ -149,13 +147,15 @@ namespace Game.Data
         {
             string sqlQuery = @"INSERT INTO RecordAccountsUmeng(MasterID,UserID,PushType,PushContent,PushTime,PushIP) 
                             VALUES(@MasterID,@UserID,@PushType,@PushContent,@PushTime,@PushIP)";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("MasterID", umeng.MasterID));
-            prams.Add(Database.MakeInParam("UserID", umeng.UserID));
-            prams.Add(Database.MakeInParam("PushType", umeng.PushType));
-            prams.Add(Database.MakeInParam("PushContent", umeng.PushContent));
-            prams.Add(Database.MakeInParam("PushTime", umeng.PushTime));
-            prams.Add(Database.MakeInParam("PushIP", umeng.PushIP));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("MasterID", umeng.MasterID),
+                Database.MakeInParam("UserID", umeng.UserID),
+                Database.MakeInParam("PushType", umeng.PushType),
+                Database.MakeInParam("PushContent", umeng.PushContent),
+                Database.MakeInParam("PushTime", umeng.PushTime),
+                Database.MakeInParam("PushIP", umeng.PushIP)
+            };
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
 
@@ -171,8 +171,7 @@ namespace Game.Data
         public long GetTotalDiamondChange(string where)
         {
             string sqlQuery =
-                string.Format(
-                    "SELECT ISNULL(SUM(ChangeDiamond),0) AS Diamond FROM RecordDiamondSerial WITH(NOLOCK) {0}", where);
+                $"SELECT ISNULL(SUM(ChangeDiamond),0) AS Diamond FROM RecordDiamondSerial WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -185,8 +184,7 @@ namespace Game.Data
         public long GetTotalBackPresentDiamond(string where)
         {
             string sqlQuery =
-                string.Format("SELECT ISNULL(SUM(AddDiamond),0) AS Diamond FROM RecordGrantDiamond WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(AddDiamond),0) AS Diamond FROM RecordGrantDiamond WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -199,9 +197,7 @@ namespace Game.Data
         public long GetTotalAgentPresentDiamond(string where)
         {
             string sqlQuery =
-                string.Format(
-                    "SELECT ISNULL(SUM(PresentDiamond),0) AS Diamond FROM RecordPresentCurrency WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(PresentDiamond),0) AS Diamond FROM RecordPresentCurrency WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -214,8 +210,7 @@ namespace Game.Data
         public long GetTotalBuyHornDiamond(string where)
         {
             string sqlQuery =
-                string.Format("SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM RecordBuyNewProperty WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM RecordBuyNewProperty WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -225,11 +220,10 @@ namespace Game.Data
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public long GetTotalAAGameDiamond(string where)
+        public long GetTotalAaGameDiamond(string where)
         {
             string sqlQuery =
-                string.Format("SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM RecordGameDiamond WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM RecordGameDiamond WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -242,9 +236,7 @@ namespace Game.Data
         public TotalDiamondExch GetTotalDiamondExchGold(string where)
         {
             string sqlQuery =
-                string.Format(
-                    "SELECT ISNULL(SUM(ExchDiamond),0) AS ExchDiamond, ISNULL(SUM(PresentGold),0) AS PresentGold FROM RecordCurrencyExch WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(ExchDiamond),0) AS ExchDiamond, ISNULL(SUM(PresentGold),0) AS PresentGold FROM RecordCurrencyExch WITH(NOLOCK) {where}";
             return Database.ExecuteObject<TotalDiamondExch>(sqlQuery);
         }
 
@@ -256,8 +248,7 @@ namespace Game.Data
         public long GetTotalBuyHornGold(string where)
         {
             string sqlQuery =
-                string.Format("SELECT ISNULL(SUM(CostGold),0) AS CostGold FROM RecordGoldBuyProperty WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(CostGold),0) AS CostGold FROM RecordGoldBuyProperty WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -270,8 +261,7 @@ namespace Game.Data
         public long GetTotalTreasureChange(string where)
         {
             string sqlQuery =
-                string.Format("SELECT ISNULL(SUM(ChangeScore),0) AS Diamond FROM RecordTreasureSerial WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(ChangeScore),0) AS Diamond FROM RecordTreasureSerial WITH(NOLOCK) {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -284,11 +274,9 @@ namespace Game.Data
         public long[] GetTotalDiamondExch(string where)
         {
             string sqlQuery =
-                string.Format(
-                    "SELECT ISNULL(SUM(PresentGold),0) AS Gold,ISNULL(SUM(ExchDiamond),0) AS Diamond FROM RecordCurrencyExch WITH(NOLOCK) {0}",
-                    where);
+                $"SELECT ISNULL(SUM(PresentGold),0) AS Gold,ISNULL(SUM(ExchDiamond),0) AS Diamond FROM RecordCurrencyExch WITH(NOLOCK) {where}";
             DataSet obj = Database.ExecuteDataset(CommandType.Text, sqlQuery);
-            return new long[2] {Convert.ToInt64(obj.Tables[0].Rows[0]["Gold"]), Convert.ToInt64(obj.Tables[0].Rows[0]["Diamond"])};
+            return new[] {Convert.ToInt64(obj.Tables[0].Rows[0]["Gold"]), Convert.ToInt64(obj.Tables[0].Rows[0]["Diamond"])};
         }
 
         #endregion
@@ -298,21 +286,23 @@ namespace Game.Data
         /// <summary>
         /// 赠送靓号
         /// </summary>
-        /// <param name="userID">用户标识</param>
-        /// <param name="gameID">游戏ID</param>
-        /// <param name="masterID">管理员标识</param>
+        /// <param name="userId">用户标识</param>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="masterId">管理员标识</param>
         /// <param name="strReason">赠送原因</param>
-        /// <param name="strIP">赠送ip</param>
+        /// <param name="strIp">赠送ip</param>
         /// <returns></returns>
-        public Message GrantGameID(int userID, int gameID, int masterID, string strReason, string strIP)
+        public Message GrantGameId(int userId, int gameId, int masterId, string strReason, string strIp)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("UserID", userID));
-            prams.Add(Database.MakeInParam("ReGameID", gameID));
-            prams.Add(Database.MakeInParam("MasterID", masterID));
-            prams.Add(Database.MakeInParam("Reason", strReason));
-            prams.Add(Database.MakeInParam("ClientIP", strIP));
-            prams.Add(Database.MakeOutParam("strErrorDescribe", typeof(string), 127));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("UserID", userId),
+                Database.MakeInParam("ReGameID", gameId),
+                Database.MakeInParam("MasterID", masterId),
+                Database.MakeInParam("Reason", strReason),
+                Database.MakeInParam("ClientIP", strIp),
+                Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
+            };
 
             return MessageHelper.GetMessage(Database, "WSP_PM_GrantGameID", prams);
         }

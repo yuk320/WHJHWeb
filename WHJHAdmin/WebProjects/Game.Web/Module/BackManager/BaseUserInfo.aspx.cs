@@ -39,7 +39,7 @@ namespace Game.Web.Module.BackManager
             if(IntParam > 0)
             {
                 AuthUserOperationPermission(Permission.Edit);
-                user = FacadeManage.aidePlatformManagerFacade.GetUserByUserID(IntParam);
+                user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(IntParam);
             }
             else
             {
@@ -84,7 +84,7 @@ namespace Game.Web.Module.BackManager
         {
             if(IntParam > 0)
             {
-                Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserID(IntParam);
+                Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(IntParam);
                 if(user != null)
                 {
                     CtrlHelper.SetText(txtAccounts, user.Username);

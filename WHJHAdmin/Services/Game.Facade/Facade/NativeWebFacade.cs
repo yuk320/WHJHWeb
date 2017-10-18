@@ -1,9 +1,9 @@
-﻿using System.Data;
-using Game.Data.Factory;
+﻿using Game.Data.Factory;
 using Game.Entity.NativeWeb;
 using Game.IData;
 using Game.Kernel;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -13,7 +13,8 @@ namespace Game.Facade
     {
         #region Fields
 
-        private INativeWebDataProvider aideNativeWebData;
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private INativeWebDataProvider _aideNativeWebData;
 
         #endregion Fields
 
@@ -24,7 +25,7 @@ namespace Game.Facade
         /// </summary>
         public NativeWebFacade()
         {
-            aideNativeWebData = ClassFactory.GetINativeWebDataProvider();
+            _aideNativeWebData = ClassFactory.GetINativeWebDataProvider();
         }
 
         #endregion 构造函数
@@ -41,7 +42,7 @@ namespace Game.Facade
         /// <returns></returns>
         public PagerSet GetList(string tableName, int pageIndex, int pageSize, string condition, string orderby)
         {
-            return aideNativeWebData.GetList(tableName, pageIndex, pageSize, condition, orderby);
+            return _aideNativeWebData.GetList(tableName, pageIndex, pageSize, condition, orderby);
         }
         #endregion
 
@@ -53,7 +54,7 @@ namespace Game.Facade
         /// <returns></returns>
         public ConfigInfo GetConfigInfo(int id)
         {
-            return aideNativeWebData.GetConfigInfo(id);
+            return _aideNativeWebData.GetConfigInfo(id);
         }
         /// <summary>
         /// 获取站点配置
@@ -62,7 +63,7 @@ namespace Game.Facade
         /// <returns></returns>
         public ConfigInfo GetConfigInfo(string configKey)
         {
-            return aideNativeWebData.GetConfigInfo(configKey);
+            return _aideNativeWebData.GetConfigInfo(configKey);
         }
         /// <summary>
         /// 修改站点配置
@@ -70,7 +71,7 @@ namespace Game.Facade
         /// <param name="config">配置信息</param>
         public int UpdateConfigInfo(ConfigInfo config)
         {
-            return aideNativeWebData.UpdateConfigInfo(config);
+            return _aideNativeWebData.UpdateConfigInfo(config);
         }
         #endregion 站点配置
 
@@ -82,7 +83,7 @@ namespace Game.Facade
         /// <returns>广告实体</returns>
         public Ads GetAds(int id)
         {
-            return aideNativeWebData.GetAds(id);
+            return _aideNativeWebData.GetAds(id);
         }
         /// <summary>
         /// 删除广告
@@ -90,7 +91,7 @@ namespace Game.Facade
         /// <param name="idlist">标识列表</param>
         public int DeleteAds(string idlist)
         {
-            return aideNativeWebData.DeleteAds(idlist);
+            return _aideNativeWebData.DeleteAds(idlist);
         }
         /// <summary>
         /// 新增广告
@@ -98,7 +99,7 @@ namespace Game.Facade
         /// <param name="ads">广告信息</param>
         public int InsertAds(Ads ads)
         {
-            return aideNativeWebData.InsertAds(ads);
+            return _aideNativeWebData.InsertAds(ads);
         }
         /// <summary>
         /// 修改广告
@@ -106,7 +107,7 @@ namespace Game.Facade
         /// <param name="ads">广告实体</param>
         public int UpdateAds(Ads ads)
         {
-            return aideNativeWebData.UpdateAds(ads);
+            return _aideNativeWebData.UpdateAds(ads);
         }
         #endregion 广告管理
 
@@ -118,7 +119,7 @@ namespace Game.Facade
         /// <returns></returns>
         public SystemNotice GetSystemNoticeInfo(int id)
         {
-            return aideNativeWebData.GetSystemNoticeInfo(id);
+            return _aideNativeWebData.GetSystemNoticeInfo(id);
         }
         /// <summary>
         /// 新增新闻公告
@@ -127,7 +128,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertSystemNotice(SystemNotice notice)
         {
-            return aideNativeWebData.InsertSystemNotice(notice);
+            return _aideNativeWebData.InsertSystemNotice(notice);
         }
         /// <summary>
         /// 修改公告信息
@@ -136,7 +137,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateSystemNotice(SystemNotice notice)
         {
-            return aideNativeWebData.UpdateSystemNotice(notice);
+            return _aideNativeWebData.UpdateSystemNotice(notice);
         }
         /// <summary>
         /// 删除公告
@@ -145,7 +146,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int DeleteSystemNotice(string idlist)
         {
-            return aideNativeWebData.DeleteSystemNotice(idlist);
+            return _aideNativeWebData.DeleteSystemNotice(idlist);
         }
         #endregion
 
@@ -155,9 +156,9 @@ namespace Game.Facade
         /// </summary>
         /// <param name="configid">配置标识</param>
         /// <returns></returns>
-        public RankingConfig GetRankingConfigByID(int configid)
+        public RankingConfig GetRankingConfigById(int configid)
         {
-            return aideNativeWebData.GetRankingConfigByID(configid);
+            return _aideNativeWebData.GetRankingConfigById(configid);
         }
         /// <summary>
         /// 判断排行榜配置是否存在
@@ -167,7 +168,7 @@ namespace Game.Facade
         /// <returns></returns>
         public bool ExistRankingConfig(int typeid, int rankid)
         {
-            return aideNativeWebData.ExistRankingConfig(typeid, rankid);
+            return _aideNativeWebData.ExistRankingConfig(typeid, rankid);
         }
         /// <summary>
         /// 新增排行榜配置
@@ -176,7 +177,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertRankingConfig(RankingConfig config)
         {
-            return aideNativeWebData.InsertRankingConfig(config);
+            return _aideNativeWebData.InsertRankingConfig(config);
         }
         /// <summary>
         /// 修改排行榜配置
@@ -185,7 +186,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateRankingConfig(RankingConfig config)
         {
-            return aideNativeWebData.UpdateRankingConfig(config);
+            return _aideNativeWebData.UpdateRankingConfig(config);
         }
         /// <summary>
         /// 删除奖励配置
@@ -194,7 +195,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int DeleteRankingConfig(int configid)
         {
-            return aideNativeWebData.DeleteRankingConfig(configid);
+            return _aideNativeWebData.DeleteRankingConfig(configid);
         }
         #endregion
 
@@ -206,7 +207,7 @@ namespace Game.Facade
         /// <returns></returns>
         public GameRule GetGameRuleInfo(int kindid)
         {
-            return aideNativeWebData.GetGameRuleInfo(kindid);
+            return _aideNativeWebData.GetGameRuleInfo(kindid);
         }
 
         /// <summary>
@@ -216,7 +217,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertGameRule(GameRule rule)
         {
-            return aideNativeWebData.InsertGameRule(rule);
+            return _aideNativeWebData.InsertGameRule(rule);
         }
         /// <summary>
         /// 修改游戏规则
@@ -225,7 +226,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateGameRule(GameRule rule)
         {
-            return aideNativeWebData.UpdateGameRule(rule);
+            return _aideNativeWebData.UpdateGameRule(rule);
         }
         /// <summary>
         /// 删除游戏规则
@@ -234,7 +235,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int DeleteGameRule(string idlist)
         {
-            return aideNativeWebData.DeleteGameRule(idlist);
+            return _aideNativeWebData.DeleteGameRule(idlist);
         }
         /// <summary>
         /// 禁用启用游戏规则
@@ -244,7 +245,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int NullityGameRule(string idlist, int nullity)
         {
-            return aideNativeWebData.NullityGameRule(idlist, nullity);
+            return _aideNativeWebData.NullityGameRule(idlist, nullity);
         }
         #endregion
     }

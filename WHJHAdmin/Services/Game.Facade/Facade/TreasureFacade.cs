@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System.Collections.Generic;
 using Game.IData;
 using Game.Data.Factory;
 using Game.Kernel;
@@ -10,6 +6,7 @@ using Game.Entity.Treasure;
 using System.Data;
 using Game.Entity.Record;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -19,6 +16,8 @@ namespace Game.Facade
     {
         #region Fields
 
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private ITreasureDataProvider aideTreasureData;
 
         #endregion
@@ -54,11 +53,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取充值产品
         /// </summary>
-        /// <param name="configID">充值产品标识</param>
+        /// <param name="configId">充值产品标识</param>
         /// <returns></returns>
-        public AppPayConfig GetAppPayConfig(int configID)
+        public AppPayConfig GetAppPayConfig(int configId)
         {
-            return aideTreasureData.GetAppPayConfig(configID);
+            return aideTreasureData.GetAppPayConfig(configId);
         }
         /// <summary>
         /// 删除充值产品
@@ -101,11 +100,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取推广配置
         /// </summary>
-        /// <param name="configID">推广配置id</param>
+        /// <param name="configId">推广配置id</param>
         /// <returns></returns>
-        public SpreadConfig GetSpreadConfig(int configID)
+        public SpreadConfig GetSpreadConfig(int configId)
         {
-            return aideTreasureData.GetSpreadConfig(configID);
+            return aideTreasureData.GetSpreadConfig(configId);
         }
         /// <summary>
         /// 推广配置数量
@@ -118,11 +117,11 @@ namespace Game.Facade
         /// <summary>
         /// 删除推广配置
         /// </summary>
-        /// <param name="configID">推广配置id</param>
+        /// <param name="configId">推广配置id</param>
         /// <returns></returns>
-        public int DeleteSpreadConfig(int configID)
+        public int DeleteSpreadConfig(int configId)
         {
-            return aideTreasureData.DeleteSpreadConfig(configID);
+            return aideTreasureData.DeleteSpreadConfig(configId);
         }
         /// <summary>
         /// 新增推广信息
@@ -235,11 +234,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取兑换金币配置
         /// </summary>
-        /// <param name="configID">配置标识</param>
+        /// <param name="configId">配置标识</param>
         /// <returns></returns>
-        public CurrencyExchConfig GetCurrencyExch(int configID)
+        public CurrencyExchConfig GetCurrencyExch(int configId)
         {
-            return aideTreasureData.GetCurrencyExch(configID);
+            return aideTreasureData.GetCurrencyExch(configId);
         }
         /// <summary>
         /// 删除兑换金币配置

@@ -153,7 +153,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetAccountsInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
                 return string.Format("<td>{0}</td><td>{1}</td>", info.GameID, info.NickName);

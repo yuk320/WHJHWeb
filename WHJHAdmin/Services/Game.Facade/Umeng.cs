@@ -1,8 +1,6 @@
 ﻿using Game.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -91,6 +89,7 @@ namespace Game.Facade
 
                 //请求接口地址
                 string requestUrl = AppUrl + "?sign=" + mysign;
+                TextLogger.Write("UMeng RequestUrl:" + requestUrl+" sb:"+sb.ToString());
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 request.Method = "POST";
 
@@ -103,6 +102,8 @@ namespace Game.Facade
                 }
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 HttpStatusCode statusCode = response.StatusCode;
+                TextLogger.Write("UMeng Response:" + response.StatusCode);
+
                 return true;
             }
             catch(WebException e)
@@ -115,6 +116,7 @@ namespace Game.Facade
                     Stream myResponseStream = ((HttpWebResponse)e.Response).GetResponseStream();
                     StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
                     string retString = myStreamReader.ReadToEnd();
+                    TextLogger.Write("UMeng Response:" + retString);
                 }
                 return false;
             }

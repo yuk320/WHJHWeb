@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Data;
 
 using Game.Kernel;
@@ -19,9 +16,9 @@ namespace Game.IData
         /// <summary>
         /// 获取积分库的连接串
         /// </summary>
-        /// <param name="kindID">游戏标识</param>
+        /// <param name="kindId">游戏标识</param>
         /// <returns></returns>
-        string GetConn(int kindID);
+        string GetConn(int kindId);
         #endregion
 
         #region 公用分页
@@ -41,9 +38,9 @@ namespace Game.IData
         /// <summary>
         /// 获取游戏模块
         /// </summary>
-        /// <param name="gameID">游戏模块标识</param>
+        /// <param name="gameId">游戏模块标识</param>
         /// <returns></returns>
-        GameGameItem GetGameGameItemInfo(int gameID);
+        GameGameItem GetGameGameItemInfo(int gameId);
         /// <summary>
         /// 新增游戏模块
         /// </summary>
@@ -88,9 +85,9 @@ namespace Game.IData
         /// <summary>
         /// 获取机器信息
         /// </summary>
-        /// <param name="dBInfoID">标识</param>
+        /// <param name="dBInfoId">标识</param>
         /// <returns></returns>
-        DataBaseInfo GetDataBaseInfo(int dBInfoID);
+        DataBaseInfo GetDataBaseInfo(int dBInfoId);
         /// <summary>
         /// 获取机器信息
         /// </summary>
@@ -121,9 +118,9 @@ namespace Game.IData
         /// <summary>
         /// 获取游戏房间
         /// </summary>
-        /// <param name="serverID">房间标识</param>
+        /// <param name="serverId">房间标识</param>
         /// <returns></returns>
-        GameRoomInfo GetGameRoomInfoInfo(int serverID);
+        GameRoomInfo GetGameRoomInfoInfo(int serverId);
         #endregion
 
         #region 系统消息
@@ -192,7 +189,7 @@ namespace Game.IData
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        long GetAATotalCreateRoomDiamond(string where);
+        long GetAaTotalCreateRoomDiamond(string where);
         /// <summary>
         /// 获取在线人数统计
         /// </summary>

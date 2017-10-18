@@ -88,9 +88,15 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉！充值产品配置异常！'
 		RETURN 1004
 	END
-	-- 计算额外赠送钻石
-	SET @OtherPresent = CAST((@Diamond*@PresentScale) AS INT)
-
+	
+	-- 普通时赠送为0
+	SET @OtherPresent = 0
+	-- 计算额外赠送钻石(首充时计算)
+	IF @PayIdentity = 2 
+	BEGIN
+		SET @OtherPresent = CAST((@Diamond*@PresentScale) AS INT)
+  END 
+	
 	-- 订单重复验证
 	SELECT @OrderID=OrderID FROM OnLinePayOrder WITH(NOLOCK) WHERE OrderID = @strOrderID
 	IF @OrderID IS NOT NULL

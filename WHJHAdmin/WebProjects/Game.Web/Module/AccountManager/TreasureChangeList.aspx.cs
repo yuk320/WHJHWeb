@@ -166,10 +166,10 @@ namespace Game.Web.Module.AccountManager
             rptDataList.DataBind();
 
             //绑定统计
-            long addNum = FacadeManage.aideRecordFacade.GetTotalTreasureChange(SearchItems + " AND ChangeScore>0");
-            long costNum = FacadeManage.aideRecordFacade.GetTotalTreasureChange(SearchItems + " AND ChangeScore<0");
+            long addNum = FacadeManage.aideRecordFacade.GetTotalTreasureChange(SearchItems + " AND ChangeScore>0 AND TypeID NOT IN (6,7)");
+            long costNum = FacadeManage.aideRecordFacade.GetTotalTreasureChange(SearchItems + " AND ChangeScore<0 AND TypeID NOT IN (6,7)");
             long total = addNum + costNum;
-            lbChange.Text = string.Format("{0}{1} （消耗：{2}  增加：+{3}）", (total > 0 ? "+" : total < 0 ? "-" : ""), total, costNum, addNum);
+            lbChange.Text = $"{(total > 0 ? "+" : total < 0 ? "-" : "")}{total} （消耗：{costNum}  增加：+{addNum}）";
         }
 
         /// <summary>

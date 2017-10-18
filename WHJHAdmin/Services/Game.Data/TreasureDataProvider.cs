@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
@@ -47,11 +46,11 @@ namespace Game.Data
         /// <summary>
         /// 获取充值产品
         /// </summary>
-        /// <param name="configID">充值产品标识</param>
+        /// <param name="configId">充值产品标识</param>
         /// <returns></returns>
-        public AppPayConfig GetAppPayConfig(int configID)
+        public AppPayConfig GetAppPayConfig(int configId)
         {
-            string sqlQuery = string.Format("SELECT * FROM AppPayConfig WITH(NOLOCK) WHERE ConfigID = '{0}'", configID);
+            string sqlQuery = $"SELECT * FROM AppPayConfig WITH(NOLOCK) WHERE ConfigID = '{configId}'";
             return Database.ExecuteObject<AppPayConfig>(sqlQuery);
         }
         /// <summary>
@@ -60,7 +59,7 @@ namespace Game.Data
         /// <param name="idlist">标识列表</param>
         public int DeleteAppPayConfig(string idlist)
         {
-            string sqlQuery = string.Format("DELETE AppPayConfig WHERE ConfigID IN({0})",idlist);
+            string sqlQuery = $"DELETE AppPayConfig WHERE ConfigID IN({idlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         /// <summary>
@@ -70,8 +69,8 @@ namespace Game.Data
         /// <returns></returns>
         public bool IsExistAppPayConfig(string where)
         {
-            string sqlQuery = string.Format("SELECT ConfigID FROM AppPayConfig WITH(NOLOCK) {0} ", where);
-            return Database.ExecuteScalar(CommandType.Text, sqlQuery) == null ? false : true;
+            string sqlQuery = $"SELECT ConfigID FROM AppPayConfig WITH(NOLOCK) {where} ";
+            return Database.ExecuteScalar(CommandType.Text, sqlQuery) != null;
         }
         /// <summary>
         /// 新增充值产品
@@ -83,17 +82,19 @@ namespace Game.Data
             string sqlQuery = @"INSERT INTO AppPayConfig(AppleID,PayName,PayType,PayPrice,PayIdentity,ImageType,SortID,Diamond,PresentScale,ConfigTime) 
                                         VALUES(@AppleID,@PayName,@PayType,@PayPrice,@PayIdentity,@ImageType,@SortID,@Diamond,@PresentScale,@ConfigTime)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("AppleID", config.AppleID));
-            prams.Add(Database.MakeInParam("PayName", config.PayName));
-            prams.Add(Database.MakeInParam("PayType", config.PayType));
-            prams.Add(Database.MakeInParam("PayPrice", config.PayPrice));
-            prams.Add(Database.MakeInParam("PayIdentity", config.PayIdentity));
-            prams.Add(Database.MakeInParam("ImageType", config.ImageType));
-            prams.Add(Database.MakeInParam("SortID", config.SortID));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("PresentScale", config.PresentScale));
-            prams.Add(Database.MakeInParam("ConfigTime", config.ConfigTime));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("AppleID", config.AppleID),
+                Database.MakeInParam("PayName", config.PayName),
+                Database.MakeInParam("PayType", config.PayType),
+                Database.MakeInParam("PayPrice", config.PayPrice),
+                Database.MakeInParam("PayIdentity", config.PayIdentity),
+                Database.MakeInParam("ImageType", config.ImageType),
+                Database.MakeInParam("SortID", config.SortID),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("PresentScale", config.PresentScale),
+                Database.MakeInParam("ConfigTime", config.ConfigTime)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
@@ -117,17 +118,19 @@ namespace Game.Data
                     .Append("SortID=@SortID ")
                     .Append("WHERE ConfigID=@ConfigID");
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("AppleID", config.AppleID));
-            prams.Add(Database.MakeInParam("PayName", config.PayName));
-            prams.Add(Database.MakeInParam("PayType", config.PayType));
-            prams.Add(Database.MakeInParam("PayPrice", config.PayPrice));
-            prams.Add(Database.MakeInParam("PayIdentity", config.PayIdentity));
-            prams.Add(Database.MakeInParam("ImageType", config.ImageType));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("PresentScale", config.PresentScale));
-            prams.Add(Database.MakeInParam("SortID", config.SortID));
-            prams.Add(Database.MakeInParam("ConfigID", config.ConfigID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("AppleID", config.AppleID),
+                Database.MakeInParam("PayName", config.PayName),
+                Database.MakeInParam("PayType", config.PayType),
+                Database.MakeInParam("PayPrice", config.PayPrice),
+                Database.MakeInParam("PayIdentity", config.PayIdentity),
+                Database.MakeInParam("ImageType", config.ImageType),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("PresentScale", config.PresentScale),
+                Database.MakeInParam("SortID", config.SortID),
+                Database.MakeInParam("ConfigID", config.ConfigID)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
         }
@@ -137,11 +140,11 @@ namespace Game.Data
         /// <summary>
         /// 获取推广配置
         /// </summary>
-        /// <param name="configID">推广配置id</param>
+        /// <param name="configId">推广配置id</param>
         /// <returns></returns>
-        public SpreadConfig GetSpreadConfig(int configID)
+        public SpreadConfig GetSpreadConfig(int configId)
         {
-            string sqlQuery = string.Format("SELECT * FROM SpreadConfig WITH(NOLOCK) WHERE ConfigID = {0}", configID);
+            string sqlQuery = $"SELECT * FROM SpreadConfig WITH(NOLOCK) WHERE ConfigID = {configId}";
             return Database.ExecuteObject<SpreadConfig>(sqlQuery);
         }
         /// <summary>
@@ -157,11 +160,11 @@ namespace Game.Data
         /// <summary>
         /// 删除推广配置
         /// </summary>
-        /// <param name="configID">推广配置id</param>
+        /// <param name="configId">推广配置id</param>
         /// <returns></returns>
-        public int DeleteSpreadConfig(int configID)
+        public int DeleteSpreadConfig(int configId)
         {
-            string sqlQuery = string.Format("DELETE SpreadConfig WHERE ConfigID = {0}", configID);
+            string sqlQuery = $"DELETE SpreadConfig WHERE ConfigID = {configId}";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         /// <summary>
@@ -173,13 +176,15 @@ namespace Game.Data
         {
             string sqlQuery = @"INSERT INTO SpreadConfig(SpreadNum,PresentDiamond,PresentPropID,PresentPropName,PresentPropNum,UpdateTime) 
                             VALUES(@SpreadNum,@PresentDiamond,@PresentPropID,@PresentPropName,@PresentPropNum,@UpdateTime)";
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("SpreadNum", config.SpreadNum));
-            prams.Add(Database.MakeInParam("PresentDiamond", config.PresentDiamond));
-            prams.Add(Database.MakeInParam("PresentPropID", config.PresentPropID));
-            prams.Add(Database.MakeInParam("PresentPropName", config.PresentPropName));
-            prams.Add(Database.MakeInParam("PresentPropNum", config.PresentPropNum));
-            prams.Add(Database.MakeInParam("UpdateTime", config.UpdateTime));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("SpreadNum", config.SpreadNum),
+                Database.MakeInParam("PresentDiamond", config.PresentDiamond),
+                Database.MakeInParam("PresentPropID", config.PresentPropID),
+                Database.MakeInParam("PresentPropName", config.PresentPropName),
+                Database.MakeInParam("PresentPropNum", config.PresentPropNum),
+                Database.MakeInParam("UpdateTime", config.UpdateTime)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
@@ -199,13 +204,15 @@ namespace Game.Data
                     .Append("PresentPropNum=@PresentPropNum ")
                     .Append("WHERE ConfigID=@ConfigID");
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("SpreadNum", config.SpreadNum));
-            prams.Add(Database.MakeInParam("PresentDiamond", config.PresentDiamond));
-            prams.Add(Database.MakeInParam("PresentPropID", config.PresentPropID));
-            prams.Add(Database.MakeInParam("PresentPropName", config.PresentPropName));
-            prams.Add(Database.MakeInParam("PresentPropNum", config.PresentPropNum));
-            prams.Add(Database.MakeInParam("ConfigID", config.ConfigID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("SpreadNum", config.SpreadNum),
+                Database.MakeInParam("PresentDiamond", config.PresentDiamond),
+                Database.MakeInParam("PresentPropID", config.PresentPropID),
+                Database.MakeInParam("PresentPropName", config.PresentPropName),
+                Database.MakeInParam("PresentPropNum", config.PresentPropNum),
+                Database.MakeInParam("ConfigID", config.ConfigID)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
         }
@@ -219,13 +226,15 @@ namespace Game.Data
         /// <returns></returns>
         public Message GrantDiamond(RecordGrantDiamond diamond)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("MasterID", diamond.MasterID));
-            prams.Add(Database.MakeInParam("ClientIP", diamond.ClientIP));
-            prams.Add(Database.MakeInParam("UserID", diamond.UserID));
-            prams.Add(Database.MakeInParam("AddDiamond", diamond.AddDiamond));
-            prams.Add(Database.MakeInParam("TypeID", diamond.TypeID));
-            prams.Add(Database.MakeInParam("CollectNote", diamond.CollectNote));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("MasterID", diamond.MasterID),
+                Database.MakeInParam("ClientIP", diamond.ClientIP),
+                Database.MakeInParam("UserID", diamond.UserID),
+                Database.MakeInParam("AddDiamond", diamond.AddDiamond),
+                Database.MakeInParam("TypeID", diamond.TypeID),
+                Database.MakeInParam("CollectNote", diamond.CollectNote)
+            };
 
             Message msg = MessageHelper.GetMessage(Database, "WSP_PM_GrantDiamond", prams);
             return msg;
@@ -259,7 +268,7 @@ namespace Game.Data
         /// <returns></returns>
         public long GetTotalUserDiamond(string where)
         {
-            string sqlQuery = string.Format("SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM UserCurrency {0}", where);
+            string sqlQuery = $"SELECT ISNULL(SUM(Diamond),0) AS Diamond FROM UserCurrency {where}";
             object obj = Database.ExecuteScalar(CommandType.Text, sqlQuery);
             return obj != null ? Convert.ToInt64(obj) : 0;
         }
@@ -275,9 +284,11 @@ namespace Game.Data
                         (SELECT CollectDate,Revenue FROM RecordInsure WITH(NOLOCK) WHERE Revenue>0 AND 
                             CollectDate>=@sTime AND CollectDate<=@eTime) AS T GROUP BY CONVERT(VARCHAR(10),CollectDate,120) ORDER BY TimeDate";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("sTime", sTime));
-            prams.Add(Database.MakeInParam("eTime", eTime));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("sTime", sTime),
+                Database.MakeInParam("eTime", eTime)
+            };
             return Database.ExecuteObjectList<StatisticsRevenue>(sqlQuery, prams);
         }
         /// <summary>
@@ -292,9 +303,11 @@ namespace Game.Data
                         (SELECT ConcludeTime,Revenue FROM RecordDrawInfo WITH(NOLOCK) WHERE Revenue>0 AND 
                             ConcludeTime>=@sTime AND ConcludeTime<=@eTime) AS T GROUP BY CONVERT(VARCHAR(10),ConcludeTime,120) ORDER BY TimeDate";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("sTime", sTime));
-            prams.Add(Database.MakeInParam("eTime", eTime));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("sTime", sTime),
+                Database.MakeInParam("eTime", eTime)
+            };
             return Database.ExecuteObjectList<StatisticsRevenue>(sqlQuery, prams);
         }
         /// <summary>
@@ -323,12 +336,14 @@ namespace Game.Data
         /// <returns></returns>
         public Message GrantTreasure(RecordGrantTreasure rgt)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("MasterID", rgt.MasterID));
-            prams.Add(Database.MakeInParam("ClientIP", rgt.ClientIP));
-            prams.Add(Database.MakeInParam("UserID", rgt.UserID));
-            prams.Add(Database.MakeInParam("AddGold", rgt.AddGold));
-            prams.Add(Database.MakeInParam("Reason", rgt.Reason));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("MasterID", rgt.MasterID),
+                Database.MakeInParam("ClientIP", rgt.ClientIP),
+                Database.MakeInParam("UserID", rgt.UserID),
+                Database.MakeInParam("AddGold", rgt.AddGold),
+                Database.MakeInParam("Reason", rgt.Reason)
+            };
 
             Message msg = MessageHelper.GetMessage(Database, "WSP_PM_GrantTreasure", prams);
             return msg;
@@ -336,11 +351,11 @@ namespace Game.Data
         /// <summary>
         /// 获取兑换金币配置
         /// </summary>
-        /// <param name="configID">配置标识</param>
+        /// <param name="configId">配置标识</param>
         /// <returns></returns>
-        public CurrencyExchConfig GetCurrencyExch(int configID)
+        public CurrencyExchConfig GetCurrencyExch(int configId)
         {
-            string sqlQuery = string.Format("SELECT * FROM CurrencyExchConfig WITH(NOLOCK) WHERE ConfigID = '{0}'", configID);
+            string sqlQuery = $"SELECT * FROM CurrencyExchConfig WITH(NOLOCK) WHERE ConfigID = '{configId}'";
             return Database.ExecuteObject<CurrencyExchConfig>(sqlQuery);
         }
         /// <summary>
@@ -349,7 +364,7 @@ namespace Game.Data
         /// <param name="idlist">标识列表</param>
         public int DeleteCurrencyExch(string idlist)
         {
-            string sqlQuery = string.Format("DELETE CurrencyExchConfig WHERE ConfigID IN({0})", idlist);
+            string sqlQuery = $"DELETE CurrencyExchConfig WHERE ConfigID IN({idlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         /// <summary>
@@ -359,8 +374,8 @@ namespace Game.Data
         /// <returns></returns>
         public bool IsExistCurrencyExch(int diamond)
         {
-            string sqlQuery = string.Format("SELECT ConfigID FROM CurrencyExchConfig WITH(NOLOCK) WHERE Diamond = {0} ", diamond);
-            return Database.ExecuteScalar(CommandType.Text, sqlQuery) == null ? false : true;
+            string sqlQuery = $"SELECT ConfigID FROM CurrencyExchConfig WITH(NOLOCK) WHERE Diamond = {diamond} ";
+            return Database.ExecuteScalar(CommandType.Text, sqlQuery) != null;
         }
         /// <summary>
         /// 新增兑换金币配置
@@ -371,12 +386,14 @@ namespace Game.Data
         {
             string sqlQuery = @"INSERT INTO CurrencyExchConfig(ConfigName,Diamond,ExchGold,ImageType,SortID) VALUES(@ConfigName,@Diamond,@ExchGold,@ImageType,@SortID)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("ConfigName", config.ConfigName));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("ExchGold", config.ExchGold));
-            prams.Add(Database.MakeInParam("ImageType", config.ImageType));
-            prams.Add(Database.MakeInParam("SortID", config.SortID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("ConfigName", config.ConfigName),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("ExchGold", config.ExchGold),
+                Database.MakeInParam("ImageType", config.ImageType),
+                Database.MakeInParam("SortID", config.SortID)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
@@ -389,15 +406,17 @@ namespace Game.Data
         {
             string sqlQuery = @"UPDATE CurrencyExchConfig SET ConfigName=@ConfigName,Diamond=@Diamond,ExchGold=@ExchGold,ImageType=@ImageType,SortID=@SortID WHERE ConfigID=@ConfigID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("ConfigName", config.ConfigName));
-            prams.Add(Database.MakeInParam("Diamond", config.Diamond));
-            prams.Add(Database.MakeInParam("ExchGold", config.ExchGold));
-            prams.Add(Database.MakeInParam("ImageType", config.ImageType));
-            prams.Add(Database.MakeInParam("SortID", config.SortID));
-            prams.Add(Database.MakeInParam("ConfigID", config.ConfigID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("ConfigName", config.ConfigName),
+                Database.MakeInParam("Diamond", config.Diamond),
+                Database.MakeInParam("ExchGold", config.ExchGold),
+                Database.MakeInParam("ImageType", config.ImageType),
+                Database.MakeInParam("SortID", config.SortID),
+                Database.MakeInParam("ConfigID", config.ConfigID)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         #endregion
     }

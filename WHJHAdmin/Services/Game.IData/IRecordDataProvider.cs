@@ -101,7 +101,7 @@ namespace Game.IData
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        long GetTotalAAGameDiamond(string where);
+        long GetTotalAaGameDiamond(string where);
         /// <summary>
         /// 获取钻石兑换金币统计
         /// </summary>
@@ -133,13 +133,13 @@ namespace Game.IData
         /// <summary>
         /// 赠送靓号
         /// </summary>
-        /// <param name="userID">用户标识</param>
-        /// <param name="gameID">游戏ID</param>
-        /// <param name="masterID">管理员标识</param>
+        /// <param name="userId">用户标识</param>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="masterId">管理员标识</param>
         /// <param name="strReason">赠送原因</param>
-        /// <param name="strIP">赠送ip</param>
+        /// <param name="strIp">赠送ip</param>
         /// <returns></returns>
-        Message GrantGameID(int userID, int gameID, int masterID, string strReason, string strIP);
+        Message GrantGameId(int userId, int gameId, int masterId, string strReason, string strIp);
         #endregion 赠送靓号
     }
 }

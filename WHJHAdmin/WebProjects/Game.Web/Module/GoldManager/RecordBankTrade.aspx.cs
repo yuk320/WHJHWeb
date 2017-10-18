@@ -161,7 +161,7 @@ namespace Game.Web.Module.GoldManager
         {
             if(userid > 0)
             {
-                AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+                AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
                 if(info != null)
                 {
                     return string.Format("{0}（{1}）", info.NickName, info.GameID);

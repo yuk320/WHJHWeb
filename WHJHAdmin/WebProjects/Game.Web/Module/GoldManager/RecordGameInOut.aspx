@@ -63,6 +63,7 @@
         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="box Tmg7" id="list">
             <tr align="center" class="bold">
                 <td class="listTitle">进入时间</td>
+                <td class="listTitle2">用户信息</td>
                 <td class="listTitle2">进入地址</td>
                 <td class="listTitle2">进入机器</td>
                 <td class="listTitle2">游戏</td>
@@ -83,7 +84,8 @@
                 <ItemTemplate>
                     <tr align="center" class="list" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
-                        <td> <%# Eval("EnterTime")%></td>
+                        <td> <%# Eval("EnterTime")%></td>                        
+                        <td><%# GetAccountsInfo( Convert.ToInt32( Eval( "UserID" ) ) ) %></td>
                         <td title="<%# GetAddressWithIP( Eval("EnterClientIP").ToString())%>"> <%# Eval( "EnterClientIP" ).ToString( ) %></td>
                         <td><%# Eval("EnterMachine")%></td>
                         <td><%# GetGameKindName(Convert.ToInt32(Eval("KindID")))%></td>
@@ -105,6 +107,7 @@
                     <tr align="center" class="listBg" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
                         <td> <%# Eval("EnterTime")%></td>
+                        <td><%# GetAccountsInfo( Convert.ToInt32( Eval( "UserID" ) ) ) %></td>
                         <td title="<%# GetAddressWithIP( Eval("EnterClientIP").ToString())%>"> <%# Eval( "EnterClientIP" ).ToString( ) %></td>
                         <td><%# Eval("EnterMachine")%></td>
                         <td><%# GetGameKindName(Convert.ToInt32(Eval("KindID")))%></td>

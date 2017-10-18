@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Game.Kernel;
 using Game.IData;
 using Game.Entity.PlatformManager;
@@ -50,11 +47,13 @@ namespace Game.Data
         /// <returns></returns>
         public Message UserLogon(Base_Users user)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("strUserName", user.Username));
-            prams.Add(Database.MakeInParam("strPassword", user.Password));
-            prams.Add(Database.MakeInParam("strClientIP", user.LastLoginIP));
-            prams.Add(Database.MakeOutParam("strErrorDescribe", typeof(string), 127));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("strUserName", user.Username),
+                Database.MakeInParam("strPassword", user.Password),
+                Database.MakeInParam("strClientIP", user.LastLoginIP),
+                Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
+            };
 
             return MessageHelper.GetMessageForObject<LoginUser>(Database, "NET_PM_UserLogon", prams);
         }
@@ -68,29 +67,31 @@ namespace Game.Data
                             LastLogintime,LastLoginIP,LoginTimes,IsBand,BandIP,IsAssist) VALUES(@Username,@Password,
                             @RoleID,@Nullity,@PreLogintime,@PreLoginIP,@LastLogintime,@LastLoginIP,@LoginTimes,@IsBand,@BandIP,@IsAssist)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("Username", user.Username));
-            prams.Add(Database.MakeInParam("Password", user.Password));
-            prams.Add(Database.MakeInParam("RoleID", user.RoleID));
-            prams.Add(Database.MakeInParam("Nullity", user.Nullity));
-            prams.Add(Database.MakeInParam("PreLogintime", user.PreLogintime));
-            prams.Add(Database.MakeInParam("PreLoginIP", user.PreLoginIP));
-            prams.Add(Database.MakeInParam("LastLogintime", user.LastLogintime));
-            prams.Add(Database.MakeInParam("LastLoginIP", user.LastLoginIP));
-            prams.Add(Database.MakeInParam("LoginTimes", user.LoginTimes));
-            prams.Add(Database.MakeInParam("IsBand", user.IsBand));
-            prams.Add(Database.MakeInParam("BandIP", user.BandIP));
-            prams.Add(Database.MakeInParam("IsAssist", user.IsAssist));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("Username", user.Username),
+                Database.MakeInParam("Password", user.Password),
+                Database.MakeInParam("RoleID", user.RoleID),
+                Database.MakeInParam("Nullity", user.Nullity),
+                Database.MakeInParam("PreLogintime", user.PreLogintime),
+                Database.MakeInParam("PreLoginIP", user.PreLoginIP),
+                Database.MakeInParam("LastLogintime", user.LastLogintime),
+                Database.MakeInParam("LastLoginIP", user.LastLoginIP),
+                Database.MakeInParam("LoginTimes", user.LoginTimes),
+                Database.MakeInParam("IsBand", user.IsBand),
+                Database.MakeInParam("BandIP", user.BandIP),
+                Database.MakeInParam("IsAssist", user.IsAssist)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 删除管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
-        public int DeleteUser(string userIDList)
+        /// <param name="userIdList">管理员列表</param>
+        public int DeleteUser(string userIdList)
         {
-            string sqlQuery = string.Format("DELETE Base_Users WHERE UserID in ({0})", userIDList);
+            string sqlQuery = $"DELETE Base_Users WHERE UserID in ({userIdList})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
         /// <summary>
@@ -102,20 +103,22 @@ namespace Game.Data
         {
             string sqlQuery = "UPDATE Base_Users SET Password = @Password WHERE UserID= @UserID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("UserID", userid));
-            prams.Add(Database.MakeInParam("Password", password));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("UserID", userid),
+                Database.MakeInParam("Password", password)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 冻结解冻管理员
         /// </summary>
-        /// <param name="userIDList">管理员列表</param>
+        /// <param name="userIdList">管理员列表</param>
         /// <param name="nullity">管理员状态</param>
-        public int NullityUser(string userIDList, int nullity)
+        public int NullityUser(string userIdList, int nullity)
         {
-            string sqlQuery = string.Format("UPDATE Base_Users SET Nullity={0} WHERE UserID IN ({1})", nullity, userIDList);
+            string sqlQuery = $"UPDATE Base_Users SET Nullity={nullity} WHERE UserID IN ({userIdList})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
         /// <summary>
@@ -127,25 +130,27 @@ namespace Game.Data
             string sqlQuery = @"UPDATE Base_Users SET Password=@Password,RoleID=@RoleID,Nullity=@Nullity,
                         IsAssist=@IsAssist,IsBand=@IsBand,BandIP=@BandIP WHERE UserID=@UserID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("Password", user.Password));
-            prams.Add(Database.MakeInParam("RoleID", user.RoleID));
-            prams.Add(Database.MakeInParam("Nullity", user.Nullity));
-            prams.Add(Database.MakeInParam("IsBand", user.IsBand));
-            prams.Add(Database.MakeInParam("BandIP", user.BandIP));
-            prams.Add(Database.MakeInParam("UserID", user.UserID));
-            prams.Add(Database.MakeInParam("IsAssist", user.IsAssist));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("Password", user.Password),
+                Database.MakeInParam("RoleID", user.RoleID),
+                Database.MakeInParam("Nullity", user.Nullity),
+                Database.MakeInParam("IsBand", user.IsBand),
+                Database.MakeInParam("BandIP", user.BandIP),
+                Database.MakeInParam("UserID", user.UserID),
+                Database.MakeInParam("IsAssist", user.IsAssist)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 获取管理员信息
         /// </summary>
-        /// <param name="userID">管理员标识</param>
+        /// <param name="userId">管理员标识</param>
         /// <returns></returns>
-        public Base_Users GetUserByUserID(int userID)
+        public Base_Users GetUserByUserId(int userId)
         {
-            string sqlQuery = string.Format("SELECT * FROM Base_Users WITH(NOLOCK) WHERE UserID={0}", userID);
+            string sqlQuery = $"SELECT * FROM Base_Users WITH(NOLOCK) WHERE UserID={userId}";
             return Database.ExecuteObject<Base_Users>(sqlQuery);
         }
         /// <summary>
@@ -166,11 +171,11 @@ namespace Game.Data
         /// <summary>
         /// 获取管理员角色
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public Base_Roles GetRoleInfo(int roleID)
+        public Base_Roles GetRoleInfo(int roleId)
         {
-            string sqlQuery = string.Format("SELECT * FROM Base_Roles WITH(NOLOCK) WHERE RoleID= {0}", roleID);
+            string sqlQuery = $"SELECT * FROM Base_Roles WITH(NOLOCK) WHERE RoleID= {roleId}";
             return Database.ExecuteObject<Base_Roles>(sqlQuery);
         }
         /// <summary>
@@ -182,9 +187,11 @@ namespace Game.Data
         {
             string sqlQuery = @"INSERT INTO Base_Roles(RoleName,[Description]) VALUES(@RoleName,@Description)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("RoleName", role.RoleName));
-            prams.Add(Database.MakeInParam("Description", role.Description));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("RoleName", role.RoleName),
+                Database.MakeInParam("Description", role.Description)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
@@ -197,12 +204,14 @@ namespace Game.Data
         {
             string sqlQuery = @"UPDATE Base_Roles SET RoleName=@RoleName,[Description]=@Description WHERE RoleID=@RoleID";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("RoleName", role.RoleName));
-            prams.Add(Database.MakeInParam("Description", role.Description));
-            prams.Add(Database.MakeInParam("RoleID", role.RoleID));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("RoleName", role.RoleName),
+                Database.MakeInParam("Description", role.Description),
+                Database.MakeInParam("RoleID", role.RoleID)
+            };
 
-            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
+            return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 删除管理员角色
@@ -210,7 +219,7 @@ namespace Game.Data
         /// <param name="idlist">标识列表</param>
         public int DeleteRole(string idlist)
         {
-            string sqlQuery = string.Format("DELETE Base_Roles WHERE RoleID IN({0})", idlist);
+            string sqlQuery = $"DELETE Base_Roles WHERE RoleID IN({idlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         #endregion
@@ -219,24 +228,22 @@ namespace Game.Data
         /// <summary>
         /// 获取用户菜单列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        public DataSet GetMenuByUserID(int userID)
+        public DataSet GetMenuByUserId(int userId)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("dwUserID", userID));
+            var prams = new List<DbParameter> {Database.MakeInParam("dwUserID", userId)};
 
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PM_GetMenuByUserID", prams.ToArray());
         }
         /// <summary>
         /// 获取用户权限列表
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        public DataSet GetPermissionByUserID(int userID)
+        public DataSet GetPermissionByUserId(int userId)
         {
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("dwUserID", userID));
+            var prams = new List<DbParameter> {Database.MakeInParam("dwUserID", userId)};
 
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PM_GetPermissionByUserID", prams.ToArray());
         }
@@ -252,31 +259,31 @@ namespace Game.Data
         /// <summary>
         /// 获取子级菜单列表
         /// </summary>
-        /// <param name="moduleID">父级菜单标识</param>
+        /// <param name="moduleId">父级菜单标识</param>
         /// <returns></returns>
-        public DataSet GetModuleListByModuleID(int moduleID)
+        public DataSet GetModuleListByModuleId(int moduleId)
         {
-            string sqlQuery = string.Format("SELECT * FROM Base_Module WITH(NOLOCK) WHERE ParentID={0} ORDER BY OrderNo", moduleID);
+            string sqlQuery = $"SELECT * FROM Base_Module WITH(NOLOCK) WHERE ParentID={moduleId} ORDER BY OrderNo";
             return Database.ExecuteDataset(CommandType.Text, sqlQuery);
         }
         /// <summary>
         /// 获取菜单权限列表
         /// </summary>
-        /// <param name="moduleID">菜单标识</param>
+        /// <param name="moduleId">菜单标识</param>
         /// <returns></returns>
-        public DataSet GetModulePermissionList(int moduleID)
+        public DataSet GetModulePermissionList(int moduleId)
         {
-            string sqlQuery = string.Format("SELECT * FROM Base_ModulePermission WITH(NOLOCK) WHERE ModuleID={0}", moduleID);
+            string sqlQuery = $"SELECT * FROM Base_ModulePermission WITH(NOLOCK) WHERE ModuleID={moduleId}";
             return Database.ExecuteDataset(CommandType.Text, sqlQuery);
         }
         /// <summary>
         /// 获取角色权限列表
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public DataSet GetRolePermissionList(int roleID)
+        public DataSet GetRolePermissionList(int roleId)
         {
-            string sqlQuery = string.Format("SELECT * FROM Base_RolePermission WITH(NOLOCK) WHERE RoleID={0}", roleID);
+            string sqlQuery = $"SELECT * FROM Base_RolePermission WITH(NOLOCK) WHERE RoleID={roleId}";
             return Database.ExecuteDataset(CommandType.Text, sqlQuery);
         }
         /// <summary>
@@ -289,23 +296,25 @@ namespace Game.Data
             string sqlQuery = @"INSERT INTO Base_RolePermission VALUES(@RoleID,
                     @ModuleID,@ManagerPermission,@OperationPermission,@StateFlag)";
 
-            var prams = new List<DbParameter>();
-            prams.Add(Database.MakeInParam("RoleID", rolePermission.RoleID));
-            prams.Add(Database.MakeInParam("ModuleID", rolePermission.ModuleID));
-            prams.Add(Database.MakeInParam("ManagerPermission", rolePermission.ManagerPermission));
-            prams.Add(Database.MakeInParam("OperationPermission", rolePermission.OperationPermission));
-            prams.Add(Database.MakeInParam("StateFlag", rolePermission.StateFlag));
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("RoleID", rolePermission.RoleID),
+                Database.MakeInParam("ModuleID", rolePermission.ModuleID),
+                Database.MakeInParam("ManagerPermission", rolePermission.ManagerPermission),
+                Database.MakeInParam("OperationPermission", rolePermission.OperationPermission),
+                Database.MakeInParam("StateFlag", rolePermission.StateFlag)
+            };
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
         /// <summary>
         /// 删除角色权限
         /// </summary>
-        /// <param name="roleID">角色标识</param>
+        /// <param name="roleId">角色标识</param>
         /// <returns></returns>
-        public int DeleteRolePermission(int roleID)
+        public int DeleteRolePermission(int roleId)
         {
-            string sqlQuery = string.Format("DELETE Base_RolePermission WHERE RoleID ={0}", roleID);
+            string sqlQuery = $"DELETE Base_RolePermission WHERE RoleID ={roleId}";
             return Database.ExecuteNonQuery(sqlQuery);
         }
         #endregion

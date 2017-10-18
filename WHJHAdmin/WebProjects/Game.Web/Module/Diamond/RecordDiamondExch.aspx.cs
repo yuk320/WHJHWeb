@@ -159,7 +159,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetAccountsInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             return info != null ? $"<td>{info.GameID}</td><td>{info.NickName}</td>" : "<td></td><td></td>";
         }
 
@@ -219,7 +219,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetTypeDesc(object type)
         {
-            return EnumHelper.GetDesc(type);
+            return EnumHelper.GetDesc(typeof(DiamondExchType), type);
         }
     }
 }

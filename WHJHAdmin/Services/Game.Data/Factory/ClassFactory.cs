@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Game.Kernel;
+﻿using Game.Kernel;
 using Game.IData;
 using Game.Utils;
 
@@ -36,7 +31,7 @@ namespace Game.Data.Factory
         /// 创建帐号库对象实例
         /// </summary>
         /// <returns></returns>
-        public static IAccountsDataProvider IAccountsDataProvider( )
+        public static IAccountsDataProvider GetAccountsDataProvider( )
         {
             return ProxyFactory.CreateInstance<AccountsDataProvider>( ApplicationSettings.Get( "DBAccounts" ) );
         }

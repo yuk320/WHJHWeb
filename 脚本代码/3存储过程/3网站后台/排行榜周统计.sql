@@ -72,7 +72,7 @@ BEGIN
 		IF @WCALC=1
 		BEGIN
 			INSERT INTO CacheRankValue(RankID,UserID,TypeID,RankValue) 
-			SELECT ROW_NUMBER() OVER(ORDER BY SUM(Diamond) DESC,UserID ASC) AS RankID,UserID,1 AS TypeID,ISNULL(SUM(Diamond),0) AS RankValue FROM CacheWealthRank WHERE DateID>=@STARTDATE AND DateID<=@ENDDATE GROUP BY UserID ORDER BY SUM(Diamond) DESC,UserID ASC
+				SELECT ROW_NUMBER() OVER(ORDER BY Diamond DESC,UserID ASC) AS RankID,UserID,1 AS TypeID,Diamond AS RankValue FROM CacheWealthRank WHERE DateID = @ENDDATE ORDER BY Diamond DESC,UserID ASC
 		END
 		-- 消耗排行榜
 		IF @CCALC=2
@@ -90,7 +90,7 @@ BEGIN
 		-- 写入奖励记录表
 		INSERT INTO RecordRankingRecevie(DateID,UserID,GameID,NickName,SystemFaceID,FaceUrl,TypeID,RankID,RankValue,Diamond,ValidityTime,ReceiveState,CollectDate) 
 		SELECT @DATEID AS DateID,C.UserID,A.GameID,A.NickName,A.FaceID,ISNULL(F.FaceUrl,''),C.TypeID,C.RankID,C.RankValue,R.Diamond,DATEADD(DAY,R.ValidityTime,@NOWTIME) AS ValidityTime,0 AS ReceiveState,@NOWTIME AS CollectDate FROM RankingConfig AS R 
-		LEFT JOIN CacheRankValue AS C ON R.RankID=C.RankID AND R.TypeID=C.TypeID LEFT JOIN WHJHAccountsDB.dbo.AccountsInfo AS A ON C.UserID=A.UserID LEFT JOIN WHJHAccountsDB.dbo.AccountsFace AS F ON C.UserID=F.UserID
+		LEFT JOIN CacheRankValue AS C ON R.RankID=C.RankID AND R.TypeID=C.TypeID LEFT JOIN WHJHAccountsDB.dbo.AccountsInfo AS A ON C.UserID=A.UserID LEFT JOIN WHJHAccountsDB.dbo.AccountsFace AS F ON C.UserID=F.UserID WHERE C.UserID <> NULL
 	END
 END
 GO

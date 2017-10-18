@@ -27,15 +27,15 @@ namespace Game.IData
         /// <summary>
         /// 根据用户标识获取用户信息
         /// </summary>
-        /// <param name="userID">用户标识</param>
+        /// <param name="userId">用户标识</param>
         /// <returns></returns>
-        AccountsInfo GetAccountInfoByUserID(int userID);
+        AccountsInfo GetAccountInfoByUserId(int userId);
         /// <summary>
         /// 根据游戏ID获取用户信息
         /// </summary>
-        /// <param name="gameID">游戏ID</param>
+        /// <param name="gameId">游戏ID</param>
         /// <returns></returns>
-        AccountsInfo GetAccountInfoByGameID(int gameID);
+        AccountsInfo GetAccountInfoByGameId(int gameId);
         /// <summary>
         /// 冻结解冻账号
         /// </summary>
@@ -66,7 +66,7 @@ namespace Game.IData
         /// </summary>
         /// <param name="customid">头像标识</param>
         /// <returns></returns>
-        string GetAccountsFaceByID(int customid);
+        string GetAccountsFaceById(int customid);
         /// <summary>
         /// 批量设置取消转账权限
         /// </summary>
@@ -111,7 +111,7 @@ namespace Game.IData
         /// 获取IP注册前100名
         /// </summary>
         /// <returns></returns>
-        DataSet GetIPRegisterTop100();
+        DataSet GetIpRegisterTop100();
         /// <summary>
         /// 批量插入限制IP
         /// </summary>
@@ -174,16 +174,16 @@ namespace Game.IData
         /// <summary>
         /// 获取代理信息
         /// </summary>
-        /// <param name="agentID">代理标识</param>
+        /// <param name="agentId">代理标识</param>
         /// <returns></returns>
-        AccountsAgentInfo GetAccountsAgentInfo(int agentID);
+        AccountsAgentInfo GetAccountsAgentInfo(int agentId);
         /// <summary>
         /// 添加代理信息
         /// </summary>
         /// <param name="agent">代理信息</param>
-        /// <param name="pGameID">父级代理游戏ID</param>
+        /// <param name="pGameId">父级代理游戏ID</param>
         /// <returns></returns>
-        Message InsertAgentUser(AccountsAgentInfo agent, int pGameID);
+        Message InsertAgentUser(AccountsAgentInfo agent, int pGameId);
         /// <summary>
         /// 更新代理基本信息
         /// </summary>
@@ -224,10 +224,10 @@ namespace Game.IData
         /// <summary>
         /// 获取用户注册每日统计
         /// </summary>
-        /// <param name="sDateID">起始时间标识</param>
-        /// <param name="eDateID">结束时间标识</param>
+        /// <param name="sDateId">起始时间标识</param>
+        /// <param name="eDateId">结束时间标识</param>
         /// <returns></returns>
-        IList<SystemStreamInfo> GetRecordEveryDayRegister(string sDateID, string eDateID);
+        IList<SystemStreamInfo> GetRecordEveryDayRegister(string sDateId, string eDateId);
         #endregion
     }
 }

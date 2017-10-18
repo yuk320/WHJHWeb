@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Data;
 
 using Game.IData;
@@ -10,6 +7,7 @@ using Game.Entity.Platform;
 using Game.Kernel;
 using Game.Entity.Record;
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -19,7 +17,8 @@ namespace Game.Facade
     {
         #region Fields
 
-        private IPlatformDataProvider aidePlatformData;
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private IPlatformDataProvider _aidePlatformData;
 
         #endregion
 
@@ -30,7 +29,7 @@ namespace Game.Facade
         /// </summary>
         public PlatformFacade()
         {
-            aidePlatformData = ClassFactory.GetIPlatformDataProvider();
+            _aidePlatformData = ClassFactory.GetIPlatformDataProvider();
         }
         #endregion
 
@@ -38,11 +37,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取积分库的连接串
         /// </summary>
-        /// <param name="kindID">游戏标识</param>
+        /// <param name="kindId">游戏标识</param>
         /// <returns></returns>
-        public string GetConn(int kindID)
+        public string GetConn(int kindId)
         {
-            return aidePlatformData.GetConn(kindID);
+            return _aidePlatformData.GetConn(kindId);
         }
         #endregion
 
@@ -58,7 +57,7 @@ namespace Game.Facade
         /// <returns></returns>
         public PagerSet GetList(string tableName, int pageIndex, int pageSize, string condition, string orderby)
         {
-            return aidePlatformData.GetList(tableName, pageIndex, pageSize, condition, orderby);
+            return _aidePlatformData.GetList(tableName, pageIndex, pageSize, condition, orderby);
         }
         #endregion
 
@@ -66,11 +65,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取游戏模块
         /// </summary>
-        /// <param name="gameID">游戏模块标识</param>
+        /// <param name="gameId">游戏模块标识</param>
         /// <returns></returns>
-        public GameGameItem GetGameGameItemInfo(int gameID)
+        public GameGameItem GetGameGameItemInfo(int gameId)
         {
-            return aidePlatformData.GetGameGameItemInfo(gameID);
+            return _aidePlatformData.GetGameGameItemInfo(gameId);
         }
         /// <summary>
         /// 新增游戏模块
@@ -78,7 +77,7 @@ namespace Game.Facade
         /// <param name="gameGameItem">游戏模块</param>
         public int InsertGameGameItem(GameGameItem gameGameItem)
         {
-            return aidePlatformData.InsertGameGameItem(gameGameItem);
+            return _aidePlatformData.InsertGameGameItem(gameGameItem);
         }
         /// <summary>
         /// 修改游戏模块
@@ -86,7 +85,7 @@ namespace Game.Facade
         /// <param name="gameGameItem">游戏模块</param>
         public int UpdateGameGameItem(GameGameItem gameGameItem)
         {
-            return aidePlatformData.UpdateGameGameItem(gameGameItem);
+            return _aidePlatformData.UpdateGameGameItem(gameGameItem);
         }
         /// <summary>
         /// 删除游戏模块
@@ -94,15 +93,16 @@ namespace Game.Facade
         /// <param name="gamelist">游戏标识列表</param>
         public int DeleteGameGameItem(string gamelist)
         {
-            return aidePlatformData.DeleteGameGameItem(gamelist);
+            return _aidePlatformData.DeleteGameGameItem(gamelist);
         }
+
         /// <summary>
         /// 删除游戏信息
         /// </summary>
         /// <param name="kindList">游戏标识列表</param>
-        public int DeleteMobileKindItem(string kindlist)
+        public int DeleteMobileKindItem(string kindList)
         {
-            return aidePlatformData.DeleteMobileKindItem(kindlist);
+            return _aidePlatformData.DeleteMobileKindItem(kindList);
         }
         /// <summary>
         /// 获取游戏信息
@@ -111,7 +111,7 @@ namespace Game.Facade
         /// <returns></returns>
         public MobileKindItem GetMobileKindItemInfo(int kindid)
         {
-            return aidePlatformData.GetMobileKindItemInfo(kindid);
+            return _aidePlatformData.GetMobileKindItemInfo(kindid);
         }
         /// <summary>
         /// 新增游戏信息
@@ -120,7 +120,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertMobileKindItem(MobileKindItem item)
         {
-            return aidePlatformData.InsertMobileKindItem(item);
+            return _aidePlatformData.InsertMobileKindItem(item);
         }
         /// <summary>
         /// 修改游戏信息
@@ -129,7 +129,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateMobileKindItem(MobileKindItem item)
         {
-            return aidePlatformData.UpdateMobileKindItem(item);
+            return _aidePlatformData.UpdateMobileKindItem(item);
         }
         #endregion
 
@@ -137,11 +137,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取机器信息
         /// </summary>
-        /// <param name="dBInfoID">标识</param>
+        /// <param name="dBInfoId">标识</param>
         /// <returns></returns>
-        public DataBaseInfo GetDataBaseInfo(int dBInfoID)
+        public DataBaseInfo GetDataBaseInfo(int dBInfoId)
         {
-            return aidePlatformData.GetDataBaseInfo(dBInfoID);
+            return _aidePlatformData.GetDataBaseInfo(dBInfoId);
         }
         /// <summary>
         /// 获取机器信息
@@ -150,7 +150,7 @@ namespace Game.Facade
         /// <returns></returns>
         public DataBaseInfo GetDataBaseInfo(string dBAddr)
         {
-            return aidePlatformData.GetDataBaseInfo(dBAddr);
+            return _aidePlatformData.GetDataBaseInfo(dBAddr);
         }
         /// <summary>
         /// 新增机器信息
@@ -159,7 +159,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertDataBase(DataBaseInfo dataBase)
         {
-            return aidePlatformData.InsertDataBase(dataBase);
+            return _aidePlatformData.InsertDataBase(dataBase);
         }
         /// <summary>
         ///  修改机器信息
@@ -168,7 +168,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateDataBase(DataBaseInfo dataBase)
         {
-            return aidePlatformData.UpdateDataBase(dataBase);
+            return _aidePlatformData.UpdateDataBase(dataBase);
         }
         /// <summary>
         /// 删除机器信息
@@ -177,7 +177,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int DeleteDataBase(string idlist)
         {
-            return aidePlatformData.DeleteDataBase(idlist);
+            return _aidePlatformData.DeleteDataBase(idlist);
         }
         #endregion
 
@@ -185,11 +185,11 @@ namespace Game.Facade
         /// <summary>
         /// 获取游戏房间
         /// </summary>
-        /// <param name="serverID">房间标识</param>
+        /// <param name="serverId">房间标识</param>
         /// <returns></returns>
-        public GameRoomInfo GetGameRoomInfoInfo(int serverID)
+        public GameRoomInfo GetGameRoomInfoInfo(int serverId)
         {
-            return aidePlatformData.GetGameRoomInfoInfo(serverID);
+            return _aidePlatformData.GetGameRoomInfoInfo(serverId);
         }
         #endregion
 
@@ -201,7 +201,7 @@ namespace Game.Facade
         /// <returns></returns>
         public SystemMessage GetSystemMessageInfo(int id)
         {
-            return aidePlatformData.GetSystemMessageInfo(id);
+            return _aidePlatformData.GetSystemMessageInfo(id);
         }
         /// <summary>
         /// 新增系统消息
@@ -210,7 +210,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int InsertSystemMessage(SystemMessage systemMessage)
         {
-            return aidePlatformData.InsertSystemMessage(systemMessage);
+            return _aidePlatformData.InsertSystemMessage(systemMessage);
         }
         /// <summary>
         /// 修改系统消息
@@ -219,7 +219,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int UpdateSystemMessage(SystemMessage systemMessage)
         {
-            return aidePlatformData.UpdateSystemMessage(systemMessage);
+            return _aidePlatformData.UpdateSystemMessage(systemMessage);
         }
         /// <summary>
         /// 删除系统消息
@@ -228,7 +228,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int DeleteSystemMessage(string where)
         {
-            return aidePlatformData.DeleteSystemMessage(where);
+            return _aidePlatformData.DeleteSystemMessage(where);
         }
         /// <summary>
         /// 冻结解冻系统消息
@@ -238,7 +238,7 @@ namespace Game.Facade
         /// <returns></returns>
         public int NullitySystemMessage(string idList, int nullity)
         {
-            return aidePlatformData.NullitySystemMessage(idList, nullity);
+            return _aidePlatformData.NullitySystemMessage(idList, nullity);
         }
         #endregion
 
@@ -250,7 +250,7 @@ namespace Game.Facade
         /// <returns></returns>
         public DataSet GetCreateRoomInfo(int userid)
         {
-            return aidePlatformData.GetCreateRoomInfo(userid);
+            return _aidePlatformData.GetCreateRoomInfo(userid);
         }
         /// <summary>
         /// 获取约战房间开房前50名
@@ -258,7 +258,7 @@ namespace Game.Facade
         /// <returns></returns>
         public DataSet GetCreateRoomRank()
         {
-            return aidePlatformData.GetCreateRoomRank();
+            return _aidePlatformData.GetCreateRoomRank();
         }
         #endregion
 
@@ -270,7 +270,7 @@ namespace Game.Facade
         /// <returns></returns>
         public long GetTotalCreateRoomDiamond(string where)
         {
-            return aidePlatformData.GetTotalCreateRoomDiamond(where);
+            return _aidePlatformData.GetTotalCreateRoomDiamond(where);
         }
         /// <summary>
         /// 获取创建房间数量
@@ -279,16 +279,16 @@ namespace Game.Facade
         /// <returns></returns>
         public long GetTotalCreateRoomTable(string where)
         {
-            return aidePlatformData.GetTotalCreateRoomTable(where);
+            return _aidePlatformData.GetTotalCreateRoomTable(where);
         }
         /// <summary>
         /// 获取AA创建房间钻石统计
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public long GetAATotalCreateRoomDiamond(string where)
+        public long GetAaTotalCreateRoomDiamond(string where)
         {
-            return aidePlatformData.GetAATotalCreateRoomDiamond(where);
+            return _aidePlatformData.GetAaTotalCreateRoomDiamond(where);
         }
         /// <summary>
         /// 获取在线人数统计
@@ -298,7 +298,7 @@ namespace Game.Facade
         /// <returns></returns>
         public IList<StatisticsOnline> GetUserOnlineStatistics(string sTime, string eTime)
         {
-            return aidePlatformData.GetUserOnlineStatistics(sTime, eTime);
+            return _aidePlatformData.GetUserOnlineStatistics(sTime, eTime);
         }
         #endregion
     }

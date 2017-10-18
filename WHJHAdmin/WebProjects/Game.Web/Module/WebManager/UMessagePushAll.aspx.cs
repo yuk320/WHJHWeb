@@ -88,7 +88,7 @@ namespace Game.Web.Module.WebManager
                             int gameid = CtrlHelper.GetInt(txtGameID, 0);
                             if(gameid != 0)
                             {
-                                AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameID(gameid);
+                                AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameid);
                                 if(info == null)
                                 {
                                     MessageBox("推送消息失败，代理商游戏id不存在");

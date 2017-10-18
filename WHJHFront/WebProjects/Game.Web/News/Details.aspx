@@ -28,9 +28,10 @@
                 <div class="ui-block-title"><span></span></div>                               
                 <div class="ui-top-box"></div>
                 <div class="ui-content-box">
-                    <h1><%=Title %></h1>
-                    <p>新闻来源：<%=Resource %>&emsp;发布时间：<%=Time %></p>
-                    <div><%=Content %></div>
+                    <h1><%=NewsTitle %></h1>
+                    <p style="padding-bottom: 10px;">新闻来源：<%=Resource %>&emsp;发布时间：<%=Time %></p>
+                    <hr/>
+                    <div style="padding-top: 20px;"><%=Content %></div>
                 </div>
                 <div class="ui-bottom-box"></div>
             </div>

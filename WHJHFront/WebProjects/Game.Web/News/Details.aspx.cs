@@ -12,7 +12,7 @@ namespace Game.Web.News
         protected string Time = string.Empty;
         protected string Content = string.Empty;
         protected string Intro = string.Empty;
-
+        protected string NewsTitle;
         /// <summary>
         /// 加载页面标签
         /// </summary>
@@ -26,7 +26,7 @@ namespace Game.Web.News
                 SystemNotice notice = FacadeManage.aideNativeWebFacade.GetWebNewsInfo(noticeid);
                 if(notice != null)
                 {
-                    Title = notice.NoticeTitle;
+                    NewsTitle = notice.NoticeTitle;
                     Resource = notice.Publisher;
                     Time = notice.PublisherTime.ToString("yyyy-MM-dd");
                     Content = notice.WebContent;
@@ -34,7 +34,7 @@ namespace Game.Web.News
                 }
             }
             //设置页面标签
-            AddMetaTitle(string.IsNullOrEmpty(Title) ? "新闻公告" : Title);
+            AddMetaTitle(string.IsNullOrEmpty(NewsTitle) ? "新闻公告" : NewsTitle);
             AddMetaTag("keywords", AppConfig.PageKey);
             AddMetaTag("description", string.IsNullOrEmpty(Intro) ? AppConfig.PageDescript : Intro);
         }

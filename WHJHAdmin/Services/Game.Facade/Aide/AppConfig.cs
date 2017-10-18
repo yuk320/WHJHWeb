@@ -1,6 +1,4 @@
-﻿using System;
-using Game.Utils;
-
+﻿// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     public class AppConfig
@@ -33,7 +31,7 @@ namespace Game.Facade
         /// <summary>
         /// ip地址库缓存
         /// </summary>
-        public const string IPSessionKey = "IPSKCache";
+        public const string IpSessionKey = "IPSKCache";
         #endregion 常量
     }
 }

@@ -161,7 +161,7 @@ namespace Game.Web.Module.Diamond
         /// <returns></returns>
         public string GetAccountsInfo(int userid)
         {
-            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserID(userid);
+            AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
             if(info != null)
             {
                 return string.Format("<td>{0}</td><td>{1}</td>", info.GameID, info.NickName);
@@ -189,7 +189,7 @@ namespace Game.Web.Module.Diamond
             rptDataList.DataSource = pagerSet.PageSet;
             rptDataList.DataBind();
 
-            lbTotal.Text = FacadeManage.aidePlatformFacade.GetAATotalCreateRoomDiamond(SearchItems).ToString();
+            lbTotal.Text = FacadeManage.aidePlatformFacade.GetAaTotalCreateRoomDiamond(SearchItems).ToString();
             lbWait.Text = FacadeManage.aidePlatformFacade.GetTotalCreateRoomTable(SearchItems + " AND RoomStatus=0").ToString();
             lbGame.Text = FacadeManage.aidePlatformFacade.GetTotalCreateRoomTable(SearchItems + " AND RoomStatus=1").ToString();
         }

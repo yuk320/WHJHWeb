@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
-
+using Game.Entity.Accounts;
 using Game.Web.UI;
 using Game.Kernel;
 using Game.Utils;
@@ -175,6 +175,18 @@ namespace Game.Web.Module.GoldManager
                 default:
                     return "人满为患";
             }
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        protected string GetAccountsInfo(int userid)
+        {
+            AccountsInfo userInfo = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userid);
+            if (userInfo == null || userInfo.UserID == 0) return "";
+            return $"{userInfo.UserID}|{userInfo.GameID}|{userInfo.NickName}";
         }
         /// <summary>
         /// 查询条件

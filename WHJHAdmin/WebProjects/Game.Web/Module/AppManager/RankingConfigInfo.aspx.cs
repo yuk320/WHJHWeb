@@ -37,7 +37,7 @@ namespace Game.Web.Module.AppManager
             if(IntParam > 0)
             {
                 AuthUserOperationPermission(Permission.Edit);
-                config = FacadeManage.aideNativeWebFacade.GetRankingConfigByID(IntParam);
+                config = FacadeManage.aideNativeWebFacade.GetRankingConfigById(IntParam);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Game.Web.Module.AppManager
         {
             if(IntParam > 0)
             {
-                RankingConfig config = FacadeManage.aideNativeWebFacade.GetRankingConfigByID(IntParam);
+                RankingConfig config = FacadeManage.aideNativeWebFacade.GetRankingConfigById(IntParam);
                 if(config != null)
                 {
                     CtrlHelper.SetText(txtDiamond, config.Diamond.ToString());

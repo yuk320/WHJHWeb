@@ -98,7 +98,10 @@
                 </td>
                 <td class="listTitle2">
                     代理等级
-                </td>   
+                </td> 
+                <td class="listTitle2">
+                    直属上级
+                </td>  
                 <td class="listTitle2">
                     携带钻石
                 </td>  
@@ -140,7 +143,10 @@
                         </td>      
                         <td>
                             <%# Eval( "AgentLevel" ).ToString()=="1"?"一级代理":Eval( "AgentLevel" ).ToString()=="2"?"二级代理":"三级代理" %>
-                        </td>    
+                        </td>   
+                        <td>
+                            <%# GetAgentInfo( Convert.ToInt32( Eval( "ParentAgent" ) ) ) %>
+                        </td>     
                         <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %>  
                         <td>
                             <%# GetNullityStatus(Convert.ToByte(Eval( "Nullity" ))) %>
@@ -170,6 +176,9 @@
                         <td>
                             <%# Eval( "AgentLevel" ).ToString()=="1"?"一级代理":Eval( "AgentLevel" ).ToString()=="2"?"二级代理":"三级代理" %>
                         </td>  
+                        <td>
+                            <%# GetAgentInfo( Convert.ToInt32( Eval( "ParentAgent" ) ) ) %>
+                        </td>
                         <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %> 
                         <td>
                             <%# GetNullityStatus(Convert.ToByte(Eval( "Nullity" ))) %>
