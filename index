@@ -1,22 +1,98 @@
 #!/usr/bin/env node
 
-'use strict';
-const start = process.argv[2]?new Date(process.argv[2]):null;
-const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(),8);
-const tomorrow = new Date(today.getTime() + 86400 * 1000)
+console.time("Total");
+console.info("全自动化工具运行中...");
+let allCount = 0;
+const package = require('./package');
+const start = process.argv[2] ? new Date(process.argv[2]) : null;
+const DATE_TODAY = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+const DATE_TOMORROW = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1);
+const COMMON_IGNORE = ['node_modules/**/*','完整包/**/*','更新包/**/*','.gitignore','package.json','index','pickup']
 const fs = require('fs-extra');
 const path = require('path');
-const util = require('util');
 const exec = require('child_process').exec;
 const fextract = require('files-extractor');
 const STATUS = fextract.STATUS;
+const CODE_VERSION = 'V' + package.version;
+const PRODUCT_NAME = package.product_name;
 const eventproxy = require('eventproxy');
 const async = require('async');
-const opts = {
-  start: start||today,
-  end: new Date(today.getTime() + 86400 * 1000)
+
+/**
+ * Pad start string with 0
+ *
+ * @param {String} value
+ * @param {Number} length
+ * @param {String} pad
+ * @returns {String}
+ */
+const pad = String.prototype.padStart ? function (value, length, pad) {
+  return String.prototype.padStart.call(String(value), length, pad || '0');
+} : function (value, length, pad) {
+  value = String(value);
+  length = length >> 0;
+  pad = pad || '0';
+
+  if (value.length > length) {
+    return value;
+  } else {
+    length = length - value.length;
+
+    if (length > pad.length) {
+      pad += pad.repeat(length / pad.length);
+    }
+
+    return pad.slice(0, length) + value;
+  }
+}
+/**
+ * Format date
+ *
+ * @param {Date} date
+ * @returns {String}
+ */
+const formatDate = function (date, easy = false) {
+  let year = date.getFullYear();
+  let month = pad(date.getMonth() + 1, 2);
+  let day = pad(date.getDate(), 2);
+  let hour = pad(date.getHours(), 2);
+  let minutes = pad(date.getMinutes(), 2);
+  let seconds = pad(date.getSeconds(), 2);
+
+  return easy ? `${year}${month}${day}` : `${ year }-${ month }-${ day } ${ hour }.${ minutes }.${ seconds }`;
+}
+        
+const getDirObj = function (opts) {
+  // console.info(opts.start.toISOString(),opts.end.toISOString());
+  let originDirName = formatDate(opts.start) + ' & ' + formatDate(opts.end);
+  let timeFix = formatDate(opts.end, true);
+  let terminDirName = `${PRODUCT_NAME.replace('源码包',opts.tag+opts.output)}-${CODE_VERSION}-${timeFix}`;
+  let originDirPath = path.join(__dirname, opts.output, originDirName);
+  let terminDirPath = originDirPath.replace(originDirName, terminDirName);
+  return {
+    originDirName: originDirName,
+    terminDirName: terminDirName,
+    originDirPath: originDirPath,
+    terminDirPath: terminDirPath    
+  };
+}
+let optsCodeDiff = {
+  start: start || DATE_TODAY,
+  end: DATE_TOMORROW,
+  output: "更新包",
+  types:'mtime',
+  ignore:['网站发布/**/*',"**/obj/**", "**/bin/**",'**/*.user','web.config'],
+  tag:"源码"
 };
-let x;
+let optsUpdate = {
+  start: start || DATE_TODAY,
+  end: DATE_TOMORROW,
+  output: "更新包",  
+  types: 'mtime',
+  ignore:['WHJHAdmin/**/*','WHJHFront/**/*','web.config'],
+  tag:"发布"  
+};
+
 let NEED_PUBLISH_PROJS = [{
     name: "WHJHFront",
     path: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Game.Web.csproj")
@@ -26,77 +102,138 @@ let NEED_PUBLISH_PROJS = [{
     path: path.join(__dirname, "./WHJHAdmin/WebProjects/Game.Web/Game.Web.csproj")
   },
 ]
-console.time("Total");
-console.info("自动化工具启动...（发布前后台到发布目录、提取当日0点到次日0点的差异文件到.fextract文件夹、迁移差异文件中的脚本到发布目录）");
-console.time("Publish");
-let epPublish = new eventproxy();
-epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
-  console.timeEnd("Publish");
-  x = fextract(opts);
 
+const codeDiffExtract = function (cb) {
+  console.time("CodeDiff");
+  allCount++;
+  let diffDirObj = getDirObj(optsCodeDiff);
+  COMMON_IGNORE.forEach(ignore=>{
+    optsCodeDiff.ignore.push(ignore);    
+  });
+  let x = fextract(optsCodeDiff);
   x.on('message', msg => {
     switch (msg.status) {
       case STATUS.FAILED:
         console.error(msg.data);
-        break;
+        return cb(err);
       case STATUS.WARNING:
         console.warn(msg.data);
         break;
       case STATUS.BOOTSTRAP:
+        console.info(`Step_${allCount} [源码更新]文件提取启动 `);
         console.time("Files Search");
         break;
       case STATUS.SEARCHED:
         console.timeEnd("Files Search");
+        console.info(`Step_${allCount}_1 [源码更新]文件搜索完成 `);
         console.time("Files Filter");
         break;
       case STATUS.FILTERED:
         console.timeEnd("Files Filter");
+        console.info(`Step_${allCount}_2 [源码更新]文件过滤完成 `);
         console.time("Files Extract");
-        if (Array.isArray(msg.data)) {
-          console.time('Sqls Copy');
-          let epSql = new eventproxy();
-          epSql.after('sqlscript', msg.data.length, sqlscript => {
-            let flagObj = {
-              true: 0,
-              false: 0
-            };
-            sqlscript.forEach(flag => {
-              flagObj[flag]++;
-            });
-            console.timeEnd("Sqls Copy");
-            console.info(`项目文件数量: ${flagObj['false']} 脚本数量: ${flagObj['true']} `);
-          })
-          msg.data.forEach(function (_path) {
-            if (_path.indexOf('脚本代码') > -1) {
-              let originPath = path.join(__dirname, _path);
-              let mvPath = path.join(__dirname, '../../../../最新发布包/网狐精华版演示平台/' + _path);
-              // console.info(originPath, mvPath);
-              fs.copySync(originPath, mvPath, {
-                preserveTimestamps: true
-              });
-              epSql.emit('sqlscript', true);
-            } else {
-              epSql.emit('sqlscript', false);
-            }
-          });
-        }
         break;
       case STATUS.EXTRACTED:
         console.timeEnd("Files Extract");
-        console.timeEnd("Total");
-        console.info("自动化工具完成! ... 执行自动更新包提取");
-        exec("cd "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台') +" && node "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台/index '+(start||today).toISOString()),function (err,stdout,stderr){
-          console.info(stdout);
-          console.info('更新包提取完成 为您打开');
-          exec("start "+path.join(__dirname,'../../../../最新发布包/网狐精华版演示平台/更新包'));
-        });
+        console.info(`Step_${allCount}_3 [源码更新]文件提取完成 `);
+        fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
+        console.info(`Step_${allCount}_4 [源码更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
+        console.timeEnd("CodeDiff");
+        cb(null, diffDirObj.terminDirPath);
         break;
     }
   });
+};
+
+const publishDiffExtract = function (cb) {
+  console.time("PublishDiff");
+  allCount++;
+  let diffDirObj = getDirObj(optsUpdate);
+  COMMON_IGNORE.forEach(ignore=>{
+    optsUpdate.ignore.push(ignore);    
+  });
+  mvList = [];
+  let x = fextract(optsUpdate);
+  x.on('message', msg => {
+    switch (msg.status) {
+      case STATUS.FAILED:
+        console.error(msg.data);
+        return cb(err);
+      case STATUS.WARNING:
+        console.warn(msg.data);
+        break;
+      case STATUS.BOOTSTRAP:
+        console.info(`Step_${allCount} [发布更新]文件提取启动 `);
+        console.time("Files Search");
+        break;
+      case STATUS.SEARCHED:
+        console.timeEnd("Files Search");
+        console.info(`Step_${allCount}_1 [发布更新]文件搜索完成 `);
+        console.time("Files Filter");
+        break;
+      case STATUS.FILTERED:
+        console.timeEnd("Files Filter");
+        if (Array.isArray(msg.data)) {
+          msg.data.forEach(p=>{
+            if (p.indexOf('网站发布')>-1)mvList.push({origin:path.join(diffDirObj.originDirPath,p),termin:path.join(diffDirObj.originDirPath,p).replace('\\网站发布','')});
+          });
+        }
+        console.info(`Step_${allCount}_2 [发布更新]文件过滤完成 `);
+        console.time("Files Extract");
+        break;
+      case STATUS.EXTRACTED:
+        console.timeEnd("Files Extract");
+        console.info(`Step_${allCount}_3 [发布更新]文件提取完成 `);
+        let epUpdateStep4 = new eventproxy();
+        epUpdateStep4.once('updateStep4',function (){
+          console.info(`Step_${allCount}_4 [发布更新]文件整理完成 `);
+          fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
+          fs.remove(path.join(diffDirObj.terminDirPath,'./网站发布'),function (err){console.error(err)});          
+          console.info(`Step_${allCount}_5 [发布更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
+          console.timeEnd("PublishDiff");
+          cb(null, diffDirObj.terminDirPath);
+        })
+        if (mvList.length>0) {
+          let epUpdateStep4_1 = new eventproxy();
+          epUpdateStep4_1.after('mvList',mvList.length,function (){
+            epUpdateStep4.emit('updateStep4',true);
+          });
+          mvList.forEach(function(obj){
+            fs.move(obj.origin,obj.termin,function(err){
+              epUpdateStep4_1.emit('mvList',true);
+            });
+          });
+        } else {
+          epUpdateStep4.emit('updateStep4',false);
+        }
+        break;
+    }
+  });
+};
+
+console.time("Publish");
+let epPublish = new eventproxy();
+epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
+  console.timeEnd("Publish");
+  codeDiffExtract(function (err, completed) {
+    console.info(completed);
+    publishDiffExtract(function (err,completed){
+      console.info(completed);
+    });
+  });
+  // publishUpdateExtract(function (err,completed){
+
+  // });
+  // publishExtract(function (err,publishPath){
+  //   codeExtract(function (err,codePath){
+
+  //   });
+  // });
+
 });
 
 function publishExec(proj) {
-  let pOutPath = path.join(__dirname, '../../../../最新发布包/网狐精华版演示平台/' + proj.name);
+  let pOutPath = path.join(__dirname, './网站发布/' + proj.name);
   let MSBuild_Publish = "MSBuild " + proj.path + " /t:_WPPCopyWebApplication /p:Configuration=Release /p:WebProjectOutputDir=" + pOutPath;
 
   exec(MSBuild_Publish, {

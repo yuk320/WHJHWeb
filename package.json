@@ -1,6 +1,7 @@
 {
   "name": "whjhweb",
-  "version": "1.0.0",
+  "product_name":"网狐棋牌精华版-源码包",
+  "version": "1.0.1",
   "main": "index",
   "dependencies": {
     "async": "^2.5.0",
@@ -9,7 +10,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "auto": "node index"
+    "auto": "node index",
+    "pickup" : "node pickup",
+    "all": "node index && node pickup"
   },
   "repository": {
     "type": "git",

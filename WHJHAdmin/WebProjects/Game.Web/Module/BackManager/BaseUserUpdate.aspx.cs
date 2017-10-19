@@ -36,8 +36,8 @@ namespace Game.Web.Module.BackManager
         {
             string oldLogonPass = Utility.MD5(CtrlHelper.GetText(txtOldLogonPass));
             string oldConfirmLogonPass = CtrlHelper.GetText(hdfOldLogonPass);
-            string logonPass = CtrlHelper.GetText(txtLogonPass);
-            string confirmlogonPass = CtrlHelper.GetText(txtConfirmLogonPass);
+            string logonPass = Utility.MD5(CtrlHelper.GetText(txtLogonPass));
+            string confirmlogonPass = Utility.MD5(CtrlHelper.GetText(txtConfirmLogonPass));
             if(oldLogonPass != oldConfirmLogonPass)
             {
                 MessageBox("原始密码输入错误！");

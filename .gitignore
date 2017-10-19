@@ -162,6 +162,8 @@ FakesAssemblies/
 
 
 #other 
-.extract
-node_modules
-.svn
+.extract/
+node_modules/
+.svn/
+*包/
+网站发布/

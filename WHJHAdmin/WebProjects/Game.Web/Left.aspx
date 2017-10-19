@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <link href="styles/layout.css" rel="stylesheet" type="text/css"/>
-    <script src="scripts/web-storage-cache.min.js"></script>
+    <script type="text/javascript" src="scripts/web-storage-cache.min.js"></script>
     <script type="text/javascript">
         var arrObj = {},wsCache;
 
@@ -32,8 +32,8 @@
         function ShowHide(obj) {
             var oStyle = obj.style;
             var imgId = obj.id.replace("M", "S");
-            oStyle.display == "none" ? oStyle.display = "block" : oStyle.display = "none";
-            oStyle.display == "none"
+            oStyle.display === "none" ? oStyle.display = "block" : oStyle.display = "none";
+            oStyle.display === "none"
                 ? document.getElementById(imgId).src = "/images/arrBig1.gif"
                 : document.getElementById(imgId).src = "images/arrBig.gif";
             arrObj[obj.id] = oStyle.display !== "none";
@@ -44,7 +44,7 @@
 
         function GetUrl(obj, url) {
             //加入一个随机防止OPEN的缓存
-            vNum = Math.random();
+            var vNum = Math.random();
             vNum = Math.round(vNum * 1000);
             if (url.valueOf("?") > 0) {
                 url = url + "&" + vNum;
@@ -67,8 +67,8 @@
     <ItemTemplate>
         <table cellpadding="0" cellspacing="0" width="100%" border="0">
             <tr>
-                <td class="hui f14 bold pd32 hand" height="30" onclick="JavaScript:ShowHide(M_<%# Eval("ModuleID") %>);">
-                    <img src="/images/arrBig.gif" width="11" height="11" id="S_<%# Eval("ModuleID") %>"/> <%# Eval("Title") %>
+                <td class="hui f14 bold pd32 hand" height="30" onclick="ShowHide(M_<%# Eval("ModuleID") %>);">
+                    <img src="/images/arrBig.gif" width="11" height="11" id="S_<%# Eval("ModuleID") %>" alt="<%# Eval("Title") %>"/> <%# Eval("Title") %>
                 </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
                                 <tr class="s" onclick="GetUrl(this, '<%# Eval("Link") %>')">
                                     <td width="313" height="25" align="right"></td>
                                     <td width="67" height="25">
-                                        <img src="/images/arrSmall.gif" width="8" height="7"/>
+                                        <img src="/images/arrSmall.gif" width="8" height="7" alt=""/>
                                     </td>
                                     <td width="725" height="25" align="left"><%# Eval("Title") %></td>
                                 </tr>

@@ -3,7 +3,7 @@
 -- =============================================
 IF EXISTS (SELECT * FROM sys.objects WHERE name = N'WV_GetRandom')
 DROP VIEW WV_GetRandom
-GO
+GO 
 -----------------------------------------------------------------
 CREATE VIEW WV_GetRandom
 WITH ENCRYPTION AS

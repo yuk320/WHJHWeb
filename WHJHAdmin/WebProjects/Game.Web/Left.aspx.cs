@@ -15,7 +15,7 @@ namespace Game.Web
         /// <summary>
         /// 菜单数据集
         /// </summary>
-        DataSet ds = null;
+        private DataSet _ds;
 
         /// <summary>
         /// 页面初始化
@@ -29,8 +29,8 @@ namespace Game.Web
                 return;
             }
 
-            ds = FacadeManage.aidePlatformManagerFacade.GetMenuByUserId(userExt.UserID);
-            LeftMenu.DataSource = ds.Tables[0];
+            _ds = FacadeManage.aidePlatformManagerFacade.GetMenuByUserId(userExt.UserID);
+            LeftMenu.DataSource = _ds.Tables[0];
             LeftMenu.DataBind();
         }
 
@@ -39,10 +39,10 @@ namespace Game.Web
         /// </summary>
         protected void LeftMenu_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            DataTable dt = ds.Tables[1];
+            DataTable dt = _ds.Tables[1];
             DataTable dtNew = dt.Clone();
-            int moduleID = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "ModuleID"));
-            DataRow[] drArray = dt.Select("ParentID=" + moduleID);
+            int moduleId = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "ModuleID"));
+            DataRow[] drArray = dt.Select("ParentID=" + moduleId);
 
             //复制
             foreach(DataRow dr in drArray)
@@ -52,9 +52,9 @@ namespace Game.Web
                 dtNew.Rows.Add(drNew);
             }
 
-            Repeater leftSubID = (Repeater)e.Item.FindControl("LeftMenu_Sub");
-            leftSubID.DataSource = dtNew;
-            leftSubID.DataBind();
+            Repeater leftSubId = (Repeater)e.Item.FindControl("LeftMenu_Sub");
+            leftSubId.DataSource = dtNew;
+            leftSubId.DataBind();
         }
 
     }
