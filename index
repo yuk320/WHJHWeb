@@ -6,8 +6,8 @@ let allCount = 0;
 const package = require('./package');
 const start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-const DATE_TOMORROW = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1);
-const COMMON_IGNORE = ['node_modules/**/*','完整包/**/*','更新包/**/*','.gitignore','package.json','index','pickup']
+const DATE_TOMORROW = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
+const COMMON_IGNORE = ['node_modules/**/*', '完整包/**/*', '更新包/**/*', '.gitignore', 'package.json', 'index', 'pickup']
 const fs = require('fs-extra');
 const path = require('path');
 const exec = require('child_process').exec;
@@ -61,7 +61,7 @@ const formatDate = function (date, easy = false) {
 
   return easy ? `${year}${month}${day}` : `${ year }-${ month }-${ day } ${ hour }.${ minutes }.${ seconds }`;
 }
-        
+
 const getDirObj = function (opts) {
   // console.info(opts.start.toISOString(),opts.end.toISOString());
   let originDirName = formatDate(opts.start) + ' & ' + formatDate(opts.end);
@@ -73,25 +73,37 @@ const getDirObj = function (opts) {
     originDirName: originDirName,
     terminDirName: terminDirName,
     originDirPath: originDirPath,
-    terminDirPath: terminDirPath    
+    terminDirPath: terminDirPath
   };
 }
 let optsCodeDiff = {
   start: start || DATE_TODAY,
   end: DATE_TOMORROW,
   output: "更新包",
-  types:'mtime',
-  ignore:['网站发布/**/*',"**/obj/**", "**/bin/**",'**/*.user','web.config'],
-  tag:"源码"
+  types: 'mtime',
+  ignore: ['网站发布/**/*', "**/obj/**", "**/bin/**", '**/*.user', 'web.config'],
+  tag: "源码"
 };
 let optsUpdate = {
   start: start || DATE_TODAY,
   end: DATE_TOMORROW,
-  output: "更新包",  
+  output: "更新包",
   types: 'mtime',
-  ignore:['WHJHAdmin/**/*','WHJHFront/**/*','web.config'],
-  tag:"发布"  
+  ignore: ['WHJHAdmin/**/*', 'WHJHFront/**/*', 'web.config'],
+  tag: "发布"
 };
+const optsCode = {
+  start: new Date(2017, 0, 1),
+  end: DATE_TOMORROW,
+  output: "完整包",
+  ignore: ['网站发布/**/*', "**/obj/**", "**/bin/**", '**/*.user']
+}
+const optsPublish = {
+  start: new Date(2017, 0, 1),
+  end: DATE_TOMORROW,
+  output: "完整包",
+  ignore: ['WHJHAdmin/**/*', 'WHJHFront/**/*'],
+}
 
 let NEED_PUBLISH_PROJS = [{
     name: "WHJHFront",
@@ -104,11 +116,11 @@ let NEED_PUBLISH_PROJS = [{
 ]
 
 const codeDiffExtract = function (cb) {
-  console.time("CodeDiff");
+  console.time("源码更新");
   allCount++;
   let diffDirObj = getDirObj(optsCodeDiff);
-  COMMON_IGNORE.forEach(ignore=>{
-    optsCodeDiff.ignore.push(ignore);    
+  COMMON_IGNORE.forEach(ignore => {
+    optsCodeDiff.ignore.push(ignore);
   });
   let x = fextract(optsCodeDiff);
   x.on('message', msg => {
@@ -134,23 +146,28 @@ const codeDiffExtract = function (cb) {
         console.time("Files Extract");
         break;
       case STATUS.EXTRACTED:
+      let result = null;
+      
         console.timeEnd("Files Extract");
         console.info(`Step_${allCount}_3 [源码更新]文件提取完成 `);
-        fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
-        console.info(`Step_${allCount}_4 [源码更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
-        console.timeEnd("CodeDiff");
-        cb(null, diffDirObj.terminDirPath);
+        if (fs.existsSync(diffDirObj.originDirPath)) {
+          fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
+          console.info(`Step_${allCount}_4 [源码更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
+          result = diffDirObj.terminDirPath
+        }
+        cb(null, result);
         break;
     }
   });
 };
 
 const publishDiffExtract = function (cb) {
-  console.time("PublishDiff");
+  console.time("发布更新");
   allCount++;
+  let subCount = 0;
   let diffDirObj = getDirObj(optsUpdate);
-  COMMON_IGNORE.forEach(ignore=>{
-    optsUpdate.ignore.push(ignore);    
+  COMMON_IGNORE.forEach(ignore => {
+    optsUpdate.ignore.push(ignore);
   });
   mvList = [];
   let x = fextract(optsUpdate);
@@ -168,70 +185,106 @@ const publishDiffExtract = function (cb) {
         break;
       case STATUS.SEARCHED:
         console.timeEnd("Files Search");
-        console.info(`Step_${allCount}_1 [发布更新]文件搜索完成 `);
+        subCount++;
+        console.info(`Step_${allCount}_${subCount} [发布更新]文件搜索完成 `);
         console.time("Files Filter");
         break;
       case STATUS.FILTERED:
         console.timeEnd("Files Filter");
         if (Array.isArray(msg.data)) {
-          msg.data.forEach(p=>{
-            if (p.indexOf('网站发布')>-1)mvList.push({origin:path.join(diffDirObj.originDirPath,p),termin:path.join(diffDirObj.originDirPath,p).replace('\\网站发布','')});
+          msg.data.forEach(p => {
+            if (p.indexOf('网站发布') > -1) mvList.push({
+              origin: path.join(diffDirObj.originDirPath, p),
+              termin: path.join(diffDirObj.originDirPath, p).replace('\\网站发布', '')
+            });
           });
         }
-        console.info(`Step_${allCount}_2 [发布更新]文件过滤完成 `);
+        subCount++;
+        console.info(`Step_${allCount}_${subCount} [发布更新]文件过滤完成 `);
         console.time("Files Extract");
         break;
       case STATUS.EXTRACTED:
         console.timeEnd("Files Extract");
-        console.info(`Step_${allCount}_3 [发布更新]文件提取完成 `);
+        subCount++;
+        console.info(`Step_${allCount}_${subCount} [发布更新]文件提取完成 `);
         let epUpdateStep4 = new eventproxy();
-        epUpdateStep4.once('updateStep4',function (){
-          console.info(`Step_${allCount}_4 [发布更新]文件整理完成 `);
-          fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
-          fs.remove(path.join(diffDirObj.terminDirPath,'./网站发布'),function (err){console.error(err)});          
-          console.info(`Step_${allCount}_5 [发布更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
-          console.timeEnd("PublishDiff");
-          cb(null, diffDirObj.terminDirPath);
-        })
-        if (mvList.length>0) {
-          let epUpdateStep4_1 = new eventproxy();
-          epUpdateStep4_1.after('mvList',mvList.length,function (){
-            epUpdateStep4.emit('updateStep4',true);
+        epUpdateStep4.once('updateStep4', function () {
+          let result = null;
+          if (fs.existsSync(diffDirObj.originDirPath)) {
+            fs.moveSync(diffDirObj.originDirPath, diffDirObj.terminDirPath);
+            subCount++;
+            console.info(`Step_${allCount}_${subCount} [发布更新]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
+            result = diffDirObj.terminDirPath;
+          }
+          fs.remove(path.join(diffDirObj.terminDirPath, './网站发布'), function (err) {
+            if (err) console.error(err)
+            subCount++;
+            console.info(`Step_${allCount}_${subCount} [发布更新]文件整理完成 `);
+            cb(null, result);
           });
-          mvList.forEach(function(obj){
-            fs.move(obj.origin,obj.termin,function(err){
-              epUpdateStep4_1.emit('mvList',true);
+        })
+        if (mvList.length > 0) {
+          let epUpdateStep4_1 = new eventproxy();
+          epUpdateStep4_1.after('mvList', mvList.length, function () {
+            epUpdateStep4.emit('updateStep4', true);
+          });
+          mvList.forEach(function (obj) {
+            fs.move(obj.origin, obj.termin, function (err) {
+              epUpdateStep4_1.emit('mvList', true);
             });
           });
         } else {
-          epUpdateStep4.emit('updateStep4',false);
+          epUpdateStep4.emit('updateStep4', false);
         }
         break;
     }
   });
 };
 
-console.time("Publish");
+const codeExtract = function(cb){
+  
+};
+
+const publishExtract = function(cb){
+
+};
+
+console.time("项目发布");
 let epPublish = new eventproxy();
 epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
-  console.timeEnd("Publish");
-  codeDiffExtract(function (err, completed) {
-    console.info(completed);
-    publishDiffExtract(function (err,completed){
-      console.info(completed);
+  console.info(`Step_0 项目发布完成`);
+  console.timeEnd("项目发布");
+  codeDiffExtract(function (err, codeDiffPath) {
+    console.timeEnd("源码更新");
+    let paths = [];
+    if (codeDiffPath) paths.push(codeDiffPath);
+    publishDiffExtract(function (err,publishDiffPath) {
+      console.timeEnd("发布更新");
+      if (publishDiffPath) paths.push(publishDiffPath);
+      if (paths.length>0) {
+        allCount++;
+        console.info(`Step_${allCount} [更新包]打包开始`);
+        let cmd7z = "7z a -tzip " + paths[0].replace("发布","").replace("源码","") + ".zip " + paths.join(" ");
+        console.info(cmd7z);
+        exec(cmd7z, (err, stdout, stderr) => {
+          if (err) console.info(err);
+          console.info(`Step_${allCount} [更新包]打包完成，正在为你打开更新包文件夹`);
+          console.timeEnd("Zip");
+          exec("start " + path.join(__dirname, optsCode.output));
+        });
+      } else {
+        console.info("[更新包]无需打包，因为没有需要更新的文件！")
+      }
     });
   });
-  // publishUpdateExtract(function (err,completed){
+  publishExtract(function (err,publishPath){
+    codeExtract(function (err,codePath){
 
-  // });
-  // publishExtract(function (err,publishPath){
-  //   codeExtract(function (err,codePath){
-
-  //   });
-  // });
-
+    });
+  });
 });
 
+let projCount=0;
 function publishExec(proj) {
   let pOutPath = path.join(__dirname, './网站发布/' + proj.name);
   let MSBuild_Publish = "MSBuild " + proj.path + " /t:_WPPCopyWebApplication /p:Configuration=Release /p:WebProjectOutputDir=" + pOutPath;
@@ -242,11 +295,12 @@ function publishExec(proj) {
     maxBuffer: 5000 * 1024, // 默认 200 * 1024
     killSignal: 'SIGTERM'
   }, (err, stdout, stderr) => {
-    console.info(proj.name + ' 发布完成!')
+    projCount++;
+    console.info(`Step_0_${projCount} 项目[${proj.name}] 发布完成!`)
     epPublish.emit('publish', true);
   });
 };
-
+console.info(`Step_0 项目发布启动`);
 async.each(NEED_PUBLISH_PROJS, publishExec);
 
 // console.info(opts);
