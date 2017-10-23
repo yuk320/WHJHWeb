@@ -10,9 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "auto": "node index",
-    "pickup" : "node pickup",
-    "all": "node index && node pickup"
+    "auto": "node index"
   },
   "repository": {
     "type": "git",

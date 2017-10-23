@@ -200,17 +200,17 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             //获取手机广告图
             IList<AdsMobile> plate = DataHelper.ConvertDataTableToObjects<AdsMobile>(ds.Tables[3]);
             IList<AdsMobile> alert = DataHelper.ConvertDataTableToObjects<AdsMobile>(ds.Tables[4]);
-            foreach (AdsMobile adsMobile in plate)
+            foreach (AdsMobile ads in plate)
             {
-                adsMobile.ResourceURL = adsMobile.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
-                    ? imageServerHost + adsMobile.ResourceURL
-                    : adsMobile.ResourceURL;
+                ads.ResourceURL = ads.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
+                    ? imageServerHost + ads.ResourceURL
+                    : ads.ResourceURL;
             }
-            foreach (AdsMobile adsMobile in alert)
+            foreach (AdsMobile ads in alert)
             {
-                adsMobile.ResourceURL = adsMobile.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
-                    ? imageServerHost + adsMobile.ResourceURL
-                    : adsMobile.ResourceURL;
+                ads.ResourceURL = ads.ResourceURL.IndexOf("http://", StringComparison.Ordinal) < 0
+                    ? imageServerHost + ads.ResourceURL
+                    : ads.ResourceURL;
             }
             //输出数据
             _ajv.SetValidDataValue(true);
