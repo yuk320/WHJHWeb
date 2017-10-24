@@ -101,9 +101,16 @@ const optsCode = {
 const optsRoomCard = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
-  files: "网站发布/WHJHFront/?(bin|Card|Web.config|index.html)/**/*",
+  files: "网站发布/WHJHFront/?(bin|Card)/**/*",
   output: "网站发布",
   terminDirName: "WHJHRoomCard"
+}
+const optsAPI = {
+  start: new Date(2017, 0, 1),
+  end: DATE_TOMORROW,
+  files: "网站发布/WHJHFront/?(bin|WS)/**/*",
+  output: "网站发布",
+  terminDirName: "WHJHAPI"
 }
 
 let NEED_PUBLISH_PROJS = [{
@@ -366,6 +373,71 @@ const copyRoomCard = function (cb) {
           }
         });
         if (copy.length > 0) {
+          copy.push({src:path.join(__dirname,'./网站发布/WHJHFront/index.html'),dest:path.join(dirObj.originDirPath,'./index.html')});
+          copy.push({src:path.join(__dirname,'./网站发布/WHJHFront/Web.config'),dest:path.join(dirObj.originDirPath,'./Web.config')});
+          let epRCMove = eventproxy();
+          epRCMove.after('moved', copy.length, moved => {
+            epRCReady.emit('ready', true);
+          });
+          copy.forEach(obj => {
+            fs.copySync(obj.src, obj.dest, {
+              preserveTimestamps: true
+            });
+            epRCMove.emit('moved', true);
+          });
+        } else {
+          epRCReady.emit('ready', true);
+        }
+        break;
+    }
+  });
+};
+
+const copyAPI = function (cb) {
+  let dirObj = getDirObj(optsAPI);
+  let copy = [];
+  let x = fextract(optsAPI);
+  x.on('message', msg => {
+    switch (msg.status) {
+      case STATUS.FAILED:
+        console.error(msg.data);
+        return cb(err);
+      case STATUS.WARNING:
+        console.warn(msg.data);
+        break;
+      case STATUS.BOOTSTRAP:
+      case STATUS.SEARCHED:
+      case STATUS.FILTERED:
+        if (Array.isArray(msg.data)) {
+          msg.data.forEach(p => {
+            let obj = {
+              src: path.join(dirObj.originDirPath, p),
+              dest: path.join(dirObj.originDirPath, p.replace('网站发布/WHJHFront/', ''))
+            };
+            // console.info(obj);
+            copy.push(obj);
+          });
+        }
+        break;
+      case STATUS.EXTRACTED:
+        let result = null;
+        let epRCReady = eventproxy();
+        epRCReady.once("ready", ready => {
+          if (fs.existsSync(dirObj.originDirPath)) {
+            fs.removeSync(path.join(dirObj.originDirPath, './网站发布'));
+            fs.copySync(dirObj.originDirPath, dirObj.terminDirPath, {
+              preserveTimestamps: true
+            });
+            fs.removeSync(dirObj.originDirPath);
+            result = {
+              name: dirObj.terminDirName,
+              path: dirObj.terminDirPath
+            };
+            cb(null, result);
+          }
+        });
+        if (copy.length > 0) {
+          copy.push({src:path.join(__dirname,'./网站发布/WHJHFront/Web.config'),dest:path.join(dirObj.originDirPath,'./Web.config')});
           let epRCMove = eventproxy();
           epRCMove.after('moved', copy.length, moved => {
             epRCReady.emit('ready', true);
@@ -476,7 +548,19 @@ function publishExec(proj) {
         }
         projCount++;
         console.info(`Step_0_${projCount} 项目[${result.name}] 发布完成!`);
-        epPublish.emit('publish', true);
+        if (package.otherAPI) {
+          copyAPI(function (err, result){
+            if (err) {
+              console.error(err);
+              return;
+            }
+            projCount++;
+            console.info(`Step_0_${projCount} 项目[${result.name}] 发布完成!`);
+            epPublish.emit('publish', true);
+          });
+        } else {
+          epPublish.emit('publish', true);          
+        }
       });
     } else {
       epPublish.emit('publish', true);
