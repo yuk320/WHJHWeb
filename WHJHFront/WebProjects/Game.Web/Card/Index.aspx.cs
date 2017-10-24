@@ -26,7 +26,7 @@ namespace Game.Web.Card
                     string domain = "http://"+ (string.IsNullOrEmpty(AppConfig.FrontSiteDomain)
                     ? GameRequest.GetCurrentFullHost()
                     : AppConfig.FrontSiteDomain);
-                    Response.Redirect(domain+AppConfig.AuthorizeURL + "?url=/Card/Index.aspx?code=1001");
+                    Response.Redirect(domain+AppConfig.AuthorizeURL + "?url=http://"+GameRequest.GetCurrentFullHost()+"/Card/Index.aspx?code=1001");
                     return;
                 }
                 else
@@ -57,7 +57,7 @@ namespace Game.Web.Card
                         Response.Write("<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" + msg.Content + "</div>");
                         return;
                     }
-                }
+                } 
 #endif
             }
         }

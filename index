@@ -65,7 +65,7 @@ const formatDate = function (date, easy = false) {
 const getDirObj = function (opts) {
   // console.info(opts.start.toISOString(),opts.end.toISOString());
   let originDirName = formatDate(opts.start) + ' & ' + formatDate(opts.end);
-  let terminDirName = `${PRODUCT_NAME.replace('源码包',opts.tag+opts.output)}-${CODE_VERSION}-${formatDate(opts.end, true)}`;
+  let terminDirName = opts.terminDirName || `${PRODUCT_NAME.replace('源码包',opts.tag+opts.output)}-${CODE_VERSION}-${formatDate(opts.end, true)}`;
   let originDirPath = path.join(__dirname, opts.output, originDirName);
   let terminDirPath = originDirPath.replace(originDirName, terminDirName);
   return {
@@ -98,11 +98,12 @@ const optsCode = {
   ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", '**/*.user'],
   tag: ""
 }
-const optsPublish = {
+const optsRoomCard = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
-  output: "完整包",
-  ignore: ['WHJHAdmin/**/*', 'WHJHFront/**/*'],
+  files: "网站发布/WHJHFront/?(bin|Card|Web.config|index.html)/**/*",
+  output: "网站发布",
+  terminDirName: "WHJHRoomCard"
 }
 
 let NEED_PUBLISH_PROJS = [{
@@ -307,10 +308,12 @@ const codeExtract = function (cb) {
         console.timeEnd("Files Extract");
         console.info(`Step_${allCount}_${subCount} [源码完整]文件提取完成 `);
         if (fs.existsSync(diffDirObj.originDirPath)) {
-          subCount++;          
-          fs.copySync(diffDirObj.originDirPath, diffDirObj.terminDirPath,{preserveTimestamps:true});
+          subCount++;
+          fs.copySync(diffDirObj.originDirPath, diffDirObj.terminDirPath, {
+            preserveTimestamps: true
+          });
           console.info(`Step_${allCount}_${subCount} [源码完整]文件夹重命名成功 {${diffDirObj.originDirName}} > {${diffDirObj.terminDirName}} `);
-          fs.removeSync(diffDirObj.originDirPath);          
+          fs.removeSync(diffDirObj.originDirPath);
           result = diffDirObj.terminDirPath
         }
         cb(null, result);
@@ -319,9 +322,72 @@ const codeExtract = function (cb) {
   });
 };
 
-const publishExtract = function (cb) {
-  cb();
+const copyRoomCard = function (cb) {
+  let dirObj = getDirObj(optsRoomCard);
+  let copy = [];
+  let x = fextract(optsRoomCard);
+  x.on('message', msg => {
+    switch (msg.status) {
+      case STATUS.FAILED:
+        console.error(msg.data);
+        return cb(err);
+      case STATUS.WARNING:
+        console.warn(msg.data);
+        break;
+      case STATUS.BOOTSTRAP:
+      case STATUS.SEARCHED:
+      case STATUS.FILTERED:
+        if (Array.isArray(msg.data)) {
+          msg.data.forEach(p => {
+            let obj = {
+              src: path.join(dirObj.originDirPath, p),
+              dest: path.join(dirObj.originDirPath, p.replace('网站发布/WHJHFront/', ''))
+            };
+            // console.info(obj);
+            copy.push(obj);
+          });
+        }
+        break;
+      case STATUS.EXTRACTED:
+        let result = null;
+        let epRCReady = eventproxy();
+        epRCReady.once("ready", ready => {
+          if (fs.existsSync(dirObj.originDirPath)) {
+            fs.removeSync(path.join(dirObj.originDirPath, './网站发布'));
+            fs.copySync(dirObj.originDirPath, dirObj.terminDirPath, {
+              preserveTimestamps: true
+            });
+            fs.removeSync(dirObj.originDirPath);
+            result = {
+              name: dirObj.terminDirName,
+              path: dirObj.terminDirPath
+            };
+            cb(null, result);
+          }
+        });
+        if (copy.length > 0) {
+          let epRCMove = eventproxy();
+          epRCMove.after('moved', copy.length, moved => {
+            epRCReady.emit('ready', true);
+          });
+          copy.forEach(obj => {
+            fs.copySync(obj.src, obj.dest, {
+              preserveTimestamps: true
+            });
+            epRCMove.emit('moved', true);
+          });
+        } else {
+          epRCReady.emit('ready', true);
+        }
+        break;
+    }
+  });
 };
+if (fs.existsSync(path.join(__dirname,'./网站发布'))){
+  console.time("项目清理");
+  fs.removeSync(path.join(__dirname,'./网站发布'));
+  console.timeEnd("项目清理");
+}
 console.time("项目发布");
 let epPublish = new eventproxy();
 epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
@@ -401,8 +467,20 @@ function publishExec(proj) {
     killSignal: 'SIGTERM'
   }, (err, stdout, stderr) => {
     projCount++;
-    console.info(`Step_0_${projCount} 项目[${proj.name}] 发布完成!`)
-    epPublish.emit('publish', true);
+    console.info(`Step_0_${projCount} 项目[${proj.name}] 发布完成!`);
+    if (proj.name === 'WHJHFront' && package.otherRoomCard) {
+      copyRoomCard(function (err, result) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        projCount++;
+        console.info(`Step_0_${projCount} 项目[${result.name}] 发布完成!`);
+        epPublish.emit('publish', true);
+      });
+    } else {
+      epPublish.emit('publish', true);
+    }
   });
 };
 console.info(`Step_0 项目发布启动`);

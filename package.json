@@ -8,6 +8,8 @@
     "eventproxy": "^1.0.0",
     "files-extractor": "^0.3.3"
   },
+  "otherRoomCard":true,
+  "otherAPI":true,
   "devDependencies": {},
   "scripts": {
     "auto": "node index"

@@ -251,6 +251,7 @@
     <Content Include="image\top-bg-min.png" />
     <Content Include="image\top-bg.png" />
     <Content Include="Index.aspx" />
+    <Content Include="index.html" />
     <Content Include="js\baidumap\baidumap.js" />
     <Content Include="js\commom.js" />
     <Content Include="js\index.js" />
