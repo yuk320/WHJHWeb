@@ -42,7 +42,7 @@ namespace Game.Web.Mobile
                     {
                         return;
                     }
-                    Nickname = info.NickName.Length > 6 ? (info.NickName.Substring(0, 6)+"...") : info.NickName;
+                    Nickname = info.NickName.Length > 9 ? (info.NickName.Substring(0, 6)+"...") : info.NickName;
                     GameRule rule = FacadeManage.aideNativeWebFacade.GetGameRuleInfo(Kindid);
                     if(rule != null)
                     {
