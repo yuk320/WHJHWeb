@@ -64,7 +64,7 @@ namespace Game.Web.Module.FilledManager
                 }
             }
             //验证首充是否重复
-            if(config.PayIdentity == 2)
+            if(config.PayIdentity == 2&& IntParam == 0)
             {
                 where = $"WHERE PayType = {config.PayType} AND PayIdentity = 2";
                 if(FacadeManage.aideTreasureFacade.IsExistAppPayConfig(where))

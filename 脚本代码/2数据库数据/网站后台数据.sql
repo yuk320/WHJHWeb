@@ -13,7 +13,6 @@ INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], [Nullity], [IsMenu], [Description], [ManagerPopedom]) VALUES (8, 0, N'后台系统', N'', 8, 0, 1, N'', 0)
 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (100, 1, N'用户管理', N'/Module/AccountManager/AccountsList.aspx', 0, 0, 1, N'', 0)
-INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (101, 1, N'积分管理', N'/Module/AccountManager/AccountsScoreList.aspx', 0, 0, 2, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (102, 1, N'限制管理', N'/Module/AccountManager/ConfineAddressList.aspx', 0, 0, 4, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (103, 1, N'代理管理', N'/Module/AgentManager/AgentUserList.aspx', 0, 0, 1, N'', 0)
 
@@ -69,8 +68,6 @@ INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [Permission
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (100, N'赠送靓号', 256, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (100, N'冻/解', 8192, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (100, N'设置权限/取消权限', 524288, 0, 0, 1)
-
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (101, N'查看', 1, 0, 0, 1)
 
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'查看', 1, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'添加', 2, 0, 0, 1)
