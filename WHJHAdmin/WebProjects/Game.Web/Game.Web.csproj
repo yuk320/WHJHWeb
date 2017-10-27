@@ -106,7 +106,6 @@
     <Content Include="LoginOut.aspx" />
     <Content Include="Module\AccountManager\AccountsBaseInfo.aspx" />
     <Content Include="Module\AccountManager\AccountsList.aspx" />
-    <Content Include="Module\AccountManager\AccountsScoreList.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressInfo.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressList.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressTop.aspx" />
@@ -147,9 +146,9 @@
     <Content Include="Module\BackManager\BaseUserInfo.aspx" />
     <Content Include="Module\BackManager\BaseUserList.aspx" />
     <Content Include="Module\BackManager\BaseUserUpdate.aspx" />
-    <Content Include="Module\DataStatistics\BankRevenue.aspx" />
+    <Content Include="Module\DataStatistics\DailyRevenue.aspx" />
     <Content Include="Module\DataStatistics\DiamondDistribute.aspx" />
-    <Content Include="Module\DataStatistics\GameRevenue.aspx" />
+    <Content Include="Module\DataStatistics\DailyWaste.aspx" />
     <Content Include="Module\DataStatistics\SystemStat.aspx" />
     <Content Include="Module\DataStatistics\UserOnline.aspx" />
     <Content Include="Module\DataStatistics\UserRegister.aspx" />
@@ -470,13 +469,6 @@
     <Compile Include="Module\AccountManager\AccountsList.aspx.designer.cs">
       <DependentUpon>AccountsList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Module\AccountManager\AccountsScoreList.aspx.cs">
-      <DependentUpon>AccountsScoreList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Module\AccountManager\AccountsScoreList.aspx.designer.cs">
-      <DependentUpon>AccountsScoreList.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Module\AccountManager\ConfineAddressInfo.aspx.cs">
       <DependentUpon>ConfineAddressInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -757,12 +749,12 @@
     <Compile Include="Module\BackManager\BaseUserUpdate.aspx.designer.cs">
       <DependentUpon>BaseUserUpdate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Module\DataStatistics\BankRevenue.aspx.cs">
-      <DependentUpon>BankRevenue.aspx</DependentUpon>
+    <Compile Include="Module\DataStatistics\DailyRevenue.aspx.cs">
+      <DependentUpon>DailyRevenue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Module\DataStatistics\BankRevenue.aspx.designer.cs">
-      <DependentUpon>BankRevenue.aspx</DependentUpon>
+    <Compile Include="Module\DataStatistics\DailyRevenue.aspx.designer.cs">
+      <DependentUpon>DailyRevenue.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\DataStatistics\DiamondDistribute.aspx.cs">
       <DependentUpon>DiamondDistribute.aspx</DependentUpon>
@@ -771,12 +763,12 @@
     <Compile Include="Module\DataStatistics\DiamondDistribute.aspx.designer.cs">
       <DependentUpon>DiamondDistribute.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Module\DataStatistics\GameRevenue.aspx.cs">
-      <DependentUpon>GameRevenue.aspx</DependentUpon>
+    <Compile Include="Module\DataStatistics\DailyWaste.aspx.cs">
+      <DependentUpon>DailyWaste.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Module\DataStatistics\GameRevenue.aspx.designer.cs">
-      <DependentUpon>GameRevenue.aspx</DependentUpon>
+    <Compile Include="Module\DataStatistics\DailyWaste.aspx.designer.cs">
+      <DependentUpon>DailyWaste.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\DataStatistics\SystemStat.aspx.cs">
       <DependentUpon>SystemStat.aspx</DependentUpon>

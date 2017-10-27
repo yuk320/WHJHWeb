@@ -4,22 +4,24 @@ GO
 TRUNCATE TABLE ConfigInfo
 GO
 
-INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'GameAndroidConfig',N'安卓大厅配置',
-N'参数说明
-字段1：下载地址 
-字段2：大厅版本号
-字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.apk',N'V1.0',N'0',N'',2)
-INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'GameIosConfig',N'苹果大厅配置',
-N'参数说明
-字段1：下载地址   
-字段2：大厅版本号 
-字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.ipa',N'V1.0',N'0',N'',3)
-INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'MobilePlatformVersion',N'移动版大厅配置',
+-- INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'GameAndroidConfig',N'安卓大厅配置',
+-- N'参数说明
+-- 字段1：下载地址 
+-- 字段2：大厅版本号
+-- 字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.apk',N'V1.0',N'0',N'',2)
+-- INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,SortID) VALUES(N'GameIosConfig',N'苹果大厅配置',
+-- N'参数说明
+-- 字段1：下载地址   
+-- 字段2：大厅版本号 
+-- 字段3：大厅否强制更新 1：是 0：否',N'http://jh.foxuc.net/Download/Plaza.ipa',N'V1.0',N'0',N'',3)
+INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,Field5,Field6,SortID) VALUES(N'MobilePlatformVersion',N'移动版大厅配置',
 N'参数说明
 字段1：热更新下载路径   
 字段2：大厅版本号 
 字段3：资源版本号
-字段4：ios企业版本的下载地址',N'http://jh.foxuc.net/Download/',N'0',N'0',N'',4)
+字段4：ios企业版本的下载地址
+字段5：苹果大厅下载地址
+字段6：安卓大厅下载地址',N'http://jh.foxuc.net/Download/',N'0',N'0',N'',N'http://jh.foxuc.net/Download/GloryProject-mobile.ipa',N'http://jh.foxuc.net/Download/NewGloryPlaza-debug.apk',4)
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,Field5,Field6,Field7,Field8,SortID) VALUES(N'SysCustomerService',N'系统客服配置',
 N'参数说明
 字段1：客服电话   

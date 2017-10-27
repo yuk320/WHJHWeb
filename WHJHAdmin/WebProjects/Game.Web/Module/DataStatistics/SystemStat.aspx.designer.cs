@@ -49,6 +49,33 @@ namespace Game.Web.Module.DataStatistics {
         protected global::System.Web.UI.WebControls.Literal ltAllCount;
         
         /// <summary>
+        /// ltMobileRegister 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltMobileRegister;
+        
+        /// <summary>
+        /// ltWebShareRegister 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltWebShareRegister;
+        
+        /// <summary>
+        /// ltH5Register 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltH5Register;
+        
+        /// <summary>
         /// ltScore 控件。
         /// </summary>
         /// <remarks>
@@ -83,6 +110,24 @@ namespace Game.Web.Module.DataStatistics {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal fkTotal;
+        
+        /// <summary>
+        /// ltTotalDiamondUp 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltTotalDiamondUp;
+        
+        /// <summary>
+        /// ltTotalDiamondDown 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltTotalDiamondDown;
         
         /// <summary>
         /// fkRMBPay 控件。
@@ -130,6 +175,15 @@ namespace Game.Web.Module.DataStatistics {
         protected global::System.Web.UI.WebControls.Literal fkExchScore;
         
         /// <summary>
+        /// ltTotalGoldUp 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltTotalGoldUp;
+        
+        /// <summary>
         /// ltRegPresent 控件。
         /// </summary>
         /// <remarks>
@@ -137,96 +191,6 @@ namespace Game.Web.Module.DataStatistics {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltRegPresent;
-        
-        /// <summary>
-        /// ltAgentRegPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltAgentRegPresent;
-        
-        /// <summary>
-        /// ltDBPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltDBPresent;
-        
-        /// <summary>
-        /// ltQDPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltQDPresent;
-        
-        /// <summary>
-        /// ltRWPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltRWPresent;
-        
-        /// <summary>
-        /// ltSMPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltSMPresent;
-        
-        /// <summary>
-        /// ltDayPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltDayPresent;
-        
-        /// <summary>
-        /// ltMatchPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltMatchPresent;
-        
-        /// <summary>
-        /// ltDJPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltDJPresent;
-        
-        /// <summary>
-        /// ltSharePresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltSharePresent;
-        
-        /// <summary>
-        /// ltLotteryPresent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltLotteryPresent;
         
         /// <summary>
         /// ltWebPresent 控件。
@@ -238,6 +202,15 @@ namespace Game.Web.Module.DataStatistics {
         protected global::System.Web.UI.WebControls.Literal ltWebPresent;
         
         /// <summary>
+        /// ltExchGold 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltExchGold;
+        
+        /// <summary>
         /// ltRevenue 控件。
         /// </summary>
         /// <remarks>
@@ -245,6 +218,15 @@ namespace Game.Web.Module.DataStatistics {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltRevenue;
+        
+        /// <summary>
+        /// ltGameRevenue 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltGameRevenue;
         
         /// <summary>
         /// ltTransferRevenue 控件。

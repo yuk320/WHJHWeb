@@ -54,8 +54,7 @@
                 赠送靓号ID：
             </td>
             <td>
-                <asp:DropDownList ID="ddlGameID" runat="server" Width="156px">
-                </asp:DropDownList>
+                <asp:TextBox runat="server" ID="txtGameID" TabIndex="1"></asp:TextBox>
                 <asp:Button ID="btnRefresh" runat="server" Text="刷新靓号" OnClick="btnRefresh_Click" />
                 <input type="button" value="赠送记录" onclick="openWindowOwn('RecordGrantGameID.aspx?param=' + GetRequest('param', 0), '', 600, 400);" />
             </td>

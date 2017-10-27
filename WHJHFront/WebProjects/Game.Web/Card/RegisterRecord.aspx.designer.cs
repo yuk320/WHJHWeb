@@ -19,6 +19,6 @@ namespace Game.Web.Card {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::Game.Web.Card.UserControl.Record_Sidebar sideTitle;
+        protected global::Game.Web.Card.UserControl.RecordSidebar sideTitle;
     }
 }

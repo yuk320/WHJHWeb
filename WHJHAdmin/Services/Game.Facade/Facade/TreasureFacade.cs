@@ -173,7 +173,24 @@ namespace Game.Facade
         {
             return aideTreasureData.GetStatInfo();
         }
-
+        /// <summary>
+        /// 按条件获取已支付总数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public decimal GetTotalPayAmount(string where)
+        {
+            return aideTreasureData.GetTotalPayAmount(where);
+        }
+        /// <summary>
+        /// 按条件获取已支付订单数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public long GetTotalPayOrderCount(string where)
+        {
+            return aideTreasureData.GetTotalPayOrderCount(where);
+        }
         /// <summary>
         /// 获取钻石统计
         /// </summary>
@@ -202,6 +219,17 @@ namespace Game.Facade
         public IList<StatisticsRevenue> GetDayGameRevenue(string sTime, string eTime)
         {
             return aideTreasureData.GetDayGameRevenue(sTime, eTime);
+        }
+        /// <summary>
+        /// 统计游戏损耗
+        /// </summary>
+        /// <param name="sTime">起始时间</param>
+        /// <param name="eTime">结束时间</param>
+        /// <param name="extra"></param>
+        /// <returns></returns>
+        public IList<StatisticsWaste> GetDayWaste(string sTime, string eTime, string extra)
+        {
+            return aideTreasureData.GetDayWaste(sTime, eTime, extra);
         }
         /// <summary>
         /// 获取金币分布统计

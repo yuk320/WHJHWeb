@@ -50,11 +50,11 @@ namespace Game.Web.Tools
                 case "getregisterstatictics":
                     GetRegisterStatictics(context);
                     break;
-                case "getbankrevenuestatictics":
-                    GetBankRevenueStatictics(context);
+                case "getrevenuestatictics":
+                    GetRevenueStatictics(context);
                     break;
-                case "getgamerevenuestatictics":
-                    GetGameRevenueStatictics(context);
+                case "getwastestatictics":
+                    GetWasteStatictics(context);
                     break;
                 case "getuseronlinestatictics":
                     GetUserOnlineStatictics(context);
@@ -335,14 +335,87 @@ namespace Game.Web.Tools
             ajv.AddDataItem("data", data);
             context.Response.Write(ajv.SerializeToJson());
         }
-        /// <summary>
-        /// 获取银行税收统计
-        /// </summary>
-        /// <param name="context"></param>
-        private void GetBankRevenueStatictics(HttpContext context)
+
+        private void GetRevenueStatictics(HttpContext context)
         {
             string stime = GameRequest.GetQueryString("stime");
             string etime = GameRequest.GetQueryString("etime");
+
+            if (string.IsNullOrEmpty(stime) || string.IsNullOrEmpty(etime))
+            {
+                return;
+            }
+            stime = stime + " 00:00:00";
+            etime = etime + " 23:59:59";
+            IList<StatisticsRevenue> insureList = FacadeManage.aideTreasureFacade.GetDayInsureRevenue(stime, etime);
+            IList<StatisticsRevenue> gameList = FacadeManage.aideTreasureFacade.GetDayGameRevenue(stime, etime);
+            IList<StatisticsChart> data = new List<StatisticsChart>();
+            SortedDictionary<string,long> totalList = new SortedDictionary<string, long>();
+            if (insureList != null && insureList.Count > 0)
+            {
+                foreach (StatisticsRevenue item in insureList)
+                {
+                    var sc = new StatisticsChart
+                    {
+                        time = item.TimeDate,
+                        count = item.Revenue,
+                        type = "银行税收（包含存、取、转）"
+                    };
+                    if (totalList.ContainsKey(item.TimeDate))
+                    {
+                        totalList[item.TimeDate] += item.Revenue;
+                    }
+                    else
+                    {
+                        totalList.Add(item.TimeDate,item.Revenue);
+                    }
+                    data.Add(sc);
+                }
+            }
+            if (gameList != null && gameList.Count > 0)
+            {
+                foreach (StatisticsRevenue item in gameList)
+                {
+                    var sc = new StatisticsChart
+                    {
+                        time = item.TimeDate,
+                        count = item.Revenue,
+                        type = "游戏税收"
+                    };
+                    if (totalList.ContainsKey(item.TimeDate))
+                    {
+                        totalList[item.TimeDate] += item.Revenue;
+                    }
+                    else
+                    {
+                        totalList.Add(item.TimeDate, item.Revenue);
+                    }
+                    data.Add(sc);
+                }
+            }
+            foreach (var total in totalList)
+            {
+                data.Add(new StatisticsChart()
+                {
+                    time = total.Key,
+                    type = "总税收",
+                    count = total.Value
+                });
+            }
+            ajv.SetValidDataValue(true);
+            ajv.AddDataItem("data", data);
+            context.Response.Write(ajv.SerializeToJson());
+        }
+
+        /// <summary>
+        /// 获取损耗统计
+        /// </summary>
+        /// <param name="context"></param>
+        private void GetWasteStatictics(HttpContext context)
+        {
+            string stime = GameRequest.GetQueryString("stime");
+            string etime = GameRequest.GetQueryString("etime");
+            int kindid = GameRequest.GetQueryInt("kindid", 0);
 
             if(string.IsNullOrEmpty(stime) || string.IsNullOrEmpty(etime))
             {
@@ -350,19 +423,22 @@ namespace Game.Web.Tools
             }
             stime = stime + " 00:00:00";
             etime = etime + " 23:59:59";
-            IList<StatisticsRevenue> list = FacadeManage.aideTreasureFacade.GetDayInsureRevenue(stime, etime);
+            IList<StatisticsWaste> list = FacadeManage.aideTreasureFacade.GetDayWaste(stime, etime, kindid>0?$" AND KindID = {kindid} | , KindID, ServerID ":" | ,KindID ");
             List<StatisticsChart> data = new List<StatisticsChart>();
             if(list != null && list.Count > 0)
             {
-                StatisticsChart sc = null;
-                foreach(StatisticsRevenue item in list)
+                data.AddRange(list.Select(item => new StatisticsChart
                 {
-                    sc = new StatisticsChart();
-                    sc.time = item.TimeDate;
-                    sc.count = item.Revenue;
-                    sc.type = "银行税收（包含存、取、转）";
-                    data.Add(sc);
-                }
+                    time = item.TimeDate,
+                    count = item.Waste,
+                    type = "游戏损耗" + (item.KindId > 0
+                               ? " - " + FacadeManage.aidePlatformFacade.GetMobileKindItemInfo(item.KindId)
+                                     ?.KindName ?? ""
+                               : "") + (item.ServerId > 0
+                               ? " - " + FacadeManage.aidePlatformFacade.GetGameRoomInfoInfo(item.ServerId)
+                                     ?.ServerName ?? ""
+                               : "")
+                }));
             }
             ajv.SetValidDataValue(true);
             ajv.AddDataItem("data", data);

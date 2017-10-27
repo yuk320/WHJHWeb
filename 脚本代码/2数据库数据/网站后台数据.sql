@@ -13,13 +13,13 @@ INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], [Nullity], [IsMenu], [Description], [ManagerPopedom]) VALUES (8, 0, N'后台系统', N'', 8, 0, 1, N'', 0)
 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (100, 1, N'用户管理', N'/Module/AccountManager/AccountsList.aspx', 0, 0, 1, N'', 0)
-INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (102, 1, N'限制管理', N'/Module/AccountManager/ConfineAddressList.aspx', 0, 0, 4, N'', 0)
+-- INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (102, 1, N'限制管理', N'/Module/AccountManager/ConfineAddressList.aspx', 0, 0, 4, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (103, 1, N'代理管理', N'/Module/AgentManager/AgentUserList.aspx', 0, 0, 1, N'', 0)
 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (200, 2, N'充值配置', N'/Module/FilledManager/AppPayConfigList.aspx', 0, 0, 1, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (201, 2, N'充值记录', N'/Module/FilledManager/RecordPayDiamond.aspx', 0, 0, 2, N'', 0)
 
-INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (300, 3, N'机器管理', N'/Module/AppManager/DataBaseInfoList.aspx', 0, 0, 1, N'', 0)
+-- INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (300, 3, N'机器管理', N'/Module/AppManager/DataBaseInfoList.aspx', 0, 0, 1, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (301, 3, N'游戏管理', N'/Module/AppManager/GameGameItemList.aspx', 0, 0, 2, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (302, 3, N'系统消息', N'/Module/AppManager/SystemMessageList.aspx', 0, 0, 3, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (303, 3, N'系统设置', N'/Module/AppManager/SystemSet.aspx', 0, 0, 4, N'', 0)
@@ -49,8 +49,8 @@ INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (700, 7, N'用户注册统计', N'/Module/DataStatistics/UserRegister.aspx', 0, 0, 1, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (701, 7, N'用户在线统计', N'/Module/DataStatistics/UserOnline.aspx', 0, 0, 2, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (702, 7, N'用户钻石统计', N'/Module/Diamond/StatisticsDiamond.aspx', 0, 0, 3, N'', 0)
-INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (703, 7, N'银行税收统计', N'/Module/DataStatistics/BankRevenue.aspx', 0, 0, 4, N'', 0)
-INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (704, 7, N'游戏税收统计', N'/Module/DataStatistics/GameRevenue.aspx', 0, 0, 5, N'', 0)
+INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (703, 7, N'每日税收统计', N'/Module/DataStatistics/DailyRevenue.aspx', 0, 0, 4, N'', 0)
+INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (704, 7, N'每日损耗统计', N'/Module/DataStatistics/DailyWaste.aspx', 0, 0, 5, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (705, 7, N'财富分布统计', N'/Module/DataStatistics/WealthDistribute.aspx', 0, 0, 6, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (706, 7, N'系统全局统计', N'/Module/DataStatistics/SystemStat.aspx', 0, 0, 0, N'', 0)
 
@@ -69,10 +69,10 @@ INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [Permission
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (100, N'冻/解', 8192, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (100, N'设置权限/取消权限', 524288, 0, 0, 1)
 
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'查看', 1, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'添加', 2, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'编辑', 4, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'删除', 8, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'查看', 1, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'添加', 2, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'编辑', 4, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (102, N'删除', 8, 0, 0, 1)
 
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (103, N'查看', 1, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (103, N'添加', 2, 0, 0, 1)
@@ -87,10 +87,10 @@ INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [Permission
 
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (201, N'查看', 1, 0, 0, 1)
 
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'查看', 1, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'添加', 2, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'编辑', 4, 0, 0, 1)
-INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'删除', 8, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'查看', 1, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'添加', 2, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'编辑', 4, 0, 0, 1)
+-- INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (300, N'删除', 8, 0, 0, 1)
 
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (301, N'查看', 1, 0, 0, 1)
 INSERT [dbo].[Base_ModulePermission] ([ModuleID], [PermissionTitle], [PermissionValue], [Nullity], [StateFlag], [ParentID]) VALUES (301, N'添加', 2, 0, 0, 1)

@@ -45,7 +45,7 @@
                     充值类型
                 </td>
                 <td class="listTitle2">
-                    苹果标识
+                    苹果内购标识
                 </td>
                 <td class="listTitle2">
                     产品名称
@@ -57,7 +57,7 @@
                     赠送钻石
                 </td>
                 <td class="listTitle2">
-                    额外赠送比例
+                    额外赠送钻石
                 </td>
                 <td class="listTitle2">
                     产品排序
@@ -80,7 +80,7 @@
                            <a href="AppPayConfigInfo.aspx?param=<%# Eval( "ConfigID" ).ToString( )%>" class="l">编辑</a>
                         </td>
                         <td>
-                            <%# Eval("PayType").ToString() == "1" ? "苹果充值" : "普通充值" %>
+                            <%# Eval("PayType").ToString() == "1" ? "苹果内购" : "普通充值" %>
                         </td>
                         <td>
                             <%# Eval("AppleID")%>
@@ -95,7 +95,7 @@
                             <%# Eval("Diamond")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Convert.ToDecimal(Eval("PresentScale"))*100).ToString()+"%" %>
+                            <%# Eval("PresentDiamond") %>
                         </td>
                         <td>
                             <%# Eval("SortID").ToString()%>
@@ -118,7 +118,7 @@
                            <a href="AppPayConfigInfo.aspx?param=<%# Eval( "ConfigID" ).ToString( )%>" class="l">编辑</a>
                         </td>
                         <td>
-                            <%# Eval("PayType").ToString() == "1" ? "苹果充值" : "普通充值" %>
+                            <%# Eval("PayType").ToString() == "1" ? "苹果内购" : "普通充值" %>
                         </td>
                         <td>
                             <%# Eval("AppleID")%>
@@ -133,7 +133,7 @@
                             <%# Eval("Diamond")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Convert.ToDecimal(Eval("PresentScale"))*100).ToString()+"%" %>
+                            <%# Eval("PresentDiamond") %>
                         </td>
                         <td>
                             <%# Eval("SortID").ToString()%>

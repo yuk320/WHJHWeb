@@ -5,6 +5,9 @@ COLOR 09
 CLS
 md D:\数据库\精华平台
 
+set rootPath=0更新脚本\
+osql -E -i "%rootPath%更新脚本.sql"
+
 set rootPath=1数据库脚本\
 osql -E -i "%rootPath%1数据库库创建.sql"
 osql -E -i "%rootPath%2数据库表创建.sql"
@@ -74,6 +77,7 @@ osql -E -i "%rootPath%后台赠送金币.sql"
 osql -E -i "%rootPath%金币分布.sql"
 osql -E -i "%rootPath%钻石分布.sql"
 osql -E -i "%rootPath%数据汇总.sql"
+osql -E -i "%rootPath%每日统计.sql"
 
 set rootPath=3存储过程\4代理后台\
 osql -E -i "%rootPath%代理后台登录.sql"
@@ -85,6 +89,7 @@ set rootPath=4创建作业\
 osql -E -i "%rootPath%每日钻石统计.sql"
 osql -E -i "%rootPath%排行榜统计.sql"
 osql -E -i "%rootPath%排行榜周统计.sql"
+osql -E -i "%rootPath%每日统计.sql"
 
 pause
 

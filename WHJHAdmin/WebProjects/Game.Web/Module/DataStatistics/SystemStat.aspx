@@ -73,14 +73,30 @@
         <asp:Literal ID="ltAllCount" runat="server"></asp:Literal> 个
     </td>
 </tr>
-<%--<tr>--%>
-<%--    <td class="listTdLeft">--%>
-<%--        手机端注册总人数：--%>
-<%--    </td>--%>
-<%--    <td>--%>
-<%--        <asp:Literal ID="ltMobileRegister" runat="server"></asp:Literal> 个--%>
-<%--    </td>--%>
-<%--</tr>--%>
+<tr>
+    <td class="listTdLeft">
+        手机端注册总人数：
+    </td>
+    <td>
+        <asp:Literal ID="ltMobileRegister" runat="server"></asp:Literal> 个
+    </td>
+</tr>
+<tr>
+    <td class="listTdLeft">
+        Web推广注册总人数：
+    </td>
+    <td>
+        <asp:Literal ID="ltWebShareRegister" runat="server"></asp:Literal> 个
+    </td>
+</tr>
+<tr>
+    <td class="listTdLeft">
+        H5注册总人数：
+    </td>
+    <td>
+        <asp:Literal ID="ltH5Register" runat="server"></asp:Literal> 个
+    </td>
+</tr>
 <tr>
     <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">
         <div class="hg3  pd7">
@@ -116,15 +132,8 @@
     <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">
         <div class="hg3  pd7">
             钻石统计
+            <span class="total-span">钻石总量：<asp:Literal ID="fkTotal" runat="server"></asp:Literal> 钻石总增长：<asp:Literal runat="server" ID="ltTotalDiamondUp"></asp:Literal> 钻石总消耗：<asp:Literal runat="server" ID="ltTotalDiamondDown"></asp:Literal></span>
         </div>
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        平台房卡总量：
-    </td>
-    <td>
-        <asp:Literal ID="fkTotal" runat="server"></asp:Literal> 钻石
     </td>
 </tr>
 <tr>
@@ -170,112 +179,41 @@
 <tr>
     <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">
         <div class="hg3  pd7">
-            赠送统计
+            金币增长统计
+            <span class="total-span">金币总增长：<asp:Literal runat="server" ID="ltTotalGoldUp"></asp:Literal></span>
         </div>
     </td>
 </tr>
 <tr>
     <td class="listTdLeft">
-        注册赠送：
+        注册赠送增长：
     </td>
     <td>
         <asp:Literal ID="ltRegPresent" runat="server"></asp:Literal> 金币
     </td>
 </tr>
+<%--<tr>--%>
+<%--    <td class="listTdLeft">--%>
+<%--        实名验证赠送：--%>
+<%--    </td>--%>
+<%--    <td>--%>
+<%--        <asp:Literal ID="ltSMPresent" runat="server"></asp:Literal> 金币--%>
+<%--    </td>--%>
+<%--</tr>--%>
 <tr>
     <td class="listTdLeft">
-        代理注册赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltAgentRegPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        低保赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltDBPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        签到赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltQDPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<%--<tr>
-            <td class="listTdLeft">
-                在线时长赠送：
-            </td>
-            <td>
-                <asp:Literal ID="ltOnlinePresent" runat="server"></asp:Literal> 金币
-            </td>
-        </tr>--%>
-<tr>
-    <td class="listTdLeft">
-        任务奖励赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltRWPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        实名验证赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltSMPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        会员每日送金：
-    </td>
-    <td>
-        <asp:Literal ID="ltDayPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        比赛奖励：
-    </td>
-    <td>
-        <asp:Literal ID="ltMatchPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        等级升级赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltDJPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        分享赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltSharePresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        转盘赠送：
-    </td>
-    <td>
-        <asp:Literal ID="ltLotteryPresent" runat="server"></asp:Literal> 金币
-    </td>
-</tr>
-<tr>
-    <td class="listTdLeft">
-        后台赠送：
+        后台赠送增长：
     </td>
     <td>
         <asp:Literal ID="ltWebPresent" runat="server"></asp:Literal> 金币
+    </td>
+</tr>
+<tr>
+    <td class="listTdLeft">
+        钻石兑换金币增长：
+    </td>
+    <td>
+        <asp:Literal ID="ltExchGold" runat="server"></asp:Literal> 金币
     </td>
 </tr>
 <tr>
@@ -287,10 +225,18 @@
 </tr>
 <tr>
     <td class="listTdLeft">
-        游戏总税收：
+        总税收：
     </td>
     <td>
         <asp:Literal ID="ltRevenue" runat="server"></asp:Literal> 金币
+    </td>
+</tr>
+<tr>
+    <td class="listTdLeft">
+        游戏税收：
+    </td>
+    <td>
+        <asp:Literal ID="ltGameRevenue" runat="server"></asp:Literal> 金币
     </td>
 </tr>
 <tr>
@@ -301,44 +247,6 @@
         <asp:Literal ID="ltTransferRevenue" runat="server"></asp:Literal> 金币
     </td>
 </tr>
-<%--<tr>--%>
-<%--    <td valign="top" class="listTdLeft">--%>
-<%--        游戏税收（当日的数据不在统计之内）：<br/>&nbsp;&nbsp;--%>
-<%--    </td>--%>
-<%--    <td>--%>
-<%--        <div class="gamelist">--%>
-<%--            <asp:Repeater ID="rptGameTax" runat="server">--%>
-<%--                <ItemTemplate>--%>
-<%--                    <span>--%>
-<%--                        <%# GetGameKindName(int.Parse(Eval("KindID").ToString())) %> [ <%# Eval("Revenue").ToString() %> ]--%>
-<%--                    </span>--%>
-<%--                </ItemTemplate>--%>
-<%--            </asp:Repeater>--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--    <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">--%>
-<%--        <div class="hg3 pd7">--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--    <td valign="top" class="listTdLeft">--%>
-<%--        房间税收（当日的数据不在统计之内）：<br/>&nbsp;&nbsp;--%>
-<%--    </td>--%>
-<%--    <td valign="top">--%>
-<%--        <div class="gamelist">--%>
-<%--            <asp:Repeater ID="rptRoomTax" runat="server">--%>
-<%--                <ItemTemplate>--%>
-<%--                    <span>--%>
-<%--                        <%# GetGameRoomName(int.Parse(Eval("ServerID").ToString())) %> [ <%# Eval("Revenue").ToString() %> ]--%>
-<%--                    </span>--%>
-<%--                </ItemTemplate>--%>
-<%--            </asp:Repeater>--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
 <tr>
     <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">
         <div class="hg3  pd7">
@@ -348,50 +256,12 @@
 </tr>
 <tr>
     <td class="listTdLeft">
-        损耗总量（当日的数据不在统计之内）：
+        损耗总量：
     </td>
     <td>
         <asp:Literal ID="ltWaste" runat="server"></asp:Literal> 金币
     </td>
 </tr>
-<%--<tr>--%>
-<%--    <td valign="top" class="listTdLeft">--%>
-<%--        游戏损耗（当日的数据不在统计之内）：<br/>&nbsp;&nbsp;--%>
-<%--    </td>--%>
-<%--    <td valign="top">--%>
-<%--        <div class="gamelist">--%>
-<%--            <asp:Repeater ID="rptGameWast" runat="server">--%>
-<%--                <ItemTemplate>--%>
-<%--                    <span>--%>
-<%--                        <%# GetGameKindName(int.Parse(Eval("KindID").ToString())) %> [ <%# Eval("Waste").ToString() %> ]--%>
-<%--                    </span>--%>
-<%--                </ItemTemplate>--%>
-<%--            </asp:Repeater>--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--    <td height="35" colspan="2" class="f14 bold Lpd10 Rpd10">--%>
-<%--        <div class="hg3 pd7">--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--    <td valign="top" class="listTdLeft">--%>
-<%--        房间损耗（当日的数据不在统计之内）：<br/>&nbsp;&nbsp;--%>
-<%--    </td>--%>
-<%--    <td valign="top">--%>
-<%--        <div class="gamelist">--%>
-<%--            <asp:Repeater ID="rptRoomWast" runat="server">--%>
-<%--                <ItemTemplate>--%>
-<%--                    <span>--%>
-<%--                        <%#GetGameRoomName(int.Parse(Eval("ServerID").ToString())) %> [ <%# Eval("Waste").ToString() %> ]--%>
-<%--                    </span>--%>
-<%--                </ItemTemplate>--%>
-<%--            </asp:Repeater>--%>
-<%--        </div>--%>
-<%--    </td>--%>
-<%--</tr>--%>
 </table>
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>

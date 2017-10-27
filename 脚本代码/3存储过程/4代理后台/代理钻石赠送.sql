@@ -107,11 +107,6 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉，代理只能给自己下线赠送！'
 		RETURN 3001
 	END
-	ELSE IF @TAgentID<=0 AND @SpreaderID!=@dwUserID
-	BEGIN
-		SET @strErrorDescribe=N'抱歉，代理只能给自己下线赠送！'
-		RETURN 3002
-	END
 	IF @TAgentLevel IS NULL SET @TAgentLevel =0
 
 

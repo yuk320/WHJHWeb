@@ -12,7 +12,7 @@ namespace Game.Web.Card
         protected void Page_Load(object sender, EventArgs e)
         {
             Card.Site.Menu = 4;
-            sideTitle.RecordID = 4;
+            sideTitle.RecordId = 4;
         }
     }
 }

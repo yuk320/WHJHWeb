@@ -80,7 +80,7 @@ let optsCodeDiff = {
   end: DATE_TOMORROW,
   output: "更新包",
   types: 'mtime',
-  ignore: ['网站发布/**/*', "**/obj/**", "**/bin/**", '**/*.user', '**/log/**', 'web.config'],
+  ignore: ['网站发布/**/*', "**/obj/**", "**/bin/**", '**/*.user', '**/log/**', '**/Web.config'],
   tag: "源码"
 };
 let optsUpdate = {
@@ -88,7 +88,7 @@ let optsUpdate = {
   end: DATE_TOMORROW,
   output: "更新包",
   types: 'mtime',
-  ignore: ['WHJHAdmin/**/*', 'WHJHFront/**/*', '**/log/**', 'web.config'],
+  ignore: ['WHJHAdmin/**/*', 'WHJHFront/**/*', '**/log/**', '**/Web.config'],
   tag: "发布"
 };
 const optsCode = {

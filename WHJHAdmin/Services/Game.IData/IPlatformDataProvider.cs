@@ -68,6 +68,11 @@ namespace Game.IData
         /// <returns></returns>
         MobileKindItem GetMobileKindItemInfo(int kindid);
         /// <summary>
+        /// 获取启用游戏列表
+        /// </summary>
+        /// <returns></returns>
+        IList<MobileKindItem> GetMobileKindItemList();
+        /// <summary>
         /// 新增游戏信息
         /// </summary>
         /// <param name="item">游戏信息</param>

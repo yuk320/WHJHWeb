@@ -114,6 +114,14 @@ namespace Game.Facade
             return _aidePlatformData.GetMobileKindItemInfo(kindid);
         }
         /// <summary>
+        /// 获取启用游戏列表
+        /// </summary>
+        /// <returns></returns>
+        public IList<MobileKindItem> GetMobileKindItemList()
+        {
+            return _aidePlatformData.GetMobileKindItemList();
+        }
+        /// <summary>
         /// 新增游戏信息
         /// </summary>
         /// <param name="item">游戏信息</param>

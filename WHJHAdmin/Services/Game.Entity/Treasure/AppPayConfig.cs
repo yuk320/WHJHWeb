@@ -37,7 +37,7 @@ namespace Game.Entity.Treasure
         private byte p_imagetype;
         private int p_sortid;
         private int p_diamond;
-        private decimal p_presentscale;
+        private int p_presentdiamond;
         private DateTime p_configtime;
 
         #endregion
@@ -58,7 +58,7 @@ namespace Game.Entity.Treasure
             p_imagetype = 0;
             p_sortid = 0;
             p_diamond = 0;
-            p_presentscale = 0;
+            p_presentdiamond = 0;
             p_configtime = DateTime.Now;
         }
 
@@ -202,17 +202,17 @@ namespace Game.Entity.Treasure
         }
 
         /// <summary>
-        /// PresentScale
+        /// PresentDiamond
         /// </summary>
-        public decimal PresentScale
+        public int PresentDiamond
         {
             set
             {
-                p_presentscale=value;
+                p_presentdiamond = value;
             }
             get
             {
-                return p_presentscale;
+                return p_presentdiamond;
             }
         }
 

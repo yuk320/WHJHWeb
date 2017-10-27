@@ -10,6 +10,6 @@
 namespace Game.Web.Card.UserControl {
     
     
-    public partial class Record_Sidebar {
+    public partial class RecordSidebar {
     }
 }

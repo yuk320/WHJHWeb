@@ -60,7 +60,7 @@ namespace Game.Web.Module.FilledManager
         {
             PagerSet pagerSet = FacadeManage.aideTreasureFacade.GetList(AppPayConfig.Tablename, anpNews.CurrentPageIndex, anpNews.PageSize, SearchItems, Orderby);
             anpNews.RecordCount = pagerSet.RecordCount;
-            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
+            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count <= 0;
             rptDataList.DataSource = pagerSet.PageSet;
             rptDataList.DataBind();
         }

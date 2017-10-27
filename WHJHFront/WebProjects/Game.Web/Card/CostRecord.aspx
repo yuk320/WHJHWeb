@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Card/Site.Master" AutoEventWireup="true" CodeBehind="CostRecord.aspx.cs" Inherits="Game.Web.Card.CostRecord" %>
+<%@ Register Src="~/Card/UserControl/Record_Sidebar.ascx" TagName="Sidebar" TagPrefix="sd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Css" runat="server">
     <link href="/Card/Css/record.css" rel="stylesheet"/>
-    <link href="/Card/Js/layer_mobile/need/layer.css" rel="stylesheet"/>    
+    <link href="/Card/Js/layer_mobile/need/layer.css" rel="stylesheet"/>
     <link href="/Card/Js/iscroll/pullup-refresh.css" rel="stylesheet"/>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -29,6 +30,6 @@
     </div>
     <script src="/Card/Js/iscroll/iscroll-probe.js"></script>
     <script src="/Card/Js/iscroll/pullup-refresh.js"></script>
-    <script src="/Card/Js/layer_mobile/layer.js"></script>    
+    <script src="/Card/Js/layer_mobile/layer.js"></script>
     <script src="/Card/Js/iscroll/load.js"></script>
 </asp:Content>

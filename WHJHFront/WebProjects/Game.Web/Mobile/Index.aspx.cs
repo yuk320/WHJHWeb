@@ -27,13 +27,13 @@ namespace Game.Web.Mobile
                 IList<ConfigInfo> list = Fetch.GetConfigInfoList();
                 foreach(var item in list)
                 {
-                    if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.GameAndroidConfig.ToString())
+                    if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                     {
-                        PlatformDownloadUrl = item.Field1;
+                        PlatformDownloadUrl = item.Field6;
                     }
-                    if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.GameIosConfig.ToString())
+                    if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                     {
-                        PlatformDownloadUrl = item.Field1;
+                        PlatformDownloadUrl = item.Field5;
                     }
                     if(item.ConfigKey == AppConfig.SiteConfigKey.SysCustomerService.ToString())
                     {

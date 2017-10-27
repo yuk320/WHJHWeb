@@ -108,7 +108,18 @@ namespace Game.IData
         /// </summary>
         /// <returns></returns>
         DataSet GetStatInfo();
-
+        /// <summary>
+        /// 按条件获取已支付总数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        decimal GetTotalPayAmount(string where);
+        /// <summary>
+        /// 按条件获取已支付订单数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        long GetTotalPayOrderCount(string where);
         /// <summary>
         /// 获取钻石统计
         /// </summary>
@@ -129,6 +140,15 @@ namespace Game.IData
         /// <param name="eTime">结束时间</param>
         /// <returns></returns>
         IList<StatisticsRevenue> GetDayGameRevenue(string sTime, string eTime);
+
+        /// <summary>
+        /// 统计游戏损耗
+        /// </summary>
+        /// <param name="sTime">起始时间</param>
+        /// <param name="eTime">结束时间</param>
+        /// <param name="extra"></param>
+        /// <returns></returns>
+        IList<StatisticsWaste> GetDayWaste(string sTime, string eTime, string extra);
         /// <summary>
         /// 获取金币分布统计
         /// </summary>

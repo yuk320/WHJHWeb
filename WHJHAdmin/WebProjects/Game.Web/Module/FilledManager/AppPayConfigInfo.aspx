@@ -54,16 +54,17 @@
                     <td>
                         <asp:DropDownList ID="ddlProductType" runat="server" Width="155" Height="24" CssClass="text" AutoPostBack="True" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged">
                             <asp:ListItem Text="普通充值" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="苹果充值" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="苹果内购" Value="1"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr id="apple" runat="server">
                     <td class="listTdLeft">
-                        苹果标识：
+                        苹果内购标识：
                     </td>
                     <td>
                         <asp:TextBox ID="txtAppleID" runat="server" CssClass="text"></asp:TextBox>
+                        <span class="hong">*</span>
                     </td>
                 </tr>
                 <tr>
@@ -137,13 +138,12 @@
                 </tr>
                 <tr id="scale" runat="server">
                     <td class="listTdLeft">
-                        首冲额外赠送比例：
+                        首冲额外赠送钻石：
                     </td>
                     <td>
-                        <asp:TextBox ID="txtScale" runat="server" CssClass="text" Text="0"></asp:TextBox>
-                        <span class="hong">%</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="请输入赠送比例" Display="Dynamic" ControlToValidate="txtScale" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="赠送比例格式不正确" Display="Dynamic" ControlToValidate="txtScale" ForeColor="Red" ValidationExpression="^[0-9]{0,3}$"></asp:RegularExpressionValidator>
+                        <asp:TextBox ID="txtOtherPresent" runat="server" CssClass="text" Text="0"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="请输入赠送数量" Display="Dynamic" ControlToValidate="txtOtherPresent" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="赠送数量格式不正确" Display="Dynamic" ControlToValidate="txtOtherPresent" ForeColor="Red" ValidationExpression="^[1-9]\d*$"></asp:RegularExpressionValidator>
                     </td>
                 </tr>
             </table>

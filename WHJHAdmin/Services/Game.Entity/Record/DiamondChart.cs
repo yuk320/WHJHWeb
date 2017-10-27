@@ -26,6 +26,14 @@ namespace Game.Entity.Record
         public long Revenue { get; set; }
     }
 
+    public class StatisticsWaste
+    {
+        public string TimeDate { get; set; }
+        public int KindId { get; set; }
+        public int ServerId { get; set; }
+        public long Waste { get; set; }
+    }
+
     public class StatisticsWealth
     {
         public string name { get; set; }

@@ -152,6 +152,15 @@ namespace Game.Data
             return Database.ExecuteObject<MobileKindItem>(sql);
         }
         /// <summary>
+        /// 获取启用游戏列表
+        /// </summary>
+        /// <returns></returns>
+        public IList<MobileKindItem> GetMobileKindItemList()
+        {
+            const string sql = "SELECT * FROM MobileKindItem WITH(NOLOCK) WHERE Nullity=0 ";
+            return Database.ExecuteObjectList<MobileKindItem>(sql);
+        }
+        /// <summary>
         /// 新增游戏信息
         /// </summary>
         /// <param name="item">游戏信息</param>

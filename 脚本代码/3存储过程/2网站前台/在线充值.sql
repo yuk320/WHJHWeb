@@ -37,7 +37,12 @@ DECLARE @PresentDiamond INT
 DECLARE @OtherPresent INT
 DECLARE @BeforeDiamond BIGINT
 DECLARE @OrderStatus TINYINT
+DECLARE @PayIdentity TINYINT
 DECLARE @DateTime DATETIME
+DECLARE @CurrentTime DATETIME
+DECLARE @STime NVARCHAR(10)
+DECLARE @StartTime NVARCHAR(20)
+DECLARE @EndTime NVARCHAR(20)
 
 -- 执行逻辑
 BEGIN
@@ -59,7 +64,35 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉！支付金额错误!'
 		RETURN 1003
 	END
+
+	--时间计算
+	SELECT @CurrentTime = GETDATE()
+	SET @STime = Convert(CHAR(10),@CurrentTime,120)
+	SET @StartTime = @STime + N' 00:00:00'
+	SET @EndTime = @STime + N' 23:59:59'
+	-- 对额外赠送字段进行条件过滤
+	IF @PayIdentity=2	-- 每日首冲
+	BEGIN
+		IF EXISTS(SELECT OnLineID FROM OnLinePayOrder WHERE UserID=@UserID AND OrderStatus=1 AND OrderDate BETWEEN @StartTime AND @EndTime)
+		BEGIN
+			SET @OtherPresent = 0
+		END
+	END
+	ELSE IF @PayIdentity=3 --预增加 账户首冲模式
+	BEGIN
+		IF EXISTS(SELECT OnLineID FROM OnLinePayOrder WHERE UserID=@UserID AND OrderStatus=1)
+		BEGIN
+			SET @OtherPresent = 0
+		END
+	END
+	ELSE
+	BEGIN --其他情况一律过滤
+		SET @OtherPresent = 0
+	END
+
 	SET @PresentDiamond = @Diamond + @OtherPresent
+
+
 
 	-- 事务处理
 	BEGIN TRAN
@@ -80,7 +113,7 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉！操作异常，请稍后重试!'
 		RETURN 2001
 	END
-	UPDATE OnLinePayOrder SET OrderStatus=1,BeforeDiamond=@BeforeDiamond,PayDate=@DateTime,PayAddress=@strIPAddress WHERE OrderID = @strOrdersID
+	UPDATE OnLinePayOrder SET OrderStatus=1,OtherPresent=@OtherPresent,BeforeDiamond=@BeforeDiamond,PayDate=@CurrentTime,PayAddress=@strIPAddress WHERE OrderID = @strOrdersID
 	IF @@ROWCOUNT <=0
 	BEGIN
 		ROLLBACK TRAN
@@ -97,6 +130,3 @@ BEGIN
 END 
 RETURN 0
 GO
-
-
-

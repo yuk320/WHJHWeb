@@ -118,7 +118,7 @@ namespace Game.Data
         /// <returns></returns>
         public DataSet GetReserveIdentifierList()
         {
-            string sqlQuery = @"SELECT TOP 10 GameID FROM ReserveIdentifier WITH(NOLOCK) WHERE Distribute=0 ORDER BY NEWID()";
+            string sqlQuery = @"SELECT TOP 1 GameID FROM ReserveIdentifier WITH(NOLOCK) WHERE Distribute=0 ORDER BY NEWID()";
             return Database.ExecuteDataset(CommandType.Text, sqlQuery);
         }
         /// <summary>

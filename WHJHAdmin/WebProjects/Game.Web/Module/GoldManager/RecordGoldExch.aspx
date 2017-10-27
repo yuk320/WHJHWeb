@@ -28,7 +28,7 @@
             <td height="28">
                 <ul>
                     <li class="tab1">钻石兑换金币</li>
-                    <li class="tab2" onclick="Redirect('RecordGoldBuyProp.aspx')">金币购买喇叭</li>
+<%--                    <li class="tab2" onclick="Redirect('RecordGoldBuyProp.aspx')">金币购买喇叭</li>--%>
                 </ul>
             </td>
         </tr>

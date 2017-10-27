@@ -32,11 +32,11 @@ namespace Game.Facade
             /// <summary>
             /// 安卓大厅配置
             /// </summary>
-            GameAndroidConfig,
+//            GameAndroidConfig,
             /// <summary>
             /// 苹果大厅配置
             /// </summary>
-            GameIosConfig,
+//            GameIosConfig,
             /// <summary>
             /// 移动版大厅配置
             /// </summary>
@@ -88,6 +88,10 @@ namespace Game.Facade
             /// </summary>
             JJDiamondBuyProp,
             /// <summary>
+            /// 金币购买喇叭价
+            /// </summary>
+//            JJGoldBuyProp,
+            /// <summary>
             /// 实名认证赠送钻石
             /// </summary>
             JJRealNameAuthentPresent,
@@ -98,7 +102,7 @@ namespace Game.Facade
             /// <summary>
             /// 苹果第三方充值
             /// </summary>
-            IOSNotStorePaySwitch
+//            IOSNotStorePaySwitch
         }
         #endregion
 

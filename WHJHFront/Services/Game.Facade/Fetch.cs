@@ -168,13 +168,13 @@ namespace Game.Facade
             IList<ConfigInfo> list = GetConfigInfoList();
             foreach(var item in list)
             {
-                if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.GameAndroidConfig.ToString())
+                if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                 {
-                    return item.Field1;
+                    return item.Field6;
                 }
-                else if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.GameIosConfig.ToString())
+                else if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                 {
-                    return item.Field1;
+                    return item.Field5;
                 }
             }
             return "";

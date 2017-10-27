@@ -43,7 +43,7 @@ namespace Game.Web.Module.FilledManager
             config.PayName = CtrlHelper.GetText(txtProductName);
             config.PayPrice = Convert.ToDecimal(txtPrice.Text);
             config.PayType = Convert.ToByte(ddlProductType.SelectedValue);
-            config.PresentScale = Convert.ToDecimal(txtScale.Text) / 100;
+            config.PresentDiamond = CtrlHelper.GetInt(txtOtherPresent,0);
             config.SortID = CtrlHelper.GetInt(txtSortID, 0);
             config.ImageType = Convert.ToByte(rbImage.SelectedValue);
 
@@ -64,7 +64,7 @@ namespace Game.Web.Module.FilledManager
                 }
             }
             //验证首充是否重复
-            if(config.PayIdentity == 2&& IntParam == 0)
+            if(config.PayIdentity == 2 && IntParam == 0)
             {
                 where = $"WHERE PayType = {config.PayType} AND PayIdentity = 2";
                 if(FacadeManage.aideTreasureFacade.IsExistAppPayConfig(where))
@@ -99,7 +99,7 @@ namespace Game.Web.Module.FilledManager
                     CtrlHelper.SetText(txtCurrency, config.Diamond.ToString());
                     CtrlHelper.SetText(txtPrice, config.PayPrice.ToString(CultureInfo.InvariantCulture));
                     CtrlHelper.SetText(txtProductName, config.PayName);
-                    CtrlHelper.SetText(txtScale, Convert.ToInt32(config.PresentScale * 100).ToString());
+                    CtrlHelper.SetText(txtOtherPresent, config.PresentDiamond.ToString());
                     CtrlHelper.SetText(txtSortID, config.SortID.ToString());
                     ddlProductType.SelectedValue = config.PayType.ToString();
                     rbIdentity.SelectedValue = config.PayIdentity.ToString();

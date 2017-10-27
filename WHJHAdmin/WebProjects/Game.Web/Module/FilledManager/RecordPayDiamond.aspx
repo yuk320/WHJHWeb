@@ -77,6 +77,7 @@
                     <asp:ListItem Value="1">已支付</asp:ListItem>
                  </asp:DropDownList>   
                 <asp:Button ID="btnQueryAcc" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQueryAcc_Click" />
+                <span class="total-span"><asp:Literal ID="ltTotal" runat="server"></asp:Literal></span>
             </td>
         </tr>
     </table>
@@ -108,10 +109,10 @@
                     充值钻石
                 </td>
                 <td class="listTitle2">
-                    额外赠送比例
+                    额外赠送钻石
                 </td>
                 <td class="listTitle2">
-                    额外赠送钻石
+                    充值后钻石
                 </td>
                 <td class="listTitle2">
                     充值状态
@@ -145,16 +146,16 @@
                             <%# Eval("Amount")%>
                         </td>
                         <td>
-                            <%# Eval("BeforeDiamond")%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?Eval("BeforeDiamond"):"——"%>
                         </td>
                         <td>
                             <%# Eval("Diamond")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Convert.ToDecimal(Eval("PresentScale"))*100).ToString()+"%" %>
+                            <%# Eval("OtherPresent")%>
                         </td>
                         <td>
-                            <%# Eval("OtherPresent")%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent")):"——"%>
                         </td>
                         <td>
                             <%# GetPayStatus(Convert.ToInt32(Eval("OrderStatus"))) %>
@@ -188,16 +189,16 @@
                             <%# Eval("Amount")%>
                         </td>
                         <td>
-                            <%# Eval("BeforeDiamond")%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?Eval("BeforeDiamond"):"——"%>
                         </td>
                         <td>
                             <%# Eval("Diamond")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Convert.ToDecimal(Eval("PresentScale"))*100).ToString()+"%" %>
+                            <%# Eval("OtherPresent")%>
                         </td>
                         <td>
-                            <%# Eval("OtherPresent")%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent")):"——"%>                            
                         </td>
                         <td>
                             <%# GetPayStatus(Convert.ToInt32(Eval("OrderStatus"))) %>
