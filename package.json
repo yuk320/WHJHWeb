@@ -1,7 +1,7 @@
 {
   "name": "whjhweb",
   "product_name":"网狐棋牌精华版-源码包",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index",
   "dependencies": {
     "async": "^2.5.0",
