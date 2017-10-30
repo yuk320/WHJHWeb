@@ -5,7 +5,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "eventproxy": "^1.0.0",
-    "files-extractor": "^0.3.3"
+    "files-extractor": "^0.3.7"
   },
   "autoConfig": {
     "product_name": "网狐棋牌精华版-源码包",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "preauto": "npm i",
     "auto": "node index"
   },
   "repository": {

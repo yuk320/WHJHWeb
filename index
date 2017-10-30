@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const fs = require('fs-extra');
+if (fs.existsSync('./package-lock.json')) fs.removeSync('./package-lock.json');
 console.time("全自动化工具完成");
 console.info("全自动化工具运行中...");
 let allCount = 0;
@@ -8,7 +10,6 @@ const start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 const DATE_TOMORROW = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
 const COMMON_IGNORE = ['node_modules/**/*', '完整包/**/*', '更新包/**/*', '.gitignore', 'package.json', 'index', 'pickup']
-const fs = require('fs-extra');
 const path = require('path');
 const exec = require('child_process').exec;
 const fextract = require('files-extractor');
