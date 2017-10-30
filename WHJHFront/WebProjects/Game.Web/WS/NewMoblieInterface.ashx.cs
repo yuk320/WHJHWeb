@@ -260,6 +260,8 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <param name="typeId"></param>
         private static void GetPayProduct(int typeId)
         {
+            _ajv.data["apiVersion"] = 20171028;
+
             //获取充值数据
             DataSet ds = FacadeManage.aideTreasureFacade.GetAppPayConfigList(typeId, _userid);
             //获取首充状态

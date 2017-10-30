@@ -42,7 +42,7 @@ BEGIN
 	SELECT OnLineID FROM OnLinePayOrder WITH(NOLOCK) WHERE UserID=@dwUserID AND OrderStatus=1 AND OrderDate BETWEEN @StartTime AND @EndTime
 
 	-- 获取充值产品
-	SELECT ConfigID,AppleID,PayName,PayType,PayPrice,PayIdentity,ImageType,SortID,Diamond,PresentScale FROM AppPayConfig WITH(NOLOCK) WHERE PayType = @PayType ORDER BY PayIdentity DESC,SortID ASC
+	SELECT ConfigID,AppleID,PayName,PayType,PayPrice,PayIdentity,ImageType,SortID,Diamond,PresentDiamond FROM AppPayConfig WITH(NOLOCK) WHERE PayType = @PayType ORDER BY PayIdentity DESC,SortID ASC
 
 	-- 获取兑换产品
 	SELECT ConfigID,ConfigName,Diamond,ExchGold,ImageType,SortID,ConfigTime FROM CurrencyExchConfig WITH(NOLOCK) ORDER BY SortID ASC

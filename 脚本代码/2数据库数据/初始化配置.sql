@@ -21,7 +21,7 @@ N'参数说明
 字段3：资源版本号
 字段4：ios企业版本的下载地址
 字段5：苹果大厅下载地址
-字段6：安卓大厅下载地址',N'http://jh.foxuc.net/Download/',N'0',N'0',N'',N'http://jh.foxuc.net/Download/GloryProject-mobile.ipa',N'http://jh.foxuc.net/Download/NewGloryPlaza-debug.apk',4)
+字段6：安卓大厅下载地址',N'http://jh.foxuc.net/Download/Phone',N'0',N'0',N'',N'itms-services://?action=download-manifest&url=https://jh.foxuc.net/Download/LuaMBClient_LY.plist',N'http://jh.foxuc.net/Download/LuaMBClient_LY.apk',4)
 INSERT INTO ConfigInfo(ConfigKey,ConfigName,ConfigString,Field1,Field2,Field3,Field4,Field5,Field6,Field7,Field8,SortID) VALUES(N'SysCustomerService',N'系统客服配置',
 N'参数说明
 字段1：客服电话   
@@ -41,7 +41,7 @@ N'参数说明
 字段2：网站图片服务器地址
 字段3：网站前台服务器地址
 字段4：H5游戏服务器地址
-字段8：网站前台底部内容',N'http://jh.foxuc.net',N'http://www.image.com/',N'http://www.front.com/',N'http://jh.foxuc.net',N'',N'',N'',N'<p class="ui-footer-link">
+字段8：网站前台底部内容',N'http://jh.foxuc.net',N'http://imagejh.foxuc.net/',N'http://jh.foxuc.net',N'http://jh.foxuc.net',N'',N'',N'',N'<p class="ui-footer-link">
             <a href="/Contact/Index.aspx" target="_blank">关于我们</a>|
             <a href="/Contact/Index.aspx" target="_blank">联系我们</a>|
             <a href="/Contact/Index.aspx" target="_blank">客服中心</a>|

@@ -78,7 +78,8 @@ namespace Game.Facade.DataStruct
         public int ImageType { get; set; }
         public int SortID { get; set; }
         public int Diamond { get; set; }
-        public decimal PresentScale { get; set; }
+        public decimal PresentScale { get; set; } = 0;
+        public int PresentDiamond { get; set; }
     }
 
     public class TreasureStream

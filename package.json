@@ -1,15 +1,19 @@
 {
   "name": "whjhweb",
-  "product_name":"网狐棋牌精华版-源码包",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index",
   "dependencies": {
     "async": "^2.5.0",
     "eventproxy": "^1.0.0",
     "files-extractor": "^0.3.3"
   },
-  "otherRoomCard":true,
-  "otherAPI":true,
+  "autoConfig": {
+    "product_name": "网狐棋牌精华版-源码包",
+    "version": "1.0.3",
+    "mode": "UpdateOnly",
+    "otherRoomCard": true,
+    "otherAPI": true
+  },
   "devDependencies": {},
   "scripts": {
     "auto": "node index"
