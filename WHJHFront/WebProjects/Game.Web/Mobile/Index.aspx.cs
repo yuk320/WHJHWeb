@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Configuration;
 using Game.Facade;
 using Game.Entity.NativeWeb;
 
@@ -14,6 +15,7 @@ namespace Game.Web.Mobile
         protected string Mobilebg = string.Empty;
         protected string Mobilelogo = string.Empty;
         protected string Mobiledown = string.Empty;
+        protected string MobileQrcode = string.Empty;
 
         /// <summary>
         /// 页面加载
@@ -43,6 +45,7 @@ namespace Game.Web.Mobile
                     if(item.ConfigKey == AppConfig.SiteConfigKey.WebSiteConfig.ToString())
                     {
                         imgDomain = item.Field2;
+                        MobileQrcode = Fetch.GetQrCode(item.Field1, 200);
                     }
                 }
                 Mobilebg = Fetch.GetUploadFileUrl(imgDomain, "/Site/MobileBg.png");

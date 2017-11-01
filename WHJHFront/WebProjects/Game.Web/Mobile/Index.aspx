@@ -22,6 +22,9 @@
             <img src="<%= Mobilelogo %>" alt="">
           </div>
         </div>
+        <div class="ui-qrcode">
+          <img src="<%= MobileQrcode %>" alt="">          
+        </div>
         <a href="<%= PlatformDownloadUrl %>" class="ui-download-btn">
           <img src="<%= Mobiledown %>" alt="">
         </a>

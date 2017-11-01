@@ -62,7 +62,24 @@ body a {
   left: 0;
   top: 0;
 }
-
+.ui-qrcode{
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0.05rem;
+  border: 1px solid #e9cdd2;
+  background: transparent;
+  box-shadow: 0 .03rem .1rem #e9cdd2,0 0 .25rem #fff inset;
+  margin: 4.6rem auto 0;
+}
+.ui-qrcode img{
+  display: block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: .05rem;
+  border: 1px solid #f2f2f2;
+  width: 100%;
+  height: 100%;
+}
 .ui-top .bdshare-button-style1-16 a,
 .bdshare-button-style1-16 .bds_more {
   background: none;
@@ -80,7 +97,7 @@ body a {
 a.ui-download-btn {
   display: block;
   width: 46%;
-  margin: 7.3rem auto 0;
+  margin: .3rem auto 0;
 }
 
 a.ui-download-btn img {
