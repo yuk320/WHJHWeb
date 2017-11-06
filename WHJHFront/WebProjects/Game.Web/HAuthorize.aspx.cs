@@ -1,6 +1,8 @@
 ﻿using System;
+using Game.Entity.NativeWeb;
 using Game.Facade;
 using Game.Utils;
+using Game.Web.Helper;
 
 namespace Game.Web
 {
@@ -35,36 +37,35 @@ namespace Game.Web
 
                 #region 客户版本
 
-//                            WxAuthorize jsApiDown = new WxAuthorize(this);
-//                            try
-//                            {
-//                                jsApiDown.GetOpenidAndAccessToken();
-//                                jsApiDown.GetUserInfo();
-//
-//                                string openid = jsApiDown.openid;
-//                                string unionid = jsApiDown.unionid;
-//                                string nickname = jsApiDown.nickname;
-//                                int sex = jsApiDown.sex;
-//                                string headimgurl = jsApiDown.headimgurl;
-//
-//                                string wxParam = string.Format("<{0}>,<{1}>,<{2}>,<{3}>,<{4}>",
-//                                    openid, unionid, nickname, sex, headimgurl);
-//                                ConfigInfo config = Fetch.GetWebSiteConfig();
-//                                string LinkUrl = (config != null ? config.Field4 : "") + "?w=" + Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key, AppConfig.WxH5Key));
-//
-//                                Response.Redirect(LinkUrl);
-//                                return;
-//                            }
-//                            catch(Exception ex)
-//                            {
-//                                Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
-//                            }
+                           WxAuthorize jsApiDown = new WxAuthorize(this);
+                           try
+                           {
+                               jsApiDown.GetOpenidAndAccessToken();
+                               jsApiDown.GetUserInfo();
+
+                               string openid = jsApiDown.Openid;
+                               string unionid = jsApiDown.Unionid;
+                               string nickname = jsApiDown.Nickname;
+                               int sex = jsApiDown.Sex;
+                               string headimgurl = jsApiDown.Headimgurl;
+
+                               string wxParam = $"<{openid}>,<{unionid}>,<{nickname}>,<{sex}>,<{headimgurl}>";
+                               ConfigInfo config = Fetch.GetWebSiteConfig();
+                               string LinkUrl = (config != null ? config.Field4 : "") + "?w=" + Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key, AppConfig.WxH5Key));
+
+                               Response.Redirect(LinkUrl);
+                               return;
+                           }
+                           catch(Exception ex)
+                           {
+                               Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
+                           }
 
                 #endregion
 
                 #region 演示版本
 
-                Response.Redirect("http://ry.foxuc.net/JJHAuthorize.aspx?url=" + LinkUrl);
+                // Response.Redirect("http://ry.foxuc.net/JJHAuthorize.aspx?url=" + LinkUrl);
 
                 #endregion
             }

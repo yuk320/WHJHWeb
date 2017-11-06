@@ -45,40 +45,40 @@ namespace Game.Web
 
                 #region 客户版本
 
-//                WxAuthorize jsApiDown = new WxAuthorize(this);
-//                try
-//                {
-//                    jsApiDown.GetOpenidAndAccessToken();
-//                    jsApiDown.GetUserInfo();
-//
-//                    string openid = jsApiDown.openid;
-//                    string unionid = jsApiDown.unionid;
-//                    string nickname = jsApiDown.nickname;
-//                    int sex = jsApiDown.sex;
-//                    string headimgurl = jsApiDown.headimgurl;
-//
-//                    if(string.IsNullOrEmpty(LinkUrl) || LinkUrl.ToLower().Contains("http") || LinkUrl.ToLower().Contains("https"))
-//                    {
-//                        Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
-//                        return;
-//                    }
-//                    string wxParam = string.Format("<{0}>,<{1}>,<{2}>,<{3}>,<{4}>",
-//                        openid, unionid, nickname, sex, headimgurl);
-//                    LinkUrl = LinkUrl + "&w=" + Server.UrlEncode(Fetch.DESEncrypt(wxParam, AppConfig.WxUrlKey));
-//
-//                    Response.Redirect(LinkUrl);
-//                    return;
-//                }
-//                catch(Exception ex)
-//                {
-//                    Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
-//                }
+               WxAuthorize jsApiDown = new WxAuthorize(this);
+               try
+               {
+                   jsApiDown.GetOpenidAndAccessToken();
+                   jsApiDown.GetUserInfo();
+
+                   string openid = jsApiDown.Openid;
+                   string unionid = jsApiDown.Unionid;
+                   string nickname = jsApiDown.Nickname;
+                   int sex = jsApiDown.Sex;
+                   string headimgurl = jsApiDown.Headimgurl;
+
+                   if(string.IsNullOrEmpty(LinkUrl) || LinkUrl.ToLower().Contains("http") || LinkUrl.ToLower().Contains("https"))
+                   {
+                       Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
+                       return;
+                   }
+                   string wxParam = string.Format("<{0}>,<{1}>,<{2}>,<{3}>,<{4}>",
+                       openid, unionid, nickname, sex, headimgurl);
+                   LinkUrl = LinkUrl + "&w=" + Server.UrlEncode(Fetch.DESEncrypt(wxParam, AppConfig.WxUrlKey));
+
+                   Response.Redirect(LinkUrl);
+                   return;
+               }
+               catch(Exception ex)
+               {
+                   Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
+               }
 
                 #endregion
 
                 #region 演示版本
 
-                Response.Redirect("http://ry.foxuc.net/JJAuthorize.aspx?url=" + Server.UrlEncode(LinkUrl));
+                // Response.Redirect("http://ry.foxuc.net/JJAuthorize.aspx?url=" + Server.UrlEncode(LinkUrl));
 
                 #endregion
             }

@@ -9,8 +9,8 @@
   },
   "autoConfig": {
     "product_name": "网狐棋牌精华版-源码包",
-    "version": "1.0.3",
-    "mode": "UpdateOnly",
+    "version": "1.0.4",
+    "mode": "CompleteOnly",
     "otherRoomCard": true,
     "otherAPI": true
   },

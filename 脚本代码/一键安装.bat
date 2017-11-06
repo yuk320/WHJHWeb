@@ -5,9 +5,6 @@ COLOR 09
 CLS
 md D:\数据库\精华平台
 
-set rootPath=0更新脚本\
-osql -E -i "%rootPath%更新脚本.sql"
-
 set rootPath=1数据库脚本\
 osql -E -i "%rootPath%1数据库库创建.sql"
 osql -E -i "%rootPath%2数据库表创建.sql"
@@ -90,6 +87,9 @@ osql -E -i "%rootPath%每日钻石统计.sql"
 osql -E -i "%rootPath%排行榜统计.sql"
 osql -E -i "%rootPath%排行榜周统计.sql"
 osql -E -i "%rootPath%每日统计.sql"
+
+set rootPath=0更新脚本\
+osql -E -i "%rootPath%更新脚本.sql"
 
 pause
 
