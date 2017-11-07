@@ -9,13 +9,14 @@ const package = require('./package');
 const start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 const DATE_TOMORROW = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
-const COMMON_IGNORE = ['index.html','node_modules/**/*', '完整包/**/*', '更新包/**/*', '.gitignore', 'package.json', 'index', 'pickup']
+const COMMON_IGNORE = ['README.MD','index.html','node_modules/**/*', '完整包/**/*', '更新包/**/*', '.gitignore', 'package.json', 'index', 'pickup']
 const path = require('path');
 const exec = require('child_process').exec;
 const fextract = require('files-extractor');
 const STATUS = fextract.STATUS;
 const autoConfig = package.autoConfig;
 const CODE_VERSION = 'V' + autoConfig.version;
+const LAST_VERSION = 'V' + autoConfig.lastVersion;
 const PRODUCT_NAME = autoConfig.product_name;
 const eventproxy = require('eventproxy');
 const async = require('async');
@@ -71,7 +72,8 @@ const formatDate = function (date, easy = false) {
 const getDirObj = function (opts) {
   // console.info(opts.start.toISOString(),opts.end.toISOString());
   let originDirName = formatDate(opts.start) + ' & ' + formatDate(opts.end);
-  let terminDirName = opts.terminDirName || `${PRODUCT_NAME.replace('源码包',opts.tag+opts.output)}-${CODE_VERSION}-${formatDate(opts.end, true)}`;
+  let codeVersion = opts.output==='更新包'?`${LAST_VERSION}to${CODE_VERSION}`:CODE_VERSION;
+  let terminDirName = opts.terminDirName || `${PRODUCT_NAME.replace('源码包',opts.tag+opts.output)}-${codeVersion}-${formatDate(opts.end, true)}`;
   let originDirPath = path.join(__dirname, opts.output, originDirName);
   let terminDirPath = originDirPath.replace(originDirName, terminDirName);
   return {

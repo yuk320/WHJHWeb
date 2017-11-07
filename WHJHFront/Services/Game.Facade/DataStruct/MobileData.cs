@@ -125,4 +125,25 @@ namespace Game.Facade.DataStruct
         /// </summary>
         public long PresentGold { get; set; }
     }
+
+    /// <summary>
+    /// 手机游戏玩法结构体
+    /// </summary>
+    public class MobileGameRule
+    {
+        /// <summary>
+        /// 游戏标识
+        /// </summary>
+        public int KindID { get; set; }
+
+        /// <summary>
+        /// 游戏名称
+        /// </summary>
+        public string KindName { get; set; }
+
+        /// <summary>
+        /// 游戏简介
+        /// </summary>
+        public string Content { get; set; }
+    }
 }

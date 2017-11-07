@@ -29,33 +29,9 @@ namespace Game.Web.Helper
             public static string Key = ApplicationSettings.Get("LQPayKey"); //商户密钥 web.config  LQPayKey
         }
 
-        public static string GetPayPackage(OnLinePayOrder onlineOrder, string uuid, string userid, string type,
-            string authority)
+        public static string GetPayPackage(string prepayUrl)
         {
-            string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain) ? authority : AppConfig.FrontSiteDomain;
-            string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
-            string returnUrl = type == "IOS" ? "schame://" : "";
-            PayContent content = new PayContent()
-            {
-                code = "001",
-                comment = onlineOrder.Diamond + "颗 钻石",
-                name = "钻石",
-                price = ((onlineOrder.Amount / onlineOrder.Diamond) * 100).ToString("F0"),
-                quality = onlineOrder.Diamond.ToString(),
-                realMoney = (onlineOrder.Amount * 100).ToString("F0"),
-                rebateMoney = "0",
-                totalMoney = (onlineOrder.Amount * 100).ToString("F0"),
-                showUrl = "",
-                unit = "颗"
-            };
-            Request request = new Request(onlineOrder.OrderID, notifyUrl, returnUrl);
-            request.AddParamValue("uuid", uuid);
-            request.AddParamValue("user_id", userid);
-            request.AddParamValue("total_money", (onlineOrder.Amount * 100).ToString("F0"));
-            request.AddParamValue("rebate_money", "0");
-            request.AddParamValue("real_money", (onlineOrder.Amount * 100).ToString("F0"));
-            request.AddParamValue("pay_content", "[" + content + "]");
-            string result = Get(request.ToString("prepay"));
+            string result = Get(prepayUrl);
             JObject jObject = (JObject)JsonConvert.DeserializeObject(result);
             if (jObject["ret_code"] != null && (string) jObject["ret_code"] != "0000")
             {
@@ -100,12 +76,42 @@ namespace Game.Web.Helper
             return result;
         }
 
-        public class Request
+        public class LQPayRequest
         {
             private readonly SortedDictionary<string, object> _param;
             private readonly ArrayList _index;
 
-            public Request(string orderId, string notifyUrl, string returnUrl = "")
+            public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid, string type,
+                string authority)
+            {
+                string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain) ? authority : AppConfig.FrontSiteDomain;
+                string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
+                string returnUrl = type == "IOS" ? "schame://" : "";
+                LQPayContent content = new LQPayContent()
+                {
+                    code = "001",
+                    comment = onlineOrder.Diamond + "颗 钻石",
+                    name = "钻石",
+                    price = ((onlineOrder.Amount / onlineOrder.Diamond) * 100).ToString("F0"),
+                    quality = onlineOrder.Diamond.ToString(),
+                    realMoney = (onlineOrder.Amount * 100).ToString("F0"),
+                    rebateMoney = "0",
+                    totalMoney = (onlineOrder.Amount * 100).ToString("F0"),
+                    showUrl = "",
+                    unit = "颗"
+                };
+                _param["po_num"] = onlineOrder.OrderID;
+                _param["notify_url"] = notifyUrl;
+                _param["return_url"] =  returnUrl;
+                AddParamValue("uuid", uuid);
+                AddParamValue("user_id", userid);
+                AddParamValue("total_money", (onlineOrder.Amount * 100).ToString("F0"));
+                AddParamValue("rebate_money", "0");
+                AddParamValue("real_money", (onlineOrder.Amount * 100).ToString("F0"));
+                AddParamValue("pay_content", "[" + content + "]");
+            }
+
+            public LQPayRequest(string orderId, string notifyUrl, string returnUrl = "")
             {
                 _index = new ArrayList
                 {
@@ -186,17 +192,17 @@ namespace Game.Web.Helper
             }
 
             /// <summary>
-            /// 重写ToString 方法为 JSON.stringify()
+            /// ToUrl
             /// </summary>
             /// <returns></returns>
-            public string ToString(string type)
+            public string ToUrl(string type)
             {
                 return (type=="prepay"? Config.PrePayUrl:Config.PayUrl) + "?param=" + Param + "&sign=" + Sign;
             }
         }
 
         [Serializable]
-        public class PayContent
+        public class LQPayContent
         {
             // ReSharper disable once InconsistentNaming
             public string code { get; set; }

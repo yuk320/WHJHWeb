@@ -30,7 +30,7 @@ namespace Game.Web.Helper
         public static void WriteErrorLog(Exception ex)
         {
             HttpRequest req = HttpContext.Current.Request;
-            string message = $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[错误]：{ex.Message}";
+            string message = $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[当前堆栈]：{ex.StackTrace}\r\n[错误]：{ex.Message}";
             Log.Error(message);
         }
     }

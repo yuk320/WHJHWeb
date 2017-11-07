@@ -95,6 +95,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     }
                     ReceiveSpreadAward(configid);
                     break;
+                case "getgameintrolist":
+                    GetGameIntroList();
+                    break;
                 //钻石充值下单
                 case "createpayorder":
                     //获取参数
@@ -291,6 +294,30 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         }
 
         /// <summary>
+        /// 获取游戏简介列表
+        /// </summary>
+        private static void GetGameIntroList()
+        {
+            _ajv.data["apiVersion"] = 20171107;
+            IList<GameRule> gameRules = FacadeManage.aideNativeWebFacade.GetGameRuleList();
+            IList<MobileGameRule> ruleList = new List<MobileGameRule>();
+            if (gameRules.Count > 0)
+            {
+                foreach (GameRule gameRule in gameRules)
+                {
+                    ruleList.Add(new MobileGameRule()
+                    {
+                        KindID =  gameRule.KindID,
+                        KindName = gameRule.KindName,
+                        Content = gameRule.KindIntro
+                    });
+                }
+            }
+            _ajv.SetValidDataValue(true);
+            _ajv.AddDataItem("ruleList",ruleList);
+        }
+
+        /// <summary>
         /// 钻石充值下单
         /// </summary>
         /// <param name="configid"></param>
@@ -300,7 +327,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid)
         {
             //接口特殊版本
-            _ajv.data["apiVersion"] = 20171013;
+            _ajv.data["apiVersion"] = 20171107;
             //下单信息
             OnLinePayOrder order = new OnLinePayOrder
             {
@@ -345,8 +372,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 else if (paytype == "lq")
                 {
                     string[] temp = openid.Split('|');
-                    _ajv.AddDataItem("PayPackage",
-                        LQPay.GetPayPackage(orderReturn, temp[0], temp[1], temp[2], GameRequest.GetCurrentFullHost()));
+                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn, temp[0], temp[1], temp[2],
+                        GameRequest.GetCurrentFullHost());
+                    _ajv.AddDataItem("PayUrl", request.ToUrl("pay"));
+                    _ajv.AddDataItem("PayPackage", LQPay.GetPayPackage(request.ToUrl("prepay")));
                 }
                 _ajv.AddDataItem("OrderID", orderReturn?.OrderID ?? "");
             }

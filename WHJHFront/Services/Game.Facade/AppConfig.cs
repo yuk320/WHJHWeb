@@ -104,9 +104,43 @@ namespace Game.Facade
             /// </summary>
 //            IOSNotStorePaySwitch
         }
+
+        public enum CodeMode
+        {
+            /// <summary>
+            /// 开发模式（内部测试）
+            /// </summary>
+            Dev,
+            /// <summary>
+            /// 演示模式（演示平台）
+            /// </summary>
+            Demo,
+            /// <summary>
+            /// 生产模式（客户版本）
+            /// </summary>
+            Production
+        }
         #endregion
 
         #region WebConfig配置
+        /// <summary>
+        /// 代码模式 Mode
+        /// </summary>
+        public static CodeMode Mode
+        {
+            get
+            {
+                try {
+                    string mode = ApplicationSettings.Get("Mode");
+                    if (CodeMode.Demo.ToString().Equals(mode)) return CodeMode.Demo;
+                    return CodeMode.Production.ToString().Equals(mode) ? CodeMode.Demo : CodeMode.Dev;
+                }
+                catch {
+                    return CodeMode.Dev;
+                }
+            }
+        }
+
         /// <summary>
         /// 用户登录缓存key
         /// </summary>

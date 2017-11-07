@@ -1,8 +1,10 @@
-﻿using Game.Entity.Accounts;
+﻿using System;
+using Game.Entity.Accounts;
 using Game.Facade;
 using Game.Utils;
 using System.Web;
 using System.Web.SessionState;
+using Game.Entity.NativeWeb;
 using Game.Facade.Enum;
 
 namespace Game.Web.WS
@@ -25,6 +27,8 @@ namespace Game.Web.WS
 
             //签名验证
             AjaxJsonValid ajv = Fetch.VerifySignData(userid + AppConfig.MoblieInterfaceKey + time, sign);
+            //接口版本号
+            ajv.data["apiVersion"] = 20171106;
             if (ajv.code == (int) ApiCode.VertySignErrorCode)
             {
                 context.Response.Write(ajv.SerializeToJson());
@@ -47,9 +51,12 @@ namespace Game.Web.WS
                 return;
             }
 
+            ConfigInfo webCfg = FacadeManage.aideNativeWebFacade.GetConfigInfo(AppConfig.SiteConfigKey.WebSiteConfig.ToString());
+            string imageServerHost = webCfg.Field2;
+
             ajv.SetValidDataValue(true);
             ajv.AddDataItem("UserID", faceModel.UserID);
-            ajv.AddDataItem("FaceUrl", faceModel.FaceUrl);
+            ajv.AddDataItem("FaceUrl", faceModel.FaceUrl.IndexOf("http://", StringComparison.Ordinal)>-1?faceModel.FaceUrl:$"{imageServerHost}{faceModel.FaceUrl}");
             context.Response.Write(ajv.SerializeToJson());
         }
 

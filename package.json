@@ -1,6 +1,6 @@
 {
   "name": "whjhweb",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index",
   "dependencies": {
     "async": "^2.5.0",
@@ -9,7 +9,8 @@
   },
   "autoConfig": {
     "product_name": "网狐棋牌精华版-源码包",
-    "version": "1.0.3",
+    "lastVersion": "1.0.4",
+    "version": "1.0.5",
     "mode": "UpdateOnly",
     "otherRoomCard": true,
     "otherAPI": true
