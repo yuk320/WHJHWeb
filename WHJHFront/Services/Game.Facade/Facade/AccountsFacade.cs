@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System.Collections.Generic;
 using Game.Data.Factory;
 using Game.IData;
 using Game.Kernel;
-using Game.Utils;
 using System.Data;
-using System.Collections;
 using Game.Entity.Accounts;
+// ReSharper disable InconsistentNaming
 
+// ReSharper disable once CheckNamespace
 namespace Game.Facade
 {
     /// <summary>
@@ -20,7 +16,7 @@ namespace Game.Facade
     {
         #region Fields
 
-        private IAccountsDataProvider accountsData;
+        private readonly IAccountsDataProvider accountsData;
 
         #endregion
 
@@ -103,11 +99,13 @@ namespace Game.Facade
         {
             return accountsData.GetAccountsInfoByUserUin(useruin);
         }
+
         /// <summary>
         /// 用户注册（微信）
         /// </summary>
         /// <param name="user">用户信息</param>
         /// <param name="registerType">注册类型</param>
+        /// <param name="faceUrl"></param>
         /// <returns></returns>
         public Message RegisterWX(UserInfo user, int registerType, string faceUrl)
         {
@@ -213,6 +211,21 @@ namespace Game.Facade
         {
             return accountsData.GetAgentBelowAgentList(userId);
         }
+        #endregion
+
+        #region 推广中心
+
+        /// <summary>
+        /// 推广中心首页数据
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
+        public DataSet GetUserSpreadHomeDataSet(int userId,int typeId)
+        {
+            return accountsData.GetUserSpreadHomeDataSet(userId, typeId);
+        }
+
         #endregion
 
         #region 手机登录信息

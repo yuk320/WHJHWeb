@@ -49,7 +49,6 @@ DECLARE @OtherPresent INT
 DECLARE @BeforeDiamond BIGINT
 DECLARE @OrderStatus TINYINT
 DECLARE @DateTime DATETIME
-DECLARE @PresentScale DECIMAL(18,2)
 
 -- 执行逻辑
 BEGIN
@@ -77,7 +76,7 @@ BEGIN
 	END
 
 	-- 配置查询
-	SELECT @ConfigID=ConfigID,@Amount=PayPrice,@Diamond=Diamond,@PresentScale=PresentScale FROM AppPayConfig WITH(NOLOCK) WHERE PayType=1 AND AppleID=@strAppleID
+	SELECT @ConfigID=ConfigID,@Amount=PayPrice,@Diamond=Diamond,@PresentDiamond=PresentDiamond FROM AppPayConfig WITH(NOLOCK) WHERE PayType=1 AND AppleID=@strAppleID
 	IF @ConfigID IS NULL
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值产品不存在!'
@@ -102,8 +101,7 @@ BEGIN
 	END
 
 	-- 计算额外赠送钻石
-	SET @OtherPresent = CAST((@Diamond*@PresentScale) AS INT)
-	SET @PresentDiamond = @OtherPresent + @Diamond
+	SET @PresentDiamond = @PresentDiamond + @Diamond
 
 	-- 事务处理
 	BEGIN TRAN
@@ -124,8 +122,8 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉！操作异常，请稍后重试!'
 		RETURN 3001
 	END
-	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,PresentScale,OtherPresent,OrderStatus,OrderDate,OrderAddress,BeforeDiamond,PayDate,PayAddress) 
-	VALUES(@ConfigID,800,@UserID,@GameID,@Accounts,@NickName,@strOrdersID,1,@Amount,@Diamond,@PresentScale,@OtherPresent,1,@DateTime,@strIPAddress,@BeforeDiamond,@DateTime,@strIPAddress)
+	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,OtherPresent,OrderStatus,OrderDate,OrderAddress,BeforeDiamond,PayDate,PayAddress) 
+	VALUES(@ConfigID,800,@UserID,@GameID,@Accounts,@NickName,@strOrdersID,1,@Amount,@Diamond,@OtherPresent,1,@DateTime,@strIPAddress,@BeforeDiamond,@DateTime,@strIPAddress)
 	IF @@ROWCOUNT <=0
 	BEGIN
 		ROLLBACK TRAN
@@ -140,8 +138,14 @@ BEGIN
 	-- 如果存在返利配置，写入返利记录
 	IF EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE Nullity=0)
 	BEGIN
-		INSERT WHJHRecordDBLink.WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
-		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PriesentScale,B.PresentType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
+		DECLARE @ReturnType TINYINT
+		SELECT @ReturnType = StatusValue FROM WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReturnType'
+		IF @ReturnType IS NULL
+		BEGIN
+			SET @ReturnType = 0
+		END
+		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
+		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PresentScale,@ReturnType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
 	END
 
 	COMMIT TRAN
@@ -149,6 +153,3 @@ BEGIN
 END 
 RETURN 0
 GO
-
-
-

@@ -22,6 +22,7 @@ namespace Game.Web.Helper
     {
         public static class Config
         {
+            public static string NoPwdLoginUrl = ApplicationSettings.Get("LQNoPwdLoginUrl");
             public static string PrePayUrl = ApplicationSettings.Get("LQPayPreUrl");
             public static string PayUrl = ApplicationSettings.Get("LQPayUrl");
             public static string CompId = ApplicationSettings.Get("LQPayComID"); //商户编号 web.config LQPayComID
@@ -80,6 +81,12 @@ namespace Game.Web.Helper
         {
             private readonly SortedDictionary<string, object> _param;
             private readonly ArrayList _index;
+
+            public LQPayRequest(string orderid, string userid,string name):this(orderid)
+            {
+                AddParamValue("user_id", userid);
+                AddParamValue("login_name",name);
+            }
 
             public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid):this(onlineOrder.OrderID)
             {
@@ -193,7 +200,8 @@ namespace Game.Web.Helper
             /// <returns></returns>
             public string ToUrl(string type="prepay")
             {
-                return (type=="prepay"? Config.PrePayUrl:Config.PayUrl) + "?param=" + Param + "&sign=" + Sign;
+                return (type=="prepay"? Config.PrePayUrl:(type=="nopwdlogin" ? Config.NoPwdLoginUrl : Config.PayUrl)) +
+                                                         "?param=" + Param + "&sign=" + Sign;
             }
         }
 

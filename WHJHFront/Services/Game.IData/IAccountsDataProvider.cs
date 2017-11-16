@@ -128,6 +128,18 @@ namespace Game.IData
         IList<AccountsAgentInfo> GetAgentBelowAgentList(int userId);
         #endregion
 
+        #region 推广中心
+
+        /// <summary>
+        /// 推广中心首页数据
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
+        DataSet GetUserSpreadHomeDataSet(int userId, int typeId);
+
+        #endregion
+
         #region 手机登录信息
         /// <summary>
         /// 获取手机登录信息

@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Game.Web.UI;
 using Game.Utils;
 using Game.Entity.Treasure;
 using Game.Facade;
-using System.Data;
-using Game.Kernel;
+using Game.Entity.Accounts;
 using Game.Entity.Enum;
 
 namespace Game.Web.Module.AppManager
 {
     public partial class SpreadReturnConfigInfo : AdminPage
     {
+        public byte SpreadReturnType;
+
         /// <summary>
         /// 页面加载
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                BindData();
-            }
+            if (Page.IsPostBack) return;
+            SystemStatusInfo spreadReturnCfg =
+                FacadeManage.aideAccountsFacade.GetSystemStatusInfo("SpreadReturnType");
+            if (spreadReturnCfg != null) SpreadReturnType = Convert.ToByte(spreadReturnCfg.StatusValue);
+            BindData();
         }
 
         /// <summary>
@@ -50,7 +47,6 @@ namespace Game.Web.Module.AppManager
                 return;
             }
             config.PresentScale = Convert.ToDecimal(txtPresentScale.Text) / 1000;
-            config.PresentType = Convert.ToByte(rblPresentType.SelectedValue);
             config.Nullity = Convert.ToBoolean(rblNullity.SelectedValue);
             config.UpdateTime = DateTime.Now;
 
@@ -77,7 +73,6 @@ namespace Game.Web.Module.AppManager
                 {
                     CtrlHelper.SetText(txtSpreadLevel, config.SpreadLevel.ToString());
                     CtrlHelper.SetText(txtPresentScale, (config.PresentScale * 1000).ToString("F0"));
-                    rblPresentType.SelectedValue = config.PresentType.ToString();
                     rblNullity.SelectedValue = config.Nullity.ToString();
                 }
             }

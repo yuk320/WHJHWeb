@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using Game.Utils;
 using Game.Kernel;
 using Game.Web.UI;
 using Game.Facade;
 using Game.Entity.Enum;
-using System.Data;
-using System.Text;
-using Game.Entity.Platform;
+using Game.Entity.Accounts;
 using Game.Entity.Treasure;
 
 namespace Game.Web.Module.AppManager
 {
     public partial class SpreadReturnConfigList : AdminPage
     {
+        public byte SpreadReturnType;
+
         /// <summary>
         /// 页面加载
         /// </summary>
@@ -26,6 +19,9 @@ namespace Game.Web.Module.AppManager
         {
             if(!IsPostBack)
             {
+                SystemStatusInfo spreadReturnCfg =
+                    FacadeManage.aideAccountsFacade.GetSystemStatusInfo("SpreadReturnType");
+                if (spreadReturnCfg != null) SpreadReturnType = Convert.ToByte(spreadReturnCfg.StatusValue);
                 BindData();
             }
         }

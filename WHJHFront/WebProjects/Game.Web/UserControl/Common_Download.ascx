@@ -32,15 +32,15 @@
             <span></span>
         </div>
         <div class="ui-qrcode-left">
-            <img src="/image/download-title-lua.png"/>
-            <img src="<%= qrLink %>">
+            <img src="/image/download-title-lua.png" alt=""/>
+            <img src="<%= QrLink %>" alt="">
         </div>
         <div class="ui-qrcode-right">
-            <img src="/image/download-title-h5.png"/>
-            <img src="<%= qrh5Link %>">
+            <img src="/image/download-title-h5.png" alt=""/>
+            <img src="<%= Qrh5Link %>" alt="">
         </div>
         <div class="ui-qr-tip">
-            <img src="/image/saoyisao.png">
+            <img src="/image/saoyisao.png" alt="">
         </div>
     </div>
 <% }
@@ -50,9 +50,9 @@
         <div class="ui-block-title">
             <span></span>
         </div>
-        <img src="<%= qrLink %>">
+        <img src="<%= QrLink %>" alt="">
         <div class="ui-qr-tip">
-            <img src="/image/saoyisao.png">
+            <img src="/image/saoyisao.png" alt="">
         </div>
     </div>
 <% } %>

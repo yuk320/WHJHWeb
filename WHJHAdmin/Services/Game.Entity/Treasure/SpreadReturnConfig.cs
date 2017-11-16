@@ -31,7 +31,6 @@ namespace Game.Entity.Treasure
         private int p_configid;
         private int p_spreadlevel;
         private decimal p_presentscale;
-        private byte p_presenttype;
         private bool p_nullity;
         private DateTime p_updatetime;
 
@@ -47,7 +46,6 @@ namespace Game.Entity.Treasure
             p_configid = 0;
             p_spreadlevel = 0;
             p_presentscale = 0;
-            p_presenttype = 0;
             p_nullity = false;
             p_updatetime = DateTime.Now;
         }
@@ -57,7 +55,6 @@ namespace Game.Entity.Treasure
             if (dr["ConfigID"] != null) p_configid = Convert.ToInt32(dr["ConfigID"]);
             if (dr["SpreadLevel"] != null) p_spreadlevel = Convert.ToInt32(dr["SpreadLevel"]);
             if (dr["PresentScale"] != null) p_presentscale = Convert.ToDecimal(dr["PresentScale"]);
-            if (dr["PresentType"] != null) p_presenttype = Convert.ToByte(dr["PresentType"]);
             if (dr["Nullity"] != null) p_nullity = Convert.ToBoolean(dr["Nullity"]);
             if (dr["UpdateTime"] != null) p_updatetime = Convert.ToDateTime(dr["UpdateTime"]);
         }
@@ -108,21 +105,6 @@ namespace Game.Entity.Treasure
             get
             {
                 return p_presentscale;
-            }
-        }
-
-        /// <summary>
-        /// PresentType
-        /// </summary>
-        public byte PresentType
-        {
-            set
-            {
-                p_presenttype=value;
-            }
-            get
-            {
-                return p_presenttype;
             }
         }
 

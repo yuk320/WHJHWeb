@@ -16,7 +16,6 @@ CREATE TABLE [dbo].[SpreadReturnConfig](
 	[ConfigID] [int] IDENTITY(1,1) NOT NULL,
 	[SpreadLevel] [int] NOT NULL,
 	[PresentScale] [decimal](18, 6) NOT NULL,
-	[PresentType] [int] NOT NULL,
 	[Nullity] [bit] NOT NULL,
 	[UpdateTime] [datetime] NOT NULL,
  CONSTRAINT [PK_SpreadReturnConfig] PRIMARY KEY CLUSTERED 
@@ -33,9 +32,6 @@ GO
 ALTER TABLE [dbo].[SpreadReturnConfig] ADD  CONSTRAINT [DF_SpreadReturnConfig_PresentScale]  DEFAULT ((0)) FOR [PresentScale]
 GO
 
-ALTER TABLE [dbo].[SpreadReturnConfig] ADD  CONSTRAINT [DF_SpreadReturnConfig_PresentType]  DEFAULT ((0)) FOR [PresentType]
-GO
-
 ALTER TABLE [dbo].[SpreadReturnConfig] ADD  CONSTRAINT [DF_SpreadReturnConfig_Nullity]  DEFAULT ((0)) FOR [Nullity]
 GO
 
@@ -49,9 +45,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'推广级别（目前
 GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'充值返点比例' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'PresentScale'
-GO
-
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'赠送类型（0：金币、1：钻石）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'PresentType'
 GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否启用（0：启用、1：禁用）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'Nullity'

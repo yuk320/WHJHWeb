@@ -99,10 +99,14 @@ namespace Game.Facade
             /// 有效好友游戏局数
             /// </summary>
             JJEffectiveFriendGame,
+//                        /// <summary>
+//                       /// 苹果第三方充值
+//                        /// </summary>
+//                        IOSNotStorePaySwitch,
             /// <summary>
-            /// 苹果第三方充值
-            /// </summary>
-//            IOSNotStorePaySwitch
+            /// 全局推广返利类型（0：金币、1：钻石）
+            /// </summary>  
+            SpreadReturnType
         }
 
         public enum CodeMode

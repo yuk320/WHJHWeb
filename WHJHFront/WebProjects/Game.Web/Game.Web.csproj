@@ -275,6 +275,9 @@
     <Content Include="Notify\WxApp.aspx" />
     <Content Include="Notify\WxWeb.aspx" />
     <Content Include="Sitemap.aspx" />
+    <Content Include="Spread\assets\css\agent\proxy.css" />
+    <Content Include="Spread\assets\css\reset.css" />
+    <Content Include="Spread\assets\js\fontReset.js" />
     <Content Include="Spread\dist\build.js" />
     <Content Include="Spread\index.html" />
     <Content Include="UserControl\Common_Banner.ascx" />
@@ -599,6 +602,9 @@
     <Compile Include="Sitemap.aspx.designer.cs">
       <DependentUpon>Sitemap.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Spread\SpreadDataHandle.ashx.cs">
+      <DependentUpon>SpreadDataHandle.ashx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\Common_Banner.ascx.cs">
       <DependentUpon>Common_Banner.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -657,6 +663,7 @@
     <Content Include="WS\NewMoblieInterface.ashx" />
     <Content Include="WS\UserFace.ashx" />
     <Content Include="Spread\dist\build.js.map" />
+    <Content Include="Spread\SpreadDataHandle.ashx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Game.Entity\Game.Entity.csproj">

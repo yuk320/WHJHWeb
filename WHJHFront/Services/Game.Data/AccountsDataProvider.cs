@@ -294,6 +294,26 @@ namespace Game.Data
 
         #endregion
 
+        #region 推广中心
+
+        /// <summary>
+        /// 推广中心首页数据
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
+        public DataSet GetUserSpreadHomeDataSet(int userId, int typeId)
+        {
+            var param = new List<DbParameter>()
+            {
+                Database.MakeInParam("dwUserID", userId),
+                Database.MakeInParam("dwType",typeId)
+            };
+            return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PW_UserSpreadHome", param.ToArray());
+        }
+
+        #endregion
+
         #region 手机登录信息
 
         /// <summary>

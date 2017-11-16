@@ -145,8 +145,14 @@ BEGIN
 	-- 如果存在返利配置，写入返利记录
 	IF EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE Nullity=0)
 	BEGIN
-		INSERT WHJHRecordDBLink.WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
-		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PriesentScale,B.PresentType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
+		DECLARE @ReturnType TINYINT
+		SELECT @ReturnType = StatusValue FROM WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReturnType'
+		IF @ReturnType IS NULL
+		BEGIN
+			SET @ReturnType = 0
+		END
+		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
+		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PriesentScale,@ReturnType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
 	END
 
 	COMMIT TRAN

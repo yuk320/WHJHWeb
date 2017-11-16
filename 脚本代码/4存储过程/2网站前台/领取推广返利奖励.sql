@@ -22,7 +22,6 @@ GO
 CREATE PROC [NET_PJ_ReceiveSpreadReturn]
   @dwUserID		INT,
   @dwNum   INT,
-  @dwType TINYINT,
   @strClientIP NVARCHAR(15),
   @strErrorDescribe NVARCHAR(127) OUTPUT
 WITH
@@ -32,6 +31,7 @@ AS
 -- 属性设置
 DECLARE @UserID INT
 DECLARE @Nullity TINYINT
+DECLARE @ReceiveType TINYINT
 DECLARE @DateTime DATETIME
 DECLARE @TotalReturn BIGINT
 DECLARE @TotalReceive BIGINT
@@ -43,6 +43,7 @@ BEGIN
   -- 获取用户信息
   SELECT @UserID=UserID, @Nullity=Nullity
   FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsInfo WITH(NOLOCK)
+
   WHERE UserID=@dwUserID
   IF @Nullity IS NULL
 	BEGIN
@@ -55,12 +56,18 @@ BEGIN
     RETURN 1002
   END
 
+  SELECT @ReceiveType = StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReturnType'
+  IF @ReceiveType IS NULL
+  BEGIN
+    SET @ReceiveType = 0;
+  END
+
   SELECT @TotalReturn =  CAST(ISNULL(SUM(ReturnNum),0) AS BIGINT)
   FROM RecordSpreadReturn
-  WHERE TargetUserID=@UserID AND ReturnType = @dwType
+  WHERE TargetUserID=@UserID AND ReturnType = @ReceiveType
   SELECT @TotalReceive = CAST(ISNULL(SUM(ReceiveNum),0) AS BIGINT)
   FROM RecordSpreadReturnReceive
-  WHERE UserID=@UserID AND ReceiveType = @dwType
+  WHERE UserID=@UserID AND ReceiveType = @ReceiveType
   IF @TotalReturn = 0 OR @dwNum>@TotalReturn-@TotalReceive
   BEGIN
     SET @strErrorDescribe=N'抱歉，可领取奖励不足'
@@ -70,7 +77,7 @@ BEGIN
   -- 开启事务
   BEGIN TRAN
 
-  IF @dwType = 1
+  IF @ReceiveType = 1
   BEGIN
     -- 领取类型为钻石
     SELECT @ReceiveBefore = Diamond
@@ -103,7 +110,7 @@ BEGIN
     END
 
   END
-  IF @dwType = 0 
+  IF @ReceiveType = 0 
   BEGIN
     DECLARE @BeforeInsure BIGINT
     DECLARE @BeforeScore BIGINT
@@ -145,7 +152,7 @@ BEGIN
   -- 写入领取记录
   INSERT INTO RecordSpreadReturnReceive
     (UserID,ReceiveType,ReceiveNum,ReceiveBefore,ReceiveAddress,CollectDate)
-  VALUES(@UserID, @dwType, @dwNum, @ReceiveBefore, @strClientIP, @DateTime)
+  VALUES(@UserID, @ReceiveType, @dwNum, @ReceiveBefore, @strClientIP, @DateTime)
   IF @@ROWCOUNT<=0
   BEGIN
     SET @strErrorDescribe=N'抱歉，领取异常，请稍后重试'

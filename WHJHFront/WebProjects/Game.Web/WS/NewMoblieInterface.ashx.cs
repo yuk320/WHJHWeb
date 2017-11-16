@@ -174,6 +174,19 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     }
                     DiamondExchGold(configid, typeid);
                     break;
+                case "getlqnopwdloginurl":
+                    _ajv.data["apiVersion"] = 20171116;
+                    string name = GameRequest.GetString("name");
+                    if (string.IsNullOrEmpty(name))
+                    {
+                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                            " name 错误");
+                        context.Response.Write(_ajv.SerializeToJson());
+                        return;
+                    }
+                    GetLqNoPwdLoginUrl(name);
+                    break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
                     _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
@@ -620,6 +633,19 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 }
             }
             _ajv.msg = msg.Content;
+        }
+        
+        /// <summary>
+        /// 零钱支付免密登录接口构造
+        /// </summary>
+        /// <param name="name"></param>
+        private static void GetLqNoPwdLoginUrl(string name)
+        {
+            LQPay.LQPayRequest noPwdLoginRequest = new LQPay.LQPayRequest(Fetch.GetOrderIDByPrefix("360LQ"),_userid.ToString(),name);
+            _ajv.SetValidDataValue(true);
+            _ajv.AddDataItem("noPwdLoginUrl", noPwdLoginRequest.ToUrl("nopwdloign"));
+            _ajv.AddDataItem("param", noPwdLoginRequest.Param);
+            _ajv.AddDataItem("sign", noPwdLoginRequest.Sign);
         }
 
         #region 辅助方法

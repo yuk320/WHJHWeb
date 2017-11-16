@@ -68,10 +68,7 @@
                 返利类型：
             </td>
             <td>
-                <asp:RadioButtonList ID="rblPresentType" runat="server" RepeatDirection="Horizontal">
-                    <asp:ListItem Text="金币" Value="0" Selected="True"></asp:ListItem>
-                    <asp:ListItem Text="钻石" Value="1"></asp:ListItem>
-                </asp:RadioButtonList>
+                <%= SpreadReturnType==0?"金币":"钻石" %>
             </td>
         </tr> 
         <tr>

@@ -3,6 +3,12 @@ GO
 
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'IOSNotStorePaySwitch'
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
+
+-- 2017/11/16 添加全局推广返利类型 0：金币 1：钻石
+INSERT INTO SystemStatusInfo
+  (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
+VALUES(N'SpreadReturnType', 0, N'全局推广返利类型', N'推广返利类型', N'键值：推广返利类型，在推广返利配置无可用配置时不生效，0表示金币 1表示钻石', 99)
+
 GO
 
 USE [WHJHNativeWebDB]

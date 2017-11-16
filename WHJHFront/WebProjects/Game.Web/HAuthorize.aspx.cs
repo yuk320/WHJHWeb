@@ -20,7 +20,6 @@ namespace Game.Web
             {
                 #region 内部测试
 
-                Random rd = new Random();
                 string unionid = "59C6CEA7FBAB5A19C3177E1216BBACF6";
                 string nickname = "网站47033";
                 string headimgurl =
@@ -28,10 +27,10 @@ namespace Game.Web
 
                 string wxParam = $"<{unionid}>,<{unionid}>,<{nickname}>,<{1}>,<{headimgurl}>";
 
-                string LinkUrl = "http://172.16.0.211:6566/develop/majiang/index.html" + "?w=" +
+                string url = "http://172.16.0.211:6566/develop/majiang/index.html" + "?w=" +
                                  Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key, AppConfig.WxH5Key));
 
-                Response.Redirect(LinkUrl);
+                Response.Redirect(url);
 
                 #endregion
             }
@@ -53,13 +52,13 @@ namespace Game.Web
 
                     string wxParam = $"<{openid}>,<{unionid}>,<{nickname}>,<{sex}>,<{headimgurl}>";
                     ConfigInfo config = Fetch.GetWebSiteConfig();
-                    string LinkUrl = (config != null ? config.Field4 : "") + "?w=" +
+                    string url = (config != null ? config.Field4 : "") + "?w=" +
                                      Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key,
                                          AppConfig.WxH5Key));
 
-                    Response.Redirect(LinkUrl);
+                    Response.Redirect(url);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
                 }

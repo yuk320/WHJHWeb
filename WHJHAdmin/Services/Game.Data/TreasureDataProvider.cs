@@ -254,7 +254,6 @@ namespace Game.Data
             {
                 Database.MakeInParam("SpreadLevel", config.SpreadLevel),
                 Database.MakeInParam("PresentScale", config.PresentScale),
-                Database.MakeInParam("PresentType", config.PresentType),
                 Database.MakeInParam("Nullity", config.Nullity),
                 Database.MakeInParam("UpdateTime", config.UpdateTime)
             };
@@ -262,15 +261,15 @@ namespace Game.Data
             {
                 prams.Add(Database.MakeInParam("ConfigID",config.ConfigID));
                 sql =
-                    "UPDATE SpreadReturnConfig SET SpreadLevel=@SpreadLevel,PresentScale=@PresentScale,PresentType=@PresentType,Nullity=@Nullity,UpdateTime=@UpdateTime WHERE ConfigID=@ConfigID";
+                    "UPDATE SpreadReturnConfig SET SpreadLevel=@SpreadLevel,PresentScale=@PresentScale,Nullity=@Nullity,UpdateTime=@UpdateTime WHERE ConfigID=@ConfigID";
             }
             else
             {
                 sql = @"
                             IF NOT EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE SpreadLevel = @SpreadLevel)
                             BEGIN
-                                INSERT INTO SpreadReturnConfig(SpreadLevel,PresentScale,PresentType,Nullity,UpdateTime) 
-                                VALUES(@SpreadLevel,@PresentScale,@PresentType,@Nullity,@UpdateTime)
+                                INSERT INTO SpreadReturnConfig(SpreadLevel,PresentScale,Nullity,UpdateTime) 
+                                VALUES(@SpreadLevel,@PresentScale,@Nullity,@UpdateTime)
                             END";
             }
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
