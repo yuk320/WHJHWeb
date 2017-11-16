@@ -307,14 +307,14 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 {
                     ruleList.Add(new MobileGameRule()
                     {
-                        KindID =  gameRule.KindID,
+                        KindID = gameRule.KindID,
                         KindName = gameRule.KindName,
                         Content = gameRule.KindIntro
                     });
                 }
             }
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("ruleList",ruleList);
+            _ajv.AddDataItem("ruleList", ruleList);
         }
 
         /// <summary>
@@ -371,11 +371,8 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 }
                 else if (paytype == "lq")
                 {
-                    string[] temp = openid.Split('|');
-                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn, temp[0], temp[1], temp[2],
-                        GameRequest.GetCurrentFullHost());
-                    _ajv.AddDataItem("PayUrl", request.ToUrl("pay"));
-                    _ajv.AddDataItem("PayPackage", LQPay.GetPayPackage(request.ToUrl("prepay")));
+                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn, openid, _userid.ToString());
+                    _ajv.AddDataItem("PayPackage", LQPay.GetPayPackage(request.ToUrl()));
                 }
                 _ajv.AddDataItem("OrderID", orderReturn?.OrderID ?? "");
             }

@@ -37,7 +37,7 @@ namespace Game.Web.Helper
             {
                 Log4Net.WriteInfoLog(result);
             }
-            return "";
+            return (string)jObject["ret_content"];
         }
 
         public static string Get(string url)
@@ -81,12 +81,8 @@ namespace Game.Web.Helper
             private readonly SortedDictionary<string, object> _param;
             private readonly ArrayList _index;
 
-            public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid, string type,
-                string authority)
+            public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid):this(onlineOrder.OrderID)
             {
-                string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain) ? authority : AppConfig.FrontSiteDomain;
-                string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
-                string returnUrl = type == "IOS" ? "schame://" : "";
                 LQPayContent content = new LQPayContent()
                 {
                     code = "001",
@@ -100,9 +96,6 @@ namespace Game.Web.Helper
                     showUrl = "",
                     unit = "颗"
                 };
-                _param["po_num"] = onlineOrder.OrderID;
-                _param["notify_url"] = notifyUrl;
-                _param["return_url"] =  returnUrl;
                 AddParamValue("uuid", uuid);
                 AddParamValue("user_id", userid);
                 AddParamValue("total_money", (onlineOrder.Amount * 100).ToString("F0"));
@@ -111,8 +104,11 @@ namespace Game.Web.Helper
                 AddParamValue("pay_content", "[" + content + "]");
             }
 
-            public LQPayRequest(string orderId, string notifyUrl, string returnUrl = "")
+            public LQPayRequest(string orderId)
             {
+                string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain) ? GameRequest.GetCurrentFullHost() : AppConfig.FrontSiteDomain;
+                string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
+                string returnUrl = "http://" + domain + "/Mobile/Pay/LqReturn.aspx";
                 _index = new ArrayList
                 {
                     "comp_id",
@@ -195,7 +191,7 @@ namespace Game.Web.Helper
             /// ToUrl
             /// </summary>
             /// <returns></returns>
-            public string ToUrl(string type)
+            public string ToUrl(string type="prepay")
             {
                 return (type=="prepay"? Config.PrePayUrl:Config.PayUrl) + "?param=" + Param + "&sign=" + Sign;
             }

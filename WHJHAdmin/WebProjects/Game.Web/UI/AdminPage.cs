@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Text;
-
 using Game.Facade;
 using Game.Utils;
 using Game.Entity;
@@ -29,48 +28,46 @@ namespace Game.Web.UI
     public abstract partial class AdminPage : Page
     {
         #region Fields
+
         /// <summary>
         /// 模块标识
         /// </summary>
         protected internal int moduleID;
+
         /// <summary>
         /// 用户对象
         /// </summary>
         protected internal LoginUser userExt;
+
         /// <summary>
         /// 用户权限
         /// </summary>
         protected internal Dictionary<string, long> userPower;
+
         /// <summary>
         /// 命令
         /// </summary>
         protected string StrCmd
         {
-            get
-            {
-                return GameRequest.GetQueryString("cmd");
-            }
+            get { return GameRequest.GetQueryString("cmd"); }
         }
+
         /// <summary>
         /// Get方法传递的整型参数 param
         /// </summary>
         protected int IntParam
         {
-            get
-            {
-                return GameRequest.GetQueryInt("param", 0);
-            }
+            get { return GameRequest.GetQueryInt("param", 0); }
         }
+
         /// <summary>
         /// Get方法传递的字符串参数 param
         /// </summary>
         protected string StrParam
         {
-            get
-            {
-                return GameRequest.GetQueryString("param");
-            }
+            get { return GameRequest.GetQueryString("param"); }
         }
+
         /// <summary>
         /// Post方法传递的整型列表参数 cid
         /// </summary>
@@ -78,18 +75,19 @@ namespace Game.Web.UI
         {
             get
             {
-                string[] strArray = GameRequest.GetFormString("cid").Trim().Split(new char[] { ',' });
+                string[] strArray = GameRequest.GetFormString("cid").Trim().Split(new char[] {','});
                 StringBuilder builder = new StringBuilder();
-                foreach(string str2 in strArray)
+                foreach (string str2 in strArray)
                 {
-                    if(Utils.Validate.IsNumeric(str2))
+                    if (Utils.Validate.IsNumeric(str2))
                     {
                         builder.Append(str2 + ",");
                     }
                 }
-                return builder.ToString().TrimEnd(new char[] { ',' });
+                return builder.ToString().TrimEnd(new char[] {','});
             }
         }
+
         /// <summary>
         /// Post方法传递的字符串型列表参数 cid
         /// </summary>
@@ -97,18 +95,20 @@ namespace Game.Web.UI
         {
             get
             {
-                string[] strArray = GameRequest.GetFormString("cid").Trim().Split(new char[] { ',' });
+                string[] strArray = GameRequest.GetFormString("cid").Trim().Split(new char[] {','});
                 StringBuilder builder = new StringBuilder();
-                foreach(string str2 in strArray)
+                foreach (string str2 in strArray)
                 {
                     builder.Append("'" + str2 + "'" + ",");
                 }
-                return builder.ToString().TrimEnd(new char[] { ',' });
+                return builder.ToString().TrimEnd(new char[] {','});
             }
         }
+
         #endregion
 
         #region 构造方法
+
         /// <summary>
         /// 页面载入
         /// </summary>
@@ -117,7 +117,7 @@ namespace Game.Web.UI
         {
             //获取登录用户
             userExt = Fetch.GetLoginUser();
-            if(userExt == null || userExt.UserID <= 0)
+            if (userExt == null || userExt.UserID <= 0)
             {
                 RedirectToLogin("/Login.aspx");
                 return;
@@ -126,9 +126,10 @@ namespace Game.Web.UI
             LoginCache cache = Fetch.GetLoginResources(userExt.UserID);
             //验证页面授权
             string pageName = GameRequest.GetPageName();
-            ModulePage modulePage = (cache != null & cache.pagePowerList != null) ? 
-                cache.pagePowerList.Where(p => p.PageName.ToLower().Contains(pageName)).FirstOrDefault<ModulePage>() : null;
-            if(modulePage==null|| modulePage.ModuleID <= 0)
+            ModulePage modulePage = (cache != null & cache.pagePowerList != null)
+                ? cache.pagePowerList.Where(p => p.PageName.ToLower().Contains(pageName)).FirstOrDefault<ModulePage>()
+                : null;
+            if (modulePage == null || modulePage.ModuleID <= 0)
             {
                 RedirectToLogin("/Login.aspx");
                 return;
@@ -136,14 +137,14 @@ namespace Game.Web.UI
             moduleID = modulePage.ModuleID;
             //验证用户权限
             userPower = (cache != null & cache.userPower != null) ? cache.userPower : null;
-            if(userExt == null || userPower == null || userPower.Count == 0)
+            if (userExt == null || userPower == null || userPower.Count == 0)
             {
                 RedirectToLogin("/Login.aspx");
                 return;
             }
-            if(userExt.RoleID != 1)
+            if (userExt.RoleID != 1)
             {
-                if(!userPower.ContainsKey(moduleID.ToString()) || 
+                if (!userPower.ContainsKey(moduleID.ToString()) ||
                     (userPower[moduleID.ToString()] & Convert.ToInt64(Permission.Read)) <= 0)
                 {
                     Redirect("/NotPower.html");
@@ -151,32 +152,37 @@ namespace Game.Web.UI
                 }
             }
         }
+
         #endregion
 
         #region 权限检查
+
         /// <summary>
         /// 验证当前页面的操作权限
         /// </summary>
         /// <param name="permission">权限值</param>
         protected void AuthUserOperationPermission(Permission permission)
         {
-            if(userExt == null || userExt.UserID <= 0 || moduleID <=0 || userPower ==null || userPower.Count<=0)
+            if (userExt == null || userExt.UserID <= 0 || moduleID <= 0 || userPower == null || userPower.Count <= 0)
             {
                 RedirectToLogin("/Login.aspx");
                 return;
             }
-            if(userExt.RoleID != 1)
+            if (userExt.RoleID != 1)
             {
-                if(!userPower.ContainsKey(moduleID.ToString()) || (userPower[moduleID.ToString()] & Convert.ToInt64(permission)) <= 0)
+                if (!userPower.ContainsKey(moduleID.ToString()) ||
+                    (userPower[moduleID.ToString()] & Convert.ToInt64(permission)) <= 0)
                 {
                     Redirect("/NotPower.html");
                     return;
                 }
             }
         }
+
         #endregion
 
         #region 辅助方法
+
         /// <summary>
         /// 页面跳转
         /// </summary>
@@ -185,6 +191,7 @@ namespace Game.Web.UI
         {
             Fetch.Redirect(url);
         }
+
         /// <summary>
         /// 页面跳转
         /// </summary>
@@ -193,9 +200,11 @@ namespace Game.Web.UI
         {
             Random rd = new Random();
             Page.Response.Clear();
-            Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("top.location.href='/Login.aspx?{0}';", rd.Next(1000)), true);
+            Page.ClientScript.RegisterStartupScript(typeof(Page), "",
+                string.Format("top.location.href='/Login.aspx?{0}';", rd.Next(1000)), true);
             return;
         }
+
         /// <summary>
         /// 错误显示
         /// </summary>
@@ -214,6 +223,7 @@ namespace Game.Web.UI
             Page.ClientScript.RegisterStartupScript(typeof(Page), "",
                 string.Format("showError(\"{0}\");setTimeout(\"Redirect('{1}')\",{2})", msg, url, timeout), true);
         }
+
         /// <summary>
         /// 信息显示
         /// </summary>
@@ -222,6 +232,7 @@ namespace Game.Web.UI
         {
             Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("showInfo(\"{0}\");", msg), true);
         }
+
         /// <summary>
         /// 信息显示并跳转
         /// </summary>
@@ -232,6 +243,7 @@ namespace Game.Web.UI
             Page.ClientScript.RegisterStartupScript(typeof(Page), "",
                 string.Format("showInfo(\"{0}\");setTimeout(\"Redirect('{1}')\",{2})", msg, url, timeout), true);
         }
+
         /// <summary>
         /// 弹出提示信息
         /// </summary>
@@ -240,6 +252,7 @@ namespace Game.Web.UI
         {
             Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("alert(\"{0}\");", msg), true);
         }
+
         /// <summary>
         /// 弹出提示信息并跳转
         /// </summary>
@@ -247,16 +260,20 @@ namespace Game.Web.UI
         /// <param name="ReturnUrl"></param>
         protected void MessageBox(string msg, string ReturnUrl)
         {
-            Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("alert(\"{0}\");parent.location.href='{1}'", msg, ReturnUrl), true);
+            Page.ClientScript.RegisterStartupScript(typeof(Page), "",
+                string.Format("alert(\"{0}\");parent.location.href='{1}'", msg, ReturnUrl), true);
         }
+
         /// <summary>
         /// 弹出提示信息
         /// </summary>
         /// <param name="msg"></param>
         protected void MessageBoxClose(string msg)
         {
-            Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("alert(\"{0}\");window.close();", msg), true);
+            Page.ClientScript.RegisterStartupScript(typeof(Page), "",
+                string.Format("alert(\"{0}\");window.close();", msg), true);
         }
+
         /// <summary>
         /// 弹出提示信息，父页面刷新
         /// </summary>
@@ -264,13 +281,18 @@ namespace Game.Web.UI
         /// <param name="ReturnUrl"></param>
         protected void MessageBoxCloseRef(string msg)
         {
-            Page.ClientScript.RegisterStartupScript(typeof(Page), "", string.Format("alert(\"{0}\");opener.document.location.href=opener.document.location.href,window.close();", msg), true);
+            Page.ClientScript.RegisterStartupScript(typeof(Page), "",
+                string.Format(
+                    "alert(\"{0}\");opener.document.location.href=opener.document.location.href,window.close();", msg),
+                true);
         }
+
         #endregion
 
         #region 数据部分
 
         #region 用户信息
+
         /// <summary>
         /// 获取用户标识
         /// </summary>
@@ -281,6 +303,7 @@ namespace Game.Web.UI
             AccountsInfo accountsInfo = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameID);
             return accountsInfo == null ? 0 : accountsInfo.UserID;
         }
+
         /// <summary>
         /// 获得用户昵称
         /// </summary>
@@ -291,6 +314,7 @@ namespace Game.Web.UI
             AccountsInfo model = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userID);
             return model != null ? model.NickName : "";
         }
+
         /// <summary>
         /// 获取游戏id
         /// </summary>
@@ -301,40 +325,55 @@ namespace Game.Web.UI
             AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(userID);
             return accounts != null ? accounts.GameID.ToString() : "";
         }
+
         #endregion
 
         #region 流水信息
 
-         /// <summary>
+        /// <summary>
+        /// 根据不同需求获取
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        protected IList<EnumDescription> GetSerialTypeList(Type t, string type = "")
+        {
+            IList<EnumDescription> list = EnumHelper.GetList(t);
+            if (type == "consume")
+            {
+                if (t == typeof(DiamondSerialType))
+                {
+                    list = list.Where(a => a.EnumValue == 7 || (a.EnumValue >= 9 && a.EnumValue <= 12)).ToList();
+
+                }
+                else if (t == typeof(GoldSerialType))
+                {
+                    list = list.Where(a => a.EnumValue == 2 || a.EnumValue == 4 || a.EnumValue == 8).ToList();
+                }
+            }
+            else if (type == "income")
+            {
+                if (t == typeof(DiamondSerialType))
+                {
+                    list = list.Where(a => a.EnumValue != 7 && (a.EnumValue < 9 || a.EnumValue > 12)).ToList();
+                }
+                else if (t == typeof(GoldSerialType))
+                {
+                    list = list.Where(a => a.EnumValue != 2 && a.EnumValue != 4 && a.EnumValue != 6 &&
+                                           a.EnumValue != 7 && a.EnumValue != 8).ToList();
+                }
+            }
+            return list;
+        }
+
+        /// <summary>
         /// 获取钻石获取类型
         /// </summary>
         /// <param name="typeid">类型标识</param>
         /// <returns></returns>
         protected string GetGoldType(int typeid)
         {
-            switch(typeid)
-            {
-                case 0:
-                    return "后台赠送";
-                case 1:
-                    return "注册赠送";
-                case 2:
-                    return "主动转账";
-                case 3:
-                    return "接收转账";
-                case 4:
-                    return "购买道具";
-                case 5:
-                    return "钻石兑换";
-                case 6:
-                    return "存入银行";
-                case 7:
-                    return "银行取出";
-                case 8:
-                    return "银行服务费";
-                default:
-                    return "";
-            }
+            return EnumHelper.GetDesc(typeof(GoldSerialType), typeid);
         }
 
         /// <summary>
@@ -344,44 +383,13 @@ namespace Game.Web.UI
         /// <returns></returns>
         protected string GetDiamondType(int typeid)
         {
-            switch (typeid)
-            {
-                case 0:
-                    return "后台赠送";
-                case 1:
-                    return "注册赠送";
-                case 2:
-                    return "推广奖励";
-                case 3:
-                    return "充值赠送";
-                case 4:
-                    return "绑定推广奖励";
-                case 5:
-                    return "排行榜奖励";
-                case 6:
-                    return "实名认证奖励";
-                case 7:
-                    return "代理赠送";
-                case 8:
-                    return "被代理赠送";
-                case 9:
-                    return "购买道具";
-                case 10:
-                    return "创建房间";
-                case 11:
-                    return "AA制游戏";
-                case 12:
-                    return "兑换金币";
-                case 13:
-                    return "";
-                default:
-                    return "";
-            }
+            return EnumHelper.GetDesc(typeof(DiamondSerialType), typeid);
         }
 
         #endregion
 
         #region 管理员信息
+
         /// <summary>
         /// 获取管理员帐号
         /// </summary>
@@ -392,6 +400,7 @@ namespace Game.Web.UI
             Base_Users user = FacadeManage.aidePlatformManagerFacade.GetUserByUserId(masterID);
             return user != null ? user.Username : "";
         }
+
         /// <summary>
         /// 获取角色名称
         /// </summary>
@@ -402,9 +411,11 @@ namespace Game.Web.UI
             Base_Roles role = FacadeManage.aidePlatformManagerFacade.GetRoleInfo(roleID);
             return role != null ? role.RoleName : "";
         }
+
         #endregion
 
         #region 公用方法
+
         /// <summary>
         /// 根据IP的地理位置
         /// </summary>
@@ -414,6 +425,7 @@ namespace Game.Web.UI
         {
             return IPQuery.GetAddressWithIP(IP);
         }
+
         /// <summary>
         /// 启动禁用状态(0:启用; 1:禁止)
         /// </summary>
@@ -423,6 +435,7 @@ namespace Game.Web.UI
         {
             return nullity == 0 ? "<span>启用</span>" : "<span class='hong'>禁用</span>";
         }
+
         /// <summary>
         /// 计算版本号
         /// </summary>
@@ -437,6 +450,7 @@ namespace Game.Web.UI
             returnValue += ((version << 24) >> 24).ToString();
             return returnValue;
         }
+
         /// <summary>
         /// 还原版本号
         /// </summary>
@@ -446,9 +460,11 @@ namespace Game.Web.UI
         {
             int rValue = 0;
             string[] verArray = version.Split('.');
-            rValue = (int.Parse(verArray[0]) << 24) | (int.Parse(verArray[1]) << 16) | (int.Parse(verArray[2]) << 8) | int.Parse(verArray[3]);
+            rValue = (int.Parse(verArray[0]) << 24) | (int.Parse(verArray[1]) << 16) | (int.Parse(verArray[2]) << 8) |
+                     int.Parse(verArray[3]);
             return rValue;
         }
+
         /// <summary>
         /// 获取注册来源
         /// </summary>
@@ -457,7 +473,7 @@ namespace Game.Web.UI
         public string GetRegisterOrigin(byte origin)
         {
             string rValue = "";
-            switch(origin)
+            switch (origin)
             {
                 case 0:
                     rValue = "PC";
@@ -498,6 +514,7 @@ namespace Game.Web.UI
             }
             return rValue;
         }
+
         /// <summary>
         /// 获取游戏名称
         /// </summary>
@@ -506,6 +523,7 @@ namespace Game.Web.UI
             GameGameItem item = FacadeManage.aidePlatformFacade.GetGameGameItemInfo(kindid);
             return item != null ? item.GameName : "";
         }
+
         /// <summary>
         /// 获取房间名称
         /// </summary>
@@ -514,6 +532,7 @@ namespace Game.Web.UI
             GameRoomInfo room = FacadeManage.aidePlatformFacade.GetGameRoomInfoInfo(serverid);
             return room != null ? room.ServerName : "";
         }
+
         #endregion
 
         #endregion

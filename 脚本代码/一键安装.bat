@@ -5,9 +5,6 @@ COLOR 09
 CLS
 md D:\数据库\精华平台
 
-set rootPath=0更新脚本\
-osql -E -i "%rootPath%更新脚本.sql"
-
 set rootPath=1数据库脚本\
 osql -E -i "%rootPath%1数据库库创建.sql"
 osql -E -i "%rootPath%2数据库表创建.sql"
@@ -17,7 +14,10 @@ set rootPath=2数据库数据\
 osql -E -i "%rootPath%初始化配置.sql"
 osql -E -i "%rootPath%网站后台数据.sql"
 
-set rootPath=3存储过程\1公共过程\
+set rootPath=3数据库修改\
+osql -E -i "%rootPath%更新脚本.sql"
+
+set rootPath=4存储过程\1公共过程\
 osql -d WHJHAccountsDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHGameScoreDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHNativeWebDB -E  -n -i "%rootPath%分页过程.sql"
@@ -42,7 +42,7 @@ osql -d WHJHPlatformManagerDB -E  -n -i "%rootPath%生成流水号.sql"
 osql -d WHJHRecordDB -E  -n -i "%rootPath%生成流水号.sql"
 osql -d WHJHTreasureDB -E  -n -i "%rootPath%生成流水号.sql"
 
-set rootPath=3存储过程\2网站前台\
+set rootPath=4存储过程\2网站前台\
 osql -E -i "%rootPath%在线充值.sql"
 osql -E -i "%rootPath%在线苹果充值.sql"
 osql -E -i "%rootPath%在线订单.sql"
@@ -57,7 +57,7 @@ osql -E -i "%rootPath%领取推广好友奖励.sql"
 osql -E -i "%rootPath%领取注册赠送奖励.sql"
 osql -E -i "%rootPath%钻石兑换金币.sql"
 
-set rootPath=3存储过程\3网站后台\
+set rootPath=4存储过程\3网站后台\
 osql -E -i "%rootPath%菜单加载.sql"
 osql -E -i "%rootPath%插入限制IP.sql"
 osql -E -i "%rootPath%插入限制机器码.sql"
@@ -69,26 +69,29 @@ osql -E -i "%rootPath%代理钻石查询.sql"
 osql -E -i "%rootPath%后台赠送钻石.sql"
 osql -E -i "%rootPath%赠送靓号.sql"
 osql -E -i "%rootPath%获取代理商下线.sql"
-osql -E -i "%rootPath%每日钻石统计.sql"
-osql -E -i "%rootPath%排行榜统计.sql"
-osql -E -i "%rootPath%排行榜周统计.sql"
 osql -E -i "%rootPath%系统创建代理.sql"
 osql -E -i "%rootPath%后台赠送金币.sql"
 osql -E -i "%rootPath%金币分布.sql"
 osql -E -i "%rootPath%钻石分布.sql"
 osql -E -i "%rootPath%数据汇总.sql"
-osql -E -i "%rootPath%每日统计.sql"
+osql -E -i "%rootPath%领取推广返利奖励.sql"
 
-set rootPath=3存储过程\4代理后台\
+set rootPath=4存储过程\4代理后台\
 osql -E -i "%rootPath%代理后台登录.sql"
 osql -E -i "%rootPath%代理商创建代理.sql"
 osql -E -i "%rootPath%代理钻石赠送.sql"
 osql -E -i "%rootPath%代理商添加下线.sql"
 
-set rootPath=4创建作业\
-osql -E -i "%rootPath%每日钻石统计.sql"
+set rootPath=4存储过程\5作业脚本\
 osql -E -i "%rootPath%排行榜统计.sql"
 osql -E -i "%rootPath%排行榜周统计.sql"
+osql -E -i "%rootPath%每日钻石统计.sql"
+osql -E -i "%rootPath%每日统计.sql"
+
+set rootPath=5创建作业\
+osql -E -i "%rootPath%排行榜统计.sql"
+osql -E -i "%rootPath%排行榜周统计.sql"
+osql -E -i "%rootPath%每日钻石统计.sql"
 osql -E -i "%rootPath%每日统计.sql"
 
 pause

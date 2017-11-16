@@ -192,6 +192,8 @@
     <Content Include="image\disband.png" />
     <Content Include="image\download-bg.png" />
     <Content Include="image\download-btn.png" />
+    <Content Include="image\download-title-h5.png" />
+    <Content Include="image\download-title-lua.png" />
     <Content Include="image\enter-bg.png" />
     <Content Include="image\enter-btn.png" />
     <Content Include="image\enter-title-bg.png" />
@@ -273,6 +275,8 @@
     <Content Include="Notify\WxApp.aspx" />
     <Content Include="Notify\WxWeb.aspx" />
     <Content Include="Sitemap.aspx" />
+    <Content Include="Spread\dist\build.js" />
+    <Content Include="Spread\index.html" />
     <Content Include="UserControl\Common_Banner.ascx" />
     <Content Include="UserControl\Common_Contact.ascx" />
     <Content Include="UserControl\Common_Download.ascx" />
@@ -652,6 +656,7 @@
     <None Include="Properties\PublishProfiles\WHJHFront.pubxml" />
     <Content Include="WS\NewMoblieInterface.ashx" />
     <Content Include="WS\UserFace.ashx" />
+    <Content Include="Spread\dist\build.js.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Game.Entity\Game.Entity.csproj">
@@ -663,6 +668,7 @@
       <Name>Game.Facade</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

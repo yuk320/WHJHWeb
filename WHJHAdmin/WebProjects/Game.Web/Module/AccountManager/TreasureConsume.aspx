@@ -42,6 +42,8 @@
                 <asp:Button ID="btnQueryYD" runat="server" Text="昨天" CssClass="btn wd1" OnClick="btnQueryYD_Click" />
                 <asp:Button ID="btnQueryTW" runat="server" Text="本周" CssClass="btn wd1" OnClick="btnQueryTW_Click" />
                 <asp:Button ID="btnQueryYW" runat="server" Text="上周" CssClass="btn wd1" OnClick="btnQueryYW_Click" />
+                <asp:Button ID="btnQueryTM" runat="server" Text="本月" CssClass="btn wd1" OnClick="btnQueryTM_Click" />
+                <asp:Button ID="btnQueryYM" runat="server" Text="上月" CssClass="btn wd1" OnClick="btnQueryYM_Click" />
             </td>
         </tr>
     </table>
@@ -79,10 +81,8 @@
             <tr>
                 <td colspan="2"></td>
                 <td>
-                    <div class="s-type hide" id="stype-list" style="height:80px;">
+                    <div class="s-type hide" id="stype-list">
                         <asp:CheckBoxList ID="cbType" runat="server" RepeatLayout="Flow">
-                            <asp:ListItem Text="主动转账" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="购买道具" Value="4"></asp:ListItem>
                         </asp:CheckBoxList>
                         <span class="s-btn">
                             <asp:Button ID="btnType" runat="server" CssClass="btn wd2" Text="确认" OnClick="btnType_Click" /></span>

@@ -231,6 +231,51 @@ namespace Game.Data
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery.ToString(), prams.ToArray());
         }
 
+        /// <summary>
+        /// 获取推广返利配置
+        /// </summary>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        public SpreadReturnConfig GetSpreadReturnConfig(int configId)
+        {
+            string sqlQuery = $"SELECT * FROM SpreadReturnConfig WITH(NOLOCK) WHERE ConfigID = {configId}";
+            return Database.ExecuteObject<SpreadReturnConfig>(sqlQuery);
+        }
+
+        /// <summary>
+        /// 保存推广返利配置（新增、更新）
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public int SaveSpreadReturnConfig(SpreadReturnConfig config)
+        {
+            string sql;
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("SpreadLevel", config.SpreadLevel),
+                Database.MakeInParam("PresentScale", config.PresentScale),
+                Database.MakeInParam("PresentType", config.PresentType),
+                Database.MakeInParam("Nullity", config.Nullity),
+                Database.MakeInParam("UpdateTime", config.UpdateTime)
+            };
+            if (config.ConfigID > 0)
+            {
+                prams.Add(Database.MakeInParam("ConfigID",config.ConfigID));
+                sql =
+                    "UPDATE SpreadReturnConfig SET SpreadLevel=@SpreadLevel,PresentScale=@PresentScale,PresentType=@PresentType,Nullity=@Nullity,UpdateTime=@UpdateTime WHERE ConfigID=@ConfigID";
+            }
+            else
+            {
+                sql = @"
+                            IF NOT EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE SpreadLevel = @SpreadLevel)
+                            BEGIN
+                                INSERT INTO SpreadReturnConfig(SpreadLevel,PresentScale,PresentType,Nullity,UpdateTime) 
+                                VALUES(@SpreadLevel,@PresentScale,@PresentType,@Nullity,@UpdateTime)
+                            END";
+            }
+            return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
+        }
+
         #endregion
 
         #region 赠送钻石
@@ -278,6 +323,7 @@ namespace Game.Data
         {
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PM_StatInfo");
         }
+
         /// <summary>
         /// 按条件获取已支付总数
         /// </summary>
@@ -288,6 +334,7 @@ namespace Game.Data
             string sql = $"SELECT ISNULL(SUM(Amount),0) AS Amount FROM OnLinePayOrder {where} AND OrderStatus=1";
             return Convert.ToDecimal(Database.ExecuteScalar(CommandType.Text, sql));
         }
+
         /// <summary>
         /// 按条件获取已支付订单数
         /// </summary>
@@ -298,6 +345,7 @@ namespace Game.Data
             string sql = $"SELECT COUNT(1) AS [COUNT] FROM OnLinePayOrder {where} AND OrderStatus=1";
             return Convert.ToInt64(Database.ExecuteScalar(CommandType.Text, sql));
         }
+
         /// <summary>
         /// 获取钻石统计
         /// </summary>
@@ -361,7 +409,6 @@ namespace Game.Data
         /// <returns></returns>
         public IList<StatisticsWaste> GetDayWaste(string sTime, string eTime, string extra = "")
         {
-            
             string extra0;
             string extra1;
             if (extra.IndexOf("|", StringComparison.Ordinal) > 0)

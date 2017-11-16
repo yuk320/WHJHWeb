@@ -171,7 +171,7 @@ table.box tr.tdbg{background:#FFFFFF;line-height: 120%;	}
 .xuxian{ background:url(/Images/xian.jpg) repeat-x; width:100%; height:1px; float:left; margin-top:5px;margin-left:10px; margin-bottom:5px;}
 .xuxian2{ background:url(/Images/xian.jpg) repeat-x; width:100%; height:1px; float:left; margin-top:5px; margin-bottom:5px;}
 .s-type{
-    width:110px; color:white; background-color:dimgrey;position:absolute;padding:8px 0px 8px 8px; text-align:left;line-height:20px;
+    width:110px; color:white; background-color:dimgrey;position:absolute;padding:8px 0 8px 8px; text-align:left;line-height:20px;
 }
 .s-type span.s-btn{
     width:85px;display:block; margin-top:3px; margin-left:4px;

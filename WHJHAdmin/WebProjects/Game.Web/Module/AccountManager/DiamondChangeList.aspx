@@ -91,19 +91,6 @@
                     <td>
                         <div class="s-type hide" id="stype-list">
                             <asp:CheckBoxList ID="cbType" runat="server" RepeatLayout="Flow">
-                                <asp:ListItem Text="后台赠送" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="注册赠送" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="推广奖励" Value="2"></asp:ListItem>
-                                <asp:ListItem Text="充值赠送" Value="3"></asp:ListItem>
-                                <asp:ListItem Text="绑定推广奖励" Value="4"></asp:ListItem>
-                                <asp:ListItem Text="排行榜奖励" Value="5"></asp:ListItem>
-                                <asp:ListItem Text="实名认证奖励" Value="6"></asp:ListItem>
-                                <asp:ListItem Text="代理赠送" Value="7"></asp:ListItem>
-                                <asp:ListItem Text="被代理赠送" Value="8"></asp:ListItem>
-                                <asp:ListItem Text="购买道具" Value="9"></asp:ListItem>
-                                <asp:ListItem Text="创建房间" Value="10"></asp:ListItem>
-                                <asp:ListItem Text="AA制游戏" Value="11"></asp:ListItem>
-                                <asp:ListItem Text="兑换金币" Value="12"></asp:ListItem>
                             </asp:CheckBoxList>
                             <span class="s-btn">
                                 <asp:Button ID="btnType" runat="server" CssClass="btn wd2" Text="确认" OnClick="btnType_Click" /></span>

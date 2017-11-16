@@ -133,7 +133,7 @@ namespace Game.Facade
                 try {
                     string mode = ApplicationSettings.Get("Mode");
                     if (CodeMode.Demo.ToString().Equals(mode)) return CodeMode.Demo;
-                    return CodeMode.Production.ToString().Equals(mode) ? CodeMode.Demo : CodeMode.Dev;
+                    return CodeMode.Production.ToString().Equals(mode) ? CodeMode.Production : CodeMode.Dev;
                 }
                 catch {
                     return CodeMode.Dev;

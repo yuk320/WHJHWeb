@@ -56,7 +56,7 @@ namespace Game.Web.WS
 
             ajv.SetValidDataValue(true);
             ajv.AddDataItem("UserID", faceModel.UserID);
-            ajv.AddDataItem("FaceUrl", faceModel.FaceUrl.IndexOf("http://", StringComparison.Ordinal)>-1?faceModel.FaceUrl:$"{imageServerHost}{faceModel.FaceUrl}");
+            ajv.AddDataItem("FaceUrl", string.IsNullOrEmpty(faceModel.FaceUrl)?"":(faceModel.FaceUrl.IndexOf("http://", StringComparison.Ordinal)>-1?faceModel.FaceUrl:$"{imageServerHost}{faceModel.FaceUrl}"));
             context.Response.Write(ajv.SerializeToJson());
         }
 

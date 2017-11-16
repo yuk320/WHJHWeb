@@ -7,7 +7,7 @@ namespace Game.Entity.Enum
     public class EnumHelper
     {
         /// <summary>
-        /// 基类
+        /// 枚举获取描述基类
         /// </summary>
         /// <param name="t"></param>
         /// <param name="type"></param>
@@ -18,7 +18,7 @@ namespace Game.Entity.Enum
         }
 
         /// <summary>
-        /// 获取钻石兑换金币场景集合
+        /// 枚举获取列表基类
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>

@@ -55,6 +55,7 @@
     <Compile Include="Accounts\SystemStatusInfo.cs" />
     <Compile Include="Accounts\SystemStreamInfo.cs" />
     <Compile Include="ApplicationConfig.cs" />
+    <Compile Include="Enum\SerialType.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
     <Compile Include="Enum\GamePropertyKind.cs" />
     <Compile Include="Enum\IssueArea.cs" />
@@ -119,6 +120,8 @@
     <Compile Include="Record\RecordPasswdExpend.cs" />
     <Compile Include="Record\RecordPresentCurrency.cs" />
     <Compile Include="Record\RecordSignin.cs" />
+    <Compile Include="Record\RecordSpreadReturn.cs" />
+    <Compile Include="Record\RecordSpreadReturnReceive.cs" />
     <Compile Include="Record\RecordTreasureSerial.cs" />
     <Compile Include="Treasure\AppPayConfig.cs" />
     <Compile Include="Treasure\CurrencyExchConfig.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Treasure\RecordInsure.cs" />
     <Compile Include="Treasure\RecordSpreadAward.cs" />
     <Compile Include="Treasure\RecordUserInout.cs" />
+    <Compile Include="Treasure\SpreadReturnConfig.cs" />
     <Compile Include="Treasure\SpreadConfig.cs" />
     <Compile Include="Treasure\UserCurrency.cs" />
   </ItemGroup>

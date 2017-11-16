@@ -31,7 +31,7 @@
             <td height="28">
                 <ul>
                     <li class="tab1">推广配置</li>
-                    <li class="tab2" onclick="Redirect('SpreadRecordList.aspx')">推广奖励</li>
+                    <li class="tab2" onclick="Redirect('SpreadReturnConfigList.aspx')">推广返利配置</li>
                 </ul>
             </td>
         </tr>
@@ -42,6 +42,9 @@
                 <input class="btnLine" type="button" /> 
                 <asp:Button ID="btnDelete" runat="server" Text="删除" CssClass="btn wd1" 
                     onclick="btnDelete_Click" OnClientClick="return deleteop()" />              
+            <input class="btnLine" type="button"/>  
+            <input class="btn wd3" type="button" value="推广奖励记录" onclick="openWindowOwn('SpreadRecordList.aspx?r=' + Math.random(), '推广奖励记录',1200,700)"/>
+
             </td>
     </table>
     <div id="content">

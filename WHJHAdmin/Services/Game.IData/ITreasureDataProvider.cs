@@ -86,6 +86,20 @@ namespace Game.IData
         /// <param name="config">推广配置</param>
         /// <returns></returns>
         int UpdateSpreadConfig(SpreadConfig config);
+
+        /// <summary>
+        /// 获取推广返利配置
+        /// </summary>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        SpreadReturnConfig GetSpreadReturnConfig(int configId);
+
+        /// <summary>
+        /// 保存推广返利配置（新增、更新）
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        int SaveSpreadReturnConfig(SpreadReturnConfig config);
         #endregion
 
         #region 赠送钻石

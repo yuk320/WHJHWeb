@@ -94,6 +94,24 @@ namespace Game.Web.Module.AccountManager {
         protected global::System.Web.UI.WebControls.Button btnQueryYW;
         
         /// <summary>
+        /// btnQueryTM 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnQueryTM;
+        
+        /// <summary>
+        /// btnQueryYM 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnQueryYM;
+        
+        /// <summary>
         /// lbChange 控件。
         /// </summary>
         /// <remarks>

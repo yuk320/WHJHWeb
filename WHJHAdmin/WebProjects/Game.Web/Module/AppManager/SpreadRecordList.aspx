@@ -6,11 +6,9 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="../../styles/layout.css" rel="stylesheet" type="text/css" />
-
+    <script type="text/javascript" src="../../scripts/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="../../scripts/common.js"></script>
-
     <script type="text/javascript" src="../../scripts/comm.js"></script>
-
     <title></title>
 </head>
 <body>
@@ -26,17 +24,27 @@
             </td>
         </tr>
     </table>
-    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="Tmg7">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="titleQueBg">
         <tr>
-            <td height="28">
-                <ul>
-                    <li class="tab2" onclick="Redirect('SpreadConfigList.aspx')">推广配置</li>
-                    <li class="tab1">推广奖励</li>
-                </ul>
+            <td class="listTdLeft" style="width: 80px">日期查询：
+            </td>
+            <td>
+                <asp:TextBox ID="txtStartDate" runat="server" CssClass="text wd2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'txtEndDate\')}'})"></asp:TextBox><img
+                                                                                                                                                                                       src="../../Images/btn_calendar.gif" onclick="WdatePicker({el:'txtStartDate',dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'txtEndDate\')}'})"
+                                                                                                                                                                                       style="cursor: pointer; vertical-align: middle" />
+                至
+                <asp:TextBox ID="txtEndDate" runat="server" CssClass="text wd2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'txtStartDate\')}'})"></asp:TextBox><img
+                                                                                                                                                                                       src="../../Images/btn_calendar.gif" onclick="WdatePicker({el:'txtEndDate',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'txtStartDate\')}'})"
+                                                                                                                                                                                       style="cursor: pointer; vertical-align: middle" />
+                <asp:Button ID="btnQuery" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQuery_Click" />
+                <asp:Button ID="btnQueryTD" runat="server" Text="今天" CssClass="btn wd1" OnClick="btnQueryTD_Click" />
+                <asp:Button ID="btnQueryYD" runat="server" Text="昨天" CssClass="btn wd1" OnClick="btnQueryYD_Click" />
+                <asp:Button ID="btnQueryTW" runat="server" Text="本周" CssClass="btn wd1" OnClick="btnQueryTW_Click" />
+                <asp:Button ID="btnQueryYW" runat="server" Text="上周" CssClass="btn wd1" OnClick="btnQueryYW_Click" />
+                <asp:Button ID="btnQueryTM" runat="server" Text="本月" CssClass="btn wd1" OnClick="btnQueryTM_Click" />
+                <asp:Button ID="btnQueryYM" runat="server" Text="上月" CssClass="btn wd1" OnClick="btnQueryYM_Click" />
             </td>
         </tr>
-    </table>
-    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="titleQueBg">
         <tr>
             <td class="listTdLeft" style="width: 80px">
                 用户查询：
@@ -50,7 +58,9 @@
                 <asp:Button ID="Button1" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQuery1_Click" />
             </td>
         </tr>
+            
     </table>
+
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <td height="39" class="titleOpBg">         
             </td>

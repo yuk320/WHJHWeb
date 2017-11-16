@@ -173,6 +173,18 @@ namespace Game.Facade
         }
 
         /// <summary>
+        /// 获取上月的开始时间和结束时间
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLastMonthTime()
+        {
+            DateTime dt = DateTime.Now.AddMonths(-1);
+            DateTime startMonth = dt.AddDays(1 - dt.Day);
+            DateTime endMonth = startMonth.AddMonths(1).AddDays(-1);
+            return GetTimeByDate(startMonth, endMonth);
+        }
+
+        /// <summary>
         /// 获取本年的开始时间和结束时间
         /// </summary>
         /// <returns></returns>

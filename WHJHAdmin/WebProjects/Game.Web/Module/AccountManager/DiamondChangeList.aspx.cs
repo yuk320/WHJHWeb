@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using Game.Web.UI;
 using Game.Kernel;
 using System.Text;
 using Game.Utils;
-using Game.Entity.Accounts;
 using Game.Entity.Record;
 using Game.Facade;
-using System.Data;
+using Game.Entity.Enum;
 
 namespace Game.Web.Module.AccountManager
 {
@@ -27,6 +20,10 @@ namespace Game.Web.Module.AccountManager
             {
                 txtStartDate.Text = DateTime.Now.ToString("yyyy-MM-") + "01";
                 txtEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                cbType.DataSource = GetSerialTypeList(typeof(DiamondSerialType));
+                cbType.DataTextField = "Description";
+                cbType.DataValueField = "EnumValue";
+                cbType.DataBind();
                 BindData();
             }
         }
@@ -48,7 +45,7 @@ namespace Game.Web.Module.AccountManager
             condition.AppendFormat(" WHERE UserID={0} ", IntParam);
             if(!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
             {
-                condition.AppendFormat(" AND CollectDate BETWEEN '{0}' AND '{1}'", startDate, endDate);
+                condition.AppendFormat(" AND CollectDate BETWEEN '{0}' AND '{1}' ", startDate, endDate);
             }
 
             ViewState["SearchItems"] = condition.ToString();

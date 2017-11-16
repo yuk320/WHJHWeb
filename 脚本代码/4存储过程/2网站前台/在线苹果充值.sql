@@ -133,12 +133,19 @@ BEGIN
 		RETURN 3002
 	END
 
-	COMMIT TRAN
-
 	-- 写入钻石变化记录
 	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate) 
 	VALUES(dbo.WF_GetSerialNumber(),0,@UserID,3,@BeforeDiamond,@PresentDiamond,@strIPAddress,@DateTime)
-	
+
+	-- 如果存在返利配置，写入返利记录
+	IF EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE Nullity=0)
+	BEGIN
+		INSERT WHJHRecordDBLink.WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
+		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PriesentScale,B.PresentType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
+	END
+
+	COMMIT TRAN
+
 END 
 RETURN 0
 GO

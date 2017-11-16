@@ -1,0 +1,187 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+
+body,
+div,
+li,
+ol,
+p,
+td,
+th,
+ul {
+  margin: 0;
+  padding: 0
+}
+
+article,
+aside,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+li {
+  list-style: none
+}
+
+img {
+  border: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-callout: none
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse
+}
+
+html,
+body {
+  font-family: sans-serif;
+  -webkit-user-select: none;
+  /* 禁止选中文本（如无文本选中需求，此为必选项） */
+  user-select: none;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%
+}
+
+ :focus {
+  outline: 0
+}
+
+ :link,
+ :visited {
+  text-decoration: none
+}
+
+a {
+  color: #06c;
+}
+
+a:active,
+a:hover {
+  outline: 0
+}
+
+.fn-clear:after {
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+  content: ''
+}
+
+.fn-left {
+  float: left
+}
+
+.fn-right {
+  float: right
+}
+
+.show {
+  display: block!important
+}
+
+.hide {
+  display: none!important
+}
+
+.visible {
+  visibility: visible
+}
+
+.invisible {
+  visibility: hidden
+}
+
+.text-left {
+  text-align: left
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-right {
+  text-align: right
+}
+
+.text-hide {
+  border: 0;
+  background-color: transparent;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}
+
+a.ui-btn {
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent
+}
+
+a.ui-btn:hover {
+  text-decoration: none
+}
+
+input,
+select {
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+
+/* input[type="date"] */
+
+input[type="date"] {
+  position: relative;
+}
+
+ ::-webkit-clear-button,
+ ::-webkit-inner-spin-button {
+  display: none;
+}
+
+ ::-webkit-datetime-edit-fields-wrapper {
+  background-color: none;
+}
+
+ ::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}

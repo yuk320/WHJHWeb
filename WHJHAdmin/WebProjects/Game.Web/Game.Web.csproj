@@ -134,7 +134,11 @@
     <Content Include="Module\AppManager\RankingConfigInfo.aspx" />
     <Content Include="Module\AppManager\RankingConfigList.aspx" />
     <Content Include="Module\AppManager\RankingRecordList.aspx" />
+    <Content Include="Module\AppManager\SpreadReturnReceiveRecordList.aspx" />
+    <Content Include="Module\AppManager\SpreadReturnRecordList.aspx" />
+    <Content Include="Module\AppManager\SpreadReturnConfigInfo.aspx" />
     <Content Include="Module\AppManager\SpreadConfigInfo.aspx" />
+    <Content Include="Module\AppManager\SpreadReturnConfigList.aspx" />
     <Content Include="Module\AppManager\SpreadConfigList.aspx" />
     <Content Include="Module\AppManager\SpreadRecordList.aspx" />
     <Content Include="Module\AppManager\SystemMessageInfo.aspx" />
@@ -2665,12 +2669,40 @@
     <Compile Include="Module\AppManager\RankingRecordList.aspx.designer.cs">
       <DependentUpon>RankingRecordList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnReceiveRecordList.aspx.cs">
+      <DependentUpon>SpreadReturnReceiveRecordList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnReceiveRecordList.aspx.designer.cs">
+      <DependentUpon>SpreadReturnReceiveRecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnRecordList.aspx.cs">
+      <DependentUpon>SpreadReturnRecordList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnRecordList.aspx.designer.cs">
+      <DependentUpon>SpreadReturnRecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnConfigInfo.aspx.cs">
+      <DependentUpon>SpreadReturnConfigInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnConfigInfo.aspx.designer.cs">
+      <DependentUpon>SpreadReturnConfigInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Module\AppManager\SpreadConfigInfo.aspx.cs">
       <DependentUpon>SpreadConfigInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Module\AppManager\SpreadConfigInfo.aspx.designer.cs">
       <DependentUpon>SpreadConfigInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnConfigList.aspx.cs">
+      <DependentUpon>SpreadReturnConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\SpreadReturnConfigList.aspx.designer.cs">
+      <DependentUpon>SpreadReturnConfigList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\AppManager\SpreadConfigList.aspx.cs">
       <DependentUpon>SpreadConfigList.aspx</DependentUpon>

@@ -28,6 +28,10 @@ namespace Game.Web.Module.AccountManager
             {
                 txtStartDate.Text = DateTime.Now.ToString("yyyy-MM-") + "01";
                 txtEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                cbType.DataSource = GetSerialTypeList(typeof(GoldSerialType));
+                cbType.DataTextField = "Description";
+                cbType.DataValueField = "EnumValue";
+                cbType.DataBind();
                 BindData();
             }
         }
@@ -41,10 +45,10 @@ namespace Game.Web.Module.AccountManager
         /// <summary>
         /// 设置查询时间
         /// </summary>
-        /// <param name="startDate">起始时间</param>
-        /// <param name="endDate">结束时间</param>
-        private void SetCondition(string startDate, string endDate)
+        private void SetCondition()
         {
+            string startDate = CtrlHelper.GetText(txtStartDate) + " 00:00:00";
+            string endDate = CtrlHelper.GetText(txtEndDate) + " 23:59:59";
             StringBuilder condition = new StringBuilder();
             condition.AppendFormat(" WHERE UserID={0} ", IntParam);
             if(!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
@@ -59,10 +63,7 @@ namespace Game.Web.Module.AccountManager
         /// </summary>
         protected void btnQuery_Click(object sender, EventArgs e)
         {
-            string startDate = txtStartDate.Text.Trim();
-            string endDate = txtEndDate.Text.Trim();
-
-            SetCondition(startDate + " 00:00:00", endDate + " 23:59:59");
+            SetCondition();
             BindData();
         }
         /// <summary>
@@ -70,56 +71,65 @@ namespace Game.Web.Module.AccountManager
         /// </summary>
         protected void btnQueryTD_Click(object sender, EventArgs e)
         {
-            string startDate = Fetch.GetTodayTime().Split('$')[0].ToString();
-            string endDate = Fetch.GetTodayTime().Split('$')[1].ToString();
+            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(Fetch.GetTodayTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(Fetch.GetTodayTime().Split('$')[1]).ToString("yyyy-MM-dd"));
 
-            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(startDate).ToString("yyyy-MM-dd"));
-            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(endDate).ToString("yyyy-MM-dd"));
-
-            SetCondition(startDate, endDate);
-            BindData();
+            btnQuery_Click(sender, e);
         }
         /// <summary>
         /// 查询昨天
         /// </summary>
         protected void btnQueryYD_Click(object sender, EventArgs e)
         {
-            string startDate = Fetch.GetYesterdayTime().Split('$')[0].ToString();
-            string endDate = Fetch.GetYesterdayTime().Split('$')[1].ToString();
+            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(Fetch.GetYesterdayTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(Fetch.GetYesterdayTime().Split('$')[1]).ToString("yyyy-MM-dd"));
 
-            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(startDate).ToString("yyyy-MM-dd"));
-            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(endDate).ToString("yyyy-MM-dd"));
-
-            SetCondition(startDate, endDate);
-            BindData();
+            btnQuery_Click(sender, e);
         }
         /// <summary>
         /// 查询本周
         /// </summary>
         protected void btnQueryTW_Click(object sender, EventArgs e)
         {
-            string startDate = Fetch.GetWeekTime().Split('$')[0].ToString();
-            string endDate = Fetch.GetWeekTime().Split('$')[1].ToString();
+            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(Fetch.GetWeekTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(Fetch.GetWeekTime().Split('$')[1]).ToString("yyyy-MM-dd"));
 
-            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(startDate).ToString("yyyy-MM-dd"));
-            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(endDate).ToString("yyyy-MM-dd"));
-
-            SetCondition(startDate, endDate);
-            BindData();
+            btnQuery_Click(sender, e);
         }
         /// <summary>
         /// 查询上周
         /// </summary>
         protected void btnQueryYW_Click(object sender, EventArgs e)
         {
-            string startDate = Fetch.GetLastWeekTime().Split('$')[0].ToString();
-            string endDate = Fetch.GetLastWeekTime().Split('$')[1].ToString();
+            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(Fetch.GetLastWeekTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(Fetch.GetLastWeekTime().Split('$')[1]).ToString("yyyy-MM-dd"));
 
-            CtrlHelper.SetText(txtStartDate, Convert.ToDateTime(startDate).ToString("yyyy-MM-dd"));
-            CtrlHelper.SetText(txtEndDate, Convert.ToDateTime(endDate).ToString("yyyy-MM-dd"));
+            btnQuery_Click(sender, e);
+        }
 
-            SetCondition(startDate, endDate);
-            BindData();
+        /// <summary>
+        /// 查询本月
+        /// </summary>
+        protected void btnQueryTM_Click(object sender, EventArgs e)
+        {
+            CtrlHelper.SetText(txtStartDate,
+                Convert.ToDateTime(Fetch.GetMonthTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate,
+                Convert.ToDateTime(Fetch.GetMonthTime().Split('$')[1]).ToString("yyyy-MM-dd"));
+
+            btnQuery_Click(sender, e);
+        }
+        /// <summary>
+        /// 查询上月
+        /// </summary>
+        protected void btnQueryYM_Click(object sender, EventArgs e)
+        {
+            CtrlHelper.SetText(txtStartDate,
+                Convert.ToDateTime(Fetch.GetLastMonthTime().Split('$')[0]).ToString("yyyy-MM-dd"));
+            CtrlHelper.SetText(txtEndDate,
+                Convert.ToDateTime(Fetch.GetLastMonthTime().Split('$')[1]).ToString("yyyy-MM-dd"));
+
+            btnQuery_Click(sender, e);
         }
         /// <summary>
         /// 数据查询
