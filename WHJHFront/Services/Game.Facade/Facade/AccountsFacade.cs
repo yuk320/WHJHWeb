@@ -219,11 +219,10 @@ namespace Game.Facade
         /// 推广中心首页数据
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="typeId"></param>
         /// <returns></returns>
-        public DataSet GetUserSpreadHomeDataSet(int userId,int typeId)
+        public DataSet GetUserSpreadHomeDataSet(int userId)
         {
-            return accountsData.GetUserSpreadHomeDataSet(userId, typeId);
+            return accountsData.GetUserSpreadHomeDataSet(userId);
         }
 
         #endregion

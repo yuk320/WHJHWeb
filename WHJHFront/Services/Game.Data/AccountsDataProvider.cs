@@ -300,14 +300,12 @@ namespace Game.Data
         /// 推广中心首页数据
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="typeId"></param>
         /// <returns></returns>
-        public DataSet GetUserSpreadHomeDataSet(int userId, int typeId)
+        public DataSet GetUserSpreadHomeDataSet(int userId)
         {
             var param = new List<DbParameter>()
             {
-                Database.MakeInParam("dwUserID", userId),
-                Database.MakeInParam("dwType",typeId)
+                Database.MakeInParam("dwUserID", userId)
             };
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PW_UserSpreadHome", param.ToArray());
         }

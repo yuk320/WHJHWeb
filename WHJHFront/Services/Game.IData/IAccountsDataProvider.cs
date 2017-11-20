@@ -134,9 +134,8 @@ namespace Game.IData
         /// 推广中心首页数据
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="typeId"></param>
         /// <returns></returns>
-        DataSet GetUserSpreadHomeDataSet(int userId, int typeId);
+        DataSet GetUserSpreadHomeDataSet(int userId);
 
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using Game.Kernel;
 using System.Data;
 
@@ -11,12 +10,14 @@ namespace Game.IData
     public interface IRecordDataProvider //: IProvider
     {
         #region 代理信息
+
         /// <summary>
         /// 获取今日赠送钻石
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
         int GetTodayAgentPresentDiamond(int userId);
+
         /// <summary>
         /// 代理赠送钻石记录
         /// </summary>
@@ -52,9 +53,24 @@ namespace Game.IData
         /// <param name="pageSize"></param>
         /// <returns></returns>
         PagerSet GetAgentBelowAgentPresentDiamondRecord(string whereQuery, int pageIndex, int pageSize);
+
+        #endregion
+
+        #region 推广系统
+
+        /// <summary>
+        /// 玩家领取推广返利
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="num"></param>
+        /// <param name="clientIp"></param>
+        /// <returns></returns>
+        Message UserSpreadReceive(int userid, int num, string clientIp);
+
         #endregion
 
         #region 钻石记录
+
         /// <summary>
         /// 钻石流水记录
         /// </summary>
@@ -72,9 +88,11 @@ namespace Game.IData
         /// <param name="sqlTime">时间参数（可传其他条件）</param>
         /// <returns></returns>
         long GetTotalPresentCount(int sourceUserId, int targetUserId, string sqlTime);
+
         #endregion
 
         #region 金币信息
+
         /// <summary>
         /// 金币流水记录
         /// </summary>
@@ -83,23 +101,24 @@ namespace Game.IData
         /// <param name="pageSize">页显示数</param>
         /// <returns></returns>
         PagerSet GetGoldStreamList(string whereQuery, int pageIndex, int pageSize);
+
         #endregion
 
         #region 公共方法
 
-         T GetEntity<T>(string tableName, string sqlWhere);
+        T GetEntity<T>(string tableName, string sqlWhere);
 
-         IList<T> GetList<T>(string tableName, string sqlWhere);
+        IList<T> GetList<T>(string tableName, string sqlWhere);
 
-         DataRow GetOne(string tableName, string sqlWhere);
+        DataRow GetOne(string tableName, string sqlWhere);
 
-         DataRow GetOne(string sql);
+        DataRow GetOne(string sql);
 
-         DataSet GetDataSet(string sql);
+        DataSet GetDataSet(string sql);
 
-         int GetRecordCount(string tableName, string sqlWhere);
+        int GetRecordCount(string tableName, string sqlWhere);
 
-         int GetRecordCount(string sql);
+        int GetRecordCount(string sql);
 
         #endregion
     }

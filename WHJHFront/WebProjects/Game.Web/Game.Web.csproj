@@ -602,8 +602,8 @@
     <Compile Include="Sitemap.aspx.designer.cs">
       <DependentUpon>Sitemap.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Spread\SpreadDataHandle.ashx.cs">
-      <DependentUpon>SpreadDataHandle.ashx</DependentUpon>
+    <Compile Include="Spread\DataHandle.ashx.cs">
+      <DependentUpon>DataHandle.ashx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\Common_Banner.ascx.cs">
       <DependentUpon>Common_Banner.ascx</DependentUpon>
@@ -663,7 +663,7 @@
     <Content Include="WS\NewMoblieInterface.ashx" />
     <Content Include="WS\UserFace.ashx" />
     <Content Include="Spread\dist\build.js.map" />
-    <Content Include="Spread\SpreadDataHandle.ashx" />
+    <Content Include="Spread\DataHandle.ashx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Game.Entity\Game.Entity.csproj">

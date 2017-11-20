@@ -124,6 +124,21 @@ namespace Game.Facade
 
         #endregion
 
+        #region 推广系统
+
+        /// <summary>
+        /// 玩家领取推广返利
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public Message UserSpreadReceive(int userid, int num)
+        {
+            return recordData.UserSpreadReceive(userid, num, GameRequest.GetUserIP());
+        }
+
+        #endregion
+
         #region 钻石记录
 
         /// <summary>

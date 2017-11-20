@@ -117,6 +117,30 @@ namespace Game.Data
 
         #endregion
 
+        #region 推广系统
+
+        /// <summary>
+        /// 玩家领取推广返利
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="num"></param>
+        /// <param name="clientIp"></param>
+        /// <returns></returns>
+        public Message UserSpreadReceive(int userid, int num,string clientIp)
+        {
+            var param = new List<DbParameter>()
+            {
+                Database.MakeInParam("dwUserID", userid),
+                Database.MakeInParam("dwNum",num),
+                Database.MakeInParam("strClientIP",clientIp),
+                Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
+            };
+
+            return MessageHelper.GetMessage(Database, "NET_PJ_ReceiveSpreadReturn", param);
+        }
+
+        #endregion
+
         #region 钻石记录
 
         /// <summary>
