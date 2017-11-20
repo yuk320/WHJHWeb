@@ -31,6 +31,33 @@ namespace Game.Web.Module.Diamond {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
+        /// trGameID 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGameID;
+        
+        /// <summary>
+        /// txtGameID 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGameID;
+        
+        /// <summary>
+        /// hidUserID 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidUserID;
+        
+        /// <summary>
         /// txtDiamond 控件。
         /// </summary>
         /// <remarks>

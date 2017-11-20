@@ -51,9 +51,10 @@ namespace Game.Web.Spread
                     if (num <= 0)
                     {
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " 领取数量");
+                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " num（领取数量）");
                         _ajv.SetValidDataValue(false);
                         context.Response.Write(_ajv.SerializeToJson());
+                        return;
                     }
                     UserSpreadReveice(num);
                     break;
@@ -123,7 +124,7 @@ namespace Game.Web.Spread
                         {"SourceDiamond", Convert.ToInt32(dr["SourceDiamond"])},
                         {"ReturnType", spreadReturnType == 0 ? "金币" : "钻石"},
                         {"ReturnNum", Convert.ToInt32(dr["ReturnNum"])},
-                        {"CollcetDate", Convert.ToDateTime(dr["CollcetDate"]).ToString("yyyy-MM-dd HH:mm:ss")},
+                        {"CollectDate", Convert.ToDateTime(dr["CollectDate"]).ToString("yyyy-MM-dd HH:mm:ss")},
                     };
                     arrayList.Add(record);
                 }
@@ -136,7 +137,7 @@ namespace Game.Web.Spread
                 {
                     Dictionary<string, object> record = new Dictionary<string, object>()
                     {
-                        {"CollcetDate", Convert.ToDateTime(dr["CollcetDate"]).ToString("yyyy-MM-dd HH:mm:ss")},
+                        {"CollectDate", Convert.ToDateTime(dr["CollectDate"]).ToString("yyyy-MM-dd HH:mm:ss")},
                         {"ReceiveType", spreadReturnType == 0 ? "金币" : "钻石"},
                         {"ReceiveNum", Convert.ToInt32(dr["ReceiveNum"])},
                         {"ReceiveBefore", Convert.ToInt64(dr["ReceiveBefore"])}

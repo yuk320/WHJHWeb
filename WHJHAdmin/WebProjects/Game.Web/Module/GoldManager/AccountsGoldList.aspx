@@ -40,6 +40,7 @@
                     <asp:ListItem Value="8">按游戏税收小于等于</asp:ListItem>
                 </asp:DropDownList>
                 <asp:Button ID="btnQuery" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQuery_Click" />
+              <input type="button" value="赠送金币" class="btn" style="width:85px;" onclick="openWindowOwn('GrantGold.aspx', '', 600, 270);" />
             </td>
         </tr>
     </table>

@@ -6,8 +6,37 @@
     <title>赠送钻石</title>
     <link href="../../styles/layout.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="../../scripts/common.js"></script>
+    <script type="text/javascript" src="/scripts/common.js"></script>
+  <script type="text/javascript" src="/scripts/jquery.js"></script>
 
+  <script type="text/javascript">
+    function getnickname() {
+      var gameID = $("#txtGameID").val();
+      console.info(gameID);
+      if (gameID == "") {
+        $("#useridTips").html("请输入GameID").addClass("hong");
+        return;
+      }
+      $.ajax({
+        url: '/Tools/Operating.ashx?action=getuserinfo',
+        type: 'post',
+        data: { GameID: gameID },
+        dataType: 'json',
+        success: function (result) {
+          if (result.data.valid) {
+            $("#hidUserID").val(result.data.UserID);
+            $("#useridTips").html("成功").removeClass("hong");
+          } else {
+            $("#hidUserID").val("");
+            $("#useridTips").html(result.msg).addClass("hong");
+          }
+        },
+        complete: function () {
+
+        }
+      });
+    }
+  </script>
 </head>
 <body>
     <!-- 头部菜单 Start -->
@@ -33,6 +62,18 @@
         </tr>
     </table>
     <table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" class="listBg2" style="height:136px;">
+        <tr runat="server" id="trGameID">
+          <td class="listTdLeft">
+            赠送ID：
+          </td>
+          <td>
+            <asp:TextBox ID="txtGameID" runat="server" CssClass="text wd4" MaxLength="7"></asp:TextBox>
+            <span class="hong">*</span>
+            <input type="button" value="检测" class="btn wd1" onclick="getnickname()" />
+            <asp:HiddenField runat="server" ID="hidUserID"/>
+            <span id="useridTips"></span>
+          </td>
+        </tr>
         <tr>
             <td class="listTdLeft">
                 赠送钻石数：

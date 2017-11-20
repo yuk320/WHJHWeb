@@ -37,6 +37,7 @@
                 <asp:Button ID="Button1" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQuery1_Click" />
                 <input type="button" value="钻石前50名" class="btn" style="width:85px;" onclick="openWindowOwn('TopDiamond.aspx', '', 850, 600);" />
                 <span class="total-span">钻石总数统计：<asp:Label ID="lbTotal" runat="server" Text="0"></asp:Label></span> 
+                <input type="button" value="赠送钻石" class="btn" style="width:85px;" onclick="openWindowOwn('GrantDiamond.aspx', '', 600, 270);" />
             </td>
         </tr>
     </table>

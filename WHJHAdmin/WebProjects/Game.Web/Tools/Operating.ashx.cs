@@ -78,7 +78,7 @@ namespace Game.Web.Tools
             }
 
             AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(gameID);
-            if(info.UserID != 0)
+            if( info?.UserID > 0)
             {
                 ajv.SetValidDataValue(true);
                 ajv.AddDataItem("UserID", info.UserID);

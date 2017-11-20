@@ -60,7 +60,13 @@ namespace Game.Facade.Enum
         /// 银行服务费
         /// </summary>
         [EnumDescription("银行服务费")]
-        银行服务费 = 8
+        银行服务费 = 8,
+
+        /// <summary>
+        /// 领取返利
+        /// </summary>
+        [EnumDescription("领取返利")]
+        领取返利 = 9
     }
 
     /// <summary>
@@ -135,6 +141,12 @@ namespace Game.Facade.Enum
         /// </summary>
         [EnumDescription("钻石兑换")]
         钻石兑换 = 12,
+
+        /// <summary>
+        /// 领取返利
+        /// </summary>
+        [EnumDescription("领取返利")]
+        领取返利 = 13
     }
 
     [Serializable]

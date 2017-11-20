@@ -68,7 +68,7 @@ namespace Game.Entity.Enum
         /// <summary>
         /// 充值返利
         /// </summary>
-        [EnumDescription("领取充值返利")] 领取充值返利 = 13
+        [EnumDescription("领取返利")] 领取返利 = 13
     }
 
     /// <summary>
@@ -126,6 +126,6 @@ namespace Game.Entity.Enum
         /// <summary>
         /// 充值返利
         /// </summary>
-        [EnumDescription("领取充值返利")] 领取充值返利 = 9
+        [EnumDescription("领取返利")] 领取返利 = 9
     }
 }

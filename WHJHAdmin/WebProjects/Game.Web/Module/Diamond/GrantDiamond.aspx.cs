@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using Game.Entity.Record;
 using Game.Facade;
-using Game.Entity.Treasure;
 using Game.Entity.Accounts;
 using Game.Web.UI;
 using Game.Entity.Enum;
@@ -26,6 +19,7 @@ namespace Game.Web.Module.Diamond
             if(!IsPostBack)
             {
                 AuthUserOperationPermission(Permission.GrantDiamond);
+                trGameID.Visible = IntParam <= 0;
             }
         }
         /// <summary>
@@ -36,7 +30,7 @@ namespace Game.Web.Module.Diamond
             string strReason = CtrlHelper.GetText(txtReason);
             int diamond = CtrlHelper.GetInt(txtDiamond, 0);
             bool flag = cbPull.Checked;
-
+            int userid = IntParam <= 0 ? CtrlHelper.GetInt(hidUserID, 0) : IntParam;
             if(diamond <= 0)
             {
                 MessageBox("赠送钻石不能小于或等于零");
@@ -48,13 +42,15 @@ namespace Game.Web.Module.Diamond
                 return;
             }
             string ip = GameRequest.GetUserIP();
-            RecordGrantDiamond rgd = new RecordGrantDiamond();
-            rgd.MasterID = userExt.UserID;
-            rgd.UserID = IntParam;
-            rgd.TypeID = 0;
-            rgd.AddDiamond = diamond;
-            rgd.ClientIP = ip;
-            rgd.CollectNote = strReason;
+            RecordGrantDiamond rgd = new RecordGrantDiamond
+            {
+                MasterID = userExt.UserID,
+                UserID = userid,
+                TypeID = 0,
+                AddDiamond = diamond,
+                ClientIP = ip,
+                CollectNote = strReason
+            };
 
             Message msg = FacadeManage.aideTreasureFacade.GrantDiamond(rgd);
             if(msg.Success)
@@ -62,7 +58,7 @@ namespace Game.Web.Module.Diamond
                 if(flag)
                 {
                     AccountsUmeng umeng = FacadeManage.aideAccountsFacade.GetAccountsUmeng(IntParam);
-                    if(umeng != null && !string.IsNullOrEmpty(umeng.DeviceToken))
+                    if(!string.IsNullOrEmpty(umeng?.DeviceToken))
                     {
                         string content = "系统管理员" + userExt.UserName + "已" + (diamond < 0 ? "扣除" : "赠送") + "您" + diamond.ToString() + "钻石";
                         DateTime start = DateTime.Now.AddMinutes(1);
@@ -73,13 +69,15 @@ namespace Game.Web.Module.Diamond
                             MessageBox("赠送成功，但推送消息失败，请前往友盟后台绑定系统后台ip");
                             return;
                         }
-                        RecordAccountsUmeng record = new RecordAccountsUmeng();
-                        record.MasterID = rgd.MasterID;
-                        record.UserID = rgd.UserID;
-                        record.PushType = umeng.DeviceType;
-                        record.PushTime = DateTime.Now;
-                        record.PushIP = ip;
-                        record.PushContent = content;
+                        RecordAccountsUmeng record = new RecordAccountsUmeng
+                        {
+                            MasterID = rgd.MasterID,
+                            UserID = rgd.UserID,
+                            PushType = umeng.DeviceType,
+                            PushTime = DateTime.Now,
+                            PushIP = ip,
+                            PushContent = content
+                        };
                         int rows = FacadeManage.aideRecordFacade.AddRecordAccountsUmeng(record);
                         MessageBox(rows > 0 ? "赠送成功" : "赠送成功，但推送记录写入失败");
                     }
