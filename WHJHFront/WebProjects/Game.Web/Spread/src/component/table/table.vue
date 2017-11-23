@@ -62,7 +62,6 @@ export default {
     }
   },
   updated: function() {
-    
     this.align();
   },
   methods: {
@@ -78,16 +77,18 @@ export default {
       loaded("done");
     },
     align: function() {
-      // 获取第一行
-      let tbody = document.querySelectorAll(".ui-table-body tbody")[
-        this.curPage
-      ];
-      let td = tbody.querySelectorAll("tr:first-of-type td");
-      td = Array.prototype.slice.apply(td);
-      td.forEach((el, index) => {
-        if (this.columns[index] && this.columns[index].width != undefined)
-          this.columns[index].width = el.offsetWidth;
-      });
+      if (this.records.length > 0) {
+        // 获取第一行
+        let tbody = document.querySelectorAll(".ui-table-body tbody")[
+          this.curPage
+        ];
+        let td = tbody.querySelectorAll("tr:first-of-type td");
+        td = Array.prototype.slice.apply(td);
+        td.forEach((el, index) => {
+          if (this.columns[index] && this.columns[index].width != undefined)
+            this.columns[index].width = el.offsetWidth;
+        });
+      }
     },
     pageInit: function() {
       this.columns = [];

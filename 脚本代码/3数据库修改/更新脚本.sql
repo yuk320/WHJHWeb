@@ -198,7 +198,7 @@ CREATE TABLE [dbo].[RecordSpreadReturnReceive]
   -- 领取数值 （根据ReceiveType 0：金币 1：钻石）
   [ReceiveBefore] [bigint] NOT NULL,
   -- 领取前数值（根据ReceiveType 0：金币 1：钻石）
-  [ReceiveAddress] [nvarchar(15)] NOT NULL,
+  [ReceiveAddress] [nvarchar](15) NOT NULL,
   -- 领取地址
   [CollectDate] [datetime] NOT NULL,
   -- 记录日期
