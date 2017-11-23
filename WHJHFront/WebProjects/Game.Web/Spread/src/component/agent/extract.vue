@@ -1,51 +1,50 @@
 <template>
   <div class="ui-main ui-extract">
     <top title="提取记录"></top>
+    <div class="ui-panel">
+    <ui-table v-if="$store.state.cached" :data="receiveRecord" :thead="thead" :pageSize="pageSize">
+      
+    </ui-table>
+
+    </div>
   </div>
 </template>
 
 <script>
 import top from "../top/Top";
+import getData from "../../fetch/fetch";
+import UiTable from "../table/table";
 export default {
   name: "extract",
-  components: { top },
+  components: { top, UiTable },
   data: function() {
     return {
       userid: 0,
-      record: []
+      receiveRecord: [],
+      thead: ["提取日期", "提取前数量", "提取数量", "提取类型"],
+      pageSize: 15,
+      loaded: false
     };
-  },
-  beforeCreate() {
-    console.info("before", this.$store);
   },
   created() {
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
+    const state = this.$store.state;
     this.userid = this.$store.state.userid;
+
     if (this.userid === 0) this.userid = localStorage.userid;
-    console.info("now", this.$store);
-    this.fetchData();
+
+    if (this.$store.state.cached) {
+      this.receiveRecord = state.userData.receiveRecord;
+    } else {
+      getData(this.userid, this.fetchData.bind(this));
+    }
   },
   methods: {
-    fetchData: function() {
-      // replace getPost with your data fetching util / API wrapper
-      fetch(
-        "SpreadDataHandle.ashx?action=userspreadreceive&userid=" + this.userid
-      )
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.data) {
-            this.record = data.data.record;
-          } else {
-            this.record = [];
-            this.record.push({
-              GameID: 100102,
-              SourceDiamond: 1000000,
-              ReturnNum: 123,
-              CollectDate: "2017/11/16"
-            });
-          }
-        });
+    fetchData: function(data) {
+      console.log(data.receiveRecord);
+      this.receiveRecord = data.receiveRecord;
+      this.loaded = true;
     }
   }
 };

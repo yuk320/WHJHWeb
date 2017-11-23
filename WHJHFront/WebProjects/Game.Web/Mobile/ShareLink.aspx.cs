@@ -23,6 +23,8 @@ namespace Game.Web.Mobile
         {
             if (IsPostBack) return;
             string state = GameRequest.GetQueryString("s");
+            string type = GameRequest.GetQueryString("y");
+
             if (state == "already")
             {
                 int gameid = GameRequest.GetQueryInt("g", 0);
@@ -67,7 +69,7 @@ namespace Game.Web.Mobile
                         gameid = GameRequest.GetQueryInt("g", 0);
                     }
                 }
-                Response.Redirect("/Mobile/WxRegister.aspx?t=81&g=" + gameid.ToString());
+                Response.Redirect("/Mobile/WxRegister.aspx?t=81&g=" + gameid+(!string.IsNullOrEmpty(type)?"&y="+type:""));
             }
         }
     }

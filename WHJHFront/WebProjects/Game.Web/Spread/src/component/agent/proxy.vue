@@ -58,92 +58,79 @@
     <div class="ui-panel ui-query">
       <router-link to='/proxySearch' class="ui-button">下级查询</router-link>
       <router-link to='/' class="ui-button">提取金币</router-link>
-      <router-link to="/Extract" class="ui-button">提取记录</router-link>
+      <a class="ui-button" @click="changeType">{{recordType=='return'?'提取记录':'返利记录'}}</a>
     </div>
-    <div class="ui-panel">
-      <table>
-        <thead>
-          <tr>
-            <td>
-              ID
-            </td>
-             <td>
-              充值钻石
-            </td>
-             <td>
-              返利
-            </td>
-             <td>
-              日期
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(value, index) in record" :key="'tr'+index">
-            <td>{{value.GameID}}</td>
-            <td>{{value.SourceDiamond}}</td>
-            <td>{{value.ReturnNum}}</td>
-            <td>{{value.CollectDate}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="ui-panel" >
+        <ui-table v-if="$store.state.cached" :data="record" :pageSize="pageSize" :thead="thead" :recordType="recordType">
+        </ui-table>
     </div>
   </div>
 
 </template>
 <script>
 import top from "../top/Top";
+import UiTable from "../table/table";
+import getData from "../../fetch/fetch";
+
 export default {
   name: "proxy",
-  components: { top },
+  components: { top, UiTable },
   data: function() {
     return {
       userid: 0,
       info: {},
-      record: []
+      recordObj: {
+        return: [],
+        receive: []
+      },
+      pageSize: 15,
+      theadObj: {
+        return: ["ID", "充值钻石", "返利类型", "返利", "日期"],
+        receive: ["提取日期", "提取类型", "提取数量", "提取前数量"]
+      },
+      recordType: "return"
     };
   },
   created() {
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
+    const state = this.$store.state;
     this.userid = this.$store.state.userid;
+
     if (this.userid === 0) this.userid = localStorage.userid;
-    this.fetchData();
+
+    if (this.$store.state.cached) {
+      this.info = state.userData.info;
+      this.recordObj.receive = state.userData.receiveRecord;
+      this.recordObj.return = state.userData.returnRecord;
+    } else {
+      getData(this.userid, this.fetchData.bind(this));
+    }
   },
   methods: {
-    fetchData: function() {
+    fetchData: function(data) {
       // replace getPost with your data fetching util / API wrapper
-      fetch("SpreadDataHandle.ashx?action=userspreadhome&userid=" + this.userid)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.data) {
-            this.info = data.data.info;
-            this.record = data.data.record;
-          } else {
-            this.info = {
-              GameID: 100101,
-              Lv2Count: 12,
-              Lv3Count: 12,
-              Lv1Count: 12,
-              TotalReturn: 0,
-              TotalReceive: 0
-            };
-            this.record = [];
-            this.record.push({
-              GameID: 100102,
-              SourceDiamond: 1000000,
-              ReturnNum: 123,
-              CollectDate: "2017/11/16"
-            });
-          }
-          this.$store.commit("setID", this.userid);
-          this.$store.commit("setInfo", this.info);
-          this.$store.commit("setRecord", this.record);
-        });
+      this.info = data.info;
+      this.recordObj = {
+        return: data.returnRecord,
+        receive: data.receiveRecord
+      };
+      // 数据加载成功后开始绘制表格
+    },
+    changeType: function(e) {
+      this.recordType = this.recordType == "return" ? "receive" : "return";
+    }
+  },
+  computed: {
+    record: function() {
+      return this.recordObj[this.recordType];
+    },
+    thead: function() {
+      return this.theadObj[this.recordType];
     }
   }
 };
 </script>
 <style scoped>
-@import "../../../assets/css/agent/proxy.css";
+/* @import "../../../assets/css/agent/proxy.css"; */
 </style>

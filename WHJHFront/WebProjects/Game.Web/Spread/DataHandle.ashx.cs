@@ -32,7 +32,8 @@ namespace Game.Web.Spread
 
             string action = GameRequest.GetString("action");
             //签名验证 //接口版本号
-            _ajv = new AjaxJsonValid {data = {["apiVersion"] = 20171120}};
+            _ajv = new AjaxJsonValid();
+            _ajv.SetDataItem("apiVersion",20171120);
             if (_userId <= 0)
             {
                 _ajv.code = (int) ApiCode.VertyParamErrorCode;
@@ -92,7 +93,7 @@ namespace Game.Web.Spread
                 {"TotalReturn", Convert.ToInt64(ds.Tables[0].Rows[0]["TotalReturn"])},
                 {"TotalReceive", Convert.ToInt64(ds.Tables[0].Rows[0]["TotalReceive"])}
             };
-            _ajv.AddDataItem("info", info);
+            _ajv.SetDataItem("info", info);
             ArrayList arrayList = new ArrayList();
             if (ds.Tables[1].Rows.Count > 0)
             {
@@ -109,7 +110,7 @@ namespace Game.Web.Spread
                     arrayList.Add(belowUser);
                 }
             }
-            _ajv.AddDataItem("belowList", arrayList);
+            _ajv.SetDataItem("belowList", arrayList);
             arrayList = new ArrayList();
             if (ds.Tables[2].Rows.Count > 0)
             {
@@ -129,7 +130,7 @@ namespace Game.Web.Spread
                     arrayList.Add(record);
                 }
             }
-            _ajv.AddDataItem("returnRecord", arrayList);
+            _ajv.SetDataItem("returnRecord", arrayList);
             arrayList = new ArrayList();
             if (ds.Tables[3] != null && ds.Tables[3].Rows.Count > 0)
             {
@@ -145,7 +146,7 @@ namespace Game.Web.Spread
                     arrayList.Add(record);
                 }
             }
-            _ajv.AddDataItem("receiveRecord", arrayList);
+            _ajv.SetDataItem("receiveRecord", arrayList);
             _ajv.SetValidDataValue(true);
         }
 

@@ -3,10 +3,8 @@ using Game.Facade;
 using Game.Kernel;
 using Game.Utils;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.SessionState;
@@ -65,8 +63,8 @@ namespace Game.Web.Card
             int gameid = GameRequest.GetFormInt("gameid", 0);
 
             AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountsInfoByGameID(gameid);
-            ajv.AddDataItem("nickname", info != null ? info.NickName : "");
-            ajv.AddDataItem("compellation", info != null ? info.Compellation : "");
+            ajv.SetDataItem("nickname", info != null ? info.NickName : "");
+            ajv.SetDataItem("compellation", info != null ? info.Compellation : "");
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -114,8 +112,8 @@ namespace Game.Web.Card
             {
                 html = "<tr><td colspan=\"4\">暂无记录！</td></tr>";
             }
-            ajv.AddDataItem("html", html);
-            ajv.AddDataItem("total", pagerSet.RecordCount);
+            ajv.SetDataItem("html", html);
+            ajv.SetDataItem("total", pagerSet.RecordCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -165,8 +163,8 @@ namespace Game.Web.Card
             {
                 html = "<tr><td colspan=\"4\">暂无记录！</td></tr>";
             }
-            ajv.AddDataItem("html", html);
-            ajv.AddDataItem("total", pagerSet.RecordCount);
+            ajv.SetDataItem("html", html);
+            ajv.SetDataItem("total", pagerSet.RecordCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -216,8 +214,8 @@ namespace Game.Web.Card
             {
                 html = "<tr><td colspan=\"4\">暂无记录！</td></tr>";
             }
-            ajv.AddDataItem("html", html);
-            ajv.AddDataItem("total", pagerSet.RecordCount);
+            ajv.SetDataItem("html", html);
+            ajv.SetDataItem("total", pagerSet.RecordCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -263,8 +261,8 @@ namespace Game.Web.Card
             {
                 html = "<tr><td colspan=\"4\">暂无记录！</td></tr>";
             }
-            ajv.AddDataItem("html", html);
-            ajv.AddDataItem("total", FacadeManage.aideAccountsFacade.GetAgentSpreadCount(uti.UserID));
+            ajv.SetDataItem("html", html);
+            ajv.SetDataItem("total", FacadeManage.aideAccountsFacade.GetAgentSpreadCount(uti.UserID));
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -313,8 +311,8 @@ namespace Game.Web.Card
             {
                 html = "<tr><td colspan=\"4\">暂无记录！</td></tr>";
             }
-            ajv.AddDataItem("html", html);
-            ajv.AddDataItem("total", pagerSet.RecordCount);
+            ajv.SetDataItem("html", html);
+            ajv.SetDataItem("total", pagerSet.RecordCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -472,10 +470,10 @@ namespace Game.Web.Card
                     return;
             }
 
-            ajv.AddDataItem("list", list.dataList);
-            ajv.AddDataItem("total", list.RecordCount);
-            if (list.Link) ajv.AddDataItem("link", true);
-            ajv.AddDataItem("count", pCount);
+            ajv.SetDataItem("list", list.dataList);
+            ajv.SetDataItem("total", list.RecordCount);
+            if (list.Link) ajv.SetDataItem("link", true);
+            ajv.SetDataItem("count", pCount);
             ajv.SetValidDataValue(true);
             context.Response.Write(ajv.SerializeToJson());
         }
@@ -511,7 +509,7 @@ namespace Game.Web.Card
                     AgentID = ai.AgentID,
                     Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(ai.UserID)?.Diamond ?? 0
                 };
-                ajv.AddDataItem("info",underDetail.ToString());
+                ajv.SetDataItem("info",underDetail.ToString());
                 ajv.SetValidDataValue(true);
             }
 

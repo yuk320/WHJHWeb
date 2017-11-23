@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Game.Facade
+﻿namespace Game.Facade
 {
     /// <summary>
     /// 默认数据项带Valid的Ajax异步请求返回数据类
@@ -15,7 +10,7 @@ namespace Game.Facade
         /// </summary>
         public AjaxJsonValid( )
         {
-            AddDataItem( "valid", false );
+            SetDataItem( "valid", false );
         }
 
         /// <summary>
@@ -24,7 +19,7 @@ namespace Game.Facade
         /// <param name="result"></param>
         public AjaxJsonValid( bool result )
         {
-            AddDataItem( "valid", result );
+            SetDataItem( "valid", result );
         }
 
         /// <summary>

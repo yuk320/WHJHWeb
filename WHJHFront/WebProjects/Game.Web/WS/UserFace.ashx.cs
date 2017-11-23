@@ -28,7 +28,7 @@ namespace Game.Web.WS
             //签名验证
             AjaxJsonValid ajv = Fetch.VerifySignData(userid + AppConfig.MoblieInterfaceKey + time, sign);
             //接口版本号
-            ajv.data["apiVersion"] = 20171106;
+            ajv.SetDataItem("apiVersion", 20171106);
             if (ajv.code == (int) ApiCode.VertySignErrorCode)
             {
                 context.Response.Write(ajv.SerializeToJson());
@@ -37,8 +37,8 @@ namespace Game.Web.WS
             //参数验证
             if (userid <= 0 || customId <= 0)
             {
-                ajv.code = (int)ApiCode.VertyParamErrorCode;
-                ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),"");
+                ajv.code = (int) ApiCode.VertyParamErrorCode;
+                ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
                 context.Response.Write(ajv.SerializeToJson());
                 return;
             }
@@ -51,12 +51,18 @@ namespace Game.Web.WS
                 return;
             }
 
-            ConfigInfo webCfg = FacadeManage.aideNativeWebFacade.GetConfigInfo(AppConfig.SiteConfigKey.WebSiteConfig.ToString());
+            ConfigInfo webCfg =
+                FacadeManage.aideNativeWebFacade.GetConfigInfo(AppConfig.SiteConfigKey.WebSiteConfig.ToString());
             string imageServerHost = webCfg.Field2;
 
             ajv.SetValidDataValue(true);
-            ajv.AddDataItem("UserID", faceModel.UserID);
-            ajv.AddDataItem("FaceUrl", string.IsNullOrEmpty(faceModel.FaceUrl)?"":(faceModel.FaceUrl.IndexOf("http://", StringComparison.Ordinal)>-1?faceModel.FaceUrl:$"{imageServerHost}{faceModel.FaceUrl}"));
+            ajv.SetDataItem("UserID", faceModel.UserID);
+            ajv.SetDataItem("FaceUrl",
+                string.IsNullOrEmpty(faceModel.FaceUrl)
+                    ? ""
+                    : (faceModel.FaceUrl.IndexOf("http://", StringComparison.Ordinal) > -1
+                        ? faceModel.FaceUrl
+                        : $"{imageServerHost}{faceModel.FaceUrl}"));
             context.Response.Write(ajv.SerializeToJson());
         }
 

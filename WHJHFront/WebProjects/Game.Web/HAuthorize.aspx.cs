@@ -16,6 +16,7 @@ namespace Game.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) return;
+
             if (AppConfig.Mode == AppConfig.CodeMode.Dev)
             {
                 #region 内部测试
@@ -28,7 +29,7 @@ namespace Game.Web
                 string wxParam = $"<{unionid}>,<{unionid}>,<{nickname}>,<{1}>,<{headimgurl}>";
 
                 string url = "http://172.16.0.211:6566/develop/majiang/index.html" + "?w=" +
-                                 Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key, AppConfig.WxH5Key));
+                             Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key, AppConfig.WxH5Key));
 
                 Response.Redirect(url);
 
@@ -52,9 +53,9 @@ namespace Game.Web
 
                     string wxParam = $"<{openid}>,<{unionid}>,<{nickname}>,<{sex}>,<{headimgurl}>";
                     ConfigInfo config = Fetch.GetWebSiteConfig();
-                    string url = (config != null ? config.Field4 : "") + "?w=" +
-                                     Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key,
-                                         AppConfig.WxH5Key));
+                    string url = (config != null ? config.Field4 : "/h5/") + "?w=" +
+                                 Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key,
+                                     AppConfig.WxH5Key));
 
                     Response.Redirect(url);
                 }

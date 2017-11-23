@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Web.Script.Serialization;
+// ReSharper disable InconsistentNaming
 
 namespace Game.Facade
 {
@@ -52,17 +50,7 @@ namespace Game.Facade
         {
             code = 0;
             msg = "";
-            AddDataItem("apiVersion",AppConfig.ApiVersion); 
-        }
-
-        /// <summary>
-        /// 为数据项添加数据
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>
-        public void AddDataItem( string key, object value )
-        {
-            _data.Add( key, value );
+            SetDataItem("apiVersion",AppConfig.ApiVersion); 
         }
 
         /// <summary>
@@ -72,7 +60,14 @@ namespace Game.Facade
         /// <param name="value">值</param>
         public void SetDataItem( string key, object value )
         {
-            _data[key] = value;
+            if (_data.ContainsKey(key))
+            {
+                _data[key] = value;
+            }
+            else
+            {
+                _data.Add(key, value);
+            }
         }
 
         /// <summary>

@@ -71,6 +71,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             {
                 //获取手机端登录数据
                 case "getmobilelogindata":
+                    _ajv.SetDataItem("apiVersion", 20171017);
                     GetMobileLoginData();
                     break;
                 //获取手机端登录后数据
@@ -79,6 +80,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //获取充值产品列表
                 case "getpayproduct":
+                    _ajv.SetDataItem("apiVersion", 20171028);
                     //获取参数
                     int typeId = GameRequest.GetQueryInt("typeid", 0);
                     GetPayProduct(typeId);
@@ -96,10 +98,12 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     ReceiveSpreadAward(configid);
                     break;
                 case "getgameintrolist":
+                    _ajv.SetDataItem("apiVersion", 20171107);
                     GetGameIntroList();
                     break;
                 //钻石充值下单
                 case "createpayorder":
+                    _ajv.SetDataItem("apiVersion",20171122);
                     //获取参数
                     string paytype = GameRequest.GetQueryString("paytype");
                     string openid = GameRequest.GetQueryString("openid");
@@ -174,19 +178,19 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     }
                     DiamondExchGold(configid, typeid);
                     break;
-                case "getlqnopwdloginurl":
-                    _ajv.data["apiVersion"] = 20171116;
-                    string name = GameRequest.GetString("name");
-                    if (string.IsNullOrEmpty(name))
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
-                            " name 错误");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    GetLqNoPwdLoginUrl(name);
-                    break;
+//                case "getlqnopwdloginurl":
+//                    _ajv.SetDataItem("apiVersion", 20171116);
+//                    string name = GameRequest.GetString("name");
+//                    if (string.IsNullOrEmpty(name))
+//                    {
+//                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
+//                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+//                            " name 错误");
+//                        context.Response.Write(_ajv.SerializeToJson());
+//                        return;
+//                    }
+//                    GetLqNoPwdLoginUrl(name);
+//                    break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
                     _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
@@ -201,8 +205,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// </summary>
         private static void GetMobileLoginData()
         {
-            _ajv.data["apiVersion"] = 20171017;
-
             ConfigInfo webConfig = Fetch.GetWebSiteConfig();
             string imageServerHost = webConfig.Field2;
             //获取登录数据
@@ -230,11 +232,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
             //输出数据
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("systemConfig", config);
-            _ajv.AddDataItem("customerService", mcs);
-            _ajv.AddDataItem("systemNotice", noticelist);
-            _ajv.AddDataItem("adsList", plate);
-            _ajv.AddDataItem("adsAlertList", alert);
+            _ajv.SetDataItem("systemConfig", config);
+            _ajv.SetDataItem("customerService", mcs);
+            _ajv.SetDataItem("systemNotice", noticelist);
+            _ajv.SetDataItem("adsList", plate);
+            _ajv.SetDataItem("adsAlertList", alert);
         }
 
         /// <summary>
@@ -263,11 +265,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
 
             //输出信息
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("sharelink", shareLink);
-            _ajv.AddDataItem("registergrant", registerGrant);
-            _ajv.AddDataItem("friendcount", friendCount);
-            _ajv.AddDataItem("spreadlist", spreadList);
-            _ajv.AddDataItem("ranklist", rankList);
+            _ajv.SetDataItem("sharelink", shareLink);
+            _ajv.SetDataItem("registergrant", registerGrant);
+            _ajv.SetDataItem("friendcount", friendCount);
+            _ajv.SetDataItem("spreadlist", spreadList);
+            _ajv.SetDataItem("ranklist", rankList);
         }
 
         /// <summary>
@@ -276,8 +278,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <param name="typeId"></param>
         private static void GetPayProduct(int typeId)
         {
-            _ajv.data["apiVersion"] = 20171028;
-
             //获取充值数据
             DataSet ds = FacadeManage.aideTreasureFacade.GetAppPayConfigList(typeId, _userid);
             //获取首充状态
@@ -289,9 +289,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             IList<CurrencyExchConfig> gold = DataHelper.ConvertDataTableToObjects<CurrencyExchConfig>(ds.Tables[2]);
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("isFirst", flag);
-            _ajv.AddDataItem("list", list);
-            _ajv.AddDataItem("goldList", gold);
+            _ajv.SetDataItem("isFirst", flag);
+            _ajv.SetDataItem("list", list);
+            _ajv.SetDataItem("goldList", gold);
         }
 
         /// <summary>
@@ -311,7 +311,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// </summary>
         private static void GetGameIntroList()
         {
-            _ajv.data["apiVersion"] = 20171107;
             IList<GameRule> gameRules = FacadeManage.aideNativeWebFacade.GetGameRuleList();
             IList<MobileGameRule> ruleList = new List<MobileGameRule>();
             if (gameRules.Count > 0)
@@ -327,7 +326,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 }
             }
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("ruleList", ruleList);
+            _ajv.SetDataItem("ruleList", ruleList);
         }
 
         /// <summary>
@@ -339,8 +338,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <returns>AjaxJsonValid</returns>
         private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid)
         {
-            //接口特殊版本
-            _ajv.data["apiVersion"] = 20171107;
             //下单信息
             OnLinePayOrder order = new OnLinePayOrder
             {
@@ -379,15 +376,15 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 OnLinePayOrder orderReturn = umsg.EntityList[0] as OnLinePayOrder;
                 if (paytype == "wx" || paytype == "hwx")
                 {
-                    _ajv.AddDataItem("PayPackage",
+                    _ajv.SetDataItem("PayPackage",
                         GetWxPayPackage(orderReturn, paytype, openid, GameRequest.GetCurrentFullHost()));
                 }
                 else if (paytype == "lq")
                 {
-                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn, openid, _userid.ToString());
-                    _ajv.AddDataItem("PayPackage", LQPay.GetPayPackage(request.ToUrl()));
+                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn);
+                    _ajv.SetDataItem("PayUrl", HttpUtility.UrlDecode(request.ToUrl("PayUrl")));
                 }
-                _ajv.AddDataItem("OrderID", orderReturn?.OrderID ?? "");
+                _ajv.SetDataItem("OrderID", orderReturn?.OrderID ?? "");
             }
             _ajv.SetValidDataValue(umsg.Success);
             _ajv.code = umsg.MessageID;
@@ -437,9 +434,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("WealthRank", wealthRank);
-            _ajv.AddDataItem("ConsumeRank", consumeRank);
-            _ajv.AddDataItem("ScoreRank", scoreRank);
+            _ajv.SetDataItem("WealthRank", wealthRank);
+            _ajv.SetDataItem("ConsumeRank", consumeRank);
+            _ajv.SetDataItem("ScoreRank", scoreRank);
         }
 
         /// <summary>
@@ -460,9 +457,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("diamond", diamond);
-            _ajv.AddDataItem("score", score);
-            _ajv.AddDataItem("insure", insureScore);
+            _ajv.SetDataItem("diamond", diamond);
+            _ajv.SetDataItem("score", score);
+            _ajv.SetDataItem("insure", insureScore);
         }
 
         /// <summary>
@@ -479,7 +476,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             {
                 _ajv.SetValidDataValue(true);
                 UserCurrency currency = msg.EntityList[0] as UserCurrency;
-                _ajv.AddDataItem("Diamond", currency?.Diamond ?? 0);
+                _ajv.SetDataItem("Diamond", currency?.Diamond ?? 0);
             }
             _ajv.msg = msg.Content;
         }
@@ -508,11 +505,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             IList<MobileKindItem> list = DataHelper.ConvertDataTableToObjects<MobileKindItem>(ds.Tables[1]);
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("downloadurl", downloadUrl);
-            _ajv.AddDataItem("clientversion", version);
-            _ajv.AddDataItem("resversion", resVersion);
-            _ajv.AddDataItem("ios_url", iosUrl);
-            _ajv.AddDataItem("gamelist", list);
+            _ajv.SetDataItem("downloadurl", downloadUrl);
+            _ajv.SetDataItem("clientversion", version);
+            _ajv.SetDataItem("resversion", resVersion);
+            _ajv.SetDataItem("ios_url", iosUrl);
+            _ajv.SetDataItem("gamelist", list);
         }
 
         /// <summary>
@@ -526,9 +523,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             {
                 _ajv.SetValidDataValue(true);
                 UserWealth wealth = msg.EntityList[0] as UserWealth;
-                _ajv.AddDataItem("Score", wealth?.Score ?? 0);
-                _ajv.AddDataItem("InsureScore", wealth?.InsureScore ?? 0);
-                _ajv.AddDataItem("Diamond", wealth?.Diamond ?? 0);
+                _ajv.SetDataItem("Score", wealth?.Score ?? 0);
+                _ajv.SetDataItem("InsureScore", wealth?.InsureScore ?? 0);
+                _ajv.SetDataItem("Diamond", wealth?.Diamond ?? 0);
             }
             _ajv.msg = msg.Content;
         }
@@ -570,7 +567,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("list", list);
+            _ajv.SetDataItem("list", list);
         }
 
         /// <summary>
@@ -604,7 +601,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("list", list);
+            _ajv.SetDataItem("list", list);
         }
 
         /// <summary>
@@ -625,27 +622,28 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         DataHelper.ConvertRowToObject<DiamondExchRecord>(dataSet.Tables[0].Rows[0]);
                     if (record == null) return;
                     _ajv.SetValidDataValue(true);
-                    _ajv.AddDataItem("AfterDiamond", record.AfterDiamond);
-                    _ajv.AddDataItem("AfterInsureScore", record.AfterInsureScore);
-                    _ajv.AddDataItem("AfterScore", record.AfterScore);
-                    _ajv.AddDataItem("ExchDiamond", record.ExchDiamond);
-                    _ajv.AddDataItem("PresentGold", record.PresentGold);
+                    _ajv.SetDataItem("AfterDiamond", record.AfterDiamond);
+                    _ajv.SetDataItem("AfterInsureScore", record.AfterInsureScore);
+                    _ajv.SetDataItem("AfterScore", record.AfterScore);
+                    _ajv.SetDataItem("ExchDiamond", record.ExchDiamond);
+                    _ajv.SetDataItem("PresentGold", record.PresentGold);
                 }
             }
             _ajv.msg = msg.Content;
         }
-        
+
         /// <summary>
         /// 零钱支付免密登录接口构造
         /// </summary>
         /// <param name="name"></param>
         private static void GetLqNoPwdLoginUrl(string name)
         {
-            LQPay.LQPayRequest noPwdLoginRequest = new LQPay.LQPayRequest(Fetch.GetOrderIDByPrefix("360LQ"),_userid.ToString(),name);
+            LQPay.LQPayRequest noPwdLoginRequest =
+                new LQPay.LQPayRequest(Fetch.GetOrderIDByPrefix("360LQ"), _userid.ToString(), name);
             _ajv.SetValidDataValue(true);
-            _ajv.AddDataItem("noPwdLoginUrl", noPwdLoginRequest.ToUrl("nopwdloign"));
-            _ajv.AddDataItem("param", noPwdLoginRequest.Param);
-            _ajv.AddDataItem("sign", noPwdLoginRequest.Sign);
+            _ajv.SetDataItem("noPwdLoginUrl", noPwdLoginRequest.ToUrl("nopwdloign"));
+            _ajv.SetDataItem("param", noPwdLoginRequest.Param);
+            _ajv.SetDataItem("sign", noPwdLoginRequest.Sign);
         }
 
         #region 辅助方法

@@ -7,18 +7,18 @@ const store = new VueX.Store(
   {
     state: {
       userid: 0,
-      info: {},
-      record: []
+      userData:{},
+      cached: false
     },
     mutations: {
       setID(state, userid) {
         state.userid = userid;
       },
-      serInfo(state, info) {
-        state.info = info;
+      setData(state, userData) {
+        state.userData = userData;
       },
-      setRecord(state, record) {
-        state.record = record;
+      cached(state) {
+        state.cached = true;
       }
     }
   }

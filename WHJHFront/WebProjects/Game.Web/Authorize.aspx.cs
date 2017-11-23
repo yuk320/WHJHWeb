@@ -1,19 +1,12 @@
 ﻿using Game.Facade;
 using Game.Web.Helper;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using Game.Utils;
 
 namespace Game.Web
 {
-    public partial class Authorize : System.Web.UI.Page
+    public partial class Authorize : Page
     {
         //页面参数
         protected string LinkUrl = GameRequest.GetQueryString("url");

@@ -16,57 +16,63 @@ namespace Game.Web.Mobile
         protected string KindRule = string.Empty;
         protected string Mobilelogo = string.Empty;
         protected bool Finish = true;
+
         //页面参数
         protected int Gameid = GameRequest.GetQueryInt("g", 0);
+
         protected int Roomid = GameRequest.GetQueryInt("r", 0);
         protected int Kindid = GameRequest.GetQueryInt("k", 0);
         protected int Action = GameRequest.GetQueryInt("a", 0);
         protected string Password = GameRequest.GetQueryString("p");
-        
+        protected string Type = GameRequest.GetQueryString("y");
+
         /// <summary>
         /// 页面加载
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 string state = GameRequest.GetQueryString("s");
-                if(state == "already")
+                if (state == "already")
                 {
-                    if(Gameid <= 0 || Roomid<=0 || Kindid <= 0 || Action <= 0)
+                    if (Gameid <= 0 || Roomid <= 0 || Kindid <= 0 || Action <= 0)
                     {
                         return;
                     }
                     AccountsInfo info = FacadeManage.aideAccountsFacade.GetAccountsInfoByGameID(Gameid);
-                    if(info == null)
+                    if (info == null)
                     {
                         return;
                     }
-                    Nickname = info.NickName.Length > 9 ? (info.NickName.Substring(0, 6)+"...") : info.NickName;
+                    Nickname = info.NickName.Length > 9 ? (info.NickName.Substring(0, 6) + "...") : info.NickName;
                     GameRule rule = FacadeManage.aideNativeWebFacade.GetGameRuleInfo(Kindid);
-                    if(rule != null)
+                    if (rule != null)
                     {
                         KindRule = rule.KindIntro;
                     }
-                    StreamCreateTableFeeInfo table = FacadeManage.aidePlatformFacade.GetStreamCreateTableFeeInfo(Roomid);
-                    if(table == null || table.DissumeDate != null || table.RoomStatus == 2)
+                    StreamCreateTableFeeInfo table =
+                        FacadeManage.aidePlatformFacade.GetStreamCreateTableFeeInfo(Roomid);
+                    if (table == null || table.DissumeDate != null || table.RoomStatus == 2)
                     {
                         Finish = false;
                     }
                     int terminalType = Fetch.GetTerminalType(Page.Request);
                     string imgDomain = string.Empty;
                     IList<ConfigInfo> list = Fetch.GetConfigInfoList();
-                    foreach(var item in list)
+                    foreach (var item in list)
                     {
-                        if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
+                        if (terminalType == 1 && item.ConfigKey ==
+                            AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                         {
                             PlatformDownloadUrl = item.Field6;
                         }
-                        if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
+                        if (terminalType == 2 && item.ConfigKey ==
+                            AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                         {
                             PlatformDownloadUrl = item.Field5;
                         }
-                        if(item.ConfigKey == AppConfig.SiteConfigKey.WebSiteConfig.ToString())
+                        if (item.ConfigKey == AppConfig.SiteConfigKey.WebSiteConfig.ToString())
                         {
                             imgDomain = item.Field2;
                         }
@@ -76,13 +82,14 @@ namespace Game.Web.Mobile
                 }
                 else
                 {
-                    if(Gameid <= 0 || Roomid<=0 || Kindid <= 0 || Action <= 0)
+                    if (Gameid <= 0 || Roomid <= 0 || Kindid <= 0 || Action <= 0)
                     {
                         return;
                     }
 
                     string url =
                         $"/Mobile/WxRegister.aspx?t=82&g={Gameid}&r={Roomid}&k={Kindid}&a={Action}&p={Password}";
+                    if (!string.IsNullOrEmpty(Type)) url += "&y=" + Type;
                     Response.Redirect(url);
                 }
             }

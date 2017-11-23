@@ -74,8 +74,8 @@ namespace Game.Web
                         }
                     }
                     ajv.SetValidDataValue(true);
-                    ajv.AddDataItem("access_token", tc.access_token);
-                    ajv.AddDataItem("ticket", tc.ticket);
+                    ajv.SetDataItem("access_token", tc.access_token);
+                    ajv.SetDataItem("ticket", tc.ticket);
                     Response.Write(ajv.SerializeToJson());
 
                     #endregion

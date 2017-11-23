@@ -8,6 +8,10 @@ DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
 INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
 VALUES(N'SpreadReturnType', 0, N'全局推广返利类型', N'推广返利类型', N'键值：推广返利类型，在推广返利配置无可用配置时不生效，0表示金币 1表示钻石', 99)
+-- 2017/11/23 添加全局推广返利领取门槛 0：无门槛 大于0代表 需要可领取数大于多少才能提取
+INSERT INTO SystemStatusInfo
+  (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
+VALUES(N'SpreadReceiveBase', 0, N'全局推广返利领取门槛', N'推广返利条件', N'键值：推广返利条件，0：无门槛 大于0代表 需要可领取数大于多少才能提取', 100)
 
 GO
 
@@ -194,6 +198,8 @@ CREATE TABLE [dbo].[RecordSpreadReturnReceive]
   -- 领取数值 （根据ReceiveType 0：金币 1：钻石）
   [ReceiveBefore] [bigint] NOT NULL,
   -- 领取前数值（根据ReceiveType 0：金币 1：钻石）
+  [ReceiveAddress] [nvarchar(15)] NOT NULL,
+  -- 领取地址
   [CollectDate] [datetime] NOT NULL,
   -- 记录日期
   CONSTRAINT [PK_RecordSpreadReturnReceive] PRIMARY KEY CLUSTERED
@@ -212,6 +218,8 @@ ALTER TABLE [dbo].[RecordSpreadReturnReceive] ADD  CONSTRAINT [DF_RecordSpreadRe
 GO
 ALTER TABLE [dbo].[RecordSpreadReturnReceive] ADD  CONSTRAINT [DF_RecordSpreadReturnReceive_ReceiveBefore]  DEFAULT ((0)) FOR [ReceiveBefore]
 GO
+ALTER TABLE [dbo].[RecordSpreadReturnReceive] ADD  CONSTRAINT [DF_RecordSpreadReturnReceive_ReceiveAddress]  DEFAULT (N'') FOR [ReceiveBefore]
+GO
 ALTER TABLE [dbo].[RecordSpreadReturnReceive] ADD  CONSTRAINT [DF_RecordSpreadReturnReceive_CollectDate]  DEFAULT (getdate()) FOR [CollectDate]
 GO
 
@@ -224,6 +232,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'领取数值（根据ReceiveType 0：金币 1：钻石）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveNum'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'领取前数值（根据ReceiveType 0：金币 1：钻石）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveBefore'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'领取地址' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveAddress'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'记录时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'CollectDate'
 GO

@@ -90,7 +90,7 @@ namespace Game.Web.Helper
 
             public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid):this(onlineOrder.OrderID)
             {
-                LQPayContent content = new LQPayContent()
+                LQPrePayContent content = new LQPrePayContent()
                 {
                     code = "001",
                     comment = onlineOrder.Diamond + "颗 钻石",
@@ -109,6 +109,21 @@ namespace Game.Web.Helper
                 AddParamValue("rebate_money", "0");
                 AddParamValue("real_money", (onlineOrder.Amount * 100).ToString("F0"));
                 AddParamValue("pay_content", "[" + content + "]");
+            }
+
+            public LQPayRequest(OnLinePayOrder onLinePayOrder, string type="weixin") : this(onLinePayOrder.OrderID)
+            {
+                LQPayContent content = new LQPayContent()
+                {
+                    channelType = type,
+                    body = onLinePayOrder.Diamond + "颗钻石",
+                    money = ((onLinePayOrder.Amount / onLinePayOrder.Diamond) * 100).ToString("F0"),
+                    userId = onLinePayOrder.GameID.ToString(),
+                    userIp = GameRequest.GetUserIP(),
+                    userSourceType = "Android",
+                    channelCode = ""
+                };
+                AddParamValue("pay_content", content.ToString().Replace("\\",""));
             }
 
             public LQPayRequest(string orderId)
@@ -206,7 +221,7 @@ namespace Game.Web.Helper
         }
 
         [Serializable]
-        public class LQPayContent
+        public class LQPrePayContent
         {
             // ReSharper disable once InconsistentNaming
             public string code { get; set; }
@@ -231,7 +246,29 @@ namespace Game.Web.Helper
 
             public override string ToString()
             {
-                return new JavaScriptSerializer().Serialize(this);
+                return JsonConvert.SerializeObject(this);
+            }
+        }
+
+        [Serializable]
+        public class LQPayContent
+        {
+            public string channelType;
+            public string money;
+            public string body;
+            public string userId;
+            public string userIp;
+            public string userSourceType;
+            public string userTel = "";
+            public string userName = "";
+            public string userImei = "";
+            public string userMac = "";
+            public string channelCode = "";
+            public string serIp = "";
+
+            public override string ToString()
+            {
+                return JsonConvert.SerializeObject(this);
             }
         }
 
@@ -287,7 +324,7 @@ namespace Game.Web.Helper
             public bool ExtraParamChecked => Md5SignUtil.CheckSign(ExtraParam.ToString(), Sign);
 
             /// <summary>
-            /// 总体验证通过 return (bool) 主要参数验证通过 && 次要参数验证通过 && 商户编号和产品编号对应 
+            /// 总体验证通过 return (bool) 主要参数验证通过 && 次要参数验证通过 && 商户编号和产品编号对应
             /// </summary>
             public bool IsChecked => ParamChecked && ExtraParamChecked && ExtraParam.comp_id == Config.CompId &&
                                      ExtraParam.prod_id == Config.ProdId;

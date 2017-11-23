@@ -32,6 +32,7 @@ AS
 DECLARE @UserID INT
 DECLARE @Nullity TINYINT
 DECLARE @ReceiveType TINYINT
+DECLARE @ReceiveCondition INT
 DECLARE @DateTime DATETIME
 DECLARE @TotalReturn BIGINT
 DECLARE @TotalReceive BIGINT
@@ -56,10 +57,18 @@ BEGIN
     RETURN 1002
   END
 
+  -- 全局推广返利类别
   SELECT @ReceiveType = StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReturnType'
   IF @ReceiveType IS NULL
   BEGIN
     SET @ReceiveType = 0;
+  END
+
+  -- 全局推广返利条件
+  SELECT @ReceiveCondition = StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReceiveBase'
+  IF @ReceiveCondition IS NULL
+  BEGIN
+    SET @ReceiveCondition = 0; -- 领取返利不限制
   END
 
   SELECT @TotalReturn =  CAST(ISNULL(SUM(ReturnNum),0) AS BIGINT)
@@ -73,6 +82,13 @@ BEGIN
     SET @strErrorDescribe=N'抱歉，可领取奖励不足'
     RETURN 2003
   END
+
+  IF @TotalReturn-@TotalReceive < @ReceiveCondition
+  BEGIN
+    SET @strErrorDescribe=N'抱歉，当前领取门槛为可领取数大于等于'+LTRIM(STR(@ReceiveCondition)) +',您没有满足条件'
+    RETURN 2003
+  END
+
 
   -- 开启事务
   BEGIN TRAN
