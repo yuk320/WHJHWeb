@@ -121,6 +121,7 @@ let optsCodeDiff = {
   types: "mtime",
   ignore: [
     "网站发布/**/*",
+    "**/dist/**/*",
     "**/obj/**",
     "**/bin/**",
     "**/*.user",
@@ -141,7 +142,7 @@ const optsCode = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
   output: "完整包",
-  ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user"],
+  ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user","**/dist/**/*"],
   tag: ""
 };
 const optsRoomCard = {
