@@ -1,6 +1,6 @@
 <template>
   <div class="ui-main ui-proxy">
-    <top title="代理系统"></top>
+    <top title="推广中心"></top>
     <div class="ui-loading" v-show="this.$store.state.loading">
       <i class="fa fa-spinner fa-2x fa-pulse fa-fw"> </i>
       <p>Loading...</p>

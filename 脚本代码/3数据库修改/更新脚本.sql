@@ -4,14 +4,14 @@ GO
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'IOSNotStorePaySwitch'
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
 
--- 2017/11/16 æ·»åŠ å…¨å±€æ¨å¹¿è¿”åˆ©ç±»å‹ 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³
+-- 2017/11/16 Ìí¼ÓÈ«¾ÖÍÆ¹ã·µÀûÀàĞÍ 0£º½ğ±Ò 1£º×êÊ¯
 INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
-VALUES(N'SpreadReturnType', 0, N'å…¨å±€æ¨å¹¿è¿”åˆ©ç±»å‹', N'æ¨å¹¿è¿”åˆ©ç±»å‹', N'é”®å€¼ï¼šæ¨å¹¿è¿”åˆ©ç±»å‹ï¼Œåœ¨æ¨å¹¿è¿”åˆ©é…ç½®æ— å¯ç”¨é…ç½®æ—¶ä¸ç”Ÿæ•ˆï¼Œ0è¡¨ç¤ºé‡‘å¸ 1è¡¨ç¤ºé’»çŸ³', 99)
--- 2017/11/23 æ·»åŠ å…¨å±€æ¨å¹¿è¿”åˆ©é¢†å–é—¨æ§› 0ï¼šæ— é—¨æ§› å¤§äº0ä»£è¡¨ éœ€è¦å¯é¢†å–æ•°å¤§äºå¤šå°‘æ‰èƒ½æå–
+VALUES(N'SpreadReturnType', 0, N'È«¾ÖÍÆ¹ã·µÀûÀàĞÍ', N'ÍÆ¹ã·µÀûÀàĞÍ', N'¼üÖµ£ºÍÆ¹ã·µÀûÀàĞÍ£¬ÔÚÍÆ¹ã·µÀûÅäÖÃÎŞ¿ÉÓÃÅäÖÃÊ±²»ÉúĞ§£¬0±íÊ¾½ğ±Ò 1±íÊ¾×êÊ¯', 99)
+-- 2017/11/23 Ìí¼ÓÈ«¾ÖÍÆ¹ã·µÀûÁìÈ¡ÃÅ¼÷ 0£ºÎŞÃÅ¼÷ ´óÓÚ0´ú±í ĞèÒª¿ÉÁìÈ¡Êı´óÓÚ¶àÉÙ²ÅÄÜÌáÈ¡
 INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
-VALUES(N'SpreadReceiveBase', 0, N'å…¨å±€æ¨å¹¿è¿”åˆ©é¢†å–é—¨æ§›', N'æ¨å¹¿è¿”åˆ©æ¡ä»¶', N'é”®å€¼ï¼šæ¨å¹¿è¿”åˆ©æ¡ä»¶ï¼Œ0ï¼šæ— é—¨æ§› å¤§äº0ä»£è¡¨ éœ€è¦å¯é¢†å–æ•°å¤§äºå¤šå°‘æ‰èƒ½æå–', 100)
+VALUES(N'SpreadReceiveBase', 0, N'È«¾ÖÍÆ¹ã·µÀûÁìÈ¡ÃÅ¼÷', N'ÍÆ¹ã·µÀûÌõ¼ş', N'¼üÖµ£ºÍÆ¹ã·µÀûÌõ¼ş£¬0£ºÎŞÃÅ¼÷ ´óÓÚ0´ú±í ĞèÒª¿ÉÁìÈ¡Êı´óÓÚ¶àÉÙ²ÅÄÜÌáÈ¡', 100)
 
 GO
 
@@ -32,7 +32,7 @@ ALTER TABLE [dbo].[AppPayConfig] DROP COLUMN [PresentScale]
 GO
 ALTER TABLE [dbo].[AppPayConfig] ADD [PresentDiamond] INT NOT NULL DEFAULT(0)
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é¦–å†²èµ é€é’»çŸ³æ•°é‡' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AppPayConfig', @level2type=N'COLUMN',@level2name=N'PresentDiamond'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Ê×³åÔùËÍ×êÊ¯ÊıÁ¿' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AppPayConfig', @level2type=N'COLUMN',@level2name=N'PresentDiamond'
 GO
 
 
@@ -76,19 +76,19 @@ GO
 ALTER TABLE [dbo].[SpreadReturnConfig] ADD  CONSTRAINT [DF_SpreadReturnConfig_UpdateTime]  DEFAULT (getdate()) FOR [UpdateTime]
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é…ç½®æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'ConfigID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÅäÖÃ±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'ConfigID'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'æ¨å¹¿çº§åˆ«ï¼ˆç›®å‰ä»…æ”¯æŒ3çº§ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'SpreadLevel'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÍÆ¹ã¼¶±ğ£¨Ä¿Ç°½öÖ§³Ö3¼¶£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'SpreadLevel'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'å……å€¼è¿”ç‚¹æ¯”ä¾‹' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'PresentScale'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'³äÖµ·µµã±ÈÀı' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'PresentScale'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'æ˜¯å¦å¯ç”¨ï¼ˆ0ï¼šå¯ç”¨ã€1ï¼šç¦ç”¨ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'Nullity'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÊÇ·ñÆôÓÃ£¨0£ºÆôÓÃ¡¢1£º½ûÓÃ£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'Nullity'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'æ›´æ–°æ—¶é—´' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'UpdateTime'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¸üĞÂÊ±¼ä' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SpreadReturnConfig', @level2type=N'COLUMN',@level2name=N'UpdateTime'
 GO
 
 --
@@ -111,23 +111,23 @@ GO
 CREATE TABLE [dbo].[RecordSpreadReturn]
 (
   [RecordID] [int] IDENTITY(1,1) NOT NULL,
-  -- è®°å½•æ ‡è¯†
+  -- ¼ÇÂ¼±êÊ¶
   [SourceUserID] [int] NOT NULL,
-  -- å……å€¼å¯¹è±¡
+  -- ³äÖµ¶ÔÏó
   [TargetUserID] [int] NOT NULL,
-  -- è¿”åˆ©å¯¹è±¡
+  -- ·µÀû¶ÔÏó
   [SourceDiamond] [int] NOT NULL,
-  -- å……å€¼æ‰€å¾—é’»çŸ³
+  -- ³äÖµËùµÃ×êÊ¯
   [SpreadLevel] [int] NOT NULL,
-  -- è¿”åˆ©é…ç½®æ¨å¹¿çº§åˆ«
+  -- ·µÀûÅäÖÃÍÆ¹ã¼¶±ğ
   [ReturnScale] [decimal](18, 6) NOT NULL,
-  -- è¿”åˆ©æ¯”ä¾‹
+  -- ·µÀû±ÈÀı
   [ReturnNum] [int] NOT NULL,
-  -- è¿”åˆ©æ•°å€¼ ï¼ˆæ ¹æ®ReturnType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰
+  -- ·µÀûÊıÖµ £¨¸ù¾İReturnType 0£º½ğ±Ò 1£º×êÊ¯£©
   [ReturnType] [tinyint] NOT NULL,
-  -- è¿”åˆ©ç±»å‹ 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³
+  -- ·µÀûÀàĞÍ 0£º½ğ±Ò 1£º×êÊ¯
   [CollectDate] [datetime] NOT NULL,
-  -- è®°å½•æ—¥æœŸ
+  -- ¼ÇÂ¼ÈÕÆÚ
   CONSTRAINT [PK_RecordSpreadReturn] PRIMARY KEY CLUSTERED
 (
 	[RecordID] ASC
@@ -153,23 +153,23 @@ GO
 ALTER TABLE [dbo].[RecordSpreadReturn] ADD  CONSTRAINT [DF_RecordSpreadReturn_CollectDate]  DEFAULT (getdate()) FOR [CollectDate]
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è®°å½•æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'RecordID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¼ÇÂ¼±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'RecordID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'å……å€¼å¯¹è±¡' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SourceUserID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'³äÖµ¶ÔÏó' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SourceUserID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿”åˆ©å¯¹è±¡' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'TargetUserID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'·µÀû¶ÔÏó' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'TargetUserID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'å……å€¼æ‰€å¾—é’»çŸ³' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SourceDiamond'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'³äÖµËùµÃ×êÊ¯' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SourceDiamond'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿”åˆ©é…ç½®æ¨å¹¿çº§åˆ«ï¼ˆç›®å‰ä»…æ”¯æŒ3çº§ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SpreadLevel'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'·µÀûÅäÖÃÍÆ¹ã¼¶±ğ£¨Ä¿Ç°½öÖ§³Ö3¼¶£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'SpreadLevel'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿”åˆ©æ¯”ä¾‹' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnScale'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'·µÀû±ÈÀı' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnScale'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿”åˆ©æ•°å€¼ ï¼ˆæ ¹æ®ReturnType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnNum'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'·µÀûÊıÖµ £¨¸ù¾İReturnType 0£º½ğ±Ò 1£º×êÊ¯£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnNum'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿”åˆ©ç±»å‹ï¼ˆ0ï¼šé‡‘å¸ã€1ï¼šé’»çŸ³ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnType'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'·µÀûÀàĞÍ£¨0£º½ğ±Ò¡¢1£º×êÊ¯£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'ReturnType'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è®°å½•æ—¶é—´' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'CollectDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¼ÇÂ¼Ê±¼ä' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturn', @level2type=N'COLUMN',@level2name=N'CollectDate'
 GO
 
 
@@ -189,19 +189,19 @@ GO
 CREATE TABLE [dbo].[RecordSpreadReturnReceive]
 (
   [RecordID] [int] IDENTITY(1,1) NOT NULL,
-  -- è®°å½•æ ‡è¯†
+  -- ¼ÇÂ¼±êÊ¶
   [UserID] [int] NOT NULL,
-  -- ç”¨æˆ·æ ‡è¯†
+  -- ÓÃ»§±êÊ¶
   [ReceiveType] [tinyint] NOT NULL,
-  -- é¢†å–ç±»å‹ 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³
+  -- ÁìÈ¡ÀàĞÍ 0£º½ğ±Ò 1£º×êÊ¯
   [ReceiveNum] [int] NOT NULL,
-  -- é¢†å–æ•°å€¼ ï¼ˆæ ¹æ®ReceiveType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰
+  -- ÁìÈ¡ÊıÖµ £¨¸ù¾İReceiveType 0£º½ğ±Ò 1£º×êÊ¯£©
   [ReceiveBefore] [bigint] NOT NULL,
-  -- é¢†å–å‰æ•°å€¼ï¼ˆæ ¹æ®ReceiveType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰
+  -- ÁìÈ¡Ç°ÊıÖµ£¨¸ù¾İReceiveType 0£º½ğ±Ò 1£º×êÊ¯£©
   [ReceiveAddress] [nvarchar](15) NOT NULL,
-  -- é¢†å–åœ°å€
+  -- ÁìÈ¡µØÖ·
   [CollectDate] [datetime] NOT NULL,
-  -- è®°å½•æ—¥æœŸ
+  -- ¼ÇÂ¼ÈÕÆÚ
   CONSTRAINT [PK_RecordSpreadReturnReceive] PRIMARY KEY CLUSTERED
 (
 	[RecordID] ASC
@@ -223,17 +223,17 @@ GO
 ALTER TABLE [dbo].[RecordSpreadReturnReceive] ADD  CONSTRAINT [DF_RecordSpreadReturnReceive_CollectDate]  DEFAULT (getdate()) FOR [CollectDate]
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è®°å½•æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'RecordID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¼ÇÂ¼±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'RecordID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ç”¨æˆ·æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'UserID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÓÃ»§±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'UserID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é¢†å–ç±»å‹ï¼ˆ0ï¼šé‡‘å¸ã€1ï¼šé’»çŸ³ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveType'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÁìÈ¡ÀàĞÍ£¨0£º½ğ±Ò¡¢1£º×êÊ¯£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveType'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é¢†å–æ•°å€¼ï¼ˆæ ¹æ®ReceiveType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveNum'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÁìÈ¡ÊıÖµ£¨¸ù¾İReceiveType 0£º½ğ±Ò 1£º×êÊ¯£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveNum'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é¢†å–å‰æ•°å€¼ï¼ˆæ ¹æ®ReceiveType 0ï¼šé‡‘å¸ 1ï¼šé’»çŸ³ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveBefore'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÁìÈ¡Ç°ÊıÖµ£¨¸ù¾İReceiveType 0£º½ğ±Ò 1£º×êÊ¯£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveBefore'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é¢†å–åœ°å€' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveAddress'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÁìÈ¡µØÖ·' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveAddress'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è®°å½•æ—¶é—´' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'CollectDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¼ÇÂ¼Ê±¼ä' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'CollectDate'
 GO

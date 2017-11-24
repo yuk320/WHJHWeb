@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------
--- ç‰ˆæœ¬ï¼š2017
--- æ—¶é—´ï¼š2017-11-15
--- ç”¨é€”ï¼šé¢†å–å……å€¼è¿”åˆ©
+-- °æ±¾£º2017
+-- Ê±¼ä£º2017-11-15
+-- ÓÃÍ¾£ºÁìÈ¡³äÖµ·µÀû
 ----------------------------------------------------------------------
 USE [WHJHRecordDB]
 GO
@@ -28,7 +28,7 @@ WITH
   ENCRYPTION
 AS
 
--- å±æ€§è®¾ç½®
+-- ÊôĞÔÉèÖÃ
 DECLARE @UserID INT
 DECLARE @Nullity TINYINT
 DECLARE @ReceiveType TINYINT
@@ -38,37 +38,37 @@ DECLARE @TotalReturn BIGINT
 DECLARE @TotalReceive BIGINT
 DECLARE @ReceiveBefore BIGINT
 
--- æ‰§è¡Œé€»è¾‘
+-- Ö´ĞĞÂß¼­
 BEGIN
   SET @DateTime = GETDATE()
-  -- è·å–ç”¨æˆ·ä¿¡æ¯
+  -- »ñÈ¡ÓÃ»§ĞÅÏ¢
   SELECT @UserID=UserID, @Nullity=Nullity
   FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.AccountsInfo WITH(NOLOCK)
 
   WHERE UserID=@dwUserID
   IF @Nullity IS NULL
 	BEGIN
-    SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–ç”¨æˆ·ä¸å­˜åœ¨'
+    SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡ÓÃ»§²»´æÔÚ'
     RETURN 1001
   END
   IF @Nullity=1
 	BEGIN
-    SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–ç”¨æˆ·å·²å†»ç»“'
+    SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡ÓÃ»§ÒÑ¶³½á'
     RETURN 1002
   END
 
-  -- å…¨å±€æ¨å¹¿è¿”åˆ©ç±»åˆ«
+  -- È«¾ÖÍÆ¹ã·µÀûÀà±ğ
   SELECT @ReceiveType = StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReturnType'
   IF @ReceiveType IS NULL
   BEGIN
     SET @ReceiveType = 0;
   END
 
-  -- å…¨å±€æ¨å¹¿è¿”åˆ©æ¡ä»¶
+  -- È«¾ÖÍÆ¹ã·µÀûÌõ¼ş
   SELECT @ReceiveCondition = StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.SystemStatusInfo WHERE StatusName = N'SpreadReceiveBase'
   IF @ReceiveCondition IS NULL
   BEGIN
-    SET @ReceiveCondition = 0; -- é¢†å–è¿”åˆ©ä¸é™åˆ¶
+    SET @ReceiveCondition = 0; -- ÁìÈ¡·µÀû²»ÏŞÖÆ
   END
 
   SELECT @TotalReturn =  CAST(ISNULL(SUM(ReturnNum),0) AS BIGINT)
@@ -79,23 +79,23 @@ BEGIN
   WHERE UserID=@UserID AND ReceiveType = @ReceiveType
   IF @TotalReturn = 0 OR @dwNum>@TotalReturn-@TotalReceive
   BEGIN
-    SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œå¯é¢†å–å¥–åŠ±ä¸è¶³'
+    SET @strErrorDescribe=N'±§Ç¸£¬¿ÉÁìÈ¡½±Àø²»×ã'
     RETURN 2003
   END
 
   IF @TotalReturn-@TotalReceive < @ReceiveCondition
   BEGIN
-    SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œå½“å‰é¢†å–é—¨æ§›ä¸ºå¯é¢†å–æ•°å¤§äºç­‰äº'+LTRIM(STR(@ReceiveCondition)) +',æ‚¨æ²¡æœ‰æ»¡è¶³æ¡ä»¶'
+    SET @strErrorDescribe=N'±§Ç¸£¬µ±Ç°ÁìÈ¡ÃÅ¼÷Îª¿ÉÁìÈ¡Êı´óÓÚµÈÓÚ'+LTRIM(STR(@ReceiveCondition)) +',ÄúÃ»ÓĞÂú×ãÌõ¼ş'
     RETURN 2003
   END
 
 
-  -- å¼€å¯äº‹åŠ¡
+  -- ¿ªÆôÊÂÎñ
   BEGIN TRAN
 
   IF @ReceiveType = 1
   BEGIN
-    -- é¢†å–ç±»å‹ä¸ºé’»çŸ³
+    -- ÁìÈ¡ÀàĞÍÎª×êÊ¯
     SELECT @ReceiveBefore = Diamond
     FROM WHJHTreasureDB.DBO.UserCurrency
     WHERE UserID = 0
@@ -109,18 +109,18 @@ BEGIN
     UPDATE WHJHTreasureDB.DBO.UserCurrency SET Diamond = Diamond + @dwNum WHERE UserID = @UserID
     IF @@ROWCOUNT<=0
     BEGIN
-      SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–å¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•'
+      SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡Òì³££¬ÇëÉÔºóÖØÊÔ'
       ROLLBACK TRAN
       RETURN 2004
     END
 
-    -- å†™å…¥é’»çŸ³æµæ°´è®°å½•
+    -- Ğ´Èë×êÊ¯Á÷Ë®¼ÇÂ¼
     INSERT INTO RecordDiamondSerial
       (SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
     VALUES(dbo.WF_GetSerialNumber(), 0, @UserID, 13, @ReceiveBefore, @dwNum, @strClientIP, @DateTime)
     IF @@ROWCOUNT<=0
     BEGIN
-      SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–å¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•'
+      SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡Òì³££¬ÇëÉÔºóÖØÊÔ'
       ROLLBACK TRAN
       RETURN 2004
     END
@@ -130,7 +130,7 @@ BEGIN
   BEGIN
     DECLARE @BeforeInsure BIGINT
     DECLARE @BeforeScore BIGINT
-    -- é¢†å–ç±»å‹ä¸ºé‡‘å¸
+    -- ÁìÈ¡ÀàĞÍÎª½ğ±Ò
     SELECT @BeforeScore = Score, @BeforeInsure = InsureScore
     FROM WHJHTreasureDB.DBO.GameScoreInfo
     WHERE UserID = @dwUserID
@@ -147,31 +147,31 @@ BEGIN
     UPDATE WHJHTreasureDB.DBO.GameScoreInfo SET InsureScore = InsureScore + @dwNum WHERE UserID = @UserID
     IF @@ROWCOUNT<=0
     BEGIN
-      SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–å¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•'
+      SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡Òì³££¬ÇëÉÔºóÖØÊÔ'
       ROLLBACK TRAN
       RETURN 2004
     END
 
-    -- å†™å…¥é‡‘å¸æµæ°´è®°å½•
+    -- Ğ´Èë½ğ±ÒÁ÷Ë®¼ÇÂ¼
     INSERT INTO RecordTreasureSerial
       (SerialNumber,MasterID,UserID,TypeID,CurScore,CurInsureScore,ChangeScore,ClientIP,CollectDate)
     VALUES(dbo.WF_GetSerialNumber(), 0, @UserID, 9, @BeforeScore, @BeforeInsure, @dwNum, @strClientIP, @DateTime)
     IF @@ROWCOUNT<=0
     BEGIN
-      SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–å¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•'
+      SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡Òì³££¬ÇëÉÔºóÖØÊÔ'
       ROLLBACK TRAN
       RETURN 2004
     END
 
   END
 
-  -- å†™å…¥é¢†å–è®°å½•
+  -- Ğ´ÈëÁìÈ¡¼ÇÂ¼
   INSERT INTO RecordSpreadReturnReceive
     (UserID,ReceiveType,ReceiveNum,ReceiveBefore,ReceiveAddress,CollectDate)
   VALUES(@UserID, @ReceiveType, @dwNum, @ReceiveBefore, @strClientIP, @DateTime)
   IF @@ROWCOUNT<=0
   BEGIN
-    SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œé¢†å–å¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•'
+    SET @strErrorDescribe=N'±§Ç¸£¬ÁìÈ¡Òì³££¬ÇëÉÔºóÖØÊÔ'
     ROLLBACK TRAN
     RETURN 2004
   END
