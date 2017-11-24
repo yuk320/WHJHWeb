@@ -10,6 +10,9 @@
             <td v-for="(value, index) in thead" :key="index">{{value}}</td>
           </tr>
         </thead>
+        <tbody v-if="records.length===0">
+          <tr><td :colspan="columns.length">暂无记录</td></tr>
+        </tbody>
       </table>
     </div>
     <div class="ui-table-body">
@@ -33,7 +36,7 @@
   </div>
 </template>
 <script>
-import PullTo from "vue-pull-to";
+import PullTo from "../pullTo/pullTo";
 export default {
   name: "table",
   components: { PullTo },
@@ -48,20 +51,27 @@ export default {
     };
   },
   created: function() {
+    console.info("table.created:");
     this.pageInit();
   },
   mounted: function() {
+    console.info("table.mounted");
     this.align();
   },
   beforeUpdate: function() {
-    if (this.tableType != this.recordType) {
+    console.info("table.beforeUpdate");
+    // console.info("table.this.$store.state.update：", this.$store.state.update);
+    // 数据改动时重新分页
+    if (this.tableType != this.recordType || this.$store.state.dataUpdate === 2) {
       this.curPage = 0;
       this.pageNum = 0;
       this.records = [];
       this.pageInit();
+      this.$store.commit("dataUpdate", 0);
     }
   },
   updated: function() {
+    console.info("table.updated");
     this.align();
   },
   methods: {
@@ -77,6 +87,7 @@ export default {
       loaded("done");
     },
     align: function() {
+      //当有记录的时候
       if (this.records.length > 0) {
         // 获取第一行
         let tbody = document.querySelectorAll(".ui-table-body tbody")[
@@ -116,5 +127,9 @@ export default {
 <style scoped>
 .ui-table-body table tr:first-of-type td {
   border-top: none;
+}
+
+.ui-table-body {
+  overflow:hidden;
 }
 </style>

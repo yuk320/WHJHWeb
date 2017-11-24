@@ -1,6 +1,5 @@
 <template>
   <div class="ui-top fn-clear">
-    <a href='javascript:history.go(-1);' class='fn-left ui-back' >后退</a>
     <span>{{title}}</span>
   </div>
 </template>
@@ -33,9 +32,5 @@ export default {
   .ui-back {
     margin-left:0.3rem;
     color:#999;
-  }
-
-  .ui-top>span{
-    margin-left:-1rem;
   }
 </style>

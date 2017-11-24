@@ -123,6 +123,7 @@ namespace Game.Web.Spread
                             FacadeManage.aideAccountsFacade.GetGameIDByUserID(Convert.ToInt32(dr["SourceUserID"]))
                         },
                         {"SourceDiamond", Convert.ToInt32(dr["SourceDiamond"])},
+                        {"SpreadLevel", GetLevelDesc(dr["SpreadLevel"].ToString())},
                         {"ReturnType", spreadReturnType == 0 ? "金币" : "钻石"},
                         {"ReturnNum", Convert.ToInt32(dr["ReturnNum"])},
                         {"CollectDate", Convert.ToDateTime(dr["CollectDate"]).ToString("yyyy-MM-dd HH:mm:ss")},

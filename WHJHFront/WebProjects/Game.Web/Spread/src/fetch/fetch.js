@@ -1,12 +1,11 @@
 import store from "../store/store";
-
-export default function getData(userid, callback) {
-  let returnData;
-  fetch("DataHandle.ashx?action=userspreadhome&userid=" + userid)
+const apiurl = "";
+function getData(userid, callback) {
+  store.commit("loading",true);
+  fetch(apiurl+"DataHandle.ashx?action=userspreadhome&userid=" + userid)
     .then(res => res.json())
     .then(data => {
       let userData;
-      // console.log("getData.data:",data);
       if (data.data.valid) {
         store.commit("setID", userid);
         userData = {
@@ -16,28 +15,35 @@ export default function getData(userid, callback) {
           receiveRecord: data.data.receiveRecord
         };
         store.commit("setData", userData);
-        store.commit("cached");
+        store.commit("setCache",true);
+        if (store.state.dataUpdate === 1) store.commit("dataUpdate", 2);
       } else {
-        userData = {
-          info: {
-            GameID: 100101,
-            Lv2Count: 12,
-            Lv3Count: 12,
-            Lv1Count: 12,
-            TotalReturn: 0,
-            TotalReceive: 0
-          },
-          returnRecord: [],
-          receiveRecord: [],
-          belowList: []
-        };
-        userData.returnRecord.push({
-          GameID: 100102,
-          SourceDiamond: 1000000,
-          ReturnNum: 123,
-          CollectDate: "2017/11/16"
-        });
+        store.commit("setError", data.msg);
       }
+      store.commit("loading",false);
       callback(userData);
     });
 }
+
+function receiveAward(userid, number) {
+  fetch(apiurl+
+    "DataHandle.ashx?action=userspreadreceive&userid=" +
+      userid +
+      "&num=" +
+      number
+  )
+    .then(res => res.json())
+    .then(data => {
+      let userData;
+      // console.log("getData.data:",data);
+      if (data.data.valid) {
+        store.commit("dataUpdate", 1);
+        store.commit("dialogClose");
+        alert(data.msg);
+      } else {
+        store.commit("setError", data.msg);
+      }
+    });
+}
+
+export { getData, receiveAward };

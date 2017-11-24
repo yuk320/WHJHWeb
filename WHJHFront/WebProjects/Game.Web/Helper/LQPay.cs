@@ -5,7 +5,9 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services.Protocols;
 using Game.Entity.Treasure;
 using Game.Facade;
 using Game.Utils;
@@ -38,7 +40,11 @@ namespace Game.Web.Helper
             {
                 Log4Net.WriteInfoLog(result);
             }
-            return (string)jObject["ret_content"];
+            else
+            {
+                Log4Net.WriteInfoLog(HttpUtility.UrlEncode((string)jObject["ret_content"]["pay_info"]));
+            }
+            return HttpUtility.UrlEncode((string)jObject["ret_content"]["pay_info"]);
         }
 
         public static string Get(string url)
@@ -117,7 +123,7 @@ namespace Game.Web.Helper
                 {
                     channelType = type,
                     body = onLinePayOrder.Diamond + "颗钻石",
-                    money = ((onLinePayOrder.Amount / onLinePayOrder.Diamond) * 100).ToString("F0"),
+                    money = (onLinePayOrder.Amount  * 100).ToString("F0"),
                     userId = onLinePayOrder.GameID.ToString(),
                     userIp = GameRequest.GetUserIP(),
                     userSourceType = "Android",

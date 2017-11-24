@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === "production") {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      sourceMap: false,
       compress: {
         warnings: false
       }
@@ -75,7 +75,7 @@ if (process.env.NODE_ENV === "production") {
     new cleanHtmlPlugin(
       ["./dist"],
       {
-        exclude: ["build.js", "build.js.map"]
+        exclude: ["build.js"]
       },
       {
         verbose: true,

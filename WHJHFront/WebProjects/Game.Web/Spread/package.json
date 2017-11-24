@@ -1,5 +1,5 @@
 {
-  "name": "my-agent",
+  "name": "whjhfront-spread-home",
   "description": "A Vue.js project",
   "version": "1.0.0",
   "author": "sgzzy <witzzy@163.com>",
@@ -27,7 +27,6 @@
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
     "vue-loader": "^13.0.5",
-    "vue-pull-to": "^0.1.5",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.4.4",
     "vuex": "^3.0.1",

@@ -103,10 +103,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //钻石充值下单
                 case "createpayorder":
-                    _ajv.SetDataItem("apiVersion",20171122);
+                    _ajv.SetDataItem("apiVersion", 20171123);
                     //获取参数
                     string paytype = GameRequest.GetQueryString("paytype");
                     string openid = GameRequest.GetQueryString("openid");
+                    string subtype = GameRequest.GetQueryString("subtype");
 
                     //参数验证
                     if (configid <= 0 || paytype.Equals(""))
@@ -116,7 +117,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         context.Response.Write(_ajv.SerializeToJson());
                         return;
                     }
-                    context.Response.Write(CreatePayOrder(configid, paytype, openid).SerializeToJson());
+                    context.Response.Write(CreatePayOrder(configid, paytype, openid, subtype).SerializeToJson());
                     return;
                 //获取排行榜数据
                 case "getrankingdata":
@@ -336,7 +337,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <param name="paytype"></param>
         /// <param name="openid"></param>
         /// <returns>AjaxJsonValid</returns>
-        private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid)
+        private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid, string subtype)
         {
             //下单信息
             OnLinePayOrder order = new OnLinePayOrder
@@ -381,8 +382,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 }
                 else if (paytype == "lq")
                 {
-                    LQPay.LQPayRequest request = new LQPay.LQPayRequest(orderReturn);
-                    _ajv.SetDataItem("PayUrl", HttpUtility.UrlDecode(request.ToUrl("PayUrl")));
+                    LQPay.LQPayRequest request =
+                        new LQPay.LQPayRequest(orderReturn, subtype == "zfb" ? "alipay" : "weixin");
+                    _ajv.SetDataItem("PayUrl", HttpUtility.UrlDecode(LQPay.GetPayPackage(request.ToUrl("PayUrl"))));
                 }
                 _ajv.SetDataItem("OrderID", orderReturn?.OrderID ?? "");
             }
