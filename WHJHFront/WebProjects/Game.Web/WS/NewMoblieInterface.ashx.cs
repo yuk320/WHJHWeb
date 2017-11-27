@@ -179,19 +179,31 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     }
                     DiamondExchGold(configid, typeid);
                     break;
-//                case "getlqnopwdloginurl":
-//                    _ajv.SetDataItem("apiVersion", 20171116);
-//                    string name = GameRequest.GetString("name");
-//                    if (string.IsNullOrEmpty(name))
-//                    {
-//                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-//                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
-//                            " name 错误");
-//                        context.Response.Write(_ajv.SerializeToJson());
-//                        return;
-//                    }
-//                    GetLqNoPwdLoginUrl(name);
-//                    break;
+                //                case "getlqnopwdloginurl":
+                //                    _ajv.SetDataItem("apiVersion", 20171116);
+                //                    string name = GameRequest.GetString("name");
+                //                    if (string.IsNullOrEmpty(name))
+                //                    {
+                //                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                //                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                //                            " name 错误");
+                //                        context.Response.Write(_ajv.SerializeToJson());
+                //                        return;
+                //                    }
+                //                    GetLqNoPwdLoginUrl(name);
+                //                    break;
+                case "getpayorderstatus":
+                    _ajv.SetDataItem("apiVersion", 20171127);
+                    string orderid = GameRequest.GetString("orderid");
+                    if (string.IsNullOrEmpty(orderid))
+                    {
+                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " orderid 错误");
+                        context.Response.Write(_ajv.SerializeToJson());
+                        return;
+                    }
+                    GetPayOrderStatus(orderid);
+                    break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
                     _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
@@ -646,6 +658,28 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             _ajv.SetDataItem("noPwdLoginUrl", noPwdLoginRequest.ToUrl("nopwdloign"));
             _ajv.SetDataItem("param", noPwdLoginRequest.Param);
             _ajv.SetDataItem("sign", noPwdLoginRequest.Sign);
+        }
+
+        /// <summary>
+        /// 充值通用查询接口
+        /// </summary>
+        /// <param name="orderid"></param>
+        private static void GetPayOrderStatus(string orderid)
+        {
+            OnLinePayOrder olOrder = FacadeManage.aideTreasureFacade.GetPayOnLinePayOrder(orderid);
+            if (olOrder == null || olOrder.OrderStatus != 1)
+            {
+                _ajv.SetDataItem("OrderID", orderid);
+                _ajv.SetDataItem("PayStatus", olOrder != null ? "未支付" : "订单不存在");
+            }
+            else
+            {
+                _ajv.SetDataItem("OrderID", orderid);
+                _ajv.SetDataItem("PayStatus", "已支付");
+                _ajv.SetDataItem("PayAmount", olOrder.Amount);
+                _ajv.SetDataItem("Diamond", olOrder.Diamond);
+            }
+            _ajv.SetValidDataValue(true);
         }
 
         #region 辅助方法

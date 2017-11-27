@@ -67,6 +67,13 @@ namespace Game.IData
         /// <param name="returnField"></param>
         /// <returns></returns>
         PagerSet GetPayDiamondRecord(string whereQuery, int pageIndex, int pageSize, string[] returnField = null);
+
+        /// <summary>
+        /// 根据订单号获取充值订单
+        /// </summary>
+        /// <param name="orderid"></param>
+        /// <returns></returns>
+        OnLinePayOrder GetPayOnLinePayOrder(string orderid);
         #endregion
 
         #region 推广信息

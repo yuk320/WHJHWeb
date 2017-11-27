@@ -35,16 +35,16 @@ namespace Game.Web.Helper
         public static string GetPayPackage(string prepayUrl)
         {
             string result = Get(prepayUrl);
-            JObject jObject = (JObject)JsonConvert.DeserializeObject(result);
+            JObject jObject = (JObject) JsonConvert.DeserializeObject(result);
             if (jObject["ret_code"] != null && (string) jObject["ret_code"] != "0000")
             {
                 Log4Net.WriteInfoLog(result);
             }
             else
             {
-                Log4Net.WriteInfoLog(HttpUtility.UrlEncode((string)jObject["ret_content"]["pay_info"]));
+                Log4Net.WriteInfoLog(HttpUtility.UrlEncode((string) jObject["ret_content"]["pay_info"]));
             }
-            return HttpUtility.UrlEncode((string)jObject["ret_content"]["pay_info"]);
+            return HttpUtility.UrlEncode((string) jObject["ret_content"]["pay_info"]);
         }
 
         public static string Get(string url)
@@ -88,13 +88,13 @@ namespace Game.Web.Helper
             private readonly SortedDictionary<string, object> _param;
             private readonly ArrayList _index;
 
-            public LQPayRequest(string orderid, string userid,string name):this(orderid)
+            public LQPayRequest(string orderid, string userid, string name) : this(orderid)
             {
                 AddParamValue("user_id", userid);
-                AddParamValue("login_name",name);
+                AddParamValue("login_name", name);
             }
 
-            public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid):this(onlineOrder.OrderID)
+            public LQPayRequest(OnLinePayOrder onlineOrder, string uuid, string userid) : this(onlineOrder.OrderID)
             {
                 LQPrePayContent content = new LQPrePayContent()
                 {
@@ -117,24 +117,26 @@ namespace Game.Web.Helper
                 AddParamValue("pay_content", "[" + content + "]");
             }
 
-            public LQPayRequest(OnLinePayOrder onLinePayOrder, string type="weixin") : this(onLinePayOrder.OrderID)
+            public LQPayRequest(OnLinePayOrder onLinePayOrder, string type = "weixin") : this(onLinePayOrder.OrderID)
             {
                 LQPayContent content = new LQPayContent()
                 {
                     channelType = type,
                     body = onLinePayOrder.Diamond + "颗钻石",
-                    money = (onLinePayOrder.Amount  * 100).ToString("F0"),
+                    money = (onLinePayOrder.Amount * 100).ToString("F0"),
                     userId = onLinePayOrder.GameID.ToString(),
                     userIp = GameRequest.GetUserIP(),
                     userSourceType = "Android",
                     channelCode = ""
                 };
-                AddParamValue("pay_content", content.ToString().Replace("\\",""));
+                AddParamValue("pay_content", content.ToString().Replace("\\", ""));
             }
 
             public LQPayRequest(string orderId)
             {
-                string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain) ? GameRequest.GetCurrentFullHost() : AppConfig.FrontSiteDomain;
+                string domain = string.IsNullOrEmpty(AppConfig.FrontSiteDomain)
+                    ? GameRequest.GetCurrentFullHost()
+                    : AppConfig.FrontSiteDomain;
                 string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
                 string returnUrl = "http://" + domain + "/Mobile/Pay/LqReturn.aspx";
                 _index = new ArrayList
@@ -219,10 +221,12 @@ namespace Game.Web.Helper
             /// ToUrl
             /// </summary>
             /// <returns></returns>
-            public string ToUrl(string type="prepay")
+            public string ToUrl(string type = "prepay")
             {
-                return (type=="prepay"? Config.PrePayUrl:(type=="nopwdlogin" ? Config.NoPwdLoginUrl : Config.PayUrl)) +
-                                                         "?param=" + Param + "&sign=" + Sign;
+                return (type == "prepay"
+                           ? Config.PrePayUrl
+                           : (type == "nopwdlogin" ? Config.NoPwdLoginUrl : Config.PayUrl)) +
+                       "?param=" + Param + "&sign=" + Sign;
             }
         }
 
@@ -231,22 +235,31 @@ namespace Game.Web.Helper
         {
             // ReSharper disable once InconsistentNaming
             public string code { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string comment { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string name { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string price { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string quality { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string realMoney { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string rebateMoney { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string totalMoney { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string showUrl { get; set; }
+
             // ReSharper disable once InconsistentNaming
             public string unit { get; set; }
 
@@ -288,14 +301,19 @@ namespace Game.Web.Helper
                 Param = "";
                 Sign = "";
                 ExtraParam = new ExtraParam();
+                ExtraParamJson = "";
                 ExtraSign = "";
             }
 
             public Notify(NameValueCollection param)
             {
-                if (param["param"] != null) Param = param["param"];
+                if (param["param"] != null) Param = HttpUtility.UrlDecode(param["param"]);
                 if (param["sign"] != null) Sign = param["sign"];
-                if (param["extra_param"] != null) ExtraParam = new ExtraParam(param["extra_param"]);
+                if (param["extra_param"] != null)
+                {
+                    ExtraParam = new ExtraParam().FormJson(HttpUtility.UrlDecode(param["extra_param"]));
+                    ExtraParamJson = HttpUtility.UrlDecode(param["extra_param"]);
+                }
                 if (param["extra_sign"] != null) ExtraSign = param["extra_sign"];
             }
 
@@ -319,6 +337,8 @@ namespace Game.Web.Helper
             /// </summary>
             public ExtraParam ExtraParam { get; set; }
 
+            public string ExtraParamJson { get; set; }
+
             /// <summary>
             /// 主要参数验证
             /// </summary>
@@ -327,7 +347,7 @@ namespace Game.Web.Helper
             /// <summary>
             /// 扩展参数验证
             /// </summary>
-            public bool ExtraParamChecked => Md5SignUtil.CheckSign(ExtraParam.ToString(), Sign);
+            public bool ExtraParamChecked => Md5SignUtil.CheckSign(ExtraParamJson, ExtraSign);
 
             /// <summary>
             /// 总体验证通过 return (bool) 主要参数验证通过 && 次要参数验证通过 && 商户编号和产品编号对应
@@ -355,49 +375,40 @@ namespace Game.Web.Helper
             }
 
             /// <summary>
-            /// 从JSON字符串转为实体
-            /// </summary>
-            /// <param name="json"></param>
-            public ExtraParam(string json)
-            {
-                new JavaScriptSerializer().Deserialize<ExtraParam>(json);
-            }
-
-            /// <summary>
             /// 商户编号
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string comp_id { get; set; }
+            public string comp_id;
 
             /// <summary>
             /// 商品编号
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string prod_id { get; set; }
+            public string prod_id;
 
             /// <summary>
             /// 金额,单位为分
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string money { get; set; }
+            public string money;
 
             /// <summary>
             /// 外单号，即OrderID
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string out_trade_no { get; set; }
+            public string out_trade_no;
 
             /// <summary>
             /// 签名类型
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string sign_type { get; set; }
+            public string sign_type;
 
             /// <summary>
             /// 通知时间 yyyyMMddHHmmss
             /// </summary>
             // ReSharper disable once InconsistentNaming
-            public string notify_time { get; set; }
+            public string notify_time;
 
             /// <summary>
             /// 重写ToString 方法为 JSON.stringify()
@@ -405,7 +416,13 @@ namespace Game.Web.Helper
             /// <returns></returns>
             public override string ToString()
             {
-                return new JavaScriptSerializer().Serialize(this);
+                return $"{comp_id}|{prod_id}|{money}|{out_trade_no}|{sign_type}|{notify_time}";
+            }
+
+            public ExtraParam FormJson(string json)
+            {
+                var ep = new JavaScriptSerializer().Deserialize<ExtraParam>(json);
+                return ep ?? new ExtraParam();
             }
         }
 

@@ -3,6 +3,7 @@ using Game.Facade;
 using Game.Utils;
 using Game.Web.Helper;
 using System;
+using System.Web;
 
 namespace Game.Web.Notify
 {
@@ -15,7 +16,7 @@ namespace Game.Web.Notify
         {
             if (!IsPostBack)
             {
-                Log4Net.WriteInfoLog("零钱支付回掉进来了------query:" + GameRequest.Request.QueryString);
+//                Log4Net.WriteInfoLog("零钱支付回掉进来了------query:" + GameRequest.Request.QueryString);
 
                 LQPay.Notify notify = new LQPay.Notify(GameRequest.Request.QueryString);
                 if (!string.IsNullOrEmpty(notify.Param))

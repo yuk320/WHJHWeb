@@ -111,6 +111,16 @@ namespace Game.Facade
         {
             return treasureData.GetPayDiamondRecord(whereQuery, pageIndex, pageSize, returnField);
         }
+
+        /// <summary>
+        /// 根据订单号获取充值订单
+        /// </summary>
+        /// <param name="orderid"></param>
+        /// <returns></returns>
+        public OnLinePayOrder GetPayOnLinePayOrder(string orderid)
+        {
+            return treasureData.GetPayOnLinePayOrder(orderid);
+        }
         #endregion
 
         #region 推广信息

@@ -161,6 +161,23 @@ namespace Game.Data
             return GetPagerSet2(pager);
         }
 
+        /// <summary>
+        /// 根据订单号获取充值订单
+        /// </summary>
+        /// <param name="orderid"></param>
+        /// <returns></returns>
+        public OnLinePayOrder GetPayOnLinePayOrder(string orderid)
+        {
+            string sqlQuery =
+                @"SELECT OrderID,OrderStatus,Amount,(Diamond+OtherPresent) AS Diamond FROM OnLinePayOrder WITH(NOLOCK) WHERE OrderID=@OrderID";
+            List<DbParameter> parms =
+                new List<DbParameter>
+                {
+                    Database.MakeInParam("OrderID", orderid)
+                };
+
+            return  Database.ExecuteObject<OnLinePayOrder>(sqlQuery, parms);
+        }
         #endregion
 
         #region 推广信息
