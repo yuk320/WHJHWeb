@@ -29,7 +29,7 @@ namespace Game.Web.Notify
                         {
                             OnLinePayOrder order = new OnLinePayOrder
                             {
-                                OrderID = notify.ExtraParam.out_trade_no,
+                                OrderID = pSplit[0],
                                 PayAddress = GameRequest.GetUserIP(),
                                 Amount = Convert.ToInt32(notify.ExtraParam.money) / 100M
                             };
