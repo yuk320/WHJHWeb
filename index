@@ -6,7 +6,7 @@ console.time("全自动化工具完成");
 console.info("全自动化工具运行中...");
 let allCount = 0;
 const package = require("./package");
-const start = process.argv[2] ? new Date(process.argv[2]) : null;
+let start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(
   new Date().getFullYear(),
   new Date().getMonth(),
@@ -34,13 +34,15 @@ const exec = require("child_process").exec;
 const spawn = require("child_process").spawn;
 const fextract = require("files-extractor");
 const STATUS = fextract.STATUS;
-const autoConfig = package.autoConfig;
+const autoConfig = require("./config");
 const CODE_VERSION = "V" + autoConfig.version;
 const LAST_VERSION = "V" + autoConfig.lastVersion;
 let VERSION_LIST = {
   last: autoConfig.versionList[autoConfig.lastVersion],
-  current: autoConfig.versionList[autoConfig.version]
 };
+autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString().substr(0,10).replace(/-/g,'/');
+fs.writeFileSync('./config.json',JSON.stringify(autoConfig));
+start = start==null&&VERSION_LIST.last?start = new Date(VERSION_LIST.last):null;
 const PRODUCT_NAME = autoConfig.product_name;
 const eventproxy = require("eventproxy");
 const async = require("async");
