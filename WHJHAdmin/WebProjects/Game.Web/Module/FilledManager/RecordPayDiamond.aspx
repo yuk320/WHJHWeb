@@ -155,7 +155,7 @@
                             <%# Eval("OtherPresent")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent")):"——"%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+(Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent"))):"——"%>
                         </td>
                         <td>
                             <%# GetPayStatus(Convert.ToInt32(Eval("OrderStatus"))) %>
