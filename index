@@ -37,6 +37,10 @@ const STATUS = fextract.STATUS;
 const autoConfig = package.autoConfig;
 const CODE_VERSION = "V" + autoConfig.version;
 const LAST_VERSION = "V" + autoConfig.lastVersion;
+let VERSION_LIST = {
+  last: autoConfig.versionList[autoConfig.lastVersion],
+  current: autoConfig.versionList[autoConfig.version]
+};
 const PRODUCT_NAME = autoConfig.product_name;
 const eventproxy = require("eventproxy");
 const async = require("async");
@@ -142,7 +146,7 @@ const optsCode = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
   output: "完整包",
-  ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user","**/dist/**/*"],
+  ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
   tag: ""
 };
 const optsRoomCard = {
