@@ -1,4 +1,4 @@
-###auto publish tools README.MD
+### auto publish tools README.MD
 
 ` npm run auto [startDate] `
 
