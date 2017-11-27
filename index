@@ -5,7 +5,6 @@ if (fs.existsSync("./package-lock.json")) fs.removeSync("./package-lock.json");
 console.time("全自动化工具完成");
 console.info("全自动化工具运行中...");
 let allCount = 0;
-const package = require("./package");
 let start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(
   new Date().getFullYear(),

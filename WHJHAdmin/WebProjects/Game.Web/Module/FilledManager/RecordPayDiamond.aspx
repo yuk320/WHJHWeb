@@ -41,14 +41,14 @@
                 <asp:TextBox ID="txtEndDate" runat="server" CssClass="text wd2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'txtStartDate\')}'})"></asp:TextBox><img
                     src="../../Images/btn_calendar.gif" onclick="WdatePicker({el:'txtEndDate',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'txtStartDate\')}'})"
                     style="cursor: pointer; vertical-align: middle" />
-                
-                <asp:DropDownList ID="ddlGlobalShareInfo" runat="server">  
+
+                <asp:DropDownList ID="ddlGlobalShareInfo" runat="server">
                     <asp:ListItem Text="全部" Value="0"></asp:ListItem>
                     <asp:ListItem Text="手机微信充值" Value="101"></asp:ListItem>
                     <asp:ListItem Text="H5微信充值" Value="102"></asp:ListItem>
                     <asp:ListItem Text="手机支付宝充值" Value="201"></asp:ListItem>
                     <asp:ListItem Text="手机零钱充值" Value="301"></asp:ListItem>
-                    <asp:ListItem Text="手机苹果充值" Value="800"></asp:ListItem>              
+                    <asp:ListItem Text="手机苹果充值" Value="800"></asp:ListItem>
                 </asp:DropDownList>
                 <asp:Button ID="btnQuery" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQuery_Click" />
                 <asp:Button ID="btnQueryTD" runat="server" Text="今天" CssClass="btn wd1" OnClick="btnQueryTD_Click" />
@@ -70,12 +70,12 @@
                     <asp:ListItem Value="1">按游戏ID</asp:ListItem>
                     <asp:ListItem Value="2">按用户昵称</asp:ListItem>
                     <asp:ListItem Value="3">按用户标识</asp:ListItem>
-                 </asp:DropDownList>   
+                 </asp:DropDownList>
                  <asp:DropDownList ID="ddlPayStatus" runat="server" >
                     <asp:ListItem Value="-1">全部</asp:ListItem>
                     <asp:ListItem Value="0">未支付</asp:ListItem>
                     <asp:ListItem Value="1">已支付</asp:ListItem>
-                 </asp:DropDownList>   
+                 </asp:DropDownList>
                 <asp:Button ID="btnQueryAcc" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQueryAcc_Click" />
                 <span class="total-span"><asp:Literal ID="ltTotal" runat="server"></asp:Literal></span>
             </td>
@@ -155,7 +155,7 @@
                             <%# Eval("OtherPresent")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent")):"——"%>
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+(Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent"))):"——"%>
                         </td>
                         <td>
                             <%# GetPayStatus(Convert.ToInt32(Eval("OrderStatus"))) %>
@@ -198,7 +198,7 @@
                             <%# Eval("OtherPresent")%>
                         </td>
                         <td>
-                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent")):"——"%>                            
+                            <%# Convert.ToInt32(Eval("OrderStatus"))==1?""+(Convert.ToInt32(Eval("BeforeDiamond"))+Convert.ToInt32(Eval("Diamond"))+Convert.ToInt32(Eval("OtherPresent"))):"——"%>
                         </td>
                         <td>
                             <%# GetPayStatus(Convert.ToInt32(Eval("OrderStatus"))) %>
