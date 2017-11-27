@@ -662,7 +662,6 @@
     <None Include="Properties\PublishProfiles\WHJHFront.pubxml" />
     <Content Include="WS\NewMoblieInterface.ashx" />
     <Content Include="WS\UserFace.ashx" />
-    <Content Include="Spread\dist\build.js.map" />
     <Content Include="Spread\DataHandle.ashx" />
   </ItemGroup>
   <ItemGroup>
