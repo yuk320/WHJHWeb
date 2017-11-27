@@ -5,13 +5,13 @@ DELETE DBO.SystemStatusInfo WHERE StatusName = N'IOSNotStorePaySwitch'
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
 
 -- 2017/11/16 添加全局推广返利类型 0：金币 1：钻石
-INSERT INTO SystemStatusInfo
-  (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
-VALUES(N'SpreadReturnType', 0, N'全局推广返利类型', N'推广返利类型', N'键值：推广返利类型，在推广返利配置无可用配置时不生效，0表示金币 1表示钻石', 99)
+-- INSERT INTO SystemStatusInfo
+--   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
+-- VALUES(N'SpreadReturnType', 0, N'全局推广返利类型', N'推广返利类型', N'键值：推广返利类型，在推广返利配置无可用配置时不生效，0表示金币 1表示钻石', 99)
 -- 2017/11/23 添加全局推广返利领取门槛 0：无门槛 大于0代表 需要可领取数大于多少才能提取
-INSERT INTO SystemStatusInfo
-  (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
-VALUES(N'SpreadReceiveBase', 0, N'全局推广返利领取门槛', N'推广返利条件', N'键值：推广返利条件，0：无门槛 大于0代表 需要可领取数大于多少才能提取', 100)
+-- INSERT INTO SystemStatusInfo
+--   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
+-- VALUES(N'SpreadReceiveBase', 0, N'全局推广返利领取门槛', N'推广返利条件', N'键值：推广返利条件，0：无门槛 大于0代表 需要可领取数大于多少才能提取', 100)
 
 GO
 
@@ -34,7 +34,6 @@ ALTER TABLE [dbo].[AppPayConfig] ADD [PresentDiamond] INT NOT NULL DEFAULT(0)
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'首冲赠送钻石数量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AppPayConfig', @level2type=N'COLUMN',@level2name=N'PresentDiamond'
 GO
-
 
 IF EXISTS (SELECT 1
 FROM [DBO].SYSObjects
