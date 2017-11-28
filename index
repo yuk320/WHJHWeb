@@ -24,6 +24,7 @@ const COMMON_IGNORE = [
   "更新包/**/*",
   ".gitignore",
   "package.json",
+  "config.json",
   "index",
   "pickup"
 ];
@@ -152,8 +153,9 @@ let optsUpdate = {
 const optsCode = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
+  dot:true,
   output: "完整包",
-  ignore: ["**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
+  ignore: ["**/.vs/**/*","**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
   tag: ""
 };
 const optsRoomCard = {

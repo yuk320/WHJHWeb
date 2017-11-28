@@ -32,10 +32,10 @@ namespace Game.Web.Helper
             public static string Key = ApplicationSettings.Get("LQPayKey"); //商户密钥 web.config  LQPayKey
         }
 
-        public static string GetPayPackage(string prepayUrl)
+        public static string GetPayPackage(string url)
         {
-            Log4Net.WriteInfoLog(prepayUrl,"零钱支付");
-            string response = Get(prepayUrl);
+            Log4Net.WriteInfoLog("get_url:"+url,"零钱支付");
+            string response = Get(url);
             JObject jObject = (JObject) JsonConvert.DeserializeObject(response);
             if (jObject["ret_code"] != null && (string) jObject["ret_code"] != "0000")
             {
