@@ -1,11 +1,11 @@
 {
   "name": "whjhweb",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "index",
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^2.6.0",
     "eventproxy": "^1.0.0",
-    "files-extractor": "^0.3.7"
+    "files-extractor": "^0.4.0"
   },
   "devDependencies": {},
   "scripts": {

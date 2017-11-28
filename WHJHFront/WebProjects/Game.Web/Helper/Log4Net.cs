@@ -3,6 +3,7 @@ using System;
 using System.Web;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace Game.Web.Helper
 {
     public class Log4Net
@@ -16,10 +17,12 @@ namespace Game.Web.Helper
         /// 写入信息日志
         /// </summary>
         /// <param name="message">信息内容</param>
-        public static void WriteInfoLog(string message)
+        /// <param name="tag"></param>
+        public static void WriteInfoLog(string message, string tag = "")
         {
             HttpRequest req = HttpContext.Current.Request;
-            message = $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[消息]：{message}";
+            tag = tag.Equals("") ? req.Url.AbsoluteUri : tag;
+            message = $"[{req.UserHostAddress}] [{tag}] \t\r\n[消息]：{message}";
             Log.Info(message);
         }
 
@@ -30,7 +33,8 @@ namespace Game.Web.Helper
         public static void WriteErrorLog(Exception ex)
         {
             HttpRequest req = HttpContext.Current.Request;
-            string message = $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[当前堆栈]：{ex.StackTrace}\r\n[错误]：{ex.Message}";
+            string message =
+                $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[当前堆栈]：{ex.StackTrace}\r\n[错误]：{ex.Message}";
             Log.Error(message);
         }
     }

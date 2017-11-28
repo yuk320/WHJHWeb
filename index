@@ -3,7 +3,6 @@
 const fs = require("fs-extra");
 if (fs.existsSync("./package-lock.json")) fs.removeSync("./package-lock.json");
 console.time("全自动化工具完成");
-console.info("全自动化工具运行中...");
 let allCount = 0;
 let start = process.argv[2] ? new Date(process.argv[2]) : null;
 const DATE_TODAY = new Date(
@@ -37,19 +36,26 @@ const autoConfig = require("./config");
 const CODE_VERSION = "V" + autoConfig.version;
 const LAST_VERSION = "V" + autoConfig.lastVersion;
 let VERSION_LIST = {
-  last: autoConfig.versionList[autoConfig.lastVersion],
+  last: autoConfig.versionList[autoConfig.lastVersion]
 };
-autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString().substr(0,10).replace(/-/g,'/');
-fs.writeFileSync('./config.json',JSON.stringify(autoConfig));
-start = start==null&&VERSION_LIST.last?start = new Date(VERSION_LIST.last):null;
+autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString()
+  .substr(0, 10)
+  .replace(/-/g, "/");
+fs.writeFileSync("./config.json", JSON.stringify(autoConfig));
+start =
+  start == null && VERSION_LIST.last
+    ? (start = new Date(VERSION_LIST.last))
+    : null;
 const PRODUCT_NAME = autoConfig.product_name;
 const eventproxy = require("eventproxy");
 const async = require("async");
 const AUTO_MODE = {
+  PUBLISH_ONLY: "PublishOnly",
   UPDATE_ONLY: "UpdateOnly",
   COMPLETE_ONLY: "CompleteOnly",
   ALL: "ALL"
 };
+console.info(`全自动化工具运行中...模式${autoConfig.mode}`);
 /**
  * Pad start string with 0
  *
@@ -183,7 +189,20 @@ let NEED_PUBLISH_PROJS = [
 ];
 const buildConfig = [
   {
+    execStr: "npm i",
+    condition: !fs.existsSync(
+      path.join(
+        __dirname,
+        "./WHJHFront/WebProjects/Game.Web/Spread/node_modules"
+      )
+    ),
+    options: {
+      cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+    }
+  },
+  {
     execStr: "npm run build",
+    condition: true,
     options: {
       cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
     }
@@ -423,11 +442,15 @@ const buildDist = function(cb) {
       cb(true);
     });
     buildConfig.forEach(function(cfg) {
-      console.info(`${cfg.execStr} on ${cfg.options.cwd} start`);
-      exec(cfg.execStr, cfg.options, (err, stdout, stderr) => {
-        console.info(`${cfg.execStr} on ${cfg.options.cwd} end`);
-        epBuildList.emit("builded", true);
-      });
+      if (cfg.condition) {
+        console.info(`${cfg.execStr} on ${cfg.options.cwd} start`);
+        exec(cfg.execStr, cfg.options, (err, stdout, stderr) => {
+          console.info(`${cfg.execStr} on ${cfg.options.cwd} end`);
+          epBuildList.emit("builded", true);
+        });
+      } else {
+        epBuildList.emit("builded", false);
+      }
     });
   } else {
     cb(false);
@@ -581,85 +604,89 @@ if (fs.existsSync(path.join(__dirname, "./网站发布"))) {
 console.time("项目发布");
 let epPublish = new eventproxy();
 epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
-  let epUpdate = new eventproxy();
-  epUpdate.once("updated", function(updated) {
-    if (autoConfig.mode !== AUTO_MODE.UPDATE_ONLY) {
-      codeExtract(function(err, codePath) {
-        allCount++;
-        let subCount = 0;
-        if (codePath && fs.existsSync(codePath + ".zip")) {
-          subCount++;
-          fs.removeSync(codePath + ".zip");
-          console.info(`Step_${allCount}_${subCount} [完整包]清理`);
-        }
-        console.time("完整包打包");
-        subCount++;
-        console.info(
-          `Step_${allCount}_${subCount} [完整包]打包开始 ${codePath}.zip`
-        );
-        let cmd7z = "7z a -tzip " + codePath + ".zip " + codePath;
-        exec(cmd7z, (err, stdout, stderr) => {
-          if (err) console.info(err);
-          subCount++;
-          console.info(
-            `Step_${allCount}_${
-              subCount
-            } [完整包]打包完成，正在为你打开更新包文件夹`
-          );
-          console.timeEnd("完整包打包");
-          exec("start " + path.join(__dirname, optsCode.output));
-          console.timeEnd("全自动化工具完成");
-        });
-      });
-    } else {
-      console.timeEnd("全自动化工具完成");
-    }
-  });
-  console.info(`Step_0 项目发布完成`);
-  console.timeEnd("项目发布");
-  if (autoConfig.mode !== AUTO_MODE.COMPLETE_ONLY) {
-    codeDiffExtract(function(err, codeDiffPath) {
-      console.timeEnd("源码更新");
-      let paths = [];
-      if (codeDiffPath) paths.push(codeDiffPath);
-      publishDiffExtract(function(err, publishDiffPath) {
-        console.timeEnd("发布更新");
-        if (publishDiffPath) paths.push(publishDiffPath);
-        if (paths.length > 0) {
-          console.time("更新包打包");
+  if (autoConfig.mode !== AUTO_MODE.PUBLISH_ONLY) {
+    let epUpdate = new eventproxy();
+    epUpdate.once("updated", function(updated) {
+      if (autoConfig.mode !== AUTO_MODE.UPDATE_ONLY) {
+        codeExtract(function(err, codePath) {
           allCount++;
           let subCount = 0;
-          let zipPath = paths[0].replace("发布", "").replace("源码", "");
-          if (fs.existsSync(zipPath + ".zip")) {
+          if (codePath && fs.existsSync(codePath + ".zip")) {
             subCount++;
-            fs.removeSync(zipPath + ".zip");
-            console.info(`Step_${allCount}_${subCount} [更新包]清理`);
+            fs.removeSync(codePath + ".zip");
+            console.info(`Step_${allCount}_${subCount} [完整包]清理`);
           }
+          console.time("完整包打包");
           subCount++;
           console.info(
-            `Step_${allCount}_${subCount} [更新包]打包开始 ${zipPath}.zip`
+            `Step_${allCount}_${subCount} [完整包]打包开始 ${codePath}.zip`
           );
-          let cmd7z = "7z a -tzip " + zipPath + ".zip " + paths.join(" ");
+          let cmd7z = "7z a -tzip " + codePath + ".zip " + codePath;
           exec(cmd7z, (err, stdout, stderr) => {
             if (err) console.info(err);
             subCount++;
             console.info(
               `Step_${allCount}_${
                 subCount
-              } [更新包]打包完成，正在为你打开更新包文件夹`
+              } [完整包]打包完成，正在为你打开更新包文件夹`
             );
-            console.timeEnd("更新包打包");
-            epUpdate.emit("updated", true);
-            exec("start " + path.join(__dirname, optsCodeDiff.output));
+            console.timeEnd("完整包打包");
+            exec("start " + path.join(__dirname, optsCode.output));
+            console.timeEnd("全自动化工具完成");
           });
-        } else {
-          console.info("[更新包]无需打包，因为没有需要更新的文件！");
-          epUpdate.emit("updated", false);
-        }
-      });
+        });
+      } else {
+        console.timeEnd("全自动化工具完成");
+      }
     });
+    console.info(`Step_0 项目发布完成`);
+    console.timeEnd("项目发布");
+    if (autoConfig.mode !== AUTO_MODE.COMPLETE_ONLY) {
+      codeDiffExtract(function(err, codeDiffPath) {
+        console.timeEnd("源码更新");
+        let paths = [];
+        if (codeDiffPath) paths.push(codeDiffPath);
+        publishDiffExtract(function(err, publishDiffPath) {
+          console.timeEnd("发布更新");
+          if (publishDiffPath) paths.push(publishDiffPath);
+          if (paths.length > 0) {
+            console.time("更新包打包");
+            allCount++;
+            let subCount = 0;
+            let zipPath = paths[0].replace("发布", "").replace("源码", "");
+            if (fs.existsSync(zipPath + ".zip")) {
+              subCount++;
+              fs.removeSync(zipPath + ".zip");
+              console.info(`Step_${allCount}_${subCount} [更新包]清理`);
+            }
+            subCount++;
+            console.info(
+              `Step_${allCount}_${subCount} [更新包]打包开始 ${zipPath}.zip`
+            );
+            let cmd7z = "7z a -tzip " + zipPath + ".zip " + paths.join(" ");
+            exec(cmd7z, (err, stdout, stderr) => {
+              if (err) console.info(err);
+              subCount++;
+              console.info(
+                `Step_${allCount}_${
+                  subCount
+                } [更新包]打包完成，正在为你打开更新包文件夹`
+              );
+              console.timeEnd("更新包打包");
+              epUpdate.emit("updated", true);
+              exec("start " + path.join(__dirname, optsCodeDiff.output));
+            });
+          } else {
+            console.info("[更新包]无需打包，因为没有需要更新的文件！");
+            epUpdate.emit("updated", false);
+          }
+        });
+      });
+    } else {
+      epUpdate.emit("updated", false);
+    }
   } else {
-    epUpdate.emit("updated", false);
+    console.timeEnd("全自动化工具完成");
   }
 });
 
