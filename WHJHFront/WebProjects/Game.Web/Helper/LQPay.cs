@@ -34,16 +34,16 @@ namespace Game.Web.Helper
 
         public static string GetPayPackage(string prepayUrl)
         {
-            Log4Net.WriteInfoLog(prepayUrl);
+            Log4Net.WriteInfoLog(prepayUrl,"零钱支付");
             string response = Get(prepayUrl);
             JObject jObject = (JObject) JsonConvert.DeserializeObject(response);
             if (jObject["ret_code"] != null && (string) jObject["ret_code"] != "0000")
             {
-                Log4Net.WriteInfoLog(response);
+                Log4Net.WriteInfoLog(response,"零钱支付");
                 return "";
             }
 
-            Log4Net.WriteInfoLog("零钱支付获取pay_info:" + HttpUtility.UrlEncode((string) jObject["ret_content"]["pay_info"]));
+            Log4Net.WriteInfoLog("pay_info:" + HttpUtility.UrlEncode((string) jObject["ret_content"]["pay_info"]),"零钱支付");
             return HttpUtility.UrlEncode((string) jObject["ret_content"]["pay_info"]);
         }
 
