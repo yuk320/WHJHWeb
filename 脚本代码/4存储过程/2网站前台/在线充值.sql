@@ -1,43 +1,43 @@
 ----------------------------------------------------------------------
--- ç‰ˆæƒï¼š2017
--- æ—¶é—´ï¼š2017-06-8
--- ç”¨é€”ï¼šåœ¨çº¿å……å€¼
+-- °æÈ¨£º2017
+-- Ê±¼ä£º2017-06-8
+-- ÓÃÍ¾£ºÔÚÏß³äÖµ
 ----------------------------------------------------------------------
 
 USE [WHJHTreasureDB]
 GO
 
--- åœ¨çº¿å……å€¼
+-- ÔÚÏß³äÖµ
 IF EXISTS (SELECT *
 FROM DBO.SYSOBJECTS
 WHERE ID = OBJECT_ID(N'[dbo].NET_PW_FinishOnLineOrder') and OBJECTPROPERTY(ID, N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].NET_PW_FinishOnLineOrder
 GO
 
-SET QUOTED_IDENTIFIER ON 
+SET QUOTED_IDENTIFIER ON
 GO
-SET ANSI_NULLS ON 
+SET ANSI_NULLS ON
 GO
 
 ---------------------------------------------------------------------------------------
--- åœ¨çº¿å……å€¼
+-- ÔÚÏß³äÖµ
 CREATE PROCEDURE NET_PW_FinishOnLineOrder
 	@strOrdersID		NVARCHAR(50),
-	--	è®¢å•ç¼–å·
+	--	¶©µ¥±àºÅ
 	@PayAmount			DECIMAL(18,2),
-	--  æ”¯ä»˜é‡‘é¢
+	--  Ö§¸¶½ğ¶î
 	@strIPAddress		NVARCHAR(31),
-	--	ç”¨æˆ·å¸å·	
+	--	ÓÃ»§ÕÊºÅ
 	@strErrorDescribe	NVARCHAR(127) OUTPUT
---	è¾“å‡ºä¿¡æ¯
+--	Êä³öĞÅÏ¢
 WITH
 	ENCRYPTION
 AS
 
--- å±æ€§è®¾ç½®
+-- ÊôĞÔÉèÖÃ
 SET NOCOUNT ON
 
--- è®¢å•ä¿¡æ¯
+-- ¶©µ¥ĞÅÏ¢
 DECLARE @UserID INT
 DECLARE @Amount DECIMAL(18,2)
 DECLARE @Diamond INT
@@ -52,36 +52,36 @@ DECLARE @STime NVARCHAR(10)
 DECLARE @StartTime NVARCHAR(20)
 DECLARE @EndTime NVARCHAR(20)
 
--- æ‰§è¡Œé€»è¾‘
+-- Ö´ĞĞÂß¼­
 BEGIN
 	SET @DateTime = GETDATE()
-	-- è®¢å•æŸ¥è¯¢
+	-- ¶©µ¥²éÑ¯
 	SELECT @UserID=UserID, @Amount=Amount, @Diamond=Diamond, @OtherPresent=OtherPresent, @OrderStatus=OrderStatus
 	FROM OnLinePayOrder WITH(NOLOCK)
 	WHERE OrderID = @strOrdersID
 	IF @UserID IS NULL
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼å……å€¼è®¢å•ä¸å­˜åœ¨!'
+		SET @strErrorDescribe=N'±§Ç¸£¡³äÖµ¶©µ¥²»´æÔÚ!'
 		RETURN 1001
 	END
 	IF @OrderStatus=1
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼å……å€¼è®¢å•å·²å®Œæˆ!'
+		SET @strErrorDescribe=N'±§Ç¸£¡³äÖµ¶©µ¥ÒÑÍê³É!'
 		RETURN 1002
 	END
 	IF @Amount != @PayAmount
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼æ”¯ä»˜é‡‘é¢é”™è¯¯!'
+		SET @strErrorDescribe=N'±§Ç¸£¡Ö§¸¶½ğ¶î´íÎó!'
 		RETURN 1003
 	END
 
-	--æ—¶é—´è®¡ç®—
+	--Ê±¼ä¼ÆËã
 	SELECT @CurrentTime = GETDATE()
 	SET @STime = Convert(CHAR(10),@CurrentTime,120)
 	SET @StartTime = @STime + N' 00:00:00'
 	SET @EndTime = @STime + N' 23:59:59'
-	-- å¯¹é¢å¤–èµ é€å­—æ®µè¿›è¡Œæ¡ä»¶è¿‡æ»¤
-	IF @PayIdentity=2	-- æ¯æ—¥é¦–å†²
+	-- ¶Ô¶îÍâÔùËÍ×Ö¶Î½øĞĞÌõ¼ş¹ıÂË
+	IF @PayIdentity=2	-- Ã¿ÈÕÊ×³å
 	BEGIN
 		IF EXISTS(SELECT OnLineID
 		FROM OnLinePayOrder
@@ -90,7 +90,7 @@ BEGIN
 			SET @OtherPresent = 0
 		END
 	END
-	ELSE IF @PayIdentity=3 --é¢„å¢åŠ  è´¦æˆ·é¦–å†²æ¨¡å¼
+	ELSE IF @PayIdentity=3 --Ô¤Ôö¼Ó ÕË»§Ê×³åÄ£Ê½
 	BEGIN
 		IF EXISTS(SELECT OnLineID
 		FROM OnLinePayOrder
@@ -101,13 +101,13 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		--å…¶ä»–æƒ…å†µä¸€å¾‹è¿‡æ»¤
+		--ÆäËûÇé¿öÒ»ÂÉ¹ıÂË
 		SET @OtherPresent = 0
 	END
 
 	SET @PresentDiamond = @Diamond + @OtherPresent
 
-	-- äº‹åŠ¡å¤„ç†
+	-- ÊÂÎñ´¦Àí
 	BEGIN TRAN
 
 	SELECT @BeforeDiamond=Diamond
@@ -126,23 +126,23 @@ BEGIN
 	IF @@ROWCOUNT <=0
 	BEGIN
 		ROLLBACK TRAN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼æ“ä½œå¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•!'
+		SET @strErrorDescribe=N'±§Ç¸£¡²Ù×÷Òì³££¬ÇëÉÔºóÖØÊÔ!'
 		RETURN 2001
 	END
 	UPDATE OnLinePayOrder SET OrderStatus=1,OtherPresent=@OtherPresent,BeforeDiamond=@BeforeDiamond,PayDate=@CurrentTime,PayAddress=@strIPAddress WHERE OrderID = @strOrdersID
 	IF @@ROWCOUNT <=0
 	BEGIN
 		ROLLBACK TRAN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼æ“ä½œå¼‚å¸¸ï¼Œè¯·ç¨åé‡è¯•!'
+		SET @strErrorDescribe=N'±§Ç¸£¡²Ù×÷Òì³££¬ÇëÉÔºóÖØÊÔ!'
 		RETURN 2001
 	END
 
-	-- å†™å…¥é’»çŸ³æµæ°´è®°å½•
+	-- Ğ´Èë×êÊ¯Á÷Ë®¼ÇÂ¼
 	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial
 		(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
 	VALUES(dbo.WF_GetSerialNumber(), 0, @UserID, 3, @BeforeDiamond, @PresentDiamond, @strIPAddress, @DateTime)
 
-	-- å¦‚æœå­˜åœ¨è¿”åˆ©é…ç½®ï¼Œå†™å…¥è¿”åˆ©è®°å½•
+	-- Èç¹û´æÔÚ·µÀûÅäÖÃ£¬Ğ´Èë·µÀû¼ÇÂ¼
 	IF EXISTS (SELECT 1 FROM SpreadReturnConfig WHERE Nullity=0)
 	BEGIN
 		DECLARE @ReturnType TINYINT
@@ -151,8 +151,8 @@ BEGIN
 		BEGIN
 			SET @ReturnType = 0
 		END
-		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
-		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PriesentScale,@ReturnType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
+		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate)
+		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PresentScale,@ReturnType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
 	END
 
 	COMMIT TRAN

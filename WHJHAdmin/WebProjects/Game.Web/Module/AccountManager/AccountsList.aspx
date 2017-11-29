@@ -43,6 +43,7 @@
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="Tmg7">
         <tr>
             <td height="39" class="titleOpBg">
+                <input type="button" class="btn wd2" value="添加超管" onclick="openWindowOwn('AddSuperUser.aspx','添加超端管理员',600,240)"/>
                 <asp:Button ID="btnDongjie" runat="server" Text="冻结" CssClass="btn wd1" OnClick="btnDongjie_Click" OnClientClick="return deleteop()" />
                 <asp:Button ID="btnJiedong" runat="server" Text="解冻" CssClass="btn wd1" OnClick="btnJiedong_Click" OnClientClick="return deleteop()" />
                 <input class="btnLine" type="button" />

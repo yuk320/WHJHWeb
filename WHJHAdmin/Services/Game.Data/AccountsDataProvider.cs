@@ -153,6 +153,23 @@ namespace Game.Data
             string sqlQuery = $"UPDATE AccountsInfo SET UserRight={userRight}";
             return Database.ExecuteNonQuery(sqlQuery);
         }
+
+        /// <summary>
+        /// 添加超端管理员
+        /// </summary>
+        /// <param name="user">用户信息（用户名、登录密码）</param>
+        /// <returns></returns>
+        public Message InsertSuperUser(AccountsInfo user)
+        {
+            var prams = new List<DbParameter>
+            {
+                Database.MakeInParam("strAccounts", user.Accounts),
+                Database.MakeInParam("strLogonPass", user.LogonPass),
+                Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
+            };
+
+            return MessageHelper.GetMessage(Database, "NET_PM_AddSuperUser", prams);
+        }
         #endregion
 
         #region 限制管理

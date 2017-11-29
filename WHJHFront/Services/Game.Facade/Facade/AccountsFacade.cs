@@ -111,6 +111,16 @@ namespace Game.Facade
         {
             return accountsData.RegisterWX(user, registerType, faceUrl);
         }
+
+        /// <summary>
+        /// 获取用户最后登录地址
+        /// </summary>
+        /// <param name="userid">用户标识</param>
+        /// <returns>LastLogonIP</returns>
+        public string GetUserIP(int userid)
+        {
+            return accountsData.GetUserIP(userid);
+        }
         #endregion
 
         #region 代理信息

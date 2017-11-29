@@ -80,6 +80,13 @@ namespace Game.IData
         /// <param name="userRight">权限值</param>
         /// <returns></returns>
         int TransferPowerAccounts(int userRight);
+
+        /// <summary>
+        /// 添加超端管理员
+        /// </summary>
+        /// <param name="user">用户信息（用户名、登录密码）</param>
+        /// <returns></returns>
+        Message InsertSuperUser(AccountsInfo user);
         #endregion
 
         #region 限制管理

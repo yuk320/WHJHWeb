@@ -121,6 +121,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     return;
                 //获取排行榜数据
                 case "getrankingdata":
+                    _ajv.SetDataItem("apiVersion", 20171129);
                     //参数验证
                     if (typeid <= 0 || typeid > 7)
                     {
@@ -203,6 +204,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         return;
                     }
                     GetPayOrderStatus(orderid);
+                    break;
+                case "getuserip":
+                    _ajv.SetDataItem("apiVersion",20171129);
+                    GetUserIp();
                     break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
@@ -446,6 +451,21 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     scoreRank = DataHelper.ConvertDataTableToObjects<CacheScoreRank>(ds.Tables[2]);
                     break;
             }
+            if (wealthRank.Count>0) {
+                foreach(CacheWealthRank wealth in wealthRank) {
+                    wealth.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(wealth.UserID);
+                }
+            }
+            if (consumeRank.Count>0) {
+                foreach(CacheConsumeRank consume in consumeRank) {
+                    consume.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(consume.UserID);
+                }
+            }
+            if (scoreRank.Count>0) {
+                foreach(CacheScoreRank score in scoreRank) {
+                    score.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(score.UserID);
+                }
+            }
 
             _ajv.SetValidDataValue(true);
             _ajv.SetDataItem("WealthRank", wealthRank);
@@ -679,6 +699,16 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 _ajv.SetDataItem("PayAmount", olOrder.Amount);
                 _ajv.SetDataItem("Diamond", olOrder.Diamond);
             }
+            _ajv.SetValidDataValue(true);
+        }
+
+        /// <summary>
+        /// 查询用户IP接口
+        /// </summary>
+        private static void GetUserIp()
+        {
+            string userIp = FacadeManage.aideAccountsFacade.GetUserIP(_userid);
+            _ajv.SetDataItem("userIp",userIp);
             _ajv.SetValidDataValue(true);
         }
 

@@ -127,6 +127,17 @@ namespace Game.Data
             return MessageHelper.GetMessage(Database, "NET_PW_RegisterAccountsWX", prams);
         }
 
+        /// <summary>
+        /// 获取用户最后登录地址
+        /// </summary>
+        /// <param name="userid">用户标识</param>
+        /// <returns>LastLogonIP</returns>
+        public string GetUserIP(int userid)
+        {
+            string sql = $"SELECT LastLogonIP FROM AccountsInfo(NOLOCK) WHERE UserID = {userid}";
+            return Database.ExecuteScalar(CommandType.Text,sql).ToString();
+        }
+
         #endregion
 
         #region 代理信息

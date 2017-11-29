@@ -56,6 +56,13 @@ namespace Game.IData
         /// <param name="faceUrl"></param>
         /// <returns></returns>
         Message RegisterWX(UserInfo user, int registerType, string faceUrl);
+
+        /// <summary>
+        /// 获取用户最后登录地址
+        /// </summary>
+        /// <param name="userid">用户标识</param>
+        /// <returns>LastLogonIP</returns>
+        string GetUserIP(int userid);
         #endregion
 
         #region 代理信息

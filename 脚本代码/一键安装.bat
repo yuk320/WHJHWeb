@@ -56,6 +56,8 @@ osql -E -i "%rootPath%领取排行榜奖励.sql"
 osql -E -i "%rootPath%领取推广好友奖励.sql"
 osql -E -i "%rootPath%领取注册赠送奖励.sql"
 osql -E -i "%rootPath%钻石兑换金币.sql"
+osql -E -i "%rootPath%用户代理中心.sql"
+osql -E -i "%rootPath%领取推广返利奖励.sql"
 
 set rootPath=4存储过程\3网站后台\
 osql -E -i "%rootPath%菜单加载.sql"
@@ -74,7 +76,7 @@ osql -E -i "%rootPath%后台赠送金币.sql"
 osql -E -i "%rootPath%金币分布.sql"
 osql -E -i "%rootPath%钻石分布.sql"
 osql -E -i "%rootPath%数据汇总.sql"
-osql -E -i "%rootPath%领取推广返利奖励.sql"
+osql -E -i "%rootPath%创建超端管理员.sql"
 
 set rootPath=4存储过程\4代理后台\
 osql -E -i "%rootPath%代理后台登录.sql"

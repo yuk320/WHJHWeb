@@ -106,6 +106,7 @@
     <Content Include="LoginOut.aspx" />
     <Content Include="Module\AccountManager\AccountsBaseInfo.aspx" />
     <Content Include="Module\AccountManager\AccountsList.aspx" />
+    <Content Include="Module\AccountManager\AddSuperUser.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressInfo.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressList.aspx" />
     <Content Include="Module\AccountManager\ConfineAddressTop.aspx" />
@@ -2472,6 +2473,13 @@
     </Compile>
     <Compile Include="Module\AccountManager\AccountsList.aspx.designer.cs">
       <DependentUpon>AccountsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\AddSuperUser.aspx.cs">
+      <DependentUpon>AddSuperUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\AddSuperUser.aspx.designer.cs">
+      <DependentUpon>AddSuperUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\AccountManager\ConfineAddressInfo.aspx.cs">
       <DependentUpon>ConfineAddressInfo.aspx</DependentUpon>

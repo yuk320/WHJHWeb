@@ -1,9 +1,9 @@
 /*
  * 版本： 4.0
  * 日期：2017/7/12 15:20:08
- * 
+ *
  * 描述：实体类
- * 
+ *
  */
 
 using System;
@@ -17,14 +17,14 @@ namespace Game.Entity.NativeWeb
     [Serializable]
     public partial class CacheWealthRank
     {
-        #region 常量 
+        #region 常量
 
         /// <summary>
         /// 表名
         /// </summary>
         public const string Tablename = "CacheWealthRank";
 
-        #endregion 
+        #endregion
 
         #region 私有变量
 
@@ -40,12 +40,12 @@ namespace Game.Entity.NativeWeb
 
         #endregion
 
-        #region 构造函数 
+        #region 构造函数
 
         /// <summary>
         /// 初始化CacheWealthRank
         /// </summary>
-        public CacheWealthRank() 
+        public CacheWealthRank()
         {
             p_dateid = 0;
             p_userid = 0;
@@ -60,7 +60,7 @@ namespace Game.Entity.NativeWeb
 
         #endregion
 
-        #region 公共属性 
+        #region 公共属性
 
         /// <summary>
         /// DateID
@@ -196,6 +196,15 @@ namespace Game.Entity.NativeWeb
                 return p_collectdate;
             }
         }
+
+        #endregion
+
+        #region 虚拟属性
+
+        /// <summary>
+        /// LastLogonAddress
+        /// </summary>
+        public string LastLogonAddress {get;set;}
 
         #endregion
     }

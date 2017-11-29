@@ -124,6 +124,16 @@ namespace Game.Facade
         {
             return aideAccountsData.TransferPowerAccounts(userRight);
         }
+
+        /// <summary>
+        /// 添加超端管理员
+        /// </summary>
+        /// <param name="user">用户信息（用户名、登录密码）</param>
+        /// <returns></returns>
+        public Message InsertSuperUser(AccountsInfo user)
+        {
+            return aideAccountsData.InsertSuperUser(user);
+        }
         #endregion
 
         #region 限制管理
