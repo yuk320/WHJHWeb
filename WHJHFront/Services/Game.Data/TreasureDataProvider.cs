@@ -64,7 +64,7 @@ namespace Game.Data
         /// </summary>
         /// <param name="order">订单信息</param>
         /// <returns></returns>
-        public Message CreatePayOrderInfo(OnLinePayOrder order)
+        public Message CreatePayOrderInfo(OnLinePayOrder order, string device)
         {
             List<DbParameter> prams = new List<DbParameter>
             {
@@ -73,6 +73,7 @@ namespace Game.Data
                 Database.MakeInParam("dwConfigID", order.ConfigID),
                 Database.MakeInParam("strOrderID", order.OrderID),
                 Database.MakeInParam("strIPAddress", order.OrderAddress),
+                Database.MakeInParam("strDevice", device),
                 Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
             };
             return MessageHelper.GetMessageForObject<OnLinePayOrder>(Database, "NET_PW_CreateOnLineOrder", prams);
@@ -215,8 +216,8 @@ namespace Game.Data
         public UserWealth GetUserWealth(int userId)
         {
             string sqlQuery = string.Format(
-                @"SELECT ISNULL(G.Score,0) AS Score,ISNULL(G.InsureScore,0) AS InsureScore,ISNULL(U.Diamond,0) AS Diamond 
-                            FROM (SELECT UserID,Score,InsureScore FROM GameScoreInfo WHERE UserID={0}) AS G FULL JOIN 
+                @"SELECT ISNULL(G.Score,0) AS Score,ISNULL(G.InsureScore,0) AS InsureScore,ISNULL(U.Diamond,0) AS Diamond
+                            FROM (SELECT UserID,Score,InsureScore FROM GameScoreInfo WHERE UserID={0}) AS G FULL JOIN
                             (SELECT UserID,Diamond FROM UserCurrency WHERE UserID={0}) AS U ON G.UserID=U.UserID",
                 userId);
             return Database.ExecuteObject<UserWealth>(sqlQuery);

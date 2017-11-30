@@ -34,7 +34,7 @@ namespace Game.IData
         /// </summary>
         /// <param name="order">订单信息</param>
         /// <returns></returns>
-        Message CreatePayOrderInfo(OnLinePayOrder order);
+        Message CreatePayOrderInfo(OnLinePayOrder order, string device);
         /// <summary>
         /// 在线充值
         /// </summary>
