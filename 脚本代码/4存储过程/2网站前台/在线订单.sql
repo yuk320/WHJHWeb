@@ -60,7 +60,7 @@ DECLARE @EndTime NVARCHAR(20)
 BEGIN
 	-- 充值渠道验证
 	SELECT @PayChannel=StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayChannel'
-	IF @PayChannel IS NULL OR @PayChannel=0 
+	IF @PayChannel IS NULL OR @PayChannel=0
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
 		RETURN 1001
@@ -98,13 +98,13 @@ BEGIN
 	-- 普通时赠送为0
 	SET @OtherPresent = 0
 	-- 计算额外赠送钻石(首充时计算)
-	IF @PayIdentity = 2 
+	IF @PayIdentity = 2
 	BEGIN
-		-- 每日首充获得额外 
+		-- 每日首充获得额外
 		IF NOT EXISTS(SELECT OnLineID FROM OnLinePayOrder WHERE UserID=@UserID AND OrderStatus=1 AND OrderDate BETWEEN @StartTime AND @EndTime)
 		BEGIN
 			SET @OtherPresent = @PresentDiamond
-		END 
+		END
 	END
 
 	IF @PayIdentity = 3
@@ -113,9 +113,9 @@ BEGIN
 		IF NOT EXISTS(SELECT OnLineID FROM OnLinePayOrder WHERE UserID=@UserID AND OrderStatus=1)
 		BEGIN
 			SET @OtherPresent = @PresentDiamond
-		END 
+		END
 	END
-	
+
 	-- 订单重复验证
 	SELECT @OrderID=OrderID FROM OnLinePayOrder WITH(NOLOCK) WHERE OrderID = @strOrderID
 	IF @OrderID IS NOT NULL
@@ -138,12 +138,15 @@ BEGIN
 	END
 
 	-- 充值推广验证
-	SELECT @BindSpread=StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayBindSpread'
-	IF @SpreaderID<=0 AND @BindSpread=0
-	BEGIN
-		SET @strErrorDescribe=N'抱歉！充值账号未绑定推广人！'
-		RETURN 2003
-	END
+  IF @strDevice = ''
+  BEGIN
+    SELECT @BindSpread=StatusValue FROM WHJHAccountsDBLink.WHJHAccountsDB.dbo.SystemStatusInfo WITH(NOLOCK) WHERE StatusName = N'JJPayBindSpread'
+    IF @SpreaderID<=0 AND @BindSpread=0
+    BEGIN
+      SET @strErrorDescribe=N'抱歉！充值账号未绑定推广人！'
+      RETURN 2003
+    END
+  END
 
 	-- 首充验证
 	-- IF @PayIdentity=2
@@ -156,13 +159,13 @@ BEGIN
 	-- END
 
 	-- 写入订单信息
-	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,OtherPresent,OrderStatus,OrderDate,OrderAddress) 
+	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,OtherPresent,OrderStatus,OrderDate,OrderAddress)
 	VALUES(@dwConfigID,@dwShareID,@UserID,@GameID,@Accounts,@NickName,@strOrderID,@PayType,@Amount,@Diamond,@OtherPresent,0,@CurrentTime,@strIPAddress)
 
 	-- 输出对象变量
 	SELECT @dwConfigID AS ConfigID,@dwShareID AS ShareID,@UserID AS UserID,@GameID AS GameID,@Accounts AS Accounts,@NickName AS NickName,@strOrderID AS OrderID,@PayType AS OrderType,
 	@Amount AS Amount,@Diamond AS Diamond,@OtherPresent AS OtherPresent,0 AS OrderStatus,@CurrentTime AS OrderDate,@strIPAddress AS OrderAddress
-	
+
 END
 RETURN 0
 GO

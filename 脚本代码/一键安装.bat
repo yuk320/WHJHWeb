@@ -25,7 +25,6 @@ osql -d WHJHPlatformDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHPlatformManagerDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHRecordDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHTreasureDB -E  -n -i "%rootPath%分页过程.sql"
-
 osql -d WHJHAccountsDB -E  -n -i "%rootPath%切字符串.sql"
 osql -d WHJHGameScoreDB -E  -n -i "%rootPath%切字符串.sql"
 osql -d WHJHNativeWebDB -E  -n -i "%rootPath%切字符串.sql"
@@ -56,8 +55,8 @@ osql -E -i "%rootPath%领取排行榜奖励.sql"
 osql -E -i "%rootPath%领取推广好友奖励.sql"
 osql -E -i "%rootPath%领取注册赠送奖励.sql"
 osql -E -i "%rootPath%钻石兑换金币.sql"
-osql -E -i "%rootPath%用户代理中心.sql"
 osql -E -i "%rootPath%领取推广返利奖励.sql"
+osql -E -i "%rootPath%用户代理中心.sql"
 
 set rootPath=4存储过程\3网站后台\
 osql -E -i "%rootPath%菜单加载.sql"

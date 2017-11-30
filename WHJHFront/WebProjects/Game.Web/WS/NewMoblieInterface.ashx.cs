@@ -23,6 +23,7 @@ namespace Game.Web.WS
         private static AjaxJsonValid _ajv;
 
         private static int _userid;
+        private static string _device;
 
         /// <summary>
         /// 统一处理入口（主要验证）
@@ -39,6 +40,7 @@ namespace Game.Web.WS
 
             //获取参数
             _userid = GameRequest.GetQueryInt("userid", 0);
+            _device = GameRequest.GetString("device");
             _ajv = new AjaxJsonValid();
 #if !DEBUG //DEBUG情况下不验证
             string time = GameRequest.GetQueryString("time");
@@ -388,7 +390,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             //下单操作
-            Message umsg = FacadeManage.aideTreasureFacade.CreatePayOrderInfo(order);
+            Message umsg = FacadeManage.aideTreasureFacade.CreatePayOrderInfo(order, _device);
             if (umsg.Success)
             {
                 OnLinePayOrder orderReturn = umsg.EntityList[0] as OnLinePayOrder;
