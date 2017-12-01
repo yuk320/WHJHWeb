@@ -28,25 +28,25 @@
  **返回示例**
 
 ```
-  {
-    "code": 0,
-    "msg": "",
-    "data": {
-      "apiVersion": 20171120,
-      "valid": true,
-      "info": {
-        "GameID":100102,
-        "Lv1Count":0,
-        "Lv2Count":0,
-        "Lv3Count":0,
-        "TotalReturn":0,
-        "TotalReceive":0
-      },
-      "belowList":{Array[{BelowInfo}]},
-      "returnRecord":{Array[{ReturnRecord}]},
-      "receiveRecord":{Array[{ReceiveRecord}]}
-    }
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "apiVersion": 20171120,
+    "valid": true,
+    "info": {
+      "GameID":100102,
+      "Lv1Count":0,
+      "Lv2Count":0,
+      "Lv3Count":0,
+      "TotalReturn":0,
+      "TotalReceive":0
+    },
+    "belowList":{Array[{BelowInfo}]},
+    "returnRecord":{Array[{ReturnRecord}]},
+    "receiveRecord":{Array[{ReceiveRecord}]}
   }
+}
 ```
 
  **返回参数说明**
@@ -122,14 +122,14 @@
  **返回示例**
 
 ```
-  {
-    "code": 0,
-    "msg": "领取成功",
-    "data": {
-      "apiVersion": 20171120,
-      "valid": true
-    }
+{
+  "code": 0,
+  "msg": "领取成功",
+  "data": {
+    "apiVersion": 20171120,
+    "valid": true
   }
+}
 ```
 
  **返回参数说明**
