@@ -1,6 +1,6 @@
 {
   "name": "whjhweb",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "index",
   "dependencies": {
     "async": "^2.6.0",
