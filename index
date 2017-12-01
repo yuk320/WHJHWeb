@@ -16,6 +16,7 @@ const DATE_TOMORROW = new Date(
   new Date().getDate() + 1
 );
 const COMMON_IGNORE = [
+  "Docs/**/*",
   "README.MD",
   "index.html",
   "node_modules/**/*",
