@@ -43,7 +43,7 @@ let VERSION_LIST = {
 autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString()
   .substr(0, 10)
   .replace(/-/g, "/");
-fs.writeFileSync("./config.json", JSON.stringify(autoConfig));
+fs.writeFileSync("./config.json", JSON.stringify(autoConfig,null,2));
 start =
   start == null && VERSION_LIST.last
     ? (start = new Date(VERSION_LIST.last))
