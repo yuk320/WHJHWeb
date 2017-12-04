@@ -23,6 +23,7 @@ CREATE PROCEDURE NET_PW_CreateOnLineOrder
 	@dwShareID			INT,						-- 服务类型
 	@dwConfigID			INT,						-- 充值标识
 	@strOrderID			NVARCHAR(32),				-- 订单标识
+	@strDevice			NVARCHAR(32),				-- 产品渠道
 	@strIPAddress		NVARCHAR(15),				-- 支付地址
 	@strErrorDescribe	NVARCHAR(127) OUTPUT		-- 输出信息
 WITH ENCRYPTION AS
