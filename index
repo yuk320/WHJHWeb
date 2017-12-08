@@ -57,7 +57,7 @@ const AUTO_MODE = {
   COMPLETE_ONLY: "CompleteOnly",
   ALL: "ALL"
 };
-console.info(`全自动化工具运行中...模式${autoConfig.mode}`);
+console.info(`全自动化工具运行中...模式${autoConfig.mode}...版本${CODE_VERSION}`);
 /**
  * Pad start string with 0
  *
@@ -156,7 +156,7 @@ const optsCode = {
   end: DATE_TOMORROW,
   dot:true,
   output: "完整包",
-  ignore: [".git/**/*",".svn/**/*","**/.vs/**/*","**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
+  ignore: ["网站发布/WHJHFront/index.html",".git/**/*",".svn/**/*","**/.vs/**/*","**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
   tag: ""
 };
 const optsRoomCard = {

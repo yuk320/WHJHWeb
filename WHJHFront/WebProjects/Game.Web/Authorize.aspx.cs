@@ -53,8 +53,7 @@ namespace Game.Web
                     int sex = jsApiDown.Sex;
                     string headimgurl = jsApiDown.Headimgurl;
 
-                    if (string.IsNullOrEmpty(LinkUrl) || LinkUrl.ToLower().Contains("http") ||
-                        LinkUrl.ToLower().Contains("https"))
+                    if (string.IsNullOrEmpty(LinkUrl))
                     {
                         Response.Write("<span style='color:#FF0000;font-size:20px'>" + "页面加载出错，请重试" + "</span>");
                         return;

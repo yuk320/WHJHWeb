@@ -135,9 +135,8 @@ namespace Game.Data
         public string GetUserIP(int userid)
         {
             string sql = $"SELECT LastLogonIP FROM AccountsInfo(NOLOCK) WHERE UserID = {userid}";
-            return Database.ExecuteScalar(CommandType.Text,sql).ToString();
+            return Database.ExecuteScalar(CommandType.Text, sql).ToString();
         }
-
         #endregion
 
         #region 代理信息

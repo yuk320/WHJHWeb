@@ -1,7 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+/*
+ * 版本： 4.0
+ * 日期：2017/6/14 11:41:20
+ * 
+ * 描述：实体类
+ * 
+ */
 
 namespace Game.Entity.Treasure
 {
@@ -12,3 +15,4 @@ namespace Game.Entity.Treasure
         public long Diamond { get; set; }
     }
 }
+

@@ -11,6 +11,7 @@ using Game.Kernel;
 using Game.Entity.Platform;
 using Game.Web.Helper;
 using System.Data;
+using Game.Entity.Accounts;
 
 namespace Game.Web.WS
 {
@@ -139,6 +140,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 case "getuserwealth":
                     GetUserWealth();
                     break;
+                //获取玩家信息
+                case "getuserinfo":
+                    _ajv.SetDataItem("apiVersion",20171208);
+                    GetUserInfo();
+                    break;
                 //领取排行奖励
                 case "receiverankingaward":
                     //获取参数
@@ -182,19 +188,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     }
                     DiamondExchGold(configid, typeid);
                     break;
-                //                case "getlqnopwdloginurl":
-                //                    _ajv.SetDataItem("apiVersion", 20171116);
-                //                    string name = GameRequest.GetString("name");
-                //                    if (string.IsNullOrEmpty(name))
-                //                    {
-                //                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                //                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
-                //                            " name 错误");
-                //                        context.Response.Write(_ajv.SerializeToJson());
-                //                        return;
-                //                    }
-                //                    GetLqNoPwdLoginUrl(name);
-                //                    break;
                 case "getpayorderstatus":
                     _ajv.SetDataItem("apiVersion", 20171127);
                     string orderid = GameRequest.GetString("orderid");
@@ -206,10 +199,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         return;
                     }
                     GetPayOrderStatus(orderid);
-                    break;
-                case "getuserip":
-                    _ajv.SetDataItem("apiVersion",20171129);
-                    GetUserIp();
                     break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
@@ -355,6 +344,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <param name="configid"></param>
         /// <param name="paytype"></param>
         /// <param name="openid"></param>
+        /// <param name="subtype"></param>
         /// <returns>AjaxJsonValid</returns>
         private static AjaxJsonValid CreatePayOrder(int configid, string paytype, string openid, string subtype)
         {
@@ -416,7 +406,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         /// <summary>
         /// 获取排行榜数据
         /// </summary>
-        /// <param name="typeid"></param>
+        /// <param name="typeid">排行聚合类型</param>
         private static void GetRankingData(int typeid)
         {
             //获取排行榜数据
@@ -453,17 +443,17 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     scoreRank = DataHelper.ConvertDataTableToObjects<CacheScoreRank>(ds.Tables[2]);
                     break;
             }
-            if (wealthRank.Count>0) {
+            if (wealthRank != null && wealthRank.Count>0) {
                 foreach(CacheWealthRank wealth in wealthRank) {
                     wealth.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(wealth.UserID);
                 }
             }
-            if (consumeRank.Count>0) {
+            if (consumeRank != null && consumeRank.Count>0) {
                 foreach(CacheConsumeRank consume in consumeRank) {
                     consume.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(consume.UserID);
                 }
             }
-            if (scoreRank.Count>0) {
+            if (scoreRank != null && scoreRank.Count>0) {
                 foreach(CacheScoreRank score in scoreRank) {
                     score.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(score.UserID);
                 }
@@ -496,6 +486,23 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             _ajv.SetDataItem("diamond", diamond);
             _ajv.SetDataItem("score", score);
             _ajv.SetDataItem("insure", insureScore);
+        }
+
+        /// <summary>
+        /// 获取玩家信息
+        /// </summary>
+        private static void GetUserInfo()
+        {
+            //获取财富信息
+            AccountsInfo userInfo = FacadeManage.aideAccountsFacade.GetAccountsInfoByUserID(_userid);
+            if (userInfo == null) return;
+            _ajv.SetValidDataValue(true);
+            _ajv.SetDataItem("UserID", userInfo.UserID);
+            _ajv.SetDataItem("GameID", userInfo.GameID);
+            _ajv.SetDataItem("CustomID", userInfo.CustomID);
+            _ajv.SetDataItem("NickName", userInfo.NickName);
+            _ajv.SetDataItem("UnderWrite", userInfo.UnderWrite);
+            _ajv.SetDataItem("LastLogonIP", userInfo.LastLogonIP);
         }
 
         /// <summary>
@@ -669,20 +676,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
         }
 
         /// <summary>
-        /// 零钱支付免密登录接口构造
-        /// </summary>
-        /// <param name="name"></param>
-        private static void GetLqNoPwdLoginUrl(string name)
-        {
-            LQPay.LQPayRequest noPwdLoginRequest =
-                new LQPay.LQPayRequest(Fetch.GetOrderIDByPrefix("360LQ"), _userid.ToString(), name);
-            _ajv.SetValidDataValue(true);
-            _ajv.SetDataItem("noPwdLoginUrl", noPwdLoginRequest.ToUrl("nopwdloign"));
-            _ajv.SetDataItem("param", noPwdLoginRequest.Param);
-            _ajv.SetDataItem("sign", noPwdLoginRequest.Sign);
-        }
-
-        /// <summary>
         /// 充值通用查询接口
         /// </summary>
         /// <param name="orderid"></param>
@@ -701,16 +694,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 _ajv.SetDataItem("PayAmount", olOrder.Amount);
                 _ajv.SetDataItem("Diamond", olOrder.Diamond);
             }
-            _ajv.SetValidDataValue(true);
-        }
-
-        /// <summary>
-        /// 查询用户IP接口
-        /// </summary>
-        private static void GetUserIp()
-        {
-            string userIp = FacadeManage.aideAccountsFacade.GetUserIP(_userid);
-            _ajv.SetDataItem("userIp",userIp);
             _ajv.SetValidDataValue(true);
         }
 

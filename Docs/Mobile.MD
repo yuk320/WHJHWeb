@@ -1,10 +1,13 @@
 ###更新说明
 
- - 2017/11/22  开始整理 by 研发部-网站组-余珂
- - 2017/11/27  新增支付结果查询接口 by 研发部-网站组-余珂
- - 2017/11/29  修改排行榜数据接口-添加玩家ip字段，新增查询玩家ip接口 by 研发部-网站组-余珂
- - 2017/11/30  新增1.3 常见错误列表 by 研发部-网站组-余珂
- - 2017/12/01  增加API详细说明 GetGameIntroList、GetPayProduct by 研发部-网站组-余珂
+|说明日期|更新说明|网站版本|作者|
+|:----    |:-------    |:--- |-- -|
+|2017/12/08|新增玩家信息查询接口（*GetUserInfo*）、取消玩家ip接口（~~GetUserIp~~）并添加说明     |精华版网站-V1.1.2	|研发部-网站组-余珂 |
+|2017/12/01|增加API详细说明 GetGameIntroList、GetPayProduct||研发部-网站组-余珂 |
+|2017/11/30|新增1.3 常见错误列表||研发部-网站组-余珂 |
+|2017/11/29|修改排行榜数据接口-添加玩家ip字段，新增查询玩家ip接口（*GetUserIp*）|精华版网站-V1.1.1	|研发部-网站组-余珂 |
+|2017/11/27|新增支付结果查询接口（*GetPayOrderStatus*）|精华版网站-V1.1.0|研发部-网站组-余珂 |
+|2017/11/22|开始整理 ||研发部-网站组-余珂 |
 
 -----------
 
@@ -125,11 +128,14 @@
 |其他|其他|可能由数据库存储过程响应也可能又服务器直接响应并未具体规范|
 
 ###2 逻辑部分
+
 ---
+
 ####2.1 API列表
 |action|method|apiVersion|请求参数|响应参数（规范待统一）|说明|
 |:-----|:-----|:---------|:------|:------|:---|
-|[GetUserIp](#h5-2-2-4-getuserip "GetUserIp")|GET| 20171129 |**userid**|**userIp**| 查询玩家IP |
+|[GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")|GET| 20171208 |**userid**|**UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**| 查询玩家信息 |
+|~~GetUserIp~~|~~GET~~| ~~20171129~~ |~~**userid**~~|~~**userIp**~~| ~~因新加玩家信息接口（GetUserInfo）涵盖本接口内容，故废弃~~ |
 |[GetRankingData](#h5-2-2-3-getrankingdata "GetRankingData")|GET| 20171129 |**typeid**|**WealthRank**、**ConsumeRank**、**ScoreRank**| 排行榜数据 |
 |[GetPayOrderStatus](#h5-2-2-2-getpayorderstatus "GetPayOrderStatus")|GET| 20171127 |**orderid**| **OrderID**、**PayStatus**、PayAmount、Diamond | 支付结果查询 |
 |[CreatePayOrder](#h5-2-2-1-createpayorder "CreatePayOrder")|GET| 20171123 |**userid**、**configid**、**paytype**、openid、subtype| **OrderID**、PayPackage、PayUrl | 支付接口 |
@@ -334,14 +340,14 @@
 
 ------------
 
-#####2.2.4 GetUserIp
+#####2.2.4 GetUserInfo
 
 **简要描述：**
 
-- 查询玩家Ip接口
+- 查询玩家信息接口
 
 **请求URL：**
-- API_URL + ` ?action=GetUserIp&userid=xx&time=xx&sign=xx `
+- API_URL + ` ?action=GetUserInfo&userid=xx&time=xx&sign=xx `
 
 **请求方式：**
 - GET
@@ -361,7 +367,12 @@
   "data": {
     "apiVersion":XXXXXXXX,
     "valid": true,
-    "userIp": "xxx.xxx.xxx.xxx"
+    "UserID": xxx,
+    "GameID": xxx,
+    "CustomID": xxx,
+    "NickName": "xxx",
+    "UnderWrite": "xxxxxx",
+    "LastLogonIP": "xxx.xxx.xxx.xxx"
   }
 }
 ```
@@ -370,7 +381,12 @@
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
-|userIp |string   |玩家最后登录的IP地址  |
+|UserID |number   |玩家标识  |
+|GameID |number   |游戏标识  |
+|CustomID |number   |玩家头像标识  |
+|NickName |string   |玩家昵称  |
+|UnderWrite |string   |玩家签名  |
+|LastLogonIP |string   |玩家最后登录的IP地址  |
 
  **备注**
 
@@ -500,9 +516,3 @@
  **备注**
 
 - 更多响应错误代码请看首页的错误代码描述
-
-
-
-
-
-

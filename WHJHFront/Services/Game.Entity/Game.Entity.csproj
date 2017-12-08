@@ -68,12 +68,12 @@
     <Compile Include="Treasure\AppReceipt.cs" />
     <Compile Include="Treasure\AppReceiptInfo.cs" />
     <Compile Include="Treasure\CurrencyExchConfig.cs" />
-    <Compile Include="Treasure\UserWealth.cs" />
     <Compile Include="Treasure\OnLinePayOrder.cs" />
     <Compile Include="Treasure\RecordInsure.cs" />
     <Compile Include="Treasure\RecordSpreadAward.cs" />
     <Compile Include="Treasure\RecordVideoInfo.cs" />
     <Compile Include="Treasure\SpreadConfig.cs" />
+    <Compile Include="Treasure\UserWealth.cs" />
     <Compile Include="Treasure\UserCurrency.cs" />
   </ItemGroup>
   <ItemGroup />

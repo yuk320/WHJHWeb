@@ -53,6 +53,7 @@ namespace Game.Web.Card
                         {
                             Response.Write(
                                 "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" +
+                                wu.nickname + "，" +
                                 msg.Content + "</div>");
                         }
                     }
