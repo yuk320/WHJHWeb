@@ -72,7 +72,7 @@ namespace Game.Data
         public AccountsInfo GetAccountsInfoByUserID(int userid)
         {
             const string sqlQuery =
-                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID FROM AccountsInfo WITH(NOLOCK) WHERE UserID = @UserID";
+                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID,RegisterIP,LastLogonIP,UnderWrite FROM AccountsInfo WITH(NOLOCK) WHERE UserID = @UserID";
             List<DbParameter> parms = new List<DbParameter> {Database.MakeInParam("UserID", userid)};
             return Database.ExecuteObject<AccountsInfo>(sqlQuery, parms);
         }
@@ -85,9 +85,10 @@ namespace Game.Data
         public AccountsInfo GetAccountsInfoByGameID(int gameid)
         {
             const string sqlQuery =
-                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID,UserUin FROM AccountsInfo WITH(NOLOCK) WHERE GameID = @GameID";
+                @"SELECT UserID FROM AccountsInfo WITH(NOLOCK) WHERE GameID = @GameID";
             List<DbParameter> parms = new List<DbParameter> {Database.MakeInParam("GameID", gameid)};
-            return Database.ExecuteObject<AccountsInfo>(sqlQuery, parms);
+            object result = Database.ExecuteScalar(CommandType.Text, sqlQuery, parms.ToArray());
+            return result != null ? GetAccountsInfoByUserID(Convert.ToInt32(result)) : null;
         }
 
         /// <summary>
@@ -98,9 +99,10 @@ namespace Game.Data
         public AccountsInfo GetAccountsInfoByUserUin(string useruin)
         {
             const string sqlQuery =
-                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID FROM AccountsInfo WITH(NOLOCK) WHERE UserUin = @UserUin";
+                @"SELECT UserID FROM AccountsInfo WITH(NOLOCK) WHERE UserUin = @UserUin";
             List<DbParameter> parms = new List<DbParameter> {Database.MakeInParam("UserUin", useruin)};
-            return Database.ExecuteObject<AccountsInfo>(sqlQuery, parms);
+            object result = Database.ExecuteScalar(CommandType.Text, sqlQuery, parms.ToArray());
+            return result != null ? GetAccountsInfoByUserID(Convert.ToInt32(result)) : null;
         }
 
         /// <summary>
@@ -134,9 +136,10 @@ namespace Game.Data
         /// <returns>LastLogonIP</returns>
         public string GetUserIP(int userid)
         {
-            string sql = $"SELECT LastLogonIP FROM AccountsInfo(NOLOCK) WHERE UserID = {userid}";
-            return Database.ExecuteScalar(CommandType.Text, sql).ToString();
+            AccountsInfo userInfo = GetAccountsInfoByUserID(userid);
+            return userInfo?.LastLogonIP ?? "";
         }
+
         #endregion
 
         #region 代理信息
