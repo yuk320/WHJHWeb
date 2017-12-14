@@ -324,5 +324,19 @@ namespace Game.Facade
             return aideTreasureData.UpdateCurrencyExch(config);
         }
         #endregion
+
+        #region 卡线管理
+
+        /// <summary>
+        /// 批量清除玩家卡线
+        /// </summary>
+        /// <param name="userlist"></param>
+        /// <returns></returns>
+        public int CleanGameScoreLocker(string userlist)
+        {
+            return aideTreasureData.CleanGameScoreLocker(userlist);
+        }
+
+        #endregion
     }
 }

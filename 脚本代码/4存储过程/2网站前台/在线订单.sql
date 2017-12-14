@@ -64,17 +64,22 @@ BEGIN
 	IF @PayChannel IS NULL OR @PayChannel=0
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
-		RETURN 1001
+		RETURN 2003
 	END
 	IF @PayChannel=1 AND @dwShareID>=200
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
-		RETURN 1002
+		RETURN 2003
 	END
-	IF @PayChannel=2 AND @dwShareID<200
+	IF @PayChannel=2 AND @dwShareID<200 AND @dwShareID>=300
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
-		RETURN 1003
+		RETURN 2003
+	END
+  IF @PayChannel=4 AND @dwShareID<300
+  BEGIN
+		SET @strErrorDescribe=N'抱歉！充值渠道未开放！'
+		RETURN 2003
 	END
 
 	-- 充值配置验证
@@ -82,12 +87,12 @@ BEGIN
 	IF @Amount IS NULL
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值产品不存在！'
-		RETURN 1004
+		RETURN 2004
 	END
 	IF @Amount <= 0 OR @Diamond <=0
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值产品配置异常！'
-		RETURN 1004
+		RETURN 2004
 	END
 
 	--时间计算
@@ -122,7 +127,7 @@ BEGIN
 	IF @OrderID IS NOT NULL
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值繁忙,请稍后重新充值！'
-		RETURN 3001
+		RETURN 2005
 	END
 
 	-- 获取用户信息
@@ -130,12 +135,12 @@ BEGIN
 	IF @UserID IS NULL
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值账号不存在！'
-		RETURN 2001
+		RETURN 2006
 	END
 	IF @Nullity=1
 	BEGIN
 		SET @strErrorDescribe=N'抱歉！充值账号已冻结状态！'
-		RETURN 2002
+		RETURN 2007
 	END
 
 	-- 充值推广验证
@@ -145,7 +150,7 @@ BEGIN
     IF @SpreaderID<=0 AND @BindSpread=0
     BEGIN
       SET @strErrorDescribe=N'抱歉！充值账号未绑定推广人！'
-      RETURN 2003
+      RETURN 2008
     END
   END
 

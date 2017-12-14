@@ -70,7 +70,7 @@ namespace Game.Web
             {
                 #region 演示版本
 
-                Response.Redirect("http://ry.foxuc.net/JJHAuthorize.aspx?url=" + LinkUrl);
+                Response.Redirect("http://ry.foxuc.net/JJHAuthorize.aspx?url=" + (LinkUrl.Equals("")?"http://jh.foxuc.net/h5/hall/":LinkUrl));
 
                 #endregion
             }

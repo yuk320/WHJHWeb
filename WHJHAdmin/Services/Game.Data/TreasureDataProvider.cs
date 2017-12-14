@@ -544,5 +544,20 @@ namespace Game.Data
         }
 
         #endregion
+
+        #region 卡线管理
+
+        /// <summary>
+        /// 批量清除玩家卡线
+        /// </summary>
+        /// <param name="userlist"></param>
+        /// <returns></returns>
+        public int CleanGameScoreLocker(string userlist)
+        {
+            string sqlQuery = $"DELETE GameScoreLocker  WHERE UserID IN({userlist})";
+            return Database.ExecuteNonQuery(sqlQuery);
+        }
+
+        #endregion
     }
 }

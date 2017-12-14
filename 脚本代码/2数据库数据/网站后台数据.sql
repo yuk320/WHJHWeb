@@ -13,6 +13,8 @@ INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [OrderNo], [Nullity], [IsMenu], [Description], [ManagerPopedom]) VALUES (8, 0, N'后台系统', N'', 8, 0, 1, N'', 0)
 
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (100, 1, N'用户管理', N'/Module/AccountManager/AccountsList.aspx', 0, 0, 1, N'', 0)
+INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom])
+                    VALUES (101, 1, N'金币在线玩家', N'/Module/AccountManager/UserPlaying.aspx', 0, 0, 2, N'', 0)
 -- INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (102, 1, N'限制管理', N'/Module/AccountManager/ConfineAddressList.aspx', 0, 0, 4, N'', 0)
 INSERT [dbo].[Base_Module] ([ModuleID], [ParentID], [Title], [Link], [IsMenu], [Nullity], [OrderNo], [Description], [ManagerPopedom]) VALUES (103, 1, N'代理管理', N'/Module/AgentManager/AgentUserList.aspx', 0, 0, 1, N'', 0)
 

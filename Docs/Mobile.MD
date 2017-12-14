@@ -2,11 +2,13 @@
 
 |说明日期|更新说明|网站版本|作者|
 |:----    |:-------    |:--- |-- -|
-|2017/12/08|新增玩家信息查询接口（*GetUserInfo*）、取消玩家ip接口（~~GetUserIp~~）并添加说明     |精华版网站-V1.1.2	|研发部-网站组-余珂 |
+|2017/12/13|修改玩家登录后数据接口（GetMobileLoginLater）、领取注册奖励接口（ReceiveRegisterGrant）、领取排行榜奖励接口（ReceiveRankingAward）、玩家信息查询接口（GetUserInfo）、API详细说明补全|精华版网站-V1.1.3|研发部-网站组-余珂|
+|2017/12/12|增加API详细说明 GetMobileLoginData、ReceiveSpreadAward||研发部-网站组-余珂 |
+|2017/12/08|新增玩家信息查询接口（*GetUserInfo*）、取消玩家ip接口（~~GetUserIp~~）并添加说明     |精华版网站-V1.1.2	|研发部-网站组-余珂|
 |2017/12/01|增加API详细说明 GetGameIntroList、GetPayProduct||研发部-网站组-余珂 |
 |2017/11/30|新增1.3 常见错误列表||研发部-网站组-余珂 |
-|2017/11/29|修改排行榜数据接口-添加玩家ip字段，新增查询玩家ip接口（*GetUserIp*）|精华版网站-V1.1.1	|研发部-网站组-余珂 |
-|2017/11/27|新增支付结果查询接口（*GetPayOrderStatus*）|精华版网站-V1.1.0|研发部-网站组-余珂 |
+|2017/11/29|修改排行榜数据接口-添加玩家ip字段，新增查询玩家ip接口（*GetUserIp*）|精华版网站-V1.1.1	|研发部-网站组-余珂|
+|2017/11/27|新增支付结果查询接口（*GetPayOrderStatus*）|精华版网站-V1.1.0|研发部-网站组-余珂|
 |2017/11/22|开始整理 ||研发部-网站组-余珂 |
 
 -----------
@@ -134,22 +136,23 @@
 ####2.1 API列表
 |action|method|apiVersion|请求参数|响应参数（规范待统一）|说明|
 |:-----|:-----|:---------|:------|:------|:---|
-|[GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")|GET| 20171208 |**userid**|**UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**| 查询玩家信息 |
+|[GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")|GET| 20171213 |**userid**|**UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**| 查询玩家信息 |
+|[DiamondExchGold](#h5-2-2-16-diamondexchgold "DiamondExchGold")|GET|20171213|**userid**、**configid**、**typeid**|**afterDiamond**、**afterInsureScore**、**afterScore**、**exchDiamond**、**presentGold**| 钻石兑换金币 |
+|[ReceiveRankingAward](#h5-2-2-11-receiverankingaward "ReceiveRankingAward")|GET|20171213|**userid**、**dateid**、**typeid**|diamond、**msg**| 领取排行榜奖励 |
+|[ReceiveRegisterGrant](#h5-2-2-10-receiveregistergrant "ReceiveRegisterGrant")|GET|20171213|**userid**|**diamond**、**score**、**insure**| 领取注册赠送奖励 |
+|[GetMobileLoginLater](#h5-2-2-8-getmobileloginlater "GetMobileLoginLater")|GET| 20171213 |**userid**| **sharelink**、**hasGrant**、**friendcount**、**spreadlist**、**ranklist** | 登录后数据 |
 |~~GetUserIp~~|~~GET~~| ~~20171129~~ |~~**userid**~~|~~**userIp**~~| ~~因新加玩家信息接口（GetUserInfo）涵盖本接口内容，故废弃~~ |
 |[GetRankingData](#h5-2-2-3-getrankingdata "GetRankingData")|GET| 20171129 |**typeid**|**WealthRank**、**ConsumeRank**、**ScoreRank**| 排行榜数据 |
 |[GetPayOrderStatus](#h5-2-2-2-getpayorderstatus "GetPayOrderStatus")|GET| 20171127 |**orderid**| **OrderID**、**PayStatus**、PayAmount、Diamond | 支付结果查询 |
-|[CreatePayOrder](#h5-2-2-1-createpayorder "CreatePayOrder")|GET| 20171123 |**userid**、**configid**、**paytype**、openid、subtype| **OrderID**、PayPackage、PayUrl | 支付接口 |
+|[CreatePayOrder](#h5-2-2-1-createpayorder "CreatePayOrder")|GET| 20171123 |**userid**、**configid**、**paytype**、openid、subtype、device| **OrderID**、PayPackage、PayUrl | 支付接口 |
 |[GetGameIntroList](#h5-2-2-5-getgameintrolist "GetGameIntroList")|GET| 20171107 | | **ruleList** | 游戏玩法列表 |
 |[GetPayProduct](#h5-2-2-6-getpayproduct "GetPayProduct")|GET| 20171028 |**userid**、typeid| **isFirst**、**list**、**goldList** | 充值产品列表 |
-|GetMobileLoginData|GET| 20171017 || **systemConfig**、**customerService**、**systemNotice**、**adsList**、**adsAlertList** | 登录前数据 |
-|GetMobileLoginLater|GET| 20171010 |**userid**| **sharelink**、**registergrant**、**friendcount**、**spreadlist**、**ranklist** | 登录后数据 |
-|ReceiveSpreadAward|GET| 20171010 |**userid**、**configid**|| 领取推广好友奖励 |
-|GetUserWealth|GET| 20171010 |**userid**|**diamond**、**score**、**insure**| 用户财富 |
-|GetGameList|GET|20171010||**downloadurl**、**clientversion**、**resversion**、**ios_url**、**gamelist**| 游戏列表 |
-|ReceiveRegisterGrant|GET|20171010|**userid**|**Diamond**、**Score**、**InsureScore**、**ios_url**、**gamelist**| 领取注册赠送奖励 |
-|RecordTreasureTrade|GET|20171010|**userid**、page、size|**list**| 金币流水记录 |
-|RecordDiamondsTrade|GET|20171010|**userid**、page、size|**list**| 钻石流水记录 |
-|DiamondExchGold|GET|20171010|**userid**、**configid**、**typeid**|**AfterDiamond**、**AfterInsureScore**、**AfterScore**、**ExchDiamond**、**PresentGold**| 钻石兑换金币 |
+|[GetMobileLoginData](#h5-2-2-7-getmobilelogindata "GetMobileLoginData")|GET| 20171017 || **systemConfig**、**customerService**、**systemNotice**、**adsList**、**adsAlertList** | 登录前数据 |
+|[ReceiveSpreadAward](#h5-2-2-9-receivespreadaward "ReceiveSpreadAward")|GET| 20171010 |**userid**、**configid**|**msg**| 领取推广好友奖励 |
+|[GetUserWealth](#h5-2-2-12-getuserwealth "GetUserWealth")|GET| 20171010 |**userid**|**diamond**、**score**、**insure**| 用户财富|
+|[GetGameList](#h5-2-2-13-getgamelist "GetGameList")|GET|20171010||**downloadurl**、**clientversion**、**resversion**、**ios_url**、**gamelist**| 游戏列表 |
+|[RecordTreasureTrade](#h5-2-2-14-recordtreasuretrade "RecordTreasureTrade")|GET|20171010|**userid**、page、size|**list**| 金币流水记录 |
+|[RecordDiamondsTrade](#h5-2-2-15-recorddiamondstrade "RecordDiamondsTrade")|GET|20171010|**userid**、page、size|**list**| 钻石流水记录 |
 **备注**
 - 接口action 并不区分大小写
 - apiVersion 自2017/10/10开始加入必选响应参数，所以默认是20171010 代表自那天起接口无变化
@@ -165,7 +168,7 @@
 - 支付接口
 
 **请求URL：**
-- API_URL + `?action=CreatePayOrder&userid=xx&time=xx&sign=xx&configid=xx&paytype=xx&openid=xx&suptype=xx `
+- API_URL + `?action=CreatePayOrder&userid=xx&time=xx&sign=xx&configid=xx&paytype=xx&openid=xx&suptype=xx&device=xx `
 
 **请求方式：**
 - GET
@@ -177,8 +180,9 @@
 |userid |是  |number |用户标识   |
 |configid |是  |number | 支付配置标识 |
 |paytype |是  |string | 支付渠道 `目前支持：wx、zfb、hwx、lq`|
-|openid|否|string|paytype=wx时,openid代表充值用户的openid|
+|openid|否|string|paytype=wx且为H5场景需要支付时,openid代表充值用户的openid，APP（SDK）支付请勿传值|
 |subtype|否|string|paytype=lq时,subtype代表充值的具体渠道wx代表微信支付、zfb代表支付宝支付|
+|device|否|string|某些场景由于没有充值预绑定推广员的功能时，可传device，不为空则为特殊场景|
 
 
  **响应示例**
@@ -354,9 +358,7 @@
 
 **参数：**
 
-|参数名|必选|类型|说明|
-|:----    |:---|:----- |-----   |
-|userid |是  |number |玩家标识   |
+含userid验证
 
  **响应示例**
 
@@ -372,7 +374,8 @@
     "CustomID": xxx,
     "NickName": "xxx",
     "UnderWrite": "xxxxxx",
-    "LastLogonIP": "xxx.xxx.xxx.xxx"
+    "LastLogonIP": "xxx.xxx.xxx.xxx",
+    "PlaceName":"xxx"
   }
 }
 ```
@@ -387,6 +390,7 @@
 |NickName |string   |玩家昵称  |
 |UnderWrite |string   |玩家签名  |
 |LastLogonIP |string   |玩家最后登录的IP地址  |
+|PlaceName |string   |玩家最后登录的地名  |
 
  **备注**
 
@@ -451,7 +455,7 @@
 - 获取游戏规则列表
 
 **请求URL：**
-- API_URL + ` ?action=GetPayProduct&userid=xx&time=xx&sign=xx `
+- API_URL + ` ?action=GetPayProduct&userid=xx&time=xx&sign=xx&typeid=xx `
 
 **请求方式：**
 - GET
@@ -512,6 +516,599 @@
 |ExchGold|number|兑换时，获得多少金币|
 |ImageType|number|图片资源类型（1、2、3、4）|
 |SortID|number|排序标识|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.7 GetMobileLoginData
+
+**简要描述：**
+
+- 获取手机端登录数据
+
+**请求URL：**
+- API_URL + ` ?action=GetMobileLoginData&time=xx&sign=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+无userid验证
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "systemConfig": {MobileSystemConfig},
+    "customerService": {MobileCustomerService},
+    "systemNotice": [Array{NoticeMobile}],
+    "adsList": [Array{AdsMobile}],
+    "adsAlertList": [Array{AdsMobile}]
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|systemConfig|Object(MobileSystemConfig)|手机系统配置|
+|customerService|Object(MobileCustomerService)|支付产品列表|
+|systemNotice|Array(NoticeMobile)|通知列表|
+|adsList|Array(AdsMobile)|广告图列表|
+|adsAlertList|Array(AdsMobile)|弹出广告图列表|
+
+ **MobileSystemConfig 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|IsOpenMall|number|是否开放商城|
+|IsPayBindSpread|number|是否支付时需要预先绑定推广员|
+|BindSpreadPresent|number|绑定推广员赠送钻石|
+|RankingListType|number|排行榜列表类型|
+|PayChannel|number|充值渠道类型|
+|DiamondBuyPropCount|number|钻石购买喇叭数量|
+|RealNameAuthentPresent|number|实名认证赠送钻石|
+|EffectiveFriendGame|number|推广好友有效局数|
+|IOSNotStorePaySwitch|number|IOS非内购标识|
+|GoldBuyPropCount|number|金币购买喇叭加个|
+|EnjoinInsure|number|是否开放银行|
+|TransferStauts|number|转账服务状态|
+
+ **MobileCustomerService 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|Phone|string|客服热线|
+|WeiXin|string|微信公众号|
+|QQ|string|客服QQ|
+|Link|string|官网地址|
+
+ **NoticeMobile 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|NoticeID|int|公告通知标识|
+|NoticeTitle|string|标题|
+|MoblieContent|string|正文|
+|PublisherTime|date|发布时间|
+
+ **AdsMobile 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|ResourceURL|string|资源地址（图片）|
+|LinkURL|string|链接地址|
+|SortID|number|排序|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.8 GetMobileLoginLater
+
+**简要描述：**
+
+- 获取手机端登录数据
+
+**请求URL：**
+- API_URL + ` ?action=GetMobileLoginLater&userid=xx&time=xx&sign=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+含userid验证
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "sharelink": "xxxxxx",
+    "hasGrant": false,
+    "grantDiamond": xxx,
+    "grantGold": xxx,
+    "friendcount": xx,
+    "spreadlist": [Array{SpreadConfigMobile}],
+    "ranklist": [Array{RankingRecevieMobile}]
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|sharelink|string|推广基础链接|
+|hasGrant|bool|是否有未领取的注册奖励，如有则应触发领取注册奖励接口（ReceiveRegisterGrant）进行领取|
+|grantDiamond|number|注册奖励钻石数|
+|grantGold|number|注册奖励金币数|
+|friendcount|number|好友数量|
+|spreadlist|Array(SpreadConfigMobile)|推广奖励配置|
+|ranklist|Array(RankingRecevieMobile)|玩家排行奖励信息|
+
+ **SpreadConfigMobile 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|ConfigID|number|配置标识|
+|SpreadNum|number|推广有效好友数|
+|PresentDiamond|number|赠送钻石数量|
+|PresentPropID|number|赠送道具标识|
+|PresentPropName|string|赠送道具名称|
+|PresentPropNum|number|赠送道具数量|
+|Flag|bool|是否可用|
+
+ **RankingRecevieMobile 结构体**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|DateID|number|时间标识|
+|UserID|number|玩家标识|
+|GameID|number|玩家游戏标识|
+|NickName|string|玩家昵称|
+|SystemFaceID|number|玩家系统头像标识|
+|FaceUrl|string|玩家自定义头像地址|
+|TypeID|number|类型标识|
+|RankID|number|名次|
+|RankValue|number|分值|
+|Diamond|number|排行奖励钻石数|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.9 ReceiveSpreadAward
+
+**简要描述：**
+
+- 玩家领取推广
+
+**请求URL：**
+- API_URL + ` ?action=ReceiveSpreadAward&userid=xx&time=xx&sign=xx&configid=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----|
+|userid |是  |number |玩家标识|
+|configid |是  |number |推广奖励标识|
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "msg": "xxxxxx"
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|msg|string|成功或失败消息|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.10 ReceiveRegisterGrant
+
+**简要描述：**
+
+- 玩家领取注册奖励
+
+**请求URL：**
+- API_URL + ` ?action=ReceiveRegisterGrant&userid=xx&time=xx&sign=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+含userid验证
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "score": xxxx,
+    "insure": xxxx,
+    "diamond": xxxx,
+    "msg": "xxxxxx"
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|score|number|携带金币数|
+|insure|number|银行金币数|
+|diamond|number|钻石数|
+|msg|string|成功或失败消息|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.11 ReceiveRankingAward
+
+**简要描述：**
+
+- 玩家领取推广奖励
+
+**请求URL：**
+- API_URL + ` ?action=ReceiveRankingAward&userid=xx&time=xx&sign=xx&typeid=xx&dateid=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----|
+|userid |是  |number |玩家标识|
+|typeid |是  |number |排行榜类型标识|
+|dateid |是  |number |奖励日期标识|
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "diamond": xxx,
+    "msg": "xxxxxx"
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|diamond|number|领取钻石数量|
+|msg|string|成功或失败消息|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.12 GetUserWealth
+
+**简要描述：**
+
+- 获取玩家财富信息
+
+**请求URL：**
+- API_URL + ` ?action=GetUserWealth&userid=xx&time=xx&sign=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+含userid验证
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "insure": xxx,
+    "score": xxx,
+    "diamond": xxx
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|insure|number|玩家当前银行金币|
+|score|number|玩家当前携带金币|
+|diamond|number|玩家当前钻石|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.13 GetGameList
+
+**简要描述：**
+
+- 获取游戏列表及信息
+
+**请求URL：**
+- API_URL + ` ?action=GetGameList&time=xx&sign=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+无userid验证
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "downloadurl": "xxx",
+    "clientversion": "xxx",
+    "resversion": "xxx",
+    "ios_url": "xxx",
+    "gamelist": [Array{MobileKindItem}]
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|downloadurl|string|基础下载地址|
+|clientversion|string|客户端版本号|
+|resversion|string|资源版本号|
+|ios_url|string|ios版地址|
+|gamelist|Array(MobileKindItem)|游戏列表|
+
+ **MobileKindItem**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|KindID|number|游戏标识|
+|KindName|string|游戏名称|
+|TypeID|number|类型标识|
+|ModuleName|string|模块名称|
+|ClientVersion|number|客户端版本号|
+|ResVersion|number|资源版本号|
+|SortID|number|排序|
+|KindMark|number|种类掩码|
+|Nullity|number|启禁用标识|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.14 RecordTreasureTrade
+
+**简要描述：**
+
+- 金币流水记录
+
+**请求URL：**
+- API_URL + ` ?action=RecordTreasureTrade&userid=xx&time=xx&sign=xx&page=xx&size=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----|
+|userid|是|number|玩家标识|
+|page|否|number|当前分页page可不传，默认1，传值必须大于0|
+|size|否|number|当前单页记录数size可不传，默认10，传值必须大于0|
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "list": [Array{TreasureStream}]
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|list|Array(TreasureStream)|金币流水列表|
+
+ **TreasureStream**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|SerialNumber|string|记录流水号|
+|SerialTime|date|记录事件|
+|BeforeGold|number|操作前金币|
+|ChangeGold|number|操作金币|
+|AfterGold|number|操作后金币|
+|TypeName|string|记录类型|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.15 RecordDiamondsTrade
+
+**简要描述：**
+
+- 钻石流水记录
+
+**请求URL：**
+- API_URL + ` ?action=RecordDiamondsTrade&userid=xx&time=xx&sign=xx&page=xx&size=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----|
+|userid|是|number|玩家标识|
+|page|否|number|当前分页page可不传，默认1，传值必须大于0|
+|size|否|number|当前单页记录数size可不传，默认10，传值必须大于0|
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "list": [Array{DiamondStream}]
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|list|Array(DiamondStream)|钻石流水列表|
+
+ **DiamondStream**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|SerialNumber|string|记录流水号|
+|SerialTime|date|记录事件|
+|BeforeDiamond|number|操作前钻石|
+|ChangeDiamond|number|操作钻石|
+|AfterDiamond|number|操作后钻石|
+|TypeName|string|记录类型|
+
+ **备注**
+
+- 更多响应错误代码请看首页的错误代码描述
+
+------------
+
+#####2.2.16 DiamondExchGold
+
+**简要描述：**
+
+- [商城]钻石兑换金币
+
+**请求URL：**
+- API_URL + ` ?action=DiamondExchGold&userid=xx&time=xx&sign=xx&configid=xx&typeid=xx `
+
+**请求方式：**
+- GET
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----|
+|userid |是  |number |玩家标识|
+|configid |是  |number |钻石兑换金币配置标识（GetPayProduct接口中响应goldList中的ConfigID）|
+|typeid |是  |number |兑换场景 0：android 1：h5|
+
+ **响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "afterDiamond": xxx,
+    "afterInsure": xxx,
+    "afterScore": xxx,
+    "exchDiamond": xxx,
+    "presentGold": xxx
+  }
+}
+```
+
+ **响应参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|afterDiamond|number|兑换后钻石数量|
+|afterInsure|number|兑换后银行金币|
+|afterScore|number|兑换后携带金币|
+|exchDiamond|number|兑换消耗钻石数量|
+|presentGold|number|兑换获得金币数量|
 
  **备注**
 

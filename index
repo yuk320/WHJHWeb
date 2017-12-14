@@ -43,7 +43,7 @@ let VERSION_LIST = {
 autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString()
   .substr(0, 10)
   .replace(/-/g, "/");
-fs.writeFileSync("./config.json", JSON.stringify(autoConfig,null,2));
+fs.writeFileSync("./config.json", JSON.stringify(autoConfig, null, 2));
 start =
   start == null && VERSION_LIST.last
     ? (start = new Date(VERSION_LIST.last))
@@ -57,7 +57,9 @@ const AUTO_MODE = {
   COMPLETE_ONLY: "CompleteOnly",
   ALL: "ALL"
 };
-console.info(`全自动化工具运行中...模式${autoConfig.mode}...版本${CODE_VERSION}`);
+console.info(
+  `全自动化工具运行中...模式${autoConfig.mode}...版本${CODE_VERSION}`
+);
 /**
  * Pad start string with 0
  *
@@ -115,9 +117,10 @@ const getDirObj = function(opts) {
       : CODE_VERSION;
   let terminDirName =
     opts.terminDirName ||
-    `${PRODUCT_NAME.replace("源码包", opts.tag + opts.output)}-${
-      codeVersion
-    }-${formatDate(opts.end, true)}`;
+    `${PRODUCT_NAME.replace(
+      "源码包",
+      opts.tag + opts.output
+    )}-${codeVersion}-${formatDate(opts.end, true)}`;
   let originDirPath = path.join(__dirname, opts.output, originDirName);
   let terminDirPath = originDirPath.replace(originDirName, terminDirName);
   return {
@@ -154,9 +157,18 @@ let optsUpdate = {
 const optsCode = {
   start: new Date(2017, 0, 1),
   end: DATE_TOMORROW,
-  dot:true,
+  dot: true,
   output: "完整包",
-  ignore: ["网站发布/WHJHFront/index.html",".git/**/*",".svn/**/*","**/.vs/**/*","**/Game.*/obj/**", "**/Game.*/bin/**", "**/*.user", "**/dist/**/*"],
+  ignore: [
+    "网站发布/WHJHFront/index.html",
+    ".git/**/*",
+    ".svn/**/*",
+    "**/.vs/**/*",
+    "**/Game.*/obj/**",
+    "**/Game.*/bin/**",
+    "**/*.user",
+    "**/dist/**/*"
+  ],
   tag: ""
 };
 const optsRoomCard = {
@@ -629,9 +641,7 @@ epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
             if (err) console.info(err);
             subCount++;
             console.info(
-              `Step_${allCount}_${
-                subCount
-              } [完整包]打包完成，正在为你打开更新包文件夹`
+              `Step_${allCount}_${subCount} [完整包]打包完成，正在为你打开更新包文件夹`
             );
             console.timeEnd("完整包打包");
             exec("start " + path.join(__dirname, optsCode.output));
@@ -671,9 +681,7 @@ epPublish.after("publish", NEED_PUBLISH_PROJS.length, publish => {
               if (err) console.info(err);
               subCount++;
               console.info(
-                `Step_${allCount}_${
-                  subCount
-                } [更新包]打包完成，正在为你打开更新包文件夹`
+                `Step_${allCount}_${subCount} [更新包]打包完成，正在为你打开更新包文件夹`
               );
               console.timeEnd("更新包打包");
               epUpdate.emit("updated", true);
@@ -714,6 +722,9 @@ function publishExec(proj) {
     (err, stdout, stderr) => {
       projCount++;
       console.info(`Step_0_${projCount} 项目[${proj.name}] 发布完成!`);
+      if (err) {
+        console.info(`Step_0_${projCount} 项目[${proj.name}] 编译出错!`);
+      }
       if (proj.name === "WHJHFront" && autoConfig.otherRoomCard) {
         copyRoomCard(function(err, result) {
           if (err) {

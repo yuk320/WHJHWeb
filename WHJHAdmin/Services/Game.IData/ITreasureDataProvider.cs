@@ -212,5 +212,16 @@ namespace Game.IData
         /// <returns></returns>
         int UpdateCurrencyExch(CurrencyExchConfig config);
         #endregion
+
+        #region 卡线管理
+
+        /// <summary>
+        /// 批量清除玩家卡线
+        /// </summary>
+        /// <param name="userlist"></param>
+        /// <returns></returns>
+        int CleanGameScoreLocker(string userlist);
+
+        #endregion
     }
 }

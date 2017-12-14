@@ -79,6 +79,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //获取手机端登录后数据
                 case "getmobileloginlater":
+                    _ajv.SetDataItem("apiVersion", 20171213);
                     GetMobileLoginLater();
                     break;
                 //获取充值产品列表
@@ -147,6 +148,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //领取排行奖励
                 case "receiverankingaward":
+                    _ajv.SetDataItem("apiVersion",20171213);
                     //获取参数
                     int dateid = GameRequest.GetQueryInt("dateid", 0);
 
@@ -166,6 +168,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //领取注册赠送奖励
                 case "receiveregistergrant":
+                    _ajv.SetDataItem("apiVersion",20171213);
                     ReceiveRegisterGrant();
                     break;
                 //金币流水记录
@@ -178,6 +181,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     break;
                 //钻石兑换金币
                 case "diamondexchgold":
+                    _ajv.SetDataItem("apiVersion",20171213); //for 响应规范
                     if (configid <= 0 || typeid < 0)
                     {
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
@@ -259,8 +263,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             string shareLink = GetSpreadLink(ds.Tables[0], false);
             //获取注册奖励
             DataTable table = ds.Tables[1];
-            int registerGrant = (table != null && table.Rows.Count > 0)
+            int grantDiamond = (table != null && table.Rows.Count > 0)
                 ? Convert.ToInt32(table.Rows[0]["GrantDiamond"])
+                : 0;
+            int grantGold = (table != null && table.Rows.Count > 0)
+                ? Convert.ToInt32(table.Rows[0]["GrantGold"])
                 : 0;
             //获取推广配置
             IList<SpreadConfigMobile> spreadList =
@@ -275,7 +282,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             //输出信息
             _ajv.SetValidDataValue(true);
             _ajv.SetDataItem("sharelink", shareLink);
-            _ajv.SetDataItem("registergrant", registerGrant);
+            _ajv.SetDataItem("hasGrant", grantDiamond>0||grantGold>0);
+            _ajv.SetDataItem("grantDiamond", grantDiamond);
+            _ajv.SetDataItem("grantGold", grantGold);
             _ajv.SetDataItem("friendcount", friendCount);
             _ajv.SetDataItem("spreadlist", spreadList);
             _ajv.SetDataItem("ranklist", rankList);
@@ -503,6 +512,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             _ajv.SetDataItem("NickName", userInfo.NickName);
             _ajv.SetDataItem("UnderWrite", userInfo.UnderWrite);
             _ajv.SetDataItem("LastLogonIP", userInfo.LastLogonIP);
+            _ajv.SetDataItem("PlaceName", userInfo.PlaceName);
         }
 
         /// <summary>
@@ -519,7 +529,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             {
                 _ajv.SetValidDataValue(true);
                 UserCurrency currency = msg.EntityList[0] as UserCurrency;
-                _ajv.SetDataItem("Diamond", currency?.Diamond ?? 0);
+                _ajv.SetDataItem("diamond", currency?.Diamond ?? 0);
             }
             _ajv.msg = msg.Content;
         }
@@ -566,9 +576,9 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             {
                 _ajv.SetValidDataValue(true);
                 UserWealth wealth = msg.EntityList[0] as UserWealth;
-                _ajv.SetDataItem("Score", wealth?.Score ?? 0);
-                _ajv.SetDataItem("InsureScore", wealth?.InsureScore ?? 0);
-                _ajv.SetDataItem("Diamond", wealth?.Diamond ?? 0);
+                _ajv.SetDataItem("score", wealth?.Score ?? 0);
+                _ajv.SetDataItem("insure", wealth?.InsureScore ?? 0);
+                _ajv.SetDataItem("diamond", wealth?.Diamond ?? 0);
             }
             _ajv.msg = msg.Content;
         }
@@ -665,11 +675,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         DataHelper.ConvertRowToObject<DiamondExchRecord>(dataSet.Tables[0].Rows[0]);
                     if (record == null) return;
                     _ajv.SetValidDataValue(true);
-                    _ajv.SetDataItem("AfterDiamond", record.AfterDiamond);
-                    _ajv.SetDataItem("AfterInsureScore", record.AfterInsureScore);
-                    _ajv.SetDataItem("AfterScore", record.AfterScore);
-                    _ajv.SetDataItem("ExchDiamond", record.ExchDiamond);
-                    _ajv.SetDataItem("PresentGold", record.PresentGold);
+                    _ajv.SetDataItem("afterDiamond", record.AfterDiamond);
+                    _ajv.SetDataItem("afterInsure", record.AfterInsureScore);
+                    _ajv.SetDataItem("afterScore", record.AfterScore);
+                    _ajv.SetDataItem("exchDiamond", record.ExchDiamond);
+                    _ajv.SetDataItem("presentGold", record.PresentGold);
                 }
             }
             _ajv.msg = msg.Content;

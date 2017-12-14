@@ -333,14 +333,15 @@ namespace Game.Entity.Accounts
 		private string m_userUin;						//
 		private int m_rankID;						//
         private int m_agentID;                      //代理标识
-		#endregion
+        private string m_placeName;                      //地名
+        #endregion
 
-		#region 构造方法
+        #region 构造方法
 
-		/// <summary>
-		/// 初始化AccountsInfo
-		/// </summary>
-		public AccountsInfo()
+        /// <summary>
+        /// 初始化AccountsInfo
+        /// </summary>
+        public AccountsInfo()
 		{
 			m_userID=0;
 			m_gameID=0;
@@ -393,6 +394,7 @@ namespace Game.Entity.Accounts
 			m_userUin="";
 			m_rankID=0;
             m_agentID = 0;
+		    m_placeName = "";
 		}
 
 		#endregion
@@ -857,6 +859,15 @@ namespace Game.Entity.Accounts
             get { return m_agentID; }
             set { m_agentID = value; }
         }
-		#endregion
-	}
+
+	    /// <summary>
+	    /// 地名
+	    /// </summary>
+	    public string PlaceName
+	    {
+	        get { return m_placeName; }
+	        set { m_placeName = value; }
+	    }
+        #endregion
+    }
 }

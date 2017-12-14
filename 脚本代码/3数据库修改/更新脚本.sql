@@ -13,6 +13,11 @@ INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
 VALUES(N'SpreadReceiveBase', 0, N'全局推广返利领取门槛', N'推广返利条件', N'键值：推广返利条件，0：无门槛 大于0代表 需要可领取数大于多少才能提取', 100)
 
+-- 2017/12/13 用户表添加位置信息
+
+ALTER TABLE [dbo].[AccountsInfo] ADD [PlaceName] NVARCHAR(33) NOT NULL DEFAULT(N'')
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'最后一次登录地名' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AccountsInfo', @level2type=N'COLUMN',@level2name=N'PlaceName'
 GO
 
 USE [WHJHNativeWebDB]

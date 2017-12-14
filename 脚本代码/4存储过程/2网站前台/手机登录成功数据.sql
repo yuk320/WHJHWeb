@@ -42,7 +42,7 @@ BEGIN
 	SELECT @AgentID AS AgentID,@GameID AS GameID,@AgentDomain AS AgentDomain
 
 	-- 注册奖励记录
-	SELECT GrantDiamond FROM WHJHRecordDB.dbo.RecordRegisterGrant WITH(NOLOCK) WHERE UserID = @dwUserID AND IsReceive=0
+	SELECT GrantDiamond,GrantGold FROM WHJHRecordDB.dbo.RecordRegisterGrant WITH(NOLOCK) WHERE UserID = @dwUserID AND IsReceive=0
 
 	-- 获取玩家推广人配置
 	SELECT S.ConfigID,S.SpreadNum,S.PresentDiamond,S.PresentPropID,S.PresentPropName,S.PresentPropNum,
@@ -50,13 +50,13 @@ BEGIN
 	LEFT JOIN WHJHTreasureDB.dbo.RecordSpreadAward AS R WITH(NOLOCK) ON S.ConfigID = R.ConfigID AND R.UserID = @dwUserID
 
 	-- 排行版数据
-	SELECT R.DateID,R.UserID,R.GameID,R.NickName,R.SystemFaceID,R.FaceUrl,R.TypeID,R.RankID,R.RankValue,R.Diamond FROM WHJHNativeWebDB.dbo.RecordRankingRecevie AS R WITH(NOLOCK) INNER JOIN 
+	SELECT R.DateID,R.UserID,R.GameID,R.NickName,R.SystemFaceID,R.FaceUrl,R.TypeID,R.RankID,R.RankValue,R.Diamond FROM WHJHNativeWebDB.dbo.RecordRankingRecevie AS R WITH(NOLOCK) INNER JOIN
 	(SELECT DateID,TypeID FROM WHJHNativeWebDB.dbo.RecordRankingRecevie WITH(NOLOCK) WHERE UserID=@dwUserID AND ReceiveState=0 AND ValidityTime>GETDATE()) AS A ON R.DateID=A.DateID AND R.TypeID=A.TypeID
-	
+
 	-- 有效好友数
 	SELECT @StatusValue=StatusValue FROM SystemStatusInfo WITH(NOLOCK) WHERE StatusName IN('JJEffectiveFriendGame')
 	IF @StatusValue IS NULL SET @StatusValue=1
-	SELECT COUNT(UserID) AS Total FROM (SELECT UserID,COUNT(UserID) AS UCount FROM WHJHPlatformDB.dbo.PersonalRoomScoreInfo WITH(NOLOCK) 
+	SELECT COUNT(UserID) AS Total FROM (SELECT UserID,COUNT(UserID) AS UCount FROM WHJHPlatformDB.dbo.PersonalRoomScoreInfo WITH(NOLOCK)
 	WHERE UserID IN (SELECT UserID FROM AccountsInfo WITH(NOLOCK) WHERE SpreaderID = @dwUserID) GROUP BY UserID HAVING COUNT(UserID)>@StatusValue) AS P
 
 END

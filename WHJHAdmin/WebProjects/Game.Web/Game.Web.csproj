@@ -121,6 +121,7 @@
     <Content Include="Module\AccountManager\TreasureChangeList.aspx" />
     <Content Include="Module\AccountManager\TreasureConsume.aspx" />
     <Content Include="Module\AccountManager\TreasureIncome.aspx" />
+    <Content Include="Module\AccountManager\UserPlaying.aspx" />
     <Content Include="Module\AgentManager\AgentGrantDiamond.aspx" />
     <Content Include="Module\AgentManager\AgentUserInfo.aspx" />
     <Content Include="Module\AgentManager\AgentUserList.aspx" />
@@ -2578,6 +2579,13 @@
     </Compile>
     <Compile Include="Module\AccountManager\TreasureIncome.aspx.designer.cs">
       <DependentUpon>TreasureIncome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AccountManager\UserPlaying.aspx.cs">
+      <DependentUpon>UserPlaying.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AccountManager\UserPlaying.aspx.designer.cs">
+      <DependentUpon>UserPlaying.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\AgentManager\AgentGrantDiamond.aspx.cs">
       <DependentUpon>AgentGrantDiamond.aspx</DependentUpon>

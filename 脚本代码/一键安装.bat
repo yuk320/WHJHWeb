@@ -1,4 +1,4 @@
-@echo off
+@echo  off
 
 TITLE 网狐棋牌精华版数据库网站部分 自动安装中...请注意：安装过程中请勿关闭
 COLOR 09
