@@ -182,11 +182,12 @@
 
 ---
 
-####2.2 API 详情
+#### 2.2 API 详情
 
 ---
 
-#####2.2.1 CreatePayOrder
+##### 2.2.1 CreatePayOrder
+
 **简要描述：**
 
 * 支付接口
@@ -240,7 +241,8 @@
 
 ---
 
-#####2.2.2 GetPayOrderStatus
+##### 2.2.2 GetPayOrderStatus
+
 **简要描述：**
 
 * 支付结果查询接口
@@ -291,7 +293,7 @@
 
 ---
 
-#####2.2.3 GetRankingData
+##### 2.2.3 GetRankingData
 
 **简要描述：**
 
@@ -373,7 +375,7 @@
 
 ---
 
-#####2.2.4 GetUserInfo
+##### 2.2.4 GetUserInfo
 
 **简要描述：**
 
@@ -429,7 +431,7 @@
 
 ---
 
-#####2.2.5 GetGameIntroList
+##### 2.2.5 GetGameIntroList
 
 **简要描述：**
 
@@ -481,7 +483,7 @@
 
 ---
 
-#####2.2.6 GetPayProduct
+##### 2.2.6 GetPayProduct
 
 **简要描述：**
 
@@ -558,7 +560,7 @@
 
 ---
 
-#####2.2.7 GetMobileLoginData
+##### 2.2.7 GetMobileLoginData
 
 **简要描述：**
 
@@ -653,7 +655,7 @@
 
 ---
 
-#####2.2.8 GetMobileLoginLater
+##### 2.2.8 GetMobileLoginLater
 
 **简要描述：**
 
@@ -736,7 +738,7 @@
 
 ---
 
-#####2.2.9 ReceiveSpreadAward
+##### 2.2.9 ReceiveSpreadAward
 
 **简要描述：**
 
@@ -783,7 +785,7 @@
 
 ---
 
-#####2.2.10 ReceiveRegisterGrant
+##### 2.2.10 ReceiveRegisterGrant
 
 **简要描述：**
 
@@ -833,7 +835,7 @@
 
 ---
 
-#####2.2.11 ReceiveRankingAward
+##### 2.2.11 ReceiveRankingAward
 
 **简要描述：**
 
@@ -883,7 +885,7 @@
 
 ---
 
-#####2.2.12 GetUserWealth
+##### 2.2.12 GetUserWealth
 
 **简要描述：**
 
@@ -931,7 +933,7 @@
 
 ---
 
-#####2.2.13 GetGameList
+##### 2.2.13 GetGameList
 
 **简要描述：**
 
@@ -997,7 +999,7 @@
 
 ---
 
-#####2.2.14 RecordTreasureTrade
+##### 2.2.14 RecordTreasureTrade
 
 **简要描述：**
 
@@ -1056,7 +1058,7 @@
 
 ---
 
-#####2.2.15 RecordDiamondsTrade
+##### 2.2.15 RecordDiamondsTrade
 
 **简要描述：**
 
@@ -1115,7 +1117,7 @@
 
 ---
 
-#####2.2.16 DiamondExchGold
+##### 2.2.16 DiamondExchGold
 
 **简要描述：**
 
