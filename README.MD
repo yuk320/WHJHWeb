@@ -16,4 +16,4 @@
 - **otherAPI** be true will copy api site to WHJHAPI **filder** form **WHJHFront**
 - **versionList** will be auto rewrite by index script.
 
-[MobileApiDoc](#./Docs/Mobile.MD "MobileApiDoc")
+[MobileApiDoc](./Docs/Mobile.MD "MobileApiDoc")
