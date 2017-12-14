@@ -1,4 +1,4 @@
-###更新说明
+### 更新说明
 
 | 说明日期   | 更新说明                                                                                                                                                                              | 网站版本          | 作者               |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------- | ------------------ |
@@ -13,7 +13,7 @@
 
 ---
 
-###目录
+### 目录
 
 1. [通用部分](#h3-1- "通用部分")
 1. 1.1 [通用说明](#h4-1-1- "通用说明")
@@ -23,15 +23,17 @@
 1. 2.1 [API 列表](#h4-2-1-api- "API列表")
 1. 2.2 [API 详情](#h4-2-2-api- "API详情")
 
-## ###1 通用部分
+### 1 通用部分
 
-####1.1 通用说明
-#####1.1.1 演示地址
+#### 1.1 通用说明
+
+##### 1.1.1 演示地址
 
 * API_URL = `http://jh.foxuc.net/WS/NewMoblieInterface.ashx`
 * 下面提到的接口地址 均为 上述地址 +`?action=xx`
 
-#####1.1.2 通用请求
+##### 1.1.2 通用请求
+
 **请求方式：**
 
 * action 必选，且不区分大小
@@ -137,38 +139,41 @@
 
 ---
 
-####1.3 常见错误列表
-|code|msg|说明|
-|------:|:--- |:-----|
-|0 | |业务处理成功 |
-|2001|抱歉，接口签名错误|签名错误|
-|2002|抱歉，接口参数错误 xxx|xxx 为具体缺失详情描述|
-|其他|其他|可能由数据库存储过程响应也可能又服务器直接响应并未具体规范|
+#### 1.3 常见错误列表
 
-###2 逻辑部分
+| code | msg                    | 说明                                                       |
+| ---: | :--------------------- | :--------------------------------------------------------- |
+|    0 |                        | 业务处理成功                                               |
+| 2001 | 抱歉，接口签名错误     | 签名错误                                                   |
+| 2002 | 抱歉，接口参数错误 xxx | xxx 为具体缺失详情描述                                     |
+| 其他 | 其他                   | 可能由数据库存储过程响应也可能又服务器直接响应并未具体规范 |
+
+### 2 逻辑部分
 
 ---
 
-####2.1 API 列表
-|action|method|apiVersion|请求参数|响应参数（规范待统一）|说明|
-|:-----|:-----|:---------|:------|:------|:---|
-|[GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")|GET| 20171213 |**userid**|**UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**| 查询玩家信息 |
-|[DiamondExchGold](#h5-2-2-16-diamondexchgold "DiamondExchGold")|GET|20171213|**userid**、**configid**、**typeid**|**afterDiamond**、**afterInsureScore**、**afterScore**、**exchDiamond**、**presentGold**| 钻石兑换金币 |
-|[ReceiveRankingAward](#h5-2-2-11-receiverankingaward "ReceiveRankingAward")|GET|20171213|**userid**、**dateid**、**typeid**|diamond、**msg**| 领取排行榜奖励 |
-|[ReceiveRegisterGrant](#h5-2-2-10-receiveregistergrant "ReceiveRegisterGrant")|GET|20171213|**userid**|**diamond**、**score**、**insure**| 领取注册赠送奖励 |
-|[GetMobileLoginLater](#h5-2-2-8-getmobileloginlater "GetMobileLoginLater")|GET| 20171213 |**userid**| **sharelink**、**hasGrant**、**friendcount**、**spreadlist**、**ranklist** | 登录后数据 |
-|~~GetUserIp~~|~~GET~~| ~~20171129~~ |~~**userid**~~|~~**userIp**~~| ~~因新加玩家信息接口（GetUserInfo）涵盖本接口内容，故废弃~~ |
-|[GetRankingData](#h5-2-2-3-getrankingdata "GetRankingData")|GET| 20171129 |**typeid**|**WealthRank**、**ConsumeRank**、**ScoreRank**| 排行榜数据 |
-|[GetPayOrderStatus](#h5-2-2-2-getpayorderstatus "GetPayOrderStatus")|GET| 20171127 |**orderid**| **OrderID**、**PayStatus**、PayAmount、Diamond | 支付结果查询 |
-|[CreatePayOrder](#h5-2-2-1-createpayorder "CreatePayOrder")|GET| 20171123 |**userid**、**configid**、**paytype**、openid、subtype、device| **OrderID**、PayPackage、PayUrl | 支付接口 |
-|[GetGameIntroList](#h5-2-2-5-getgameintrolist "GetGameIntroList")|GET| 20171107 | | **ruleList** | 游戏玩法列表 |
-|[GetPayProduct](#h5-2-2-6-getpayproduct "GetPayProduct")|GET| 20171028 |**userid**、typeid| **isFirst**、**list**、**goldList** | 充值产品列表 |
-|[GetMobileLoginData](#h5-2-2-7-getmobilelogindata "GetMobileLoginData")|GET| 20171017 || **systemConfig**、**customerService**、**systemNotice**、**adsList**、**adsAlertList** | 登录前数据 |
-|[ReceiveSpreadAward](#h5-2-2-9-receivespreadaward "ReceiveSpreadAward")|GET| 20171010 |**userid**、**configid**|**msg**| 领取推广好友奖励 |
-|[GetUserWealth](#h5-2-2-12-getuserwealth "GetUserWealth")|GET| 20171010 |**userid**|**diamond**、**score**、**insure**| 用户财富|
-|[GetGameList](#h5-2-2-13-getgamelist "GetGameList")|GET|20171010||**downloadurl**、**clientversion**、**resversion**、**ios_url**、**gamelist**| 游戏列表 |
-|[RecordTreasureTrade](#h5-2-2-14-recordtreasuretrade "RecordTreasureTrade")|GET|20171010|**userid**、page、size|**list**| 金币流水记录 |
-|[RecordDiamondsTrade](#h5-2-2-15-recorddiamondstrade "RecordDiamondsTrade")|GET|20171010|**userid**、page、size|**list**| 钻石流水记录 |
+#### 2.1 API 列表
+
+| action                                                                         | method  | apiVersion   | 请求参数                                                       | 响应参数（规范待统一）                                                                   | 说明                                                        |
+| :----------------------------------------------------------------------------- | :------ | :----------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
+| [GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")                             | GET     | 20171213     | **userid**                                                     | **UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**      | 查询玩家信息                                                |
+| [DiamondExchGold](#h5-2-2-16-diamondexchgold "DiamondExchGold")                | GET     | 20171213     | **userid**、**configid**、**typeid**                           | **afterDiamond**、**afterInsureScore**、**afterScore**、**exchDiamond**、**presentGold** | 钻石兑换金币                                                |
+| [ReceiveRankingAward](#h5-2-2-11-receiverankingaward "ReceiveRankingAward")    | GET     | 20171213     | **userid**、**dateid**、**typeid**                             | diamond、**msg**                                                                         | 领取排行榜奖励                                              |
+| [ReceiveRegisterGrant](#h5-2-2-10-receiveregistergrant "ReceiveRegisterGrant") | GET     | 20171213     | **userid**                                                     | **diamond**、**score**、**insure**                                                       | 领取注册赠送奖励                                            |
+| [GetMobileLoginLater](#h5-2-2-8-getmobileloginlater "GetMobileLoginLater")     | GET     | 20171213     | **userid**                                                     | **sharelink**、**hasGrant**、**friendcount**、**spreadlist**、**ranklist**               | 登录后数据                                                  |
+| ~~GetUserIp~~                                                                  | ~~GET~~ | ~~20171129~~ | ~~**userid**~~                                                 | ~~**userIp**~~                                                                           | ~~因新加玩家信息接口（GetUserInfo）涵盖本接口内容，故废弃~~ |
+| [GetRankingData](#h5-2-2-3-getrankingdata "GetRankingData")                    | GET     | 20171129     | **typeid**                                                     | **WealthRank**、**ConsumeRank**、**ScoreRank**                                           | 排行榜数据                                                  |
+| [GetPayOrderStatus](#h5-2-2-2-getpayorderstatus "GetPayOrderStatus")           | GET     | 20171127     | **orderid**                                                    | **OrderID**、**PayStatus**、PayAmount、Diamond                                           | 支付结果查询                                                |
+| [CreatePayOrder](#h5-2-2-1-createpayorder "CreatePayOrder")                    | GET     | 20171123     | **userid**、**configid**、**paytype**、openid、subtype、device | **OrderID**、PayPackage、PayUrl                                                          | 支付接口                                                    |
+| [GetGameIntroList](#h5-2-2-5-getgameintrolist "GetGameIntroList")              | GET     | 20171107     |                                                                | **ruleList**                                                                             | 游戏玩法列表                                                |
+| [GetPayProduct](#h5-2-2-6-getpayproduct "GetPayProduct")                       | GET     | 20171028     | **userid**、typeid                                             | **isFirst**、**list**、**goldList**                                                      | 充值产品列表                                                |
+| [GetMobileLoginData](#h5-2-2-7-getmobilelogindata "GetMobileLoginData")        | GET     | 20171017     |                                                                | **systemConfig**、**customerService**、**systemNotice**、**adsList**、**adsAlertList**   | 登录前数据                                                  |
+| [ReceiveSpreadAward](#h5-2-2-9-receivespreadaward "ReceiveSpreadAward")        | GET     | 20171010     | **userid**、**configid**                                       | **msg**                                                                                  | 领取推广好友奖励                                            |
+| [GetUserWealth](#h5-2-2-12-getuserwealth "GetUserWealth")                      | GET     | 20171010     | **userid**                                                     | **diamond**、**score**、**insure**                                                       | 用户财富                                                    |
+| [GetGameList](#h5-2-2-13-getgamelist "GetGameList")                            | GET     | 20171010     |                                                                | **downloadurl**、**clientversion**、**resversion**、**ios_url**、**gamelist**            | 游戏列表                                                    |
+| [RecordTreasureTrade](#h5-2-2-14-recordtreasuretrade "RecordTreasureTrade")    | GET     | 20171010     | **userid**、page、size                                         | **list**                                                                                 | 金币流水记录                                                |
+| [RecordDiamondsTrade](#h5-2-2-15-recorddiamondstrade "RecordDiamondsTrade")    | GET     | 20171010     | **userid**、page、size                                         | **list**                                                                                 | 钻石流水记录                                                |
+
 **备注**
 
 * 接口 action 并不区分大小写
