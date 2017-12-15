@@ -60,43 +60,21 @@ namespace Game.Web.Module.AccountManager
 
         protected void BindingData()
         {
-            string type = ddlSearchType.SelectedValue;
             string search = CtrlHelper.GetText(txtSearch);
+            string mac = CtrlHelper.GetText(txtMac);
             string where = string.Empty;
 
             if (!string.IsNullOrEmpty(search))
             {
-                int userId;
-                switch (type)
-                {
-                    case "3":
-                        if (!Utils.Validate.IsPositiveInt(search))
-                        {
-                            ShowError("操作失败！游戏ID只能为整数");
-                            return;
-                        }
-                        var model = FacadeManage.aideAccountsFacade.GetAccountInfoByGameId(Convert.ToInt32(search));
-                        userId = model?.UserID ?? 0;
-                        break;
-                    case "4":
-                        if (!Utils.Validate.IsPositiveInt(search))
-                        {
-                            ShowError("操作失败！用户ID只能为数字");
-                            return;
-                        }
-                        userId = Convert.ToInt32(search);
-                        break;
-                    default:
-                        userId = 0;
-                        break;
-                }
-                if (userId == 0)
-                {
-                    litNoData.Visible = true;
-                    rptData.Visible = false;
-                    return;
-                }
-                where = " WHERE UserID=" + userId;
+                where = Utils.Validate.IsPositiveInt(search) ? $" WHERE UserID IN (SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.AccountsInfo WHERE UserID={search} OR GameID={search} OR Accounts='{search}' OR NickName='{search}' ) " : $" WHERE UserID IN (SELECT UserID FROM WHJHAccountsDBLink.WHJHAccountsDB.DBO.AccountsInfo WHERE Accounts='{search}' OR NickName='{search}' ) ";
+            }
+
+            if (!string.IsNullOrEmpty(mac))
+            {
+                where = string.IsNullOrEmpty(where)
+                    ? $" WHERE (EnterIP='{mac}' OR EnterMachine='{mac}') "
+                    : where +
+                      $" AND (EnterIP='{mac}' OR EnterMachine='{mac}') ";
             }
 
             int serverId = Convert.ToInt32(ddlServerID.SelectedValue);

@@ -29,15 +29,10 @@
         查询：
       </td>
       <td>
-        <asp:TextBox ID="txtSearch" runat="server" CssClass="text"></asp:TextBox>&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlSearchType" runat="server">
-          <asp:ListItem Value="1">按帐号</asp:ListItem>
-          <asp:ListItem Value="2">按昵称</asp:ListItem>
-          <asp:ListItem Value="3">按游戏ID</asp:ListItem>
-          <asp:ListItem Value="4">按用户ID</asp:ListItem>
-        </asp:DropDownList>&nbsp;&nbsp;
+        关键词：<asp:TextBox ID="txtSearch" runat="server" CssClass="text"></asp:TextBox>(支持昵称、用户名、GameID)
         <asp:DropDownList ID="ddlServerID" runat="server">
         </asp:DropDownList>
+        ip/机器码：<asp:TextBox ID="txtMac" runat="server" CssClass="text"></asp:TextBox>
         <input type="button" class="btnLine"/>
         <asp:Button ID="btnQueryOrder" runat="server" Text="查询" CssClass="btn wd1" OnClick="btnQueryOrder_Click"/>
         <input type="button" onclick="Redirect('UserPlaying.aspx');" class="btn wd1" value="刷新"/>

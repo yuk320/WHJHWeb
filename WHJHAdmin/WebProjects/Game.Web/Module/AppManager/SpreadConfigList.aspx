@@ -31,7 +31,7 @@
             <td height="28">
                 <ul>
                     <li class="tab1">推广配置</li>
-                    <li class="tab2" onclick="Redirect('SpreadReturnConfigList.aspx')">推广返利配置</li>
+                    <!-- <li class="tab2" onclick="Redirect('SpreadReturnConfigList.aspx')">推广返利配置</li> -->
                 </ul>
             </td>
         </tr>
@@ -39,10 +39,10 @@
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <td height="39" class="titleOpBg">
                 <input type="button" value="新增" class="btn wd1" onclick="Redirect('SpreadConfigInfo.aspx?cmd=add')" />
-                <input class="btnLine" type="button" /> 
-                <asp:Button ID="btnDelete" runat="server" Text="删除" CssClass="btn wd1" 
-                    onclick="btnDelete_Click" OnClientClick="return deleteop()" />              
-            <input class="btnLine" type="button"/>  
+                <input class="btnLine" type="button" />
+                <asp:Button ID="btnDelete" runat="server" Text="删除" CssClass="btn wd1"
+                    onclick="btnDelete_Click" OnClientClick="return deleteop()" />
+            <input class="btnLine" type="button"/>
             <input class="btn wd3" type="button" value="推广奖励记录" onclick="openWindowOwn('SpreadRecordList.aspx?r=' + Math.random(), '推广奖励记录',1200,700)"/>
 
             </td>
@@ -56,67 +56,67 @@
                 </td>
                 <td class="listTitle2">
                     推广人数
-                </td>                
+                </td>
                 <td class="listTitle2">
                     奖励钻石
-                </td>                
+                </td>
                 <td class="listTitle2">
                     奖励道具
-                </td>  
+                </td>
                 <td class="listTitle2">
                     奖励数量
-                </td>    
+                </td>
                 <td class="listTitle2">
                     修改时间
-                </td>                  
+                </td>
             </tr>
             <asp:Repeater ID="rptDataList" runat="server">
                 <ItemTemplate>
                     <tr align="center" class="list" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
-                        <td><input name='cid' type='checkbox' value='<%# Eval("ConfigID")%>'/></td>      
+                        <td><input name='cid' type='checkbox' value='<%# Eval("ConfigID")%>'/></td>
                         <td>
                             <a href="SpreadConfigInfo.aspx?param=<%# Eval("ConfigID")%>" class="l">编辑</a>
                         </td>
                         <td>
                             <%# Eval( "SpreadNum" )%>
-                        </td>                        
+                        </td>
                         <td>
                             <%# Eval( "PresentDiamond" )%>
-                        </td>                           
+                        </td>
                         <td>
                             <%# Eval("PresentPropID").ToString()=="0"?"": Eval( "PresentPropName" ).ToString()%>
-                        </td>  
+                        </td>
                         <td>
                             <%# Eval( "PresentPropNum" )%>
-                        </td>      
+                        </td>
                         <td>
                             <%# Eval( "UpdateTime" )%>
-                        </td>                           
+                        </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
                     <tr align="center" class="list" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
-                        <td><input name='cid' type='checkbox' value='<%# Eval("ConfigID")%>'/></td>      
+                        <td><input name='cid' type='checkbox' value='<%# Eval("ConfigID")%>'/></td>
                         <td>
                             <a href="SpreadConfigInfo.aspx?param=<%# Eval("ConfigID")%>" class="l">编辑</a>
                         </td>
                         <td>
                             <%# Eval( "SpreadNum" )%>
-                        </td>                        
+                        </td>
                         <td>
                             <%# Eval( "PresentDiamond" )%>
-                        </td>                           
+                        </td>
                         <td>
                             <%# Eval("PresentPropID").ToString()=="0"?"": Eval( "PresentPropName" ).ToString()%>
-                        </td>  
+                        </td>
                         <td>
                             <%# Eval( "PresentPropNum" )%>
-                        </td>      
+                        </td>
                         <td>
                             <%# Eval( "UpdateTime" )%>
-                        </td>                           
+                        </td>
                     </tr>
                 </AlternatingItemTemplate>
             </asp:Repeater>
@@ -125,15 +125,15 @@
     </div>
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="listTitleBg"><span>选择：</span>&nbsp;<a class="l1" href="javascript:SelectAll(true);">全部</a>&nbsp;-&nbsp;<a class="l1" href="javascript:SelectAll(false);">无</a></td>                
-            <td align="right" class="page">                
-                <gsp:AspNetPager ID="anpNews" runat="server" onpagechanged="anpNews_PageChanged" AlwaysShow="true" FirstPageText="首页" LastPageText="末页" PageSize="20" 
+            <td class="listTitleBg"><span>选择：</span>&nbsp;<a class="l1" href="javascript:SelectAll(true);">全部</a>&nbsp;-&nbsp;<a class="l1" href="javascript:SelectAll(false);">无</a></td>
+            <td align="right" class="page">
+                <gsp:AspNetPager ID="anpNews" runat="server" onpagechanged="anpNews_PageChanged" AlwaysShow="true" FirstPageText="首页" LastPageText="末页" PageSize="20"
                     NextPageText="下页" PrevPageText="上页" ShowBoxThreshold="0" ShowCustomInfoSection="Left" LayoutType="Table" NumericButtonCount="5"
                     CustomInfoHTML="总记录：%RecordCount%　页码：%CurrentPageIndex%/%PageCount%　每页：%PageSize%">
                 </gsp:AspNetPager>
             </td>
         </tr>
-    </table> 
+    </table>
     </form>
 </body>
 </html>
