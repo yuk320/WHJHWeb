@@ -67,11 +67,29 @@ namespace Game.Web.Mobile
                     ConfigInfo webCfg = Fetch.GetWebSiteConfig();
                     string w = Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key,
                         AppConfig.WxH5Key));
-                    string baseUrl = webCfg?.Field4??"/h5/";
-                    baseUrl += Kindid == 200 ? "land" : "sixoxx";
+                    string baseUrl = webCfg?.Field4 ?? "/h5/";
+                    if (Typeid == 82)
+                    {
+                        switch (Kindid)
+                        {
+                            case 200:
+                                baseUrl += "land";
+                                break;
+                            case 50:
+                                baseUrl += "oxsixx";
+                                break;
+                            default:
+                                baseUrl += "hall";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        baseUrl += "hall";
+                    }
                     redirect = baseUrl + (Typeid == 82
-                        ? $"/?w={w}&r={Roomid}&a={Action}&p={Password}"
-                        : $"/?w={w}");
+                                   ? $"/?w={w}&r={Roomid}&a={Action}&p={Password}"
+                                   : $"/?w={w}");
                 }
                 else
                 {

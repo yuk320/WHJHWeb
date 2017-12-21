@@ -32,6 +32,7 @@ namespace Game.Web.WS
         /// <param name="context"></param>
         public void ProcessRequest(HttpContext context)
         {
+            try {
             //允许跨站请求域名
             context.Response.AddHeader("Access-Control-Allow-Origin", AppConfig.MoblieInterfaceDomain);
             //接口返回数据格式
@@ -72,6 +73,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
 
             switch (action)
             {
+                case "webVersion":
+                    _ajv.SetDataItem("apiVersion",20171220);
+                    _ajv.SetDataItem("webVersion","V1.1.4");
+                    _ajv.SetValidDataValue(true);
+                    break;
                 //获取手机端登录数据
                 case "getmobilelogindata":
                     _ajv.SetDataItem("apiVersion", 20171017);
@@ -211,6 +217,20 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
 
             context.Response.Write(_ajv.SerializeToJson());
+            context.Response.End();
+            }
+            catch(Exception ex)
+            {
+                Log4Net.WriteInfoLog("下面一条为手机接口故障信息","MobileInterface");
+                Log4Net.WriteErrorLog(ex);
+                _ajv = new AjaxJsonValid
+                {
+                    code = 500,
+                    msg = "手机接口短暂故障，请联系管理员！"
+                };
+                context.Response.Write(_ajv.SerializeToJson());
+                context.Response.End();
+            }
         }
 
         /// <summary>

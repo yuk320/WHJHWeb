@@ -106,7 +106,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -161,9 +161,11 @@ FakesAssemblies/
 *.opt
 
 
-#other 
+#other
 .extract/
 node_modules/
 .svn/
 *包/
 网站发布/
+foxuc14years.html
+WHJHFront/WebProjects/Game.Web/image/foxuc/
