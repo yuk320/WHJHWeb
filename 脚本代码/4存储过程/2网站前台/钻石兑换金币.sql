@@ -60,7 +60,7 @@ BEGIN
 	BEGIN
 		SET @strErrorDescribe = N'抱歉，钻石兑换金币配置有误'
 		RETURN 1003
-	END	
+	END
 
 	SELECT @CurDiamond=Diamond FROM UserCurrency WITH(ROWLOCK) WHERE UserID=@dwUserID
 	IF @CurDiamond IS NULL OR @CurDiamond < @ExchDiamond
@@ -74,7 +74,7 @@ BEGIN
 	BEGIN
 		INSERT [GameScoreInfo] (UserID) VALUES (@dwUserID)
 	END
-	
+
 	-- 查询用户金币信息
 	SELECT @CurScore=Score,@CurInsureScore=InsureScore FROM [GameScoreInfo]WITH(NOLOCK) WHERE UserID = @dwUserID
 
@@ -91,7 +91,7 @@ BEGIN
 	END
 
 	-- 增加金币
-	UPDATE [GameScoreInfo] SET InsureScore = @CurInsureScore + @PresentGold WHERE UserID = @dwUserID
+	UPDATE [GameScoreInfo] SET Score = @CurScore + @PresentGold WHERE UserID = @dwUserID
  	IF @@ROWCOUNT<=0
 	BEGIN
 		SET @strErrorDescribe=N'抱歉，兑换异常，请稍后重试'
@@ -100,7 +100,7 @@ BEGIN
 	END
 
 	-- 写入记录 （兑换记录）
-	INSERT INTO WHJHRecordDB.DBO.RecordCurrencyExch(UserID,TypeID,CurDiamond,ExchDiamond,CurScore,CurInsureScore,PresentGold,ClientIP,CollectDate) 
+	INSERT INTO WHJHRecordDB.DBO.RecordCurrencyExch(UserID,TypeID,CurDiamond,ExchDiamond,CurScore,CurInsureScore,PresentGold,ClientIP,CollectDate)
 	VALUES(@dwUserID,@dwTypeID,@CurDiamond,@ExchDiamond,@CurScore,@CurInsureScore,@PresentGold,@strClientIP,GETDATE())
 	IF @@ROWCOUNT<=0
 	BEGIN
@@ -110,7 +110,7 @@ BEGIN
 	END
 
 	-- 钻石流水 （兑换记录）
-	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate) 
+	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
 	VALUES(dbo.WF_GetSerialNumber(),0,@dwUserID,12,@CurDiamond,-@ExchDiamond,@strClientIP,GETDATE())
 	IF @@ROWCOUNT<=0
 	BEGIN
@@ -119,7 +119,7 @@ BEGIN
 		RETURN 2004
 	END
 	-- 金币流水 （兑换记录）
-	INSERT INTO WHJHRecordDB.dbo.RecordTreasureSerial(SerialNumber,MasterID,UserID,TypeID,CurScore,CurInsureScore,ChangeScore,ClientIP,CollectDate) 
+	INSERT INTO WHJHRecordDB.dbo.RecordTreasureSerial(SerialNumber,MasterID,UserID,TypeID,CurScore,CurInsureScore,ChangeScore,ClientIP,CollectDate)
 		VALUES(dbo.WF_GetSerialNumber(),0,@dwUserID,5,@CurScore,@CurInsureScore,@PresentGold,@strClientIP,GETDATE())
 	IF @@ROWCOUNT<=0
 	BEGIN
@@ -132,7 +132,7 @@ BEGIN
 
 	SET @strErrorDescribe = N'钻石兑换金币成功，消耗['+CAST(@ExchDiamond AS NVARCHAR(30))+']钻石，获得['+CAST(@PresentGold AS NVARCHAR(30))+']金币。'
 
-	SELECT @CurInsureScore + @PresentGold AS AfterInsureScore,@CurScore AS AfterScore,@CurDiamond-@ExchDiamond AS AfterDiamond,@ExchDiamond AS ExchDiamond,@PresentGold AS PresentGold
+	SELECT @CurScore + @PresentGold AS AfterScore,@CurInsureScore AS AfterInsureScore,@CurDiamond-@ExchDiamond AS AfterDiamond,@ExchDiamond AS ExchDiamond,@PresentGold AS PresentGold
 END
 
 RETURN 0
