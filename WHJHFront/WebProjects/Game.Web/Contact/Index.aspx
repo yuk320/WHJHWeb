@@ -61,6 +61,7 @@
             <div class="ui-location" data-point="<%=baiduAddress %>">
                 <h2>
                     <span>公司地址：</span> <img src="/image/location.png">
+                  <input id="hidAddress" type="hidden" value="<%=contactAddress %>"/>
                     <%=contactAddress %>
                 </h2>
                 <div class="ui-border"><div id="ui-baidu-map"></div></div>

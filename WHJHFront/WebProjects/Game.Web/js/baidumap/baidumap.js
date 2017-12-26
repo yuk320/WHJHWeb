@@ -4,7 +4,8 @@
 // })();
 
 $(function () {
-    var data = $('.ui-location').attr('data-point').split(',');
+  var data = $('.ui-location').attr('data-point').split(',');
+  var text = $('#hidAddress').val();
     
     // if(data.length !== 2) data = [113.946857,22.518271]; // 坐标错误则定位到网狐科技地址
     
@@ -17,7 +18,7 @@ $(function () {
     var marker = new BMap.Marker(point); // 创建标注
     map.addOverlay(marker); // 将标注添加到地图中
 
-    var label = new BMap.Label("深圳市南山区海信南方大厦27楼", {
+    var label = new BMap.Label(text, {
         offset: new BMap.Size(20, -10)
     });
     marker.setLabel(label);
