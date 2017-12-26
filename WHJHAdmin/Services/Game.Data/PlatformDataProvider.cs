@@ -477,5 +477,28 @@ namespace Game.Data
             return Database.ExecuteObjectList<StatisticsOnline>(sqlQuery, prams);
         }
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GameProperty GetPropertyInfo(int id)
+        {
+            return Database.ExecuteObject<GameProperty>($"SELECT * FROM GameProperty(NOLOCK) WHERE ID = {id}");
+        }
+
+        /// <summary>
+        /// 设置更新道具
+        /// </summary>
+        /// <param name="sql"></param>
+        public void SetProperty(string sql)
+        {
+            Database.ExecuteNonQuery("UPDATE GameProperty " + sql);
+        }
+
+        #endregion
     }
 }

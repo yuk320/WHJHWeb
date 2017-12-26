@@ -3,6 +3,8 @@ GO
 
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'IOSNotStorePaySwitch'
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
+-- 2017/12/26 删除全局系统配置的钻石购买大喇叭数量
+DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJDiamondBuyProp'
 
 -- 2017/11/16 添加全局推广返利类型 0：金币 1：钻石
 INSERT INTO SystemStatusInfo
@@ -241,4 +243,53 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'领取地址' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'ReceiveAddress'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'记录时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'CollectDate'
+GO
+
+ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [BeforeScore] BIGINT NOT NULL DEFAULT(0)
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买前携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'BeforeInsure'
+GO
+ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [Score] INT NOT NULL DEFAULT(0)
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买花费携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'Insure'
+GO
+
+
+USE [WHJHPlatformManagerDB]
+GO
+
+DELETE DBO.Base_Module WHERE ModuleID = 306
+
+INSERT DBO.Base_Module (ModuleID,ParentID,Title,Link,OrderNo,Nullity,IsMenu,[Description],ManagerPopedom)
+VALUES (306,3,N'道具管理',N'/Module/AppManager/PropertyConfigList.aspx',7,0,0,N'',0)
+GO
+
+INSERT INTO [dbo].[Base_ModulePermission] ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
+VALUES (306,N'查看',1,0,0,1)
+GO
+INSERT INTO [dbo].[Base_ModulePermission] ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
+VALUES (306,N'编辑',2,0,0,1)
+GO
+
+
+USE [WHJHPlatformDB]
+GO
+
+EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeRatio'
+GO
+ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_ExchangeRatio]
+ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_Diamond]
+GO
+ALTER TABLE [dbo].[GameProperty] DROP COLUMN [ExchangeRatio]
+GO
+ALTER TABLE [dbo].[GameProperty] ADD [ExchangeDiamondRatio] INT NOT NULL DEFAULT(0)
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'钻石兑换道具比例1钻石:N' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeDiamondRatio'
+GO
+ALTER TABLE [dbo].[GameProperty] ADD [ExchangeGoldRatio] INT NOT NULL DEFAULT(0)
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'金币兑换道具比例N金币:1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeGoldRatio'
+GO
+
+UPDATE [dbo].[GameProperty] SET ExchangeDiamondRatio = 10 WHERE ID = 306 --大喇叭重新赋值
 GO

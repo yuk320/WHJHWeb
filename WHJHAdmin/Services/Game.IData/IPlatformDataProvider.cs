@@ -203,5 +203,22 @@ namespace Game.IData
         /// <returns></returns>
         IList<StatisticsOnline> GetUserOnlineStatistics(string sTime, string eTime);
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        GameProperty GetPropertyInfo(int id);
+
+        /// <summary>
+        /// 设置更新道具
+        /// </summary>
+        /// <param name="sql"></param>
+        void SetProperty(string sql);
+
+        #endregion
     }
 }

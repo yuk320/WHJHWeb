@@ -7,7 +7,7 @@
  */
 
 using System;
-using System.Collections.Generic;
+// ReSharper disable InconsistentNaming
 
 namespace Game.Entity.Platform
 {
@@ -15,7 +15,7 @@ namespace Game.Entity.Platform
     /// 实体类 GameProperty  (属性说明自动提取数据库字段的描述信息)
     /// </summary>
     [Serializable]
-    public partial class GameProperty
+    public class GameProperty
     {
         #region 常量 
 
@@ -31,13 +31,14 @@ namespace Game.Entity.Platform
         private int p_id;
         private string p_name;
         private int p_kind;
-        private int p_exchangeratio;
+        private int p_exchangediamondratio;
+        private int p_exchangegoldratio;
         private byte p_usearea;
         private byte p_servicearea;
-        private Int64 p_buyresultsgold;
-        private Int64 p_sendloveliness;
-        private Int64 p_recvloveliness;
-        private Int64 p_useresultsgold;
+        private long p_buyresultsgold;
+        private long p_sendloveliness;
+        private long p_recvloveliness;
+        private long p_useresultsgold;
         private int p_useresultsvalidtime;
         private int p_useresultsvalidtimescoremultiple;
         private int p_useresultsgiftpackage;
@@ -58,7 +59,8 @@ namespace Game.Entity.Platform
             p_id = 0;
             p_name = string.Empty;
             p_kind = 0;
-            p_exchangeratio = 0;
+            p_exchangediamondratio = 0;
+            p_exchangegoldratio = 0;
             p_usearea = 0;
             p_servicearea = 0;
             p_buyresultsgold = 0;
@@ -124,17 +126,32 @@ namespace Game.Entity.Platform
         }
 
         /// <summary>
-        /// ExchangeRatio
+        /// ExchangeDiamondRatio
         /// </summary>
-        public int ExchangeRatio
+        public int ExchangeDiamondRatio
         {
             set
             {
-                p_exchangeratio=value;
+                p_exchangediamondratio=value;
             }
             get
             {
-                return p_exchangeratio;
+                return p_exchangediamondratio;
+            }
+        }
+
+        /// <summary>
+        /// ExchangeGoldRatio
+        /// </summary>
+        public int ExchangeGoldRatio
+        {
+            set
+            {
+                p_exchangegoldratio = value;
+            }
+            get
+            {
+                return p_exchangegoldratio;
             }
         }
 
@@ -171,7 +188,7 @@ namespace Game.Entity.Platform
         /// <summary>
         /// BuyResultsGold
         /// </summary>
-        public Int64 BuyResultsGold
+        public long BuyResultsGold
         {
             set
             {
@@ -186,7 +203,7 @@ namespace Game.Entity.Platform
         /// <summary>
         /// SendLoveLiness
         /// </summary>
-        public Int64 SendLoveLiness
+        public long SendLoveLiness
         {
             set
             {
@@ -201,7 +218,7 @@ namespace Game.Entity.Platform
         /// <summary>
         /// RecvLoveLiness
         /// </summary>
-        public Int64 RecvLoveLiness
+        public long RecvLoveLiness
         {
             set
             {
@@ -216,7 +233,7 @@ namespace Game.Entity.Platform
         /// <summary>
         /// UseResultsGold
         /// </summary>
-        public Int64 UseResultsGold
+        public long UseResultsGold
         {
             set
             {

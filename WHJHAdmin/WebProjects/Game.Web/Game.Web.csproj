@@ -133,6 +133,8 @@
     <Content Include="Module\AppManager\GameGameItemList.aspx" />
     <Content Include="Module\AppManager\MobileKindInfo.aspx" />
     <Content Include="Module\AppManager\MobileKindList.aspx" />
+    <Content Include="Module\AppManager\PropertyConfigInfo.aspx" />
+    <Content Include="Module\AppManager\PropertyConfigList.aspx" />
     <Content Include="Module\AppManager\RankingConfigInfo.aspx" />
     <Content Include="Module\AppManager\RankingConfigList.aspx" />
     <Content Include="Module\AppManager\RankingRecordList.aspx" />
@@ -2663,6 +2665,20 @@
     </Compile>
     <Compile Include="Module\AppManager\MobileKindList.aspx.designer.cs">
       <DependentUpon>MobileKindList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\PropertyConfigInfo.aspx.cs">
+      <DependentUpon>PropertyConfigInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\PropertyConfigInfo.aspx.designer.cs">
+      <DependentUpon>PropertyConfigInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\AppManager\PropertyConfigList.aspx.cs">
+      <DependentUpon>PropertyConfigList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\AppManager\PropertyConfigList.aspx.designer.cs">
+      <DependentUpon>PropertyConfigList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\AppManager\RankingConfigInfo.aspx.cs">
       <DependentUpon>RankingConfigInfo.aspx</DependentUpon>

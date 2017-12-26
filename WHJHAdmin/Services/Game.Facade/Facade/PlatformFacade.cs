@@ -309,5 +309,47 @@ namespace Game.Facade
             return _aidePlatformData.GetUserOnlineStatistics(sTime, eTime);
         }
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GameProperty GetPropertyInfo(int id)
+        {
+            return _aidePlatformData.GetPropertyInfo(id);
+        }
+
+        /// <summary>
+        /// 设置更新道具
+        /// </summary>
+        /// <param name="sql"></param>
+        public void SetProperty(string sql)
+        {
+            _aidePlatformData.SetProperty(sql);
+        }
+
+        /// <summary>
+        /// 编辑道具
+        /// </summary>
+        /// <param name="gameProperty"></param>
+        public void UpdatePropertyInfo(GameProperty gameProperty)
+        {
+            string sql = " SET " +
+                         $" [ExchangeDiamondRatio] = {gameProperty.ExchangeDiamondRatio}," +
+                         $" [ExchangeGoldRatio] = {gameProperty.ExchangeGoldRatio}, " +
+                         $" [BuyResultsGold] = {gameProperty.BuyResultsGold}, " +
+                         $" [UseResultsGold] = {gameProperty.UseResultsGold}, " +
+                         $" [RegulationsInfo] = N'{gameProperty.RegulationsInfo}', " +
+                         $" [Recommend] = {gameProperty.Recommend}, " +
+                         $" [SortID] = {gameProperty.SortID}, " +
+                         $" [Nullity] = {gameProperty.Nullity} " +
+                         $" WHERE ID={gameProperty.ID} ";
+            _aidePlatformData.SetProperty(sql);
+        }
+
+        #endregion
     }
 }
