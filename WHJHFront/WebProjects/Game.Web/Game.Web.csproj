@@ -264,6 +264,7 @@
     <Content Include="Mobile\DownLoad.aspx" />
     <Content Include="Mobile\Index.aspx" />
     <Content Include="Mobile\MoblieVideoInfo.aspx" />
+    <Content Include="Mobile\Pay\LqReturn.aspx" />
     <Content Include="Mobile\RoomLink.aspx" />
     <Content Include="Mobile\ShareLink.aspx" />
     <Content Include="Mobile\WxRegister.aspx" />
@@ -523,6 +524,13 @@
     </Compile>
     <Compile Include="Mobile\MoblieVideoInfo.aspx.designer.cs">
       <DependentUpon>MoblieVideoInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Pay\LqReturn.aspx.cs">
+      <DependentUpon>LqReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Pay\LqReturn.aspx.designer.cs">
+      <DependentUpon>LqReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mobile\RoomLink.aspx.cs">
       <DependentUpon>RoomLink.aspx</DependentUpon>

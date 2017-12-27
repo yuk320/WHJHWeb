@@ -9,15 +9,16 @@ body {
 .ui-banner-box {
   width: 100%;
   overflow: hidden;
-  height: 666px;
+  /* height: 666px; */
 }
 
 .ui-banner {
-  height: 605px;
+  /* height: 605px; */
 }
 
 .ui-banner .slider-item img {
-  height: 605px;
+  /* height: 605px; */
+  width: 100%;
 }
 
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Web.Configuration;
 using Game.Facade;
 using Game.Entity.NativeWeb;
+using Game.Utils;
 
 namespace Game.Web.Mobile
 {
-    public partial class Index : System.Web.UI.Page
+    public partial class Index : UCPageBase
     {
         //公用属性
         protected string Tel = string.Empty;
@@ -16,7 +17,8 @@ namespace Game.Web.Mobile
         protected string Mobilelogo = string.Empty;
         protected string Mobiledown = string.Empty;
         protected string MobileQrcode = string.Empty;
-
+        protected string action = string.Empty;
+        protected string msg = string.Empty;
         /// <summary>
         /// 页面加载
         /// </summary>
@@ -52,6 +54,9 @@ namespace Game.Web.Mobile
                 Mobilelogo = Fetch.GetUploadFileUrl(imgDomain, "/Site/MobileLogo.png");
                 Mobiledown = Fetch.GetUploadFileUrl(imgDomain, "/Site/MobileDownLad.png");
                 Title = AppConfig.PageTitle;
+
+                action = GameRequest.GetQueryString("action");
+                msg = GameRequest.GetQueryString("msg");
             }
         }
     }

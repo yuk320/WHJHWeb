@@ -44,5 +44,14 @@
         </div>
         <script type="text/javascript" src="/js/zepto/1.1.6/zepto.min.js"></script>
         <script type="text/javascript" src="/js/mindex.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            var msg = "<%=msg %>";
+            var action = "<%=action %>";
+            if (action === "payreturn" && msg) {
+              alert(msg);
+            }
+          });
+        </script>
     </body>
 </html>
