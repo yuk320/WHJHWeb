@@ -279,6 +279,8 @@
     <Content Include="Spread\assets\css\agent\proxy.css" />
     <Content Include="Spread\assets\css\reset.css" />
     <Content Include="Spread\assets\js\fontReset.js" />
+    <Content Include="Spread\assets\js\utils\fetch.min.js" />
+    <Content Include="Spread\assets\js\utils\promise.min.js" />
     <Content Include="Spread\dist\build.js" />
     <Content Include="Spread\index.html" />
     <Content Include="UserControl\Common_Banner.ascx" />
