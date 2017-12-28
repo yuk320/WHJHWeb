@@ -2,6 +2,7 @@
 
 | 说明日期   | 更新说明                                                                                                                                                                              | 网站版本          | 作者               |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------- | ------------------ |
+| 2017/12/20 | 新增速查网站版本接口（webVersion）                                                                                                                                                    | 精华版网站-V1.1.4 | 研发部-网站组-余珂 |
 | 2017/12/13 | 修改玩家登录后数据接口（GetMobileLoginLater）、领取注册奖励接口（ReceiveRegisterGrant）、领取排行榜奖励接口（ReceiveRankingAward）、玩家信息查询接口（GetUserInfo）、API 详细说明补全 | 精华版网站-V1.1.3 | 研发部-网站组-余珂 |
 | 2017/12/12 | 增加 API 详细说明 GetMobileLoginData、ReceiveSpreadAward                                                                                                                              |                   | 研发部-网站组-余珂 |
 | 2017/12/08 | 新增玩家信息查询接口（_GetUserInfo_）、取消玩家 ip 接口（~~GetUserIp~~）并添加说明                                                                                                    | 精华版网站-V1.1.2 | 研发部-网站组-余珂 |
@@ -16,12 +17,12 @@
 ### 目录
 
 1 [通用部分](#h3-1- "通用部分")
- 1.1 [通用说明](#h4-1-1- "通用说明")
- 1.2 [接口安全](#h4-1-2- "接口安全")
- 1.3 [常见错误列表](#h4-1-3- "常见错误列表")
+1.1 [通用说明](#h4-1-1- "通用说明")
+1.2 [接口安全](#h4-1-2- "接口安全")
+1.3 [常见错误列表](#h4-1-3- "常见错误列表")
 2 [逻辑部分](#h3-2- "逻辑部分")
- 2.1 [API 列表](#h4-2-1-api- "API列表")
- 2.2 [API 详情](#h4-2-2-api- "API详情")
+2.1 [API 列表](#h4-2-1-api- "API列表")
+2.2 [API 详情](#h4-2-2-api- "API详情")
 
 ### 1 通用部分
 
@@ -156,6 +157,7 @@
 
 | action                                                                         | method  | apiVersion   | 请求参数                                                       | 响应参数（规范待统一）                                                                   | 说明                                                        |
 | :----------------------------------------------------------------------------- | :------ | :----------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
+| [WebVersion](#h5-2-2-17-getuserinfo "WebVersion")                              | GET     | 20171220     |                                                                | **webVersion**、**updateAt**                                                             | 网站版本信息                                                |
 | [GetUserInfo](#h5-2-2-4-getuserinfo "GetUserInfo")                             | GET     | 20171213     | **userid**                                                     | **UserID**、**GameID**、**CustomID**、**NickName**、**UnderWrite**、**LastLogonIP**      | 查询玩家信息                                                |
 | [DiamondExchGold](#h5-2-2-16-diamondexchgold "DiamondExchGold")                | GET     | 20171213     | **userid**、**configid**、**typeid**                           | **afterDiamond**、**afterInsureScore**、**afterScore**、**exchDiamond**、**presentGold** | 钻石兑换金币                                                |
 | [ReceiveRankingAward](#h5-2-2-11-receiverankingaward "ReceiveRankingAward")    | GET     | 20171213     | **userid**、**dateid**、**typeid**                             | diamond、**msg**                                                                         | 领取排行榜奖励                                              |
@@ -1166,6 +1168,60 @@
 | afterScore   | number | 兑换后携带金币   |
 | exchDiamond  | number | 兑换消耗钻石数量 |
 | presentGold  | number | 兑换获得金币数量 |
+
+**备注**
+
+* 更多响应错误代码请看首页的错误代码描述
+
+---
+
+##### 2.2.17 WebVersion
+
+**简要描述：**
+
+* 获取网站版本
+
+**请求 URL：**
+
+* API_URL + `?action=WebVersion&time=xx&sign=xx`
+
+**请求方式：**
+
+* GET
+
+**参数：**
+
+无
+
+**响应示例**
+
+```
+{
+  "code": 0,
+  "msg": ""
+  "data": {
+    "apiVersion":XXXXXXXX,
+    "valid": true,
+    "webVersion": "Vx.x.x",
+    "updateAt": "yyyy/MM/dd"
+  }
+}
+```
+
+**响应参数说明**
+
+| 参数名     | 类型   | 说明       |
+| :--------- | :----- | ---------- |
+| webVersion | string | 网站版本号 |
+| updateAt   | string | 年/月/日   |
+
+**MobileGameRule 结构体**
+
+| 参数名   | 类型   | 说明     |
+| :------- | :----- | -------- |
+| KindID   | number | 游戏标识 |
+| KindName | string | 游戏名称 |
+| Content  | string | 游戏规则 |
 
 **备注**
 

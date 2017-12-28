@@ -4,14 +4,14 @@
       玩家级别查询
     </div>
     <div class="ui-panel ui-check">
-      <input type="text" placeholder="请输入玩家ID" @input="setBelowID">
+      <input type="text" autofocus placeholder="请输入玩家ID" @input="setBelowID">
       <input type="button" value="查询" @click="search">
     </div>
     <div v-show="searched" class="ui-panel ui-proxy-result">
-      {{exist ? ('【'+name+'】的玩家级别为'+level) : '搜索的ID不是您的下线'}}
+      {{exist ? (name+'的代理级别为'+level) : '搜索的ID不是您的下线'}}
     </div>
     <div class="ui-panel ui-cancel">
-      <input type="button" @click="$store.commit('dialogClose');" value="取消">
+      <input type="button" @click="$emit('close');" value="取消">
     </div>
   </div>
 </template>
@@ -38,6 +38,8 @@ export default {
   },
   methods: {
     search: function(e) {
+      let input = this.$el.querySelector('.ui-panel.ui-check input[type=text]');
+
       this.exist = false;
       this.belowList.forEach(value => {
         if (this.belowID == value.GameID) {
@@ -46,6 +48,10 @@ export default {
           this.name = value.NickName;
         }
       });
+      if(!this.exist) {
+        input.value = '';
+        input.focus();
+      }
       this.searched = true;
     },
     setBelowID: function(e) {

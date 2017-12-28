@@ -73,9 +73,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
 
             switch (action)
             {
-                case "webVersion":
+                case "webversion":
                     _ajv.SetDataItem("apiVersion",20171220);
                     _ajv.SetDataItem("webVersion","V1.1.4");
+                    _ajv.SetDataItem("updateAt","2017/12/30");
                     _ajv.SetValidDataValue(true);
                     break;
                 //获取手机端登录数据

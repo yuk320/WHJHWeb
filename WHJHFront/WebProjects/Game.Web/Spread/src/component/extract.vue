@@ -4,14 +4,14 @@
       提取奖励
     </div>
     <div class="ui-panel ui-receive">
-      <input type="text" placeholder="请输入您想要提取的数量" v-model="award"/>
+      <input type="text" autofocus placeholder="请输入您想要提取的数量" v-model="award" />
     </div>
     <div v-show="awardError" class="ui-panel ui-proxy-result">
       {{message}}
     </div>
     <div class="ui-panel ui-confirm">
-      <input type="button" @click="receiveAward" value="确定">
-      <input type="button" @click="$store.commit('dialogClose');" value="取消">
+      <input type="button" :disabled="disabled" @click="receiveAward" value="确定">
+      <input type="button" @click="$emit('close')" value="取消">
     </div>
   </div>
 </template>
@@ -19,11 +19,10 @@
 <script>
 import top from "./top/Top";
 import { receiveAward } from "../fetch/fetch";
-import UiTable from "./table/table";
 export default {
   name: "extract",
   props: ["data"],
-  components: { top, UiTable },
+  components: { top },
 
   data: function() {
     return {
@@ -32,31 +31,55 @@ export default {
       message: null,
       userid: 0,
       totalReturn: 0,
-      totalReceive: 0
+      totalReceive: 0,
+      disabled: false
     };
   },
   created() {
-    this.userid = this.data.userid;
+    if (localStorage.userid) {
+      this.userid = localStorage.userid;
+    }
     this.totalReturn = this.data.totalReturn;
     this.totalReceive = this.data.totalReceive;
   },
   methods: {
     receiveAward: function() {
+      // 确认按钮和输入框的细节处理
+      let input = this.$el.querySelector(".ui-panel.ui-receive input");
+      this.disabled = true;
+
       let validAward = this.totalReturn - this.totalReceive;
       this.award = parseInt(this.award);
       if (Number.isNaN(this.award)) {
+        this.award = '';
         this.awardError = true;
         this.message = "请输入整数!";
+        this.disabled = false;
+        input.focus();
         return;
       }
 
-      if (this.award > validAward||this.award===0) {
+      if (validAward === 0 || this.award <= 0) {
+        this.award = '';
+        this.awardError = true;
+        this.message = "您输入的数字有误，请输入有效的整数！";
+        this.disabled = false;
+        input.focus();
+        return;
+      }
+
+      if (this.award > validAward) {
+        this.award = '';
         this.awardError = true;
         this.message = "您的可领取数量不足";
+        this.disabled = false;
+        input.focus();
         return;
       }
       this.message = "提取成功！";
-      receiveAward(this.userid, this.award);
+
+      // fetch Award
+      receiveAward.call(this, this.userid, this.award);
     }
   }
 };

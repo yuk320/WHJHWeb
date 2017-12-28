@@ -1,36 +1,38 @@
 USE [WHJHAccountsDB]
 GO
 
+-- V1.1.0
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'IOSNotStorePaySwitch'
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJGoldBuyProp'
--- 2017/12/26 删除全局系统配置的钻石购买大喇叭数量
+-- V1.1.4 2017/12/26 删除全局系统配置的钻石购买大喇叭数量
 DELETE DBO.SystemStatusInfo WHERE StatusName = N'JJDiamondBuyProp'
 
--- 2017/11/16 添加全局推广返利类型 0：金币 1：钻石
+-- V1.1.0 2017/11/16 添加全局推广返利类型 0：金币 1：钻石
 INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
 VALUES(N'SpreadReturnType', 0, N'全局推广返利类型', N'推广返利类型', N'键值：推广返利类型，在推广返利配置无可用配置时不生效，0表示金币 1表示钻石', 99)
--- 2017/11/23 添加全局推广返利领取门槛 0：无门槛 大于0代表 需要可领取数大于多少才能提取
+-- V1.1.0 2017/11/23 添加全局推广返利领取门槛 0：无门槛 大于0代表 需要可领取数大于多少才能提取
 INSERT INTO SystemStatusInfo
   (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
 VALUES(N'SpreadReceiveBase', 0, N'全局推广返利领取门槛', N'推广返利条件', N'键值：推广返利条件，0：无门槛 大于0代表 需要可领取数大于多少才能提取', 100)
 
--- 2017/12/13 用户表添加位置信息
-
-ALTER TABLE [dbo].[AccountsInfo] ADD [PlaceName] NVARCHAR(33) NOT NULL DEFAULT(N'')
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'最后一次登录地名' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AccountsInfo', @level2type=N'COLUMN',@level2name=N'PlaceName'
-GO
+-- V1.1.3 2017/12/13 用户表添加位置信息 已确定新版本会有
+-- ALTER TABLE [dbo].[AccountsInfo] ADD [PlaceName] NVARCHAR(33) NOT NULL DEFAULT(N'')
+-- GO
+-- EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'最后一次登录地名' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AccountsInfo', @level2type=N'COLUMN',@level2name=N'PlaceName'
+-- GO
 
 USE [WHJHNativeWebDB]
 GO
 
+-- V1.1.0
 DELETE DBO.ConfigInfo WHERE ConfigKey = N'GameAndroidConfig'
 DELETE DBO.ConfigInfo WHERE ConfigKey = N'GameIosConfig'
 
 USE [WHJHTreasureDB]
 GO
 
+-- V1.1.0
 EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AppPayConfig', @level2type=N'COLUMN',@level2name=N'PresentScale'
 GO
 ALTER TABLE [dbo].[AppPayConfig] DROP CONSTRAINT [DF_AppPayConfig_PresentScale]
@@ -42,7 +44,7 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'首冲赠送钻石数量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AppPayConfig', @level2type=N'COLUMN',@level2name=N'PresentDiamond'
 GO
 
-
+-- V1.1.0
 IF EXISTS (SELECT 1
 FROM [DBO].SYSObjects
 WHERE ID = OBJECT_ID(N'[dbo].[SpreadReturnConfig]') AND OBJECTPROPERTY(ID,'IsTable')=1 )
@@ -258,12 +260,11 @@ GO
 USE [WHJHPlatformManagerDB]
 GO
 
+-- V1.1.4 道具功能迁移
 DELETE DBO.Base_Module WHERE ModuleID = 306
-
 INSERT DBO.Base_Module (ModuleID,ParentID,Title,Link,OrderNo,Nullity,IsMenu,[Description],ManagerPopedom)
 VALUES (306,3,N'道具管理',N'/Module/AppManager/PropertyConfigList.aspx',7,0,0,N'',0)
 GO
-
 INSERT INTO [dbo].[Base_ModulePermission] ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
 VALUES (306,N'查看',1,0,0,1)
 GO
@@ -275,6 +276,7 @@ GO
 USE [WHJHPlatformDB]
 GO
 
+-- V1.1.4 道具功能迁移
 EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeRatio'
 GO
 ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_ExchangeRatio]
@@ -290,6 +292,5 @@ ALTER TABLE [dbo].[GameProperty] ADD [ExchangeGoldRatio] INT NOT NULL DEFAULT(0)
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'金币兑换道具比例N金币:1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeGoldRatio'
 GO
-
 UPDATE [dbo].[GameProperty] SET ExchangeDiamondRatio = 10 WHERE ID = 306 --大喇叭重新赋值
 GO

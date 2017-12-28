@@ -1,11 +1,11 @@
 <template>
   <div class="ui-main ui-proxy">
-    <top title="推广中心"></top>
-    <div class="ui-loading" v-show="this.$store.state.loading">
+    <top title="代理系统"></top>
+    <div class="ui-loading" v-if="loading">
       <i class="fa fa-spinner fa-2x fa-pulse fa-fw"> </i>
       <p>Loading...</p>
     </div>
-    <div v-show="!this.$store.state.loading">
+    <div v-else>
       <div class="ui-panel ui-proxy-info">
         <table>
           <tbody>
@@ -61,17 +61,16 @@
         </table>
       </div>
       <div class="ui-panel ui-query">
-        <a class="ui-button" @click="dialog = 'search'; $store.commit('dialogOpen');">下级查询</a>
-        <a class="ui-button" @click="dialog = 'extract'; $store.commit('dialogOpen');">提取金币</a>
+        <a class="ui-button" @click="dialog = 'search'; open();">下级查询</a>
+        <a class="ui-button" @click="dialog = 'extract'; open();">提取金币</a>
         <a class="ui-button" @click="recordType = recordType == 'return' ? 'receive' : 'return';">{{recordType=='return'?'提取记录':'返利记录'}}</a>
       </div>
-      <div class="ui-panel" >
-          <ui-table v-if="$store.state.cached" :data="record()" :pageSize="pageSize" :thead="thead" :recordType="recordType">
-          </ui-table>
-      </div>
+      <record :data="record()" :pageSize="pageSize" :thead="thead"></record>
     </div>
-    <ui-dialog v-if="$store.state.dialogShow">
-      <component :is="DialogComponent" :data="dialogData"></component>
+    <ui-dialog :show="show">
+      <keep-alive>
+        <component :is="DialogComponent" :data="dialogData" v-on:close="close" v-on:fetch="regainFetch"></component>
+      </keep-alive>
     </ui-dialog>
   </div>
 
@@ -80,28 +79,55 @@
 import top from "./top/Top";
 import Extract from "./extract";
 import BelowSearch from "./proxySearch";
-import UiTable from "./table/table";
 import UiDialog from "./dialog/dialog";
+import Record from "./record/record";
 import { getData } from "../fetch/fetch";
 
 export default {
   name: "proxy",
-  components: { top, UiTable, UiDialog, Extract, BelowSearch },
+  components: { top, UiDialog, Extract, BelowSearch, Record },
   data: function() {
     return {
+      title: "can i use it",
       userid: 0,
+      loading: false,
       info: {},
       belowList: [],
       recordObj: {
         return: [],
         receive: []
       },
+      recordType: "return",
       pageSize: 15,
       theadObj: {
-        return: ["ID", "充值", "级别", "类型", "返利", "日期"],
-        receive: ["提取日期", "提取类型", "提取数量", "提取前数量"]
+        return: [
+          { title: "ID", key: "GameID" },
+          { title: "充值", key: "SourceDiamond" },
+          { title: "级别", key: "SpreadLevel" },
+          { title: "类型", key: "ReturnType" },
+          { title: "返利", key: "ReturnNum" },
+          { title: "日期", key: "CollectDate" }
+        ],
+        receive: [
+          {
+            title: "提取日期",
+            key: "CollectDate"
+          },
+          {
+            title: "提取类型",
+            key: "ReceiveType"
+          },
+          {
+            title: "提取数量",
+            key: "ReceiveNum"
+          },
+          {
+            title: "提取前数量",
+            key: "ReceiveBefore"
+          }
+        ]
       },
-      recordType: "return",
+      show: false,
       dialog: null,
       dialogs: {
         extract: Extract,
@@ -113,43 +139,21 @@ export default {
     // console.info('1-proxy.create');
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
-    let state = this.$store.state;
-    this.userid = state.userid;
-
+    // 单页面，只需第一次加载时存储userid
     if (this.userid != localStorage.userid) {
       this.userid = localStorage.userid;
-      this.$store.commit("setCache", false);
     }
-
-    if (this.$store.state.cached) {
-      this.info = state.userData.info;
-      this.belowList = state.userData.belowList;
-      this.recordObj.receive = state.userData.receiveRecord;
-      this.recordObj.return = state.userData.returnRecord;
-    } else {
-      getData(this.userid, this.fetchData.bind(this));
-    }
-  },
-  beforeUpdate() {
-    // console.info('1-proxy.beforeUpdate',this.$store.state.dataUpdate);
-    if (
-      this.$store.state.dataUpdate === 1 ||
-      this.userid != localStorage.userid
-    ) {
-      if (this.userid != localStorage.userid) this.userid = localStorage.userid;
-      getData(this.userid, this.fetchData.bind(this));
-    }
-  },
-  updated() {
-    // console.info('1-proxy.updated');
-  },
-  mounted() {
-    // console.info('1-proxy.mounted');
+    // 获取数据前loading状态为true
+    this.loading = true;
+    getData(this.userid, this.fetchData.bind(this));
+    // console.info("get Data");
+    // 缓存是否需要
   },
   methods: {
     fetchData: function(data) {
       // replace getPost with your data fetching util / API wrapper
       // 获得数据后将本组件需要的数据赋值到this.$data
+      // console.info("proxy fetchData", data);
       this.info = data.info;
       this.recordObj = {
         return: data.returnRecord,
@@ -157,9 +161,21 @@ export default {
       };
       this.belowList = data.belowList;
       // 数据加载成功后开始绘制表格
+      // 数据加载成功后loading状态为false
+      this.loading = false;
     },
     record: function() {
       return this.recordObj[this.recordType];
+    },
+    open: function() {
+      this.show = true;
+    },
+    close: function() {
+      this.show = false;
+    },
+    regainFetch: function() {
+      // 因数据改动重新获取数据，userid不变
+      getData(this.userid, this.fetchData.bind(this));
     }
   },
   computed: {

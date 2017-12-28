@@ -40,9 +40,7 @@ const LAST_VERSION = "V" + autoConfig.lastVersion;
 let VERSION_LIST = {
   last: autoConfig.versionList[autoConfig.lastVersion]
 };
-autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toISOString()
-  .substr(0, 10)
-  .replace(/-/g, "/");
+autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toLocaleDateString().replace(/\-/g,'/');
 fs.writeFileSync("./config.json", JSON.stringify(autoConfig, null, 2));
 start =
   start == null && VERSION_LIST.last

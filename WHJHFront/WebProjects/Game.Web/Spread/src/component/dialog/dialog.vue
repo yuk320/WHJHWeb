@@ -1,12 +1,18 @@
 <template>
-  <div class="ui-dialog">
+  <div class="ui-dialog" v-if="show">
     <div class="ui-mask"></div>
     <slot></slot>
-  </div>  
+  </div>
 </template>
 <script>
 export default {
-  name: 'UiDialog'
+  name: 'UiDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 </script>
 <style scoped>

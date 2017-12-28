@@ -144,7 +144,7 @@ BEGIN
       VALUES(@UserID, @BeforeScore, @BeforeInsure, @strClientIP)
     END
     SET @ReceiveBefore = @BeforeScore + @BeforeInsure
-    UPDATE WHJHTreasureDB.DBO.GameScoreInfo SET InsureScore = InsureScore + @dwNum WHERE UserID = @UserID
+    UPDATE WHJHTreasureDB.DBO.GameScoreInfo SET Score = Score + @dwNum WHERE UserID = @UserID
     IF @@ROWCOUNT<=0
     BEGIN
       SET @strErrorDescribe=N'抱歉，领取异常，请稍后重试'
