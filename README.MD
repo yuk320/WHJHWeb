@@ -17,3 +17,4 @@
 - **versionList** will be auto rewrite by index script.
 
 [MobileApiDoc](./Docs/Mobile.MD "MobileApiDoc")
+[SpreadHome](./Docs/SpreadHome.MD "SpreadHome")
