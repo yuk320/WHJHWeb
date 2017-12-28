@@ -62,7 +62,7 @@ export default {
       if (validAward === 0 || this.award <= 0) {
         this.award = '';
         this.awardError = true;
-        this.message = "您输入的数字有误，请输入有效的整数！";
+        this.message = "您输入的数字有误或可领取额度不足！";
         this.disabled = false;
         input.focus();
         return;
