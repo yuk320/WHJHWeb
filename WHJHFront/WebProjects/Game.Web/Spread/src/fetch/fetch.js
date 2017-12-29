@@ -1,4 +1,4 @@
-const apiurl = "";
+const apiurl = document.getElementById('app').dataset.url;
 function getData(userid, callback) {
   fetch(apiurl+"DataHandle.ashx?action=userspreadhome&userid=" + userid)
     .then(res => res.json())
@@ -28,6 +28,7 @@ function receiveAward(userid, number) {
   )
     .then(res => res.json())
     .then(data => {
+      this.disabled = false;
       let userData;
       // console.log("getData.data:",data);
       if (data.data.valid) {

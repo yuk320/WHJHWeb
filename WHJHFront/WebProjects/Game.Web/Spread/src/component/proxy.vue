@@ -62,7 +62,7 @@
       </div>
       <div class="ui-panel ui-query">
         <a class="ui-button" @click="dialog = 'search'; open();">下级查询</a>
-        <a class="ui-button" @click="dialog = 'extract'; open();">提取金币</a>
+        <a class="ui-button" @click="dialog = 'extract'; open();">提取奖励</a>
         <a class="ui-button" @click="recordType = recordType == 'return' ? 'receive' : 'return';">{{recordType=='return'?'提取记录':'返利记录'}}</a>
       </div>
       <record :data="record()" :pageSize="pageSize" :thead="thead"></record>
