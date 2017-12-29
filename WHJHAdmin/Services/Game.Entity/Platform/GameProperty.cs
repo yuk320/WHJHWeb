@@ -1,9 +1,9 @@
 /*
  * 版本： 4.0
  * 日期：2017/8/7 10:50:43
- * 
+ *
  * 描述：实体类
- * 
+ *
  */
 
 using System;
@@ -17,22 +17,22 @@ namespace Game.Entity.Platform
     [Serializable]
     public class GameProperty
     {
-        #region 常量 
+        #region 常量
 
         /// <summary>
         /// 表名
         /// </summary>
         public const string Tablename = "GameProperty";
 
-        #endregion 
+        #endregion
 
         #region 私有变量
 
         private int p_id;
         private string p_name;
         private int p_kind;
-        private int p_exchangediamondratio;
-        private int p_exchangegoldratio;
+        private int p_exchangeratio;
+        // private int p_exchangegoldratio;
         private byte p_usearea;
         private byte p_servicearea;
         private long p_buyresultsgold;
@@ -49,18 +49,18 @@ namespace Game.Entity.Platform
 
         #endregion
 
-        #region 构造函数 
+        #region 构造函数
 
         /// <summary>
         /// 初始化GameProperty
         /// </summary>
-        public GameProperty() 
+        public GameProperty()
         {
             p_id = 0;
             p_name = string.Empty;
             p_kind = 0;
-            p_exchangediamondratio = 0;
-            p_exchangegoldratio = 0;
+            p_exchangeratio = 0;
+            // p_exchangegoldratio = 0;
             p_usearea = 0;
             p_servicearea = 0;
             p_buyresultsgold = 0;
@@ -78,7 +78,7 @@ namespace Game.Entity.Platform
 
         #endregion
 
-        #region 公共属性 
+        #region 公共属性
 
         /// <summary>
         /// ID
@@ -128,32 +128,32 @@ namespace Game.Entity.Platform
         /// <summary>
         /// ExchangeDiamondRatio
         /// </summary>
-        public int ExchangeDiamondRatio
+        public int ExchangeRatio
         {
             set
             {
-                p_exchangediamondratio=value;
+                p_exchangeratio=value;
             }
             get
             {
-                return p_exchangediamondratio;
+                return p_exchangeratio;
             }
         }
 
         /// <summary>
         /// ExchangeGoldRatio
         /// </summary>
-        public int ExchangeGoldRatio
-        {
-            set
-            {
-                p_exchangegoldratio = value;
-            }
-            get
-            {
-                return p_exchangegoldratio;
-            }
-        }
+        // public int ExchangeGoldRatio
+        // {
+        //     set
+        //     {
+        //         p_exchangegoldratio = value;
+        //     }
+        //     get
+        //     {
+        //         return p_exchangegoldratio;
+        //     }
+        // }
 
         /// <summary>
         /// UseArea

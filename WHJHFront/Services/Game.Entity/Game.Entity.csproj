@@ -58,6 +58,7 @@
     <Compile Include="NativeWeb\RecordRankingRecevie.cs" />
     <Compile Include="NativeWeb\SystemNotice.cs" />
     <Compile Include="Platform\GameKindItem.cs" />
+    <Compile Include="Platform\GameProperty.cs" />
     <Compile Include="Platform\MobileKindItem.cs" />
     <Compile Include="Platform\StreamCreateTableFeeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

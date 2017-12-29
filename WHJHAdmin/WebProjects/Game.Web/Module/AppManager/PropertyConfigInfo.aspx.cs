@@ -36,8 +36,8 @@ namespace Game.Web.Module.AppManager
             {
                 ID = IntParam,
                 Name = CtrlHelper.GetText(txtName),
-                ExchangeGoldRatio = CtrlHelper.GetInt(txtExchangeGoldRaito, 0),
-                ExchangeDiamondRatio = CtrlHelper.GetInt(txtExchangeDiamondRaito, 0),
+                // ExchangeGoldRatio = CtrlHelper.GetInt(txtExchangeGoldRaito, 0),
+                ExchangeRatio = CtrlHelper.GetInt(txtExchangeDiamondRaito, 0),
                 UseResultsGold = CtrlHelper.GetInt(txtUseResultsGold, 0),
                 SortID = CtrlHelper.GetInt(txtSortID, 0),
                 BuyResultsGold = CtrlHelper.GetInt(txtBuyResultsGold, 0),
@@ -70,8 +70,8 @@ namespace Game.Web.Module.AppManager
                 return;
 
             CtrlHelper.SetText(txtName, property.Name);
-            CtrlHelper.SetText(txtExchangeGoldRaito, property.ExchangeGoldRatio.ToString());
-            CtrlHelper.SetText(txtExchangeDiamondRaito, property.ExchangeDiamondRatio.ToString());
+            // CtrlHelper.SetText(txtExchangeGoldRaito, property.ExchangeGoldRatio.ToString());
+            CtrlHelper.SetText(txtExchangeDiamondRaito, property.ExchangeRatio.ToString());
             CtrlHelper.SetText(txtBuyResultsGold, property.BuyResultsGold.ToString());
             CtrlHelper.SetText(txtUseResultsGold, property.UseResultsGold.ToString());
             CtrlHelper.SetText(txtRegulationsInfo, property.RegulationsInfo);

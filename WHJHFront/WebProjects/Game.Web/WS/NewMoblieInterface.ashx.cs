@@ -32,18 +32,19 @@ namespace Game.Web.WS
         /// <param name="context"></param>
         public void ProcessRequest(HttpContext context)
         {
-            try {
-            //允许跨站请求域名
-            context.Response.AddHeader("Access-Control-Allow-Origin", AppConfig.MoblieInterfaceDomain);
-            //接口返回数据格式
-            context.Response.ContentType = "application/json";
-            //接口请求类型
-            string action = GameRequest.GetQueryString("action").ToLower();
+            try
+            {
+                //允许跨站请求域名
+                context.Response.AddHeader("Access-Control-Allow-Origin", AppConfig.MoblieInterfaceDomain);
+                //接口返回数据格式
+                context.Response.ContentType = "application/json";
+                //接口请求类型
+                string action = GameRequest.GetQueryString("action").ToLower();
 
-            //获取参数
-            _userid = GameRequest.GetQueryInt("userid", 0);
-            _device = GameRequest.GetString("device");
-            _ajv = new AjaxJsonValid();
+                //获取参数
+                _userid = GameRequest.GetQueryInt("userid", 0);
+                _device = GameRequest.GetString("device");
+                _ajv = new AjaxJsonValid();
 #if !DEBUG //DEBUG情况下不验证
             string time = GameRequest.GetQueryString("time");
             string sign = GameRequest.GetQueryString("sign");
@@ -59,170 +60,169 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 return;
             }
 #endif
-            //参数验证
-            if (context.Request.QueryString["userid"] != null && _userid <= 0)
-            {
-                _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " userid 错误");
-                context.Response.Write(_ajv.SerializeToJson());
-                return;
-            }
-            //获取其他参数
-            int configid = GameRequest.GetQueryInt("configid", 0);
-            int typeid = GameRequest.GetQueryInt("typeid", 0);
-
-            switch (action)
-            {
-                case "webversion":
-                    _ajv.SetDataItem("apiVersion",20171220);
-                    _ajv.SetDataItem("webVersion","V1.1.4");
-                    _ajv.SetDataItem("updateAt","2017/12/30");
-                    _ajv.SetValidDataValue(true);
-                    break;
-                //获取手机端登录数据
-                case "getmobilelogindata":
-                    _ajv.SetDataItem("apiVersion", 20171017);
-                    GetMobileLoginData();
-                    break;
-                //获取手机端登录后数据
-                case "getmobileloginlater":
-                    _ajv.SetDataItem("apiVersion", 20171213);
-                    GetMobileLoginLater();
-                    break;
-                //获取充值产品列表
-                case "getpayproduct":
-                    _ajv.SetDataItem("apiVersion", 20171028);
-                    //获取参数
-                    int typeId = GameRequest.GetQueryInt("typeid", 0);
-                    GetPayProduct(typeId);
-                    break;
-                //领取推广有效好友奖励
-                case "receivespreadaward":
-                    //参数验证
-                    if (configid <= 0)
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " configid 错误");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    ReceiveSpreadAward(configid);
-                    break;
-                case "getgameintrolist":
-                    _ajv.SetDataItem("apiVersion", 20171107);
-                    GetGameIntroList();
-                    break;
-                //钻石充值下单
-                case "createpayorder":
-                    _ajv.SetDataItem("apiVersion", 20171123);
-                    //获取参数
-                    string paytype = GameRequest.GetQueryString("paytype");
-                    string openid = GameRequest.GetQueryString("openid");
-                    string subtype = GameRequest.GetQueryString("subtype");
-
-                    //参数验证
-                    if (configid <= 0 || paytype.Equals(""))
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    context.Response.Write(CreatePayOrder(configid, paytype, openid, subtype).SerializeToJson());
-                    return;
-                //获取排行榜数据
-                case "getrankingdata":
-                    _ajv.SetDataItem("apiVersion", 20171129);
-                    //参数验证
-                    if (typeid <= 0 || typeid > 7)
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " typeid 错误");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-
-                    GetRankingData(typeid);
-                    break;
-                //获取财富信息
-                case "getuserwealth":
-                    GetUserWealth();
-                    break;
-                //获取玩家信息
-                case "getuserinfo":
-                    _ajv.SetDataItem("apiVersion",20171208);
-                    GetUserInfo();
-                    break;
-                //领取排行奖励
-                case "receiverankingaward":
-                    _ajv.SetDataItem("apiVersion",20171213);
-                    //获取参数
-                    int dateid = GameRequest.GetQueryInt("dateid", 0);
-
-                    //参数验证
-                    if (dateid <= 0 || typeid <= 0)
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    ReceiveRankingAward(dateid, typeid);
-                    break;
-                //获取游戏列表
-                case "getgamelist":
-                    GetGameList();
-                    break;
-                //领取注册赠送奖励
-                case "receiveregistergrant":
-                    _ajv.SetDataItem("apiVersion",20171213);
-                    ReceiveRegisterGrant();
-                    break;
-                //金币流水记录
-                case "recordtreasuretrade":
-                    RecordTreasureTrade();
-                    break;
-                //钻石流水记录
-                case "recorddiamondstrade":
-                    RecordDiamondsTrade();
-                    break;
-                //钻石兑换金币
-                case "diamondexchgold":
-                    _ajv.SetDataItem("apiVersion",20171213); //for 响应规范
-                    if (configid <= 0 || typeid < 0)
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
-                            " configid或typeid 错误");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    DiamondExchGold(configid, typeid);
-                    break;
-                case "getpayorderstatus":
-                    _ajv.SetDataItem("apiVersion", 20171127);
-                    string orderid = GameRequest.GetString("orderid");
-                    if (string.IsNullOrEmpty(orderid))
-                    {
-                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " orderid 错误");
-                        context.Response.Write(_ajv.SerializeToJson());
-                        return;
-                    }
-                    GetPayOrderStatus(orderid);
-                    break;
-                default:
+                //参数验证
+                if (context.Request.QueryString["userid"] != null && _userid <= 0)
+                {
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
-                    _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
-                    break;
-            }
+                    _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " userid 错误");
+                    context.Response.Write(_ajv.SerializeToJson());
+                    return;
+                }
+                //获取其他参数
+                int configid = GameRequest.GetQueryInt("configid", 0);
+                int typeid = GameRequest.GetQueryInt("typeid", 0);
 
-            context.Response.Write(_ajv.SerializeToJson());
-            context.Response.End();
+                switch (action)
+                {
+                    case "webversion":
+                        _ajv.SetDataItem("apiVersion", 20171220);
+                        _ajv.SetDataItem("webVersion", "V1.1.4");
+                        _ajv.SetDataItem("updateAt", "2017/12/30");
+                        _ajv.SetValidDataValue(true);
+                        break;
+                    //获取手机端登录数据
+                    case "getmobilelogindata":
+                        _ajv.SetDataItem("apiVersion", 20171017);
+                        GetMobileLoginData();
+                        break;
+                    //获取手机端登录后数据
+                    case "getmobileloginlater":
+                        _ajv.SetDataItem("apiVersion", 20171213);
+                        GetMobileLoginLater();
+                        break;
+                    //获取充值产品列表
+                    case "getpayproduct":
+                        _ajv.SetDataItem("apiVersion", 20171028);
+                        //获取参数
+                        int typeId = GameRequest.GetQueryInt("typeid", 0);
+                        GetPayProduct(typeId);
+                        break;
+                    //领取推广有效好友奖励
+                    case "receivespreadaward":
+                        //参数验证
+                        if (configid <= 0)
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " configid 错误");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        ReceiveSpreadAward(configid);
+                        break;
+                    case "getgameintrolist":
+                        _ajv.SetDataItem("apiVersion", 20171107);
+                        GetGameIntroList();
+                        break;
+                    //钻石充值下单
+                    case "createpayorder":
+                        _ajv.SetDataItem("apiVersion", 20171123);
+                        //获取参数
+                        string paytype = GameRequest.GetQueryString("paytype");
+                        string openid = GameRequest.GetQueryString("openid");
+                        string subtype = GameRequest.GetQueryString("subtype");
+
+                        //参数验证
+                        if (configid <= 0 || paytype.Equals(""))
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        context.Response.Write(CreatePayOrder(configid, paytype, openid, subtype).SerializeToJson());
+                        return;
+                    //获取排行榜数据
+                    case "getrankingdata":
+                        _ajv.SetDataItem("apiVersion", 20171129);
+                        //参数验证
+                        if (typeid <= 0 || typeid > 7)
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " typeid 错误");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+
+                        GetRankingData(typeid);
+                        break;
+                    //获取财富信息
+                    case "getuserwealth":
+                        GetUserWealth();
+                        break;
+                    //获取玩家信息
+                    case "getuserinfo":
+                        _ajv.SetDataItem("apiVersion", 20171208);
+                        GetUserInfo();
+                        break;
+                    //领取排行奖励
+                    case "receiverankingaward":
+                        _ajv.SetDataItem("apiVersion", 20171213);
+                        //获取参数
+                        int dateid = GameRequest.GetQueryInt("dateid", 0);
+
+                        //参数验证
+                        if (dateid <= 0 || typeid <= 0)
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), "");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        ReceiveRankingAward(dateid, typeid);
+                        break;
+                    //获取游戏列表
+                    case "getgamelist":
+                        GetGameList();
+                        break;
+                    //领取注册赠送奖励
+                    case "receiveregistergrant":
+                        _ajv.SetDataItem("apiVersion", 20171213);
+                        ReceiveRegisterGrant();
+                        break;
+                    //金币流水记录
+                    case "recordtreasuretrade":
+                        RecordTreasureTrade();
+                        break;
+                    //钻石流水记录
+                    case "recorddiamondstrade":
+                        RecordDiamondsTrade();
+                        break;
+                    //钻石兑换金币
+                    case "diamondexchgold":
+                        _ajv.SetDataItem("apiVersion", 20171213); //for 响应规范
+                        if (configid <= 0 || typeid < 0)
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                                " configid或typeid 错误");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        DiamondExchGold(configid, typeid);
+                        break;
+                    case "getpayorderstatus":
+                        _ajv.SetDataItem("apiVersion", 20171127);
+                        string orderid = GameRequest.GetString("orderid");
+                        if (string.IsNullOrEmpty(orderid))
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " orderid 错误");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        GetPayOrderStatus(orderid);
+                        break;
+                    default:
+                        _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                        _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
+                        break;
+                }
+
+                context.Response.Write(_ajv.SerializeToJson());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Log4Net.WriteInfoLog("下面一条为手机接口故障信息","MobileInterface");
+                Log4Net.WriteInfoLog("下面一条为手机接口故障信息", "MobileInterface");
                 Log4Net.WriteErrorLog(ex);
                 _ajv = new AjaxJsonValid
                 {
@@ -230,8 +230,8 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     msg = "手机接口短暂故障，请联系管理员！"
                 };
                 context.Response.Write(_ajv.SerializeToJson());
-                context.Response.End();
             }
+            context.Response.End();
         }
 
         /// <summary>
@@ -245,6 +245,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             DataSet ds = FacadeManage.aideNativeWebFacade.GetMobileLoginInfo();
             //获取系统配置信息
             MobileSystemConfig config = GetMobileSystemConfig(ds.Tables[0]);
+            //大喇叭道具信息由道具表提供
+            GameProperty prop = FacadeManage.aidePlatformFacade.GetGameProperty(306);
+            config.DiamondBuyPropCount = prop.ExchangeRatio;
+            config.GoldBuyPropCount = 0;
             //获取客服界面配置
             MobileCustomerService mcs = DataHelper.ConvertRowToObject<MobileCustomerService>(ds.Tables[1].Rows[0]);
             //获取系统公告配置
@@ -303,7 +307,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             //输出信息
             _ajv.SetValidDataValue(true);
             _ajv.SetDataItem("sharelink", shareLink);
-            _ajv.SetDataItem("hasGrant", grantDiamond>0||grantGold>0);
+            _ajv.SetDataItem("hasGrant", grantDiamond > 0 || grantGold > 0);
             _ajv.SetDataItem("grantDiamond", grantDiamond);
             _ajv.SetDataItem("grantGold", grantGold);
             _ajv.SetDataItem("friendcount", friendCount);
@@ -473,18 +477,24 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     scoreRank = DataHelper.ConvertDataTableToObjects<CacheScoreRank>(ds.Tables[2]);
                     break;
             }
-            if (wealthRank != null && wealthRank.Count>0) {
-                foreach(CacheWealthRank wealth in wealthRank) {
+            if (wealthRank != null && wealthRank.Count > 0)
+            {
+                foreach (CacheWealthRank wealth in wealthRank)
+                {
                     wealth.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(wealth.UserID);
                 }
             }
-            if (consumeRank != null && consumeRank.Count>0) {
-                foreach(CacheConsumeRank consume in consumeRank) {
+            if (consumeRank != null && consumeRank.Count > 0)
+            {
+                foreach (CacheConsumeRank consume in consumeRank)
+                {
                     consume.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(consume.UserID);
                 }
             }
-            if (scoreRank != null && scoreRank.Count>0) {
-                foreach(CacheScoreRank score in scoreRank) {
+            if (scoreRank != null && scoreRank.Count > 0)
+            {
+                foreach (CacheScoreRank score in scoreRank)
+                {
                     score.LastLogonAddress = FacadeManage.aideAccountsFacade.GetUserIP(score.UserID);
                 }
             }

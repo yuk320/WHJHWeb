@@ -84,5 +84,18 @@ namespace Game.Facade
             return platformData.GetMobileGameAndVersion();
         }
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息by ID
+        /// </summary>
+        /// <returns></returns>
+        public GameProperty GetGameProperty(int id)
+        {
+            return platformData.GetGameProperty(id);
+        }
+
+        #endregion
     }
 }
