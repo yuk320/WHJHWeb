@@ -96,5 +96,19 @@ namespace Game.Data
         }
 
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息by ID
+        /// </summary>
+        /// <returns></returns>
+        public GameProperty GetGameProperty(int id)
+        {
+            string sql = $"SELECT * FROM GameProperty WITH(NOLOCK) WHERE ID={id} ";
+            return Database.ExecuteObject<GameProperty>(sql);
+        }
+
+        #endregion
     }
 }

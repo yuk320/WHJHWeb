@@ -247,14 +247,15 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'记录时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'RecordSpreadReturnReceive', @level2type=N'COLUMN',@level2name=N'CollectDate'
 GO
 
-ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [BeforeScore] BIGINT NOT NULL DEFAULT(0)
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买前携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'BeforeInsure'
-GO
-ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [Score] INT NOT NULL DEFAULT(0)
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买花费携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'Insure'
-GO
+-- V1.1.4暂不更新此修改 道具功能迁移
+-- ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [BeforeScore] BIGINT NOT NULL DEFAULT(0)
+-- GO
+-- EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买前携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'BeforeInsure'
+-- GO
+-- ALTER TABLE [dbo].[RecordBuyNewProperty] ADD [Score] INT NOT NULL DEFAULT(0)
+-- GO
+-- EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'购买花费携带金币' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'Insure'
+-- GO
 
 
 USE [WHJHPlatformManagerDB]
@@ -276,21 +277,21 @@ GO
 USE [WHJHPlatformDB]
 GO
 
--- V1.1.4 道具功能迁移
-EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeRatio'
-GO
-ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_ExchangeRatio]
-ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_Diamond]
-GO
-ALTER TABLE [dbo].[GameProperty] DROP COLUMN [ExchangeRatio]
-GO
-ALTER TABLE [dbo].[GameProperty] ADD [ExchangeDiamondRatio] INT NOT NULL DEFAULT(0)
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'钻石兑换道具比例1钻石:N' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeDiamondRatio'
-GO
-ALTER TABLE [dbo].[GameProperty] ADD [ExchangeGoldRatio] INT NOT NULL DEFAULT(0)
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'金币兑换道具比例N金币:1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeGoldRatio'
-GO
-UPDATE [dbo].[GameProperty] SET ExchangeDiamondRatio = 10 WHERE ID = 306 --大喇叭重新赋值
-GO
+-- V1.1.4暂不更新此修改 道具功能迁移
+-- EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeRatio'
+-- GO
+-- ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_ExchangeRatio]
+-- ALTER TABLE [dbo].[GameProperty] DROP CONSTRAINT [DF_GameProperty_Diamond]
+-- GO
+-- ALTER TABLE [dbo].[GameProperty] DROP COLUMN [ExchangeRatio]
+-- GO
+-- ALTER TABLE [dbo].[GameProperty] ADD [ExchangeDiamondRatio] INT NOT NULL DEFAULT(0)
+-- GO
+-- EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'钻石兑换道具比例1钻石:N' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeDiamondRatio'
+-- GO
+-- ALTER TABLE [dbo].[GameProperty] ADD [ExchangeGoldRatio] INT NOT NULL DEFAULT(0)
+-- GO
+-- EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'金币兑换道具比例N金币:1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameProperty', @level2type=N'COLUMN',@level2name=N'ExchangeGoldRatio'
+-- GO
+-- UPDATE [dbo].[GameProperty] SET ExchangeDiamondRatio = 10 WHERE ID = 306 --大喇叭重新赋值
+-- GO

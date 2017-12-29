@@ -338,8 +338,8 @@ namespace Game.Facade
         public void UpdatePropertyInfo(GameProperty gameProperty)
         {
             string sql = " SET " +
-                         $" [ExchangeDiamondRatio] = {gameProperty.ExchangeDiamondRatio}," +
-                         $" [ExchangeGoldRatio] = {gameProperty.ExchangeGoldRatio}, " +
+                         $" [ExchangeRatio] = {gameProperty.ExchangeRatio}," +
+                        //  $" [ExchangeGoldRatio] = {gameProperty.ExchangeGoldRatio}, " +
                          $" [BuyResultsGold] = {gameProperty.BuyResultsGold}, " +
                          $" [UseResultsGold] = {gameProperty.UseResultsGold}, " +
                          $" [RegulationsInfo] = N'{gameProperty.RegulationsInfo}', " +

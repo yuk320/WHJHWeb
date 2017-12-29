@@ -55,13 +55,10 @@
               </td>
               <td class="listTitle2">
                 道具名称
-              </td>                
-              <td class="listTitle2">
-                金币比例
-              </td>                
+              </td>
               <td class="listTitle2">
                 钻石比例
-              </td>             
+              </td>
               <td class="listTitle2">
                 使用范围
               </td>
@@ -88,19 +85,16 @@
                 <ItemTemplate>
                     <tr align="center" class="list" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
-                        <td><input name='cid' type='checkbox' value='<%# Eval("ID")%>'/></td>      
+                        <td><input name='cid' type='checkbox' value='<%# Eval("ID")%>'/></td>
                       <td>
                         <a href="PropertyConfigInfo.aspx?param=<%# Eval("ID").ToString()%>" class="l">更新</a>
                       </td>
                       <td>
                         <%# Eval( "Name" ).ToString( )%>
-                      </td>                        
-                      <td>
-                        <%# Eval( "ExchangeGoldRatio" ).ToString()=="0"?"——":Eval( "ExchangeGoldRatio" )+":1"%>
                       </td>
                       <td>
-                        <%# Eval( "ExchangeDiamondRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
-                      </td>         
+                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
+                      </td>
                       <td>
                         <%# GetIssueArea(int.Parse(Eval( "UseArea" ).ToString()))%>
                       </td>
@@ -127,19 +121,16 @@
                 <AlternatingItemTemplate>
                     <tr align="center" class="list" onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#caebfc';this.style.cursor='default';"
                         onmouseout="this.style.backgroundColor=currentcolor">
-                        <td><input name='cid' type='checkbox' value='<%# Eval("ID")%>'/></td>      
+                        <td><input name='cid' type='checkbox' value='<%# Eval("ID")%>'/></td>
                       <td>
                         <a href="PropertyConfigInfo.aspx?param=<%# Eval("ID").ToString()%>" class="l">更新</a>
                       </td>
                       <td>
                         <%# Eval( "Name" )%>
-                      </td>                        
-                      <td>
-                        <%# Eval( "ExchangeGoldRatio" ).ToString()=="0"?"——":Eval( "ExchangeGoldRatio" )+":1"%>
                       </td>
                       <td>
-                        <%# Eval( "ExchangeDiamondRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
-                      </td>                        
+                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
+                      </td>
                       <td>
                         <%# GetIssueArea(int.Parse(Eval( "UseArea" ).ToString()))%>
                       </td>
@@ -160,7 +151,7 @@
                       </td>
                       <td>
                         <%# GetNullityStatus((byte)( Eval( "Nullity" ) ))%>
-                      </td>        
+                      </td>
                     </tr>
                 </AlternatingItemTemplate>
             </asp:Repeater>
@@ -169,15 +160,15 @@
     </div>
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="listTitleBg"><span>选择：</span>&nbsp;<a class="l1" href="javascript:SelectAll(true);">全部</a>&nbsp;-&nbsp;<a class="l1" href="javascript:SelectAll(false);">无</a></td>                
-            <td align="right" class="page">                
-                <gsp:AspNetPager ID="anpNews" runat="server" onpagechanged="anpNews_PageChanged" AlwaysShow="true" FirstPageText="首页" LastPageText="末页" PageSize="20" 
+            <td class="listTitleBg"><span>选择：</span>&nbsp;<a class="l1" href="javascript:SelectAll(true);">全部</a>&nbsp;-&nbsp;<a class="l1" href="javascript:SelectAll(false);">无</a></td>
+            <td align="right" class="page">
+                <gsp:AspNetPager ID="anpNews" runat="server" onpagechanged="anpNews_PageChanged" AlwaysShow="true" FirstPageText="首页" LastPageText="末页" PageSize="20"
                     NextPageText="下页" PrevPageText="上页" ShowBoxThreshold="0" ShowCustomInfoSection="Left" LayoutType="Table" NumericButtonCount="5"
                     CustomInfoHTML="总记录：%RecordCount%　页码：%CurrentPageIndex%/%PageCount%　每页：%PageSize%">
                 </gsp:AspNetPager>
             </td>
         </tr>
-    </table>  
+    </table>
     </form>
 </body>
 </html>

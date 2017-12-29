@@ -69,8 +69,8 @@
             <td>
                 <asp:TextBox ID="txtName" runat="server" CssClass="text" validate="{required:true}"></asp:TextBox>
             </td>
-        </tr>        
-        <tr>
+        </tr>
+        <!-- <tr>
             <td class="listTdLeft">
                 金币比例：
             </td>
@@ -78,7 +78,7 @@
                 <asp:TextBox ID="txtExchangeGoldRaito" runat="server" CssClass="text" validate="{number:true}" Text="0"></asp:TextBox>
                <span class="hong">金币比例代表 多少金币兑换1个道具</span>
             </td>
-        </tr>        
+        </tr>         -->
         <tr>
             <td class="listTdLeft">
                 钻石比例：
@@ -111,7 +111,7 @@
             <td>
                 <asp:TextBox ID="txtSortID" runat="server" CssClass="text" validate="{number:true}"></asp:TextBox>
             </td>
-        </tr>      
+        </tr>
         <tr>
             <td class="listTdLeft">
                 使用说明：

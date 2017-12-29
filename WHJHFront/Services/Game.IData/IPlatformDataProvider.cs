@@ -47,5 +47,15 @@ namespace Game.IData
         /// <returns></returns>
         DataSet GetMobileGameAndVersion();
         #endregion
+
+        #region 道具管理
+
+        /// <summary>
+        /// 获取道具信息by ID
+        /// </summary>
+        /// <returns></returns>
+        GameProperty GetGameProperty(int id);
+
+        #endregion
     }
 }
