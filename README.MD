@@ -1,5 +1,8 @@
 ### auto publish tools README.MD
 
+# Get Start
+` npm i ` First
+
 ` npm run auto [startDate] `
 
 - preauto is npm i ; it will npm install all node_modules
@@ -16,5 +19,8 @@
 - **otherAPI** be true will copy api site to WHJHAPI **filder** form **WHJHFront**
 - **versionList** will be auto rewrite by index script.
 
-[MobileApiDoc](./Docs/Mobile.MD "MobileApiDoc")
-[SpreadHome](./Docs/SpreadHome.MD "SpreadHome")
+### Docs
+
+- [DevelopDoc](./Docs/Develop.MD "DevelopDoc")
+- [MobileApiDoc](./Docs/Mobile.MD "MobileApiDoc")
+- [SpreadHome](./Docs/SpreadHome.MD "SpreadHome")
