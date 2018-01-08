@@ -11,10 +11,10 @@ IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[dbo].NET_PW_Regi
 DROP PROCEDURE [dbo].NET_PW_RegisterAccountsWX
 GO
 
-SET QUOTED_IDENTIFIER ON 
+SET QUOTED_IDENTIFIER ON
 GO
 
-SET ANSI_NULLS ON 
+SET ANSI_NULLS ON
 GO
 
 ----------------------------------------------------------------------------------------------------
@@ -23,11 +23,11 @@ GO
 CREATE PROCEDURE NET_PW_RegisterAccountsWX
 	@strUserUin			NVARCHAR(32),			    -- 用户Uin
 	@strNickName		NVARCHAR(31),				-- 用户昵称
-	@cbGender			TINYINT,					-- 用户性别	
-	@strFaceUrl			NVARCHAR(250),				-- 微信头像	
+	@cbGender			TINYINT,					-- 用户性别
+	@strFaceUrl			NVARCHAR(250),				-- 微信头像
 	@strSpreader		NVARCHAR(31),				-- 推广员名
-	@strClientIP		NVARCHAR(15),				-- 连接地址	
-	@dwRegisterOrigin   TINYINT,					-- 注册渠道		
+	@strClientIP		NVARCHAR(15),				-- 连接地址
+	@dwRegisterOrigin   TINYINT,					-- 注册渠道
 	@strErrorDescribe	NVARCHAR(127) OUTPUT		-- 输出信息
 WITH ENCRYPTION AS
 
@@ -82,7 +82,7 @@ BEGIN
 		SET @strErrorDescribe = @StatusString
 		RETURN 1002
 	END
-	
+
 	-- 效验地址
 	SELECT @EnjoinLogonState=EnjoinLogon,@EnjoinRegisterState=EnjoinRegister FROM ConfineAddress WITH(NOLOCK) WHERE AddrString=@strClientIP AND (EnjoinOverDate>@DateTime OR EnjoinOverDate IS NULL)
 	IF @EnjoinRegisterState=1 OR @EnjoinLogonState=1
@@ -136,7 +136,7 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉，注册失败，请稍后重试！'
 		RETURN 2005
 	END
-	
+
 	-- 查询用户
 	SELECT @UserID=UserID, @Accounts=Accounts, @Nickname=Nickname,@UnderWrite=UnderWrite, @Gender=Gender, @Compellation=Compellation,@PassPortID=PassPortID
 	FROM AccountsInfo WITH(NOLOCK) WHERE UserUin=@strUserUin
@@ -147,7 +147,7 @@ BEGIN
 
 	-- 分配标识
 	SELECT @GameID=GameID FROM GameIdentifier WITH(NOLOCK) WHERE UserID=@UserID
-	IF @GameID IS NULL 
+	IF @GameID IS NULL
 	BEGIN
 		UPDATE AccountsInfo SET CustomID = @CustomID WHERE UserID=@UserID
 		SET @GameID=0
@@ -159,8 +159,16 @@ BEGIN
 	END
 
 	-- 初始化金币信息
-	INSERT INTO WHJHTreasureDB.dbo.GameScoreInfo(UserID,RegisterIP) VALUES(@UserID,@strClientIP)
+	INSERT INTO WHJHTreasureDBLink.WHJHTreasureDB.dbo.GameScoreInfo(UserID,RegisterIP) VALUES(@UserID,@strClientIP)
+	INSERT INTO WHJHTreasureDBLink.WHJHTreasureDB.dbo.UserCurrency(UserID,Diamond) VALUES(@UserID,0)
 
+
+  DECLARE @BeforeDiamond INT
+  DECLARE @BeforeScore BIGINT
+  DECLARE @BeforeInsure BIGINT
+  SET @BeforeDiamond = 0
+  SET @BeforeScore = 0
+  SET @BeforeInsure=0
 	-- 注册赠送钻石
 	DECLARE @PresentDiamond INT
 	DECLARE @PresentGold INT
@@ -168,11 +176,35 @@ BEGIN
 	SELECT @PresentGold=StatusValue FROM SystemStatusInfo WITH(NOLOCK) WHERE StatusName=N'GrantScoreCount'
 	IF (@PresentDiamond IS NULL OR @PresentDiamond<0) SET @PresentDiamond=0
 	IF (@PresentGold IS NULL OR @PresentGold<0) SET @PresentGold=0
-	IF @PresentDiamond>0 OR @PresentGold>0
+	IF @PresentDiamond>0
+  BEGIN
+		UPDATE WHJHTreasureDBLink.WHJHTreasureDB.dbo.UserCurrency SET Diamond=Diamond + @PresentDiamond WHERE UserID=@UserID
+
+    INSERT INTO WHJHRecordDBLink.WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
+		VALUES(dbo.WF_GetSerialNumber(),0,@UserID,1,@BeforeDiamond,@PresentDiamond,@strClientIP,GETDATE())
+    SET @BeforeDiamond = @BeforeDiamond + @PresentDiamond
+  END
+  IF @PresentGold>0
 	BEGIN
-		INSERT INTO WHJHRecordDB.dbo.RecordRegisterGrant(UserID,RegisterIP,RegisterDate,RegisterOrigin,GrantDiamond,GrantGold) 
-		VALUES(@UserID,@strClientIP,@DateTime,@dwRegisterOrigin,@PresentDiamond,@PresentGold)
+    UPDATE WHJHTreasureDBLink.WHJHTreasureDB.dbo.GameScoreInfo SET Score = Score + @PresentGold WHERE UserID=@UserID
+
+    INSERT INTO WHJHRecordDBLink.WHJHRecordDB.dbo.RecordTreasureSerial(SerialNumber,MasterID,UserID,TypeID,CurScore,CurInsureScore,ChangeScore,ClientIP,CollectDate)
+		VALUES(dbo.WF_GetSerialNumber(),0,@UserID,1,@BeforeScore,@BeforeInsure,@PresentGold,@strClientIP,GETDATE())
+    SET @BeforeScore = @BeforeScore + @PresentGold
 	END
+
+  -- 绑定推广赠送钻石
+	DECLARE @PresentBindDiamond INT
+  SELECT @PresentBindDiamond=StatusValue FROM SystemStatusInfo WITH(NOLOCK) WHERE StatusName=N'JJBindSpreadPresent'
+  IF (@PresentBindDiamond IS NULL OR @PresentBindDiamond<0) SET @PresentBindDiamond=0
+  IF @PresentBindDiamond>0
+  BEGIN
+    -- 更新用户钻石信息
+		UPDATE WHJHTreasureDBLink.WHJHTreasureDB.dbo.UserCurrency SET Diamond=Diamond + @PresentBindDiamond WHERE UserID=@UserID
+
+    INSERT INTO WHJHRecordDBLink.WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
+		VALUES(dbo.WF_GetSerialNumber(),0,@UserID,4,@BeforeDiamond,@PresentBindDiamond,@strClientIP,GETDATE())
+  END
 
 	-- 记录日志
 	DECLARE @DateID INT
@@ -180,7 +212,7 @@ BEGIN
 	UPDATE SystemStreamInfo SET WebRegisterSuccess=WebRegisterSuccess+1 WHERE DateID=@DateID
 	IF @@ROWCOUNT=0 INSERT SystemStreamInfo (DateID, WebRegisterSuccess) VALUES (@DateID, 1)
 
-END 
+END
 
 RETURN 0
 
