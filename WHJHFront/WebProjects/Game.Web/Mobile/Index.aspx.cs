@@ -7,7 +7,7 @@ using Game.Utils;
 
 namespace Game.Web.Mobile
 {
-    public partial class Index : UCPageBase
+    public partial class Index : System.Web.UI.Page
     {
         //公用属性
         protected string Tel = string.Empty;
