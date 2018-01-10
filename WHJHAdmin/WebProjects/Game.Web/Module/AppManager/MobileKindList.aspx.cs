@@ -15,16 +15,19 @@ namespace Game.Web.Module.AppManager
 {
     public partial class MobileKindList : AdminPage
     {
+        #region 页面事件
+
         /// <summary>
         /// 页面加载
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 GameKindItemDataBind();
             }
         }
+
         /// <summary>
         /// 数据分页
         /// </summary>
@@ -32,6 +35,7 @@ namespace Game.Web.Module.AppManager
         {
             GameKindItemDataBind();
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -40,7 +44,7 @@ namespace Game.Web.Module.AppManager
             //判断权限
             AuthUserOperationPermission(Permission.Delete);
             int result = FacadeManage.aidePlatformFacade.DeleteMobileKindItem(StrCIdList);
-            if(result > 0)
+            if (result > 0)
             {
                 ShowInfo("删除成功");
                 GameKindItemDataBind();
@@ -50,18 +54,68 @@ namespace Game.Web.Module.AppManager
                 ShowError("删除失败");
             }
         }
+
+        /// <summary>
+        /// 批量启用
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnEnable_OnClick(object sender, EventArgs e)
+        {
+            if (StrCIdList.Equals("")) { ShowError("请选择需要操作的游戏"); return; }
+            int result = FacadeManage.aidePlatformFacade.ChangeMobileKindNullity(StrCIdList, 0);
+            if (result > 0)
+            {
+                ShowInfo("设置成功");
+                GameKindItemDataBind();
+            }
+            else
+            {
+                ShowError("设置失败");
+            }
+        }
+
+        /// <summary>
+        /// 批量禁用
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnDisable_OnClick(object sender, EventArgs e)
+        {
+            if (StrCIdList.Equals("")) {ShowError("请选择需要操作的游戏"); return;}
+            int result = FacadeManage.aidePlatformFacade.ChangeMobileKindNullity(StrCIdList, 1);
+            if (result > 0)
+            {
+                ShowInfo("设置成功");
+                GameKindItemDataBind();
+            }
+            else
+            {
+                ShowError("设置失败");
+            }
+        }
+
+        #endregion
+
+        #region 数据绑定
+
         /// <summary>
         /// 数据绑定
         /// </summary>
         private void GameKindItemDataBind()
         {
-            PagerSet pagerSet = FacadeManage.aidePlatformFacade.GetList(MobileKindItem.Tablename, anpNews.CurrentPageIndex, anpNews.PageSize, SearchItems, Orderby);
+            PagerSet pagerSet = FacadeManage.aidePlatformFacade.GetList(MobileKindItem.Tablename,
+                anpNews.CurrentPageIndex, anpNews.PageSize, SearchItems, Orderby);
             anpNews.RecordCount = pagerSet.RecordCount;
-            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
+            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count <= 0;
             rptMobileKindItem.DataSource = pagerSet.PageSet;
             rptMobileKindItem.DataBind();
-            
         }
+
+        #endregion
+
+        #region 方法属性
+
         /// <summary>
         /// 获取游戏属性
         /// </summary>
@@ -70,21 +124,22 @@ namespace Game.Web.Module.AppManager
         protected string GetMarkName(int gameFlag)
         {
             string rValue = "";
-            if((gameFlag & 1) > 0)
+            if ((gameFlag & 1) > 0)
             {
                 rValue += "ios,";
             }
-            if((gameFlag & 2) > 0)
+            if ((gameFlag & 2) > 0)
             {
                 rValue += "android,";
             }
 
-            if(rValue != "")
+            if (rValue != "")
             {
                 rValue = rValue.Substring(0, rValue.Length - 1);
             }
             return rValue;
         }
+
         /// <summary>
         /// 查询条件
         /// </summary>
@@ -92,11 +147,11 @@ namespace Game.Web.Module.AppManager
         {
             get
             {
-                if(ViewState["SearchItems"] == null)
+                if (ViewState["SearchItems"] == null)
                 {
                     ViewState["SearchItems"] = "WHERE 1=1";
                 }
-                return (string)ViewState["SearchItems"];
+                return (string) ViewState["SearchItems"];
             }
             set { ViewState["SearchItems"] = value; }
         }
@@ -108,14 +163,16 @@ namespace Game.Web.Module.AppManager
         {
             get
             {
-                if(ViewState["Orderby"] == null)
+                if (ViewState["Orderby"] == null)
                 {
                     ViewState["Orderby"] = "ORDER BY KindID ASC";
                 }
-                return (string)ViewState["Orderby"];
+                return (string) ViewState["Orderby"];
             }
 
             set { ViewState["Orderby"] = value; }
         }
+
+        #endregion
     }
 }

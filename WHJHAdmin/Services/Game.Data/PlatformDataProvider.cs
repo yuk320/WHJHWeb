@@ -209,6 +209,18 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
+
+        /// <summary>
+        /// 批量修改时游戏可用性
+        /// </summary>
+        /// <param name="idList">idlist（0,x,x,x）</param>
+        /// <param name="nullity">0：启用 1：禁用</param>
+        /// <returns></returns>
+        public int ChangeMobileKindNullity(string idList, int nullity)
+        {
+            string sql = $"UPDATE MobileKindItem SET Nullity = {nullity} WHERE KindID IN ({idList}) ";
+            return Database.ExecuteNonQuery(sql);
+        }
         #endregion
 
         #region 机器管理

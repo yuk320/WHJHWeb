@@ -32,7 +32,7 @@ namespace Game.Web.Module.AgentManager
                         AccountsInfo accounts = FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(info.UserID);
 
                         CtrlHelper.SetText(txtAgentNote, info.AgentNote);
-                        CtrlHelper.SetText(txtCompellation, accounts.Compellation);
+                        CtrlHelper.SetText(txtCompellation, info.Compellation);
                         CtrlHelper.SetText(txtContactAddress, info.ContactAddress);
                         CtrlHelper.SetText(txtContactPhone, info.ContactPhone);
                         CtrlHelper.SetText(txtDomain, info.AgentDomain);

@@ -139,6 +139,17 @@ namespace Game.Facade
         {
             return _aidePlatformData.UpdateMobileKindItem(item);
         }
+
+        /// <summary>
+        /// 批量修改时游戏可用性
+        /// </summary>
+        /// <param name="idList">idlist（0,x,x,x）</param>
+        /// <param name="nullity">0：启用 1：禁用</param>
+        /// <returns></returns>
+        public int ChangeMobileKindNullity(string idList, int nullity)
+        {
+            return _aidePlatformData.ChangeMobileKindNullity(idList, nullity);
+        }
         #endregion
 
         #region 机器管理

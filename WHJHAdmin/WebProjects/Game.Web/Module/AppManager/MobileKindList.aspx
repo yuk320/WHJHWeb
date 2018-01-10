@@ -35,6 +35,9 @@
                 <input class="btnLine" type="button" /> 
                 <asp:Button ID="btnDelete" runat="server" Text="删除" CssClass="btn wd1" 
                     onclick="btnDelete_Click" OnClientClick="return deleteop()" />                
+                <input class="btnLine" type="button" /> 
+               <asp:Button runat="server" ID="btnEnable" Text="批量启用" CssClass="btn wd2"  OnClick="btnEnable_OnClick"/>
+               <asp:Button runat="server" ID="btnDisable" Text="批量禁用" CssClass="btn wd2"  OnClick="btnDisable_OnClick"/>
             </td>
         </tr>
     </table>  

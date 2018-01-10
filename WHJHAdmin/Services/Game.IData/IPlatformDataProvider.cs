@@ -84,6 +84,14 @@ namespace Game.IData
         /// <param name="item">游戏信息</param>
         /// <returns></returns>
         int UpdateMobileKindItem(MobileKindItem item);
+
+        /// <summary>
+        /// 批量修改时游戏可用性
+        /// </summary>
+        /// <param name="idList">idlist（0,x,x,x）</param>
+        /// <param name="nullity">0：启用 1：禁用</param>
+        /// <returns></returns>
+        int ChangeMobileKindNullity(string idList, int nullity);
         #endregion
 
         #region 机器管理

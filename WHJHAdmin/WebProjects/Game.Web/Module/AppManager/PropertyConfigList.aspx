@@ -93,7 +93,7 @@
                         <%# Eval( "Name" ).ToString( )%>
                       </td>
                       <td>
-                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
+                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeRatio ")%>
                       </td>
                       <td>
                         <%# GetIssueArea(int.Parse(Eval( "UseArea" ).ToString()))%>
@@ -129,7 +129,7 @@
                         <%# Eval( "Name" )%>
                       </td>
                       <td>
-                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeDiamondRatio ")%>
+                        <%# Eval( "ExchangeRatio" ).ToString()=="0"?"——":"1:"+Eval(" ExchangeRatio ")%>
                       </td>
                       <td>
                         <%# GetIssueArea(int.Parse(Eval( "UseArea" ).ToString()))%>
