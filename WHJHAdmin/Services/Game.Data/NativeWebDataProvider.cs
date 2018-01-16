@@ -172,7 +172,7 @@ namespace Game.Data
         /// <returns></returns>
         public int InsertSystemNotice(SystemNotice notice)
         {
-            string sql = @"INSERT INTO SystemNotice(NoticeTitle,MoblieContent,WebContent,SortID,Publisher,PublisherTime,IsHot,IsTop,Nullity) 
+            string sql = @"INSERT INTO SystemNotice(NoticeTitle,MoblieContent,WebContent,SortID,Publisher,PublisherTime,IsHot,IsTop,Nullity)
                             VALUES(@NoticeTitle,@MoblieContent,@WebContent,@SortID,@Publisher,@PublisherTime,@IsHot,@IsTop,@Nullity)";
             var prams = new List<DbParameter>
             {
@@ -256,7 +256,7 @@ namespace Game.Data
         /// <returns></returns>
         public int InsertRankingConfig(RankingConfig config)
         {
-            string sql = @"INSERT INTO RankingConfig(TypeID,RankID,Diamond,ValidityTime,UpdateTime) 
+            string sql = @"INSERT INTO RankingConfig(TypeID,RankID,Diamond,ValidityTime,UpdateTime)
                             VALUES(@TypeID,@RankID,@Diamond,@ValidityTime,@UpdateTime)";
             var prams = new List<DbParameter>
             {
@@ -310,7 +310,7 @@ namespace Game.Data
         /// <returns></returns>
         public GameRule GetGameRuleInfo(int kindid)
         {
-            string sql = $"SELECT * FROM GameRule WITH(NOLOCK) WHERE KindID = {kindid}";
+            string sql = $"SELECT * FROM GameRule WITH(NOLOCK) WHERE KindID = {kindid} ORDER BY SortID ASC,KindID DESC";
             return Database.ExecuteObject<GameRule>(sql);
         }
         /// <summary>
@@ -320,7 +320,7 @@ namespace Game.Data
         /// <returns></returns>
         public int InsertGameRule(GameRule rule)
         {
-            string sql = @"INSERT INTO GameRule VALUES(@KindID,@KindName,@KindIcon,@KindIntro,@KindRule,@Nullity,@CollectDate)";
+            string sql = @"INSERT INTO GameRule(KindID,KindName,KindIcon,KindIntro,KindRule,Nullity,CollectDate,SortID) VALUES(@KindID,@KindName,@KindIcon,@KindIntro,@KindRule,@Nullity,@CollectDate,@SortID)";
             var prams = new List<DbParameter>
             {
                 Database.MakeInParam("KindID", rule.KindID),
@@ -329,6 +329,7 @@ namespace Game.Data
                 Database.MakeInParam("KindIntro", rule.KindIntro),
                 Database.MakeInParam("KindRule", rule.KindRule),
                 Database.MakeInParam("Nullity", rule.Nullity),
+                Database.MakeInParam("SortID", rule.SortID),
                 Database.MakeInParam("CollectDate", rule.CollectDate)
             };
 
@@ -341,7 +342,7 @@ namespace Game.Data
         /// <returns></returns>
         public int UpdateGameRule(GameRule rule)
         {
-            string sqlQuery = @"UPDATE GameRule SET KindIcon=@KindIcon,KindIntro=@KindIntro,KindRule=@KindRule,Nullity= @Nullity WHERE KindID= @KindID";
+            string sqlQuery = @"UPDATE GameRule SET KindIcon=@KindIcon,KindIntro=@KindIntro,KindRule=@KindRule,Nullity= @Nullity,SortID=@SortID WHERE KindID= @KindID";
 
             var prams = new List<DbParameter>
             {
@@ -349,7 +350,8 @@ namespace Game.Data
                 Database.MakeInParam("KindIntro", rule.KindIntro),
                 Database.MakeInParam("KindRule", rule.KindRule),
                 Database.MakeInParam("Nullity", rule.Nullity),
-                Database.MakeInParam("KindID", rule.KindID)
+                Database.MakeInParam("KindID", rule.KindID),
+                Database.MakeInParam("SortID", rule.SortID)
             };
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }

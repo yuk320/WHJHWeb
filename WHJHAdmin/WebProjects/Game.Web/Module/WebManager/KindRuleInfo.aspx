@@ -66,6 +66,13 @@
                 </td>
             </tr>
             <tr>
+              <td class="listTdLeft">排序：</td>
+              <td>
+                <asp:TextBox ID="txtSortID" runat="server" CssClass="text" Text="0"></asp:TextBox>  
+                <span class="hong">*</span>
+              </td>
+            </tr>
+            <tr>
                 <td class="listTdLeft">游戏简介：</td>
                 <td>
                    <asp:TextBox ID="txtIntro" runat="server" CssClass="text" Width="633px" MaxLength="500" Height="100px" TextMode="MultiLine"></asp:TextBox>  

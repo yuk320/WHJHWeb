@@ -213,7 +213,7 @@ namespace Game.Data
         public IList<GameRule> GetGameRuleList()
         {
             string sqlQuery =
-                @"SELECT KindID,KindName,KindIcon,KindIntro FROM GameRule WITH(NOLOCK) WHERE Nullity=0 ORDER BY CollectDate DESC";
+                @"SELECT KindID,KindName,KindIcon,KindIntro FROM GameRule WITH(NOLOCK) WHERE Nullity=0 ORDER BY SortID ASC,KindID DESC";
             return Database.ExecuteObjectList<GameRule>(sqlQuery);
         }
 

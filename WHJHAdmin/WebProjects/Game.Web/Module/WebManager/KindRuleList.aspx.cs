@@ -95,7 +95,7 @@ namespace Game.Web.Module.WebManager
         {
             PagerSet pagerSet = FacadeManage.aideNativeWebFacade.GetList(GameRule.Tablename, anpNews.CurrentPageIndex, anpNews.PageSize, SearchItems, Orderby);
             anpNews.RecordCount = pagerSet.RecordCount;
-            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
+            litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count <= 0;
             rptIssue.DataSource = pagerSet.PageSet;
             rptIssue.DataBind();
 
@@ -124,7 +124,7 @@ namespace Game.Web.Module.WebManager
             {
                 if(ViewState["Orderby"] == null)
                 {
-                    ViewState["Orderby"] = "ORDER BY KindID DESC";
+                    ViewState["Orderby"] = "ORDER BY SortID ASC,KindID DESC";
                 }
                 return (string)ViewState["Orderby"];
             }

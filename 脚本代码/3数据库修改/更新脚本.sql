@@ -29,6 +29,12 @@ GO
 DELETE DBO.ConfigInfo WHERE ConfigKey = N'GameAndroidConfig'
 DELETE DBO.ConfigInfo WHERE ConfigKey = N'GameIosConfig'
 
+-- V1.1.6 游戏规则 增加排序字段。
+ALTER TABLE [dbo].[GameRule] ADD [SortID] INT NOT NULL DEFAULT(0)
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'玩法排序' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameRule', @level2type=N'COLUMN',@level2name=N'SortID'
+GO
+
 USE [WHJHTreasureDB]
 GO
 

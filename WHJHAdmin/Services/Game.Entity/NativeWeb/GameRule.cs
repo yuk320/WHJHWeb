@@ -34,6 +34,7 @@ namespace Game.Entity.NativeWeb
         private string p_kindintro;
         private string p_kindrule;
         private byte p_nullity;
+        private int p_sortid;
         private DateTime p_collectdate;
 
         #endregion
@@ -51,6 +52,7 @@ namespace Game.Entity.NativeWeb
             p_kindintro = string.Empty;
             p_kindrule = string.Empty;
             p_nullity = 0;
+            p_sortid = 0;
             p_collectdate = DateTime.Now;
         }
 
@@ -161,6 +163,15 @@ namespace Game.Entity.NativeWeb
             {
                 return p_collectdate;
             }
+        }
+
+        /// <summary>
+        /// 玩法排序
+        /// </summary>
+        public int SortID
+        {
+            set { p_sortid = value; }
+            get { return p_sortid; }
         }
 
         #endregion

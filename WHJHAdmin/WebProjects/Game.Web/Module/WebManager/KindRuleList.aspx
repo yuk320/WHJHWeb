@@ -38,6 +38,7 @@
                 <td style="width:30px;" class="listTitle"><input type="checkbox" name="chkAll" onclick="SelectAll(this.checked);" /></td>
                 <td style="width:100px;" class="listTitle2">管理</td>
                 <td class="listTitle2">游戏标识</td>
+                <td class="listTitle2">玩法排序</td>
                 <td class="listTitle2">游戏名称</td>
                 <td class="listTitle2">游戏图标</td>
                 <td class="listTitle2">游戏简介</td>  
@@ -53,6 +54,7 @@
                             <a class="l" href="KindRuleInfo.aspx?param=<%#Eval("KindID") %>">编辑</a>              
                         </td>                
                         <td><%# Eval("KindID") %></td>
+                        <td><%# Eval("SortID") %></td>
                         <td><%# Eval("KindName") %></td>
                         <td style="padding:2px;"><img src="/Upload<%# Eval( "KindIcon" )%>" width="100" height="50"/></td>
                         <td><%# Eval("KindIntro").ToString().Length>20?Eval("KindIntro").ToString().Substring(0,20):Eval("KindIntro").ToString() %></td>
@@ -68,6 +70,7 @@
                             <a class="l" href="KindRuleInfo.aspx?param=<%#Eval("KindID") %>">编辑</a>              
                         </td>                
                         <td><%# Eval("KindID") %></td>
+                        <td><%# Eval("SortID") %></td>
                         <td><%# Eval("KindName") %></td>
                         <td style="padding:2px;"><img src="/Upload<%# Eval( "KindIcon" )%>" width="100" height="50"/></td>
                         <td><%# Eval("KindIntro").ToString().Length>20?Eval("KindIntro").ToString().Substring(0,20):Eval("KindIntro").ToString() %></td>

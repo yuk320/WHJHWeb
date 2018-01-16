@@ -63,6 +63,7 @@ namespace Game.Web.Module.WebManager
             rule.KindName = ddlGame.SelectedItem.Text;
             rule.KindIntro = CtrlHelper.GetText(txtIntro);
             rule.KindRule = txtRule.Text;
+            rule.SortID = CtrlHelper.GetInt(txtSortID, 0);
 
             int result = IntParam > 0 ? FacadeManage.aideNativeWebFacade.UpdateGameRule(rule) : FacadeManage.aideNativeWebFacade.InsertGameRule(rule);
             if(result > 0)
@@ -103,6 +104,7 @@ namespace Game.Web.Module.WebManager
                         upImage.FilePath = "/Upload" + rule.KindIcon;
                     }
                     ddlGame.Enabled = false;
+                    CtrlHelper.SetText(txtSortID, rule.SortID.ToString());
                 }
             }
         }
