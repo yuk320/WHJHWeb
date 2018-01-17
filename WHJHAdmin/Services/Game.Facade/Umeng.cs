@@ -14,7 +14,7 @@ namespace Game.Facade
         private static string AppSecret_Android = ApplicationSettings.Get("AppSecret_Android");
         private static string AppKey_IOS = ApplicationSettings.Get("AppKey_IOS");
         private static string AppSecret_IOS = ApplicationSettings.Get("AppSecret_IOS");
-
+        private static string UmengProductionMode = ApplicationSettings.Get("UMengProductionMode");
         /// <summary>
         /// 发送推送信息
         /// </summary>
@@ -52,7 +52,7 @@ namespace Game.Facade
                     sb.AppendFormat("\"start_time\":\"{0}\",", startTime);
                     sb.AppendFormat("\"expire_time\":\"{0}\",", endTime);
                     sb.Append("},");
-                    sb.Append("\"production_mode\":\"false\",");
+                    sb.AppendFormat("\"production_mode\":\"{0}\",", UmengProductionMode);
                     sb.AppendFormat("\"description\":\"{0}\"", Text);
                     sb.Append("}");
                     mysign = GetMD5("POST" + AppUrl + sb.ToString() + AppSecret_IOS);
@@ -81,7 +81,7 @@ namespace Game.Facade
                     sb.AppendFormat("\"start_time\":\"{0}\",", startTime);
                     sb.AppendFormat("\"expire_time\":\"{0}\",", endTime);
                     sb.Append("},");
-                    sb.Append("\"production_mode\":\"false\",");
+                    sb.AppendFormat("\"production_mode\":\"{0}\",", UmengProductionMode);
                     sb.AppendFormat("\"description\":\"{0}\"", Text);
                     sb.Append("}");
                     mysign = GetMD5("POST" + AppUrl + sb.ToString() + AppSecret_Android);
