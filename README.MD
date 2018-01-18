@@ -18,6 +18,7 @@
 - **otherRoomCard** be true will copy roomcard site to **WHJHRoomCard** filder form **WHJHFront**
 - **otherAPI** be true will copy api site to WHJHAPI **filder** form **WHJHFront**
 - **versionList** will be auto rewrite by index script.
+- **prebuild** can control some project build or not build
 
 ### Docs
 
