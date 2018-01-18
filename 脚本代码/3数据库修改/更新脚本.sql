@@ -279,6 +279,10 @@ INSERT INTO [dbo].[Base_ModulePermission] ([ModuleID] ,[PermissionTitle] ,[Permi
 VALUES (306,N'编辑',2,0,0,1)
 GO
 
+-- V1.1.6 后台修复其他权限无查看在线玩家的问题。
+INSERT DBO.Base_ModulePermission ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
+VALUES (101,N'查看',1,0,0,1)
+GO
 
 USE [WHJHPlatformDB]
 GO
