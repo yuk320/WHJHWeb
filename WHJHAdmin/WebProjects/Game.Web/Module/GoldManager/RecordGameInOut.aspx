@@ -23,7 +23,7 @@
                 </div>
             </td>
             <td width="1232" height="25" valign="top" align="left">
-                你当前位置：金币系统 - 进出记录
+                你当前位置：金币系统 - 进出记录 （游戏进出记录修复前 无钻石相关信息）
             </td>
         </tr>
     </table>
@@ -68,11 +68,13 @@
                 <td class="listTitle2">进入机器</td>
                 <td class="listTitle2">游戏</td>
                 <td class="listTitle2">房间</td>
+                <td class="listTitle2">钻石</td>
                 <td class="listTitle2">携带金币</td>
                 <td class="listTitle2">银行金币</td>
                 <td class="listTitle2">离开时间</td>
                 <td class="listTitle2">离开地址</td>
                 <td class="listTitle2">离开原因</td>
+                <td class="listTitle2">钻石变化</td>
                 <td class="listTitle2">携带金币变化</td>
                 <td class="listTitle2">银行金币变化</td>
                 <td class="listTitle2">游戏税收</td>
@@ -90,11 +92,13 @@
                         <td><%# Eval("EnterMachine")%></td>
                         <td><%# GetGameKindName(Convert.ToInt32(Eval("KindID")))%></td>
                         <td><%# GetGameRoomName(Convert.ToInt32(Eval("ServerID")))%></td>
+                        <td><%# Eval("EnterDiamond")%></td>
                         <td><%# Eval("EnterScore")%></td>
                         <td><%# Eval("EnterInsure")%></td>
                        <td><%# Eval("LeaveTime") == DBNull.Value ? "正在游戏中" : Convert.ToDateTime(Eval("LeaveTime")).ToString("yyyy-MM-dd HH:mm:ss") %></td>
                         <td><%# Eval("LeaveTime") == DBNull.Value ? "" : Eval( "LeaveClientIP" ).ToString() %></td>
                         <td><%# Eval( "LeaveTime" ) == DBNull.Value ? "" : GetLeaveReason(Convert.ToInt32(Eval("LeaveReason"))) %></td>
+                        <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Diamond") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Score") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Insure") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Revenue") + "</td>"%>
@@ -112,11 +116,13 @@
                         <td><%# Eval("EnterMachine")%></td>
                         <td><%# GetGameKindName(Convert.ToInt32(Eval("KindID")))%></td>
                         <td><%# GetGameRoomName(Convert.ToInt32(Eval("ServerID")))%></td>
+                        <td><%# Eval("EnterDiamond")%></td>
                         <td><%# Eval("EnterScore")%></td>
                         <td><%# Eval("EnterInsure")%></td>
                         <td><%# Eval("LeaveTime") == DBNull.Value ? "正在游戏中" : Convert.ToDateTime(Eval("LeaveTime")).ToString("yyyy-MM-dd HH:mm:ss") %></td>
                         <td><%# Eval("LeaveTime") == DBNull.Value ? "" : Eval( "LeaveClientIP" ).ToString() %></td>
                         <td><%# Eval( "LeaveTime" ) == DBNull.Value ? "" : GetLeaveReason(Convert.ToInt32(Eval("LeaveReason"))) %></td>
+                        <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Diamond") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Score") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Insure") + "</td>"%>
                         <%# Eval("LeaveTime") == DBNull.Value ? "<td></td>" : "<td>" + Eval("Revenue") + "</td>"%>
