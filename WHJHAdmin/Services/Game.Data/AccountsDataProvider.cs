@@ -165,6 +165,7 @@ namespace Game.Data
             {
                 Database.MakeInParam("strAccounts", user.Accounts),
                 Database.MakeInParam("strLogonPass", user.LogonPass),
+                Database.MakeInParam("dwGrantGold",user.UserRight),
                 Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
             };
 
