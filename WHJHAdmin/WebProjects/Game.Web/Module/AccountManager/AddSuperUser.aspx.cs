@@ -26,7 +26,8 @@ namespace Game.Web.Module.AccountManager
             AccountsInfo info = new AccountsInfo()
             {
                 Accounts = CtrlHelper.GetText(txtAccounts),
-                LogonPass = Utility.MD5(CtrlHelper.GetText(txtPassword))
+                LogonPass = Utility.MD5(CtrlHelper.GetText(txtPassword)),
+                UserRight = CtrlHelper.GetInt(txtGrantGold,0)
             };
 
             Message msg = FacadeManage.aideAccountsFacade.InsertSuperUser(info);

@@ -77,6 +77,13 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="请输入确认密码" ControlToValidate="txtRePassword" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
           </td>
         </tr>
+        <tr>
+          <td class="listTdLeft">赠送金币（携带）：</td>
+          <td>
+            <asp:TextBox ID="txtGrantGold" runat="server" CssClass="text" Text="0"></asp:TextBox>
+            <span class="hong">* 请不要超过21亿哦</span>
+          </td>
+        </tr>
       </table>
     </ContentTemplate>
   </asp:UpdatePanel>
