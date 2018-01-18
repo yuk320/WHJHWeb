@@ -42,6 +42,20 @@ BEGIN
 
 	SELECT @UserID = SCOPE_IDENTITY()
 
+  DECLARE @GameID INT -- 游戏标识
+
+  -- 分配标识
+	SELECT @GameID=GameID FROM GameIdentifier WITH(NOLOCK) WHERE UserID=@UserID
+	IF @GameID IS NULL
+	BEGIN
+		SET @GameID=0
+		SET @strErrorDescribe=N'注册成功，请联系管理员分配ID ！'
+	END
+	ELSE
+	BEGIN
+		UPDATE AccountsInfo SET GameID=@GameID WHERE UserID=@UserID
+	END
+
   IF @dwGrantGold>0
   BEGIN
     BEGIN TRAN
