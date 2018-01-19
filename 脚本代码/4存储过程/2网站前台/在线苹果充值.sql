@@ -12,9 +12,9 @@ IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[dbo].NET_PW_Fini
 DROP PROCEDURE [dbo].NET_PW_FinishOnLineOrderIOS
 GO
 
-SET QUOTED_IDENTIFIER ON 
+SET QUOTED_IDENTIFIER ON
 GO
-SET ANSI_NULLS ON 
+SET ANSI_NULLS ON
 GO
 
 ---------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ CREATE PROCEDURE NET_PW_FinishOnLineOrderIOS
 	@PayAmount			DECIMAL(18,2),			--  支付金额
 	@dwUserID			INT,					--	充值用户
 	@strAppleID			NVARCHAR(32),			--  产品标识
-	@strIPAddress		NVARCHAR(31),			--	用户帐号	
+	@strIPAddress		NVARCHAR(31),			--	用户帐号
 	@strErrorDescribe	NVARCHAR(127) OUTPUT	--	输出信息
 WITH ENCRYPTION AS
 
@@ -122,8 +122,8 @@ BEGIN
 		SET @strErrorDescribe=N'抱歉！操作异常，请稍后重试!'
 		RETURN 3001
 	END
-	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,OtherPresent,OrderStatus,OrderDate,OrderAddress,BeforeDiamond,PayDate,PayAddress) 
-	VALUES(@ConfigID,800,@UserID,@GameID,@Accounts,@NickName,@strOrdersID,1,@Amount,@Diamond,@OtherPresent,1,@DateTime,@strIPAddress,@BeforeDiamond,@DateTime,@strIPAddress)
+	INSERT INTO OnLinePayOrder(ConfigID,ShareID,UserID,GameID,Accounts,NickName,OrderID,OrderType,Amount,Diamond,OtherPresent,OrderStatus,OrderDate,OrderAddress,BeforeDiamond,PayDate,PayAddress)
+	VALUES(@ConfigID,800,@UserID,@GameID,@Accounts,@NickName,@strOrdersID,1,@Amount,@Diamond,@PresentDiamond,1,@DateTime,@strIPAddress,@BeforeDiamond,@DateTime,@strIPAddress)
 	IF @@ROWCOUNT <=0
 	BEGIN
 		ROLLBACK TRAN
@@ -132,7 +132,7 @@ BEGIN
 	END
 
 	-- 写入钻石变化记录
-	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate) 
+	INSERT INTO WHJHRecordDB.dbo.RecordDiamondSerial(SerialNumber,MasterID,UserID,TypeID,CurDiamond,ChangeDiamond,ClientIP,CollectDate)
 	VALUES(dbo.WF_GetSerialNumber(),0,@UserID,3,@BeforeDiamond,@PresentDiamond,@strIPAddress,@DateTime)
 
 	-- 如果存在返利配置，写入返利记录
@@ -144,12 +144,12 @@ BEGIN
 		BEGIN
 			SET @ReturnType = 0
 		END
-		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate) 
+		INSERT WHJHRecordDB.DBO.RecordSpreadReturn (SourceUserID,TargetUserID,SourceDiamond,SpreadlEvel,ReturnScale,ReturnNum,ReturnType,CollectDate)
 		SELECT @UserID,A.UserID,@Diamond,B.SpreadLevel,B.PresentScale,@Diamond*B.PresentScale,@ReturnType,@DateTime FROM (SELECT UserID,LevelID FROM [dbo].[WF_GetAgentAboveAccounts](@UserID) ) AS A,SpreadReturnConfig AS B WHERE B.SpreadLevel=A.LevelID-1 AND A.LevelID>1 AND A.LevelID<=4 AND B.Nullity=0
 	END
 
 	COMMIT TRAN
 
-END 
+END
 RETURN 0
 GO
