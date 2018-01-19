@@ -35,6 +35,7 @@ body a {
 .ui-top {
   position: relative;
   width: 100%;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 3.1% 0 3.4%;
   top: 0.25rem;
@@ -45,9 +46,9 @@ body a {
 }
 
 .ui-share {
- width: 0.7rem;
- height: 0.7rem;
- margin-left: 3rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-left: 3rem;
 }
 
 .ui-logo img {
@@ -62,20 +63,21 @@ body a {
   left: 0;
   top: 0;
 }
-.ui-qrcode{
+.ui-qrcode {
   width: 2.2rem;
   height: 2.2rem;
   padding: 0.05rem;
   border: 1px solid #e9cdd2;
   background: transparent;
-  box-shadow: 0 .03rem .1rem #e9cdd2,0 0 .25rem #fff inset;
+  box-shadow: 0 0.03rem 0.1rem #e9cdd2, 0 0 0.25rem #fff inset;
   margin: 4.6rem auto 0;
 }
-.ui-qrcode img{
+.ui-qrcode img {
   display: block;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
-  padding: .05rem;
+  padding: 0.05rem;
   border: 1px solid #f2f2f2;
   width: 100%;
   height: 100%;
@@ -97,7 +99,7 @@ body a {
 a.ui-download-btn {
   display: block;
   width: 46%;
-  margin: .3rem auto 0;
+  margin: 0.3rem auto 0;
 }
 
 a.ui-download-btn img {
@@ -150,7 +152,7 @@ a.ui-phone img {
   left: 0;
   top: 0;
   z-index: 999;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .ui-weixin-tip p {
@@ -163,8 +165,8 @@ a.ui-phone img {
   margin: 0 auto;
 }
 
-@media only screen  and (min-width: 1024px) {
-  a.ui-download-btn{
+@media only screen and (min-width: 1024px) {
+  a.ui-download-btn {
     margin-top: 10rem;
   }
 }

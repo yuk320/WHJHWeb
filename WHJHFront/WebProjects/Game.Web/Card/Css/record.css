@@ -32,11 +32,12 @@ main {
 .ui-content {
   display: table;
   width: 100%;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 2rem 1rem;
 }
 
-.ui-content>div {
+.ui-content > div {
   text-align: center;
   width: 50%;
   font-size: 1rem;
@@ -65,19 +66,20 @@ main {
   color: #fff;
   background: #ad98d6;
   border-bottom: 1px solid #aab3b5;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .05) inset;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.05) inset;
 }
 
 .ui-detail tbody tr:nth-child(2n) {
   background: #f3f3f5;
 }
 
-.ui-detail tbody tr:nth-child(2n+1) {
+.ui-detail tbody tr:nth-child(2n + 1) {
   background: #e5e5e5;
 }
 
 .ui-tab {
   width: 100%;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 2rem 5%;
 }
@@ -90,6 +92,7 @@ main {
 .ui-tab li {
   display: inline-block;
   vertical-align: middle;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 20%;
   border: 1px solid #999;
@@ -106,6 +109,7 @@ main {
 
 .ui-tab-num {
   width: 100%;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0.5rem 5%;
 }

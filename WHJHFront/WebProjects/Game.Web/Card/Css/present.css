@@ -11,6 +11,7 @@ main {
 .ui-content {
   display: table;
   width: 100%;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 2rem 1rem;
 }
@@ -29,7 +30,7 @@ main {
   border-top: 1px solid #aab3b5;
   background: #ad98d6;
   border-bottom: 1px solid #aab3b5;
-  box-shadow: 0 4px 7px 0 rgba(0,0,0,.19) inset;
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.19) inset;
   height: 2.5rem;
 }
 .ui-title > span {
@@ -39,7 +40,7 @@ main {
   height: 58%;
   margin-right: 0.5rem;
 }
-.ui-title > span img{
+.ui-title > span img {
   display: block;
   width: 100%;
   height: 100%;
@@ -69,7 +70,7 @@ form label em {
   vertical-align: middle;
   font-size: 1rem;
 }
-form label em span{
+form label em span {
   font-size: 1rem;
 }
 form label em input {
@@ -81,10 +82,10 @@ form label em input {
   border-radius: 5px;
   outline: none;
 }
-#MainContent_txtDescript{
+#MainContent_txtDescript {
   height: 3rem;
 }
-form label em textarea{
+form label em textarea {
   width: 80%;
   height: 100%;
   border-radius: 5px;
@@ -93,7 +94,7 @@ form label em textarea{
   outline: none;
 }
 
-form label input[type='submit'] {
+form label input[type="submit"] {
   width: 66.8%;
   height: 3.5rem;
   border-radius: 5px;
@@ -103,7 +104,7 @@ form label input[type='submit'] {
   text-indent: 0;
   border: none;
 }
-.ui-present input[type='submit']{
+.ui-present input[type="submit"] {
   width: 66.8%;
   height: 3.5rem;
   border-radius: 5px;
@@ -113,59 +114,66 @@ form label input[type='submit'] {
   text-indent: 0;
   border: none;
 }
-.ui-password{
+.ui-password {
   padding-bottom: 3rem;
 }
-.ui-tip{
+.ui-tip {
   font-size: 0.8rem;
   text-align: center;
 }
 
-
-input::-webkit-input-placeholder { color: #b8b8b8; }
-input:-moz-placeholder { color: #b8b8b8; }
-input:-moz-placeholder { color: #b8b8b8; }
-input:-ms-input-placeholder { color: #b8b8b8; }
-.popForm h3{
-    color:red;
+input::-webkit-input-placeholder {
+  color: #b8b8b8;
+}
+input:-moz-placeholder {
+  color: #b8b8b8;
+}
+input:-moz-placeholder {
+  color: #b8b8b8;
+}
+input:-ms-input-placeholder {
+  color: #b8b8b8;
+}
+.popForm h3 {
+  color: red;
 }
 .popForm p {
-            display:table;
-            margin:1rem 0;
-            height:2rem;
-            width:100%;
-        }
-        .popForm p span:first-child {
-            display: table-cell;
-            width: 35%;
-            text-align: right;
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-        .popForm p em {
-            display: table-cell;
-            height: 100%;
-            text-align: left;
-            vertical-align: middle;
-            font-size: 1rem;
-        }
-        .popForm p em input {
-            height: 100%;
-            width: 80%;
-            background: #d7d7d9;
-            border: none;
-            text-indent: 1rem;
-            border-radius: 5px;
-            outline: none;
-        }
-         .popForm p em input[type="submit"] {
-            height: 100%;
-            width: 40%;
-            background: #ad98d6;
-            border: none;
-            text-align:center;
-            border-radius: 5px;
-            outline: none;
-            text-indent:0;
-            color:#fff;
-            }
+  display: table;
+  margin: 1rem 0;
+  height: 2rem;
+  width: 100%;
+}
+.popForm p span:first-child {
+  display: table-cell;
+  width: 35%;
+  text-align: right;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+.popForm p em {
+  display: table-cell;
+  height: 100%;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 1rem;
+}
+.popForm p em input {
+  height: 100%;
+  width: 80%;
+  background: #d7d7d9;
+  border: none;
+  text-indent: 1rem;
+  border-radius: 5px;
+  outline: none;
+}
+.popForm p em input[type="submit"] {
+  height: 100%;
+  width: 40%;
+  background: #ad98d6;
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  outline: none;
+  text-indent: 0;
+  color: #fff;
+}

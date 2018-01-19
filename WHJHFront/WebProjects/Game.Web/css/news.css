@@ -4,7 +4,6 @@
   margin: 54px auto 0;
 }
 
-
 .ui-news-details {
   padding: 0 27px;
 }
@@ -29,7 +28,7 @@
 }
 
 .ui-news-details.current .ui-news-time p:first-child {
-  color: #EF3030;
+  color: #ef3030;
   font-size: 24px;
 }
 
@@ -88,5 +87,5 @@
 .ui-content-box {
   width: 100%;
   padding: 0;
-  min-height:816px;
+  min-height: 816px;
 }

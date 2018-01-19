@@ -14,12 +14,15 @@ p {
   padding: 0;
 }
 
-body>img {
+body > img {
   display: block;
   position: absolute;
   z-index: -99;
   width: 7.5rem;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
@@ -30,41 +33,42 @@ main {
   margin: 0 auto;
 }
 
-main>.face-box {
+main > .face-box {
   display: block;
   width: 1.44rem;
   height: 1.46rem;
   margin: 0 auto;
+  -moz-box-sizing: content-box;
   box-sizing: content-box;
-  padding: .6rem 0 0;
+  padding: 0.6rem 0 0;
 }
 
 .face-box img {
-  border-radius: 0.15rem;  
+  border-radius: 0.15rem;
   display: block;
   width: 100%;
   height: 100%;
 }
 
-main>.face-box+p {
-  font-size: .29rem;
-  margin: .1rem 0 0;
+main > .face-box + p {
+  font-size: 0.29rem;
+  margin: 0.1rem 0 0;
   color: #fff;
 }
 
 .invite-id {
-  margin: .26rem auto 0;
+  margin: 0.26rem auto 0;
   width: 88.67%;
   height: 1.79rem;
   line-height: 1.79rem;
   font-size: 0.56rem;
   color: #fff;
-  background: url('/image/title-bg.png') no-repeat center/100% 100%;
+  background: url("/image/title-bg.png") no-repeat center/100% 100%;
 }
 
 .invite-id span,
 .room-num span {
-  font-size: .56rem;
+  font-size: 0.56rem;
   color: #c5ff71;
 }
 
@@ -99,14 +103,14 @@ main>.face-box+p {
 .ui-invite-btn,
 .ui-enter-btn {
   display: block;
-  margin: .65rem auto 0;
+  margin: 0.65rem auto 0;
   width: 3.76rem;
   height: 1.43rem;
-  background: url('/image/recieve.png') no-repeat center/100% 100%;
+  background: url("/image/recieve.png") no-repeat center/100% 100%;
 }
 
 .ui-enter-btn {
-  background: url('/image/enter.png') no-repeat center/100% 100%;
+  background: url("/image/enter.png") no-repeat center/100% 100%;
 }
 
 .recieve-num {
@@ -115,28 +119,28 @@ main>.face-box+p {
 
 .game-name-box {
   color: #fff;
-  font-size: .44rem;
+  font-size: 0.44rem;
   margin: 0 auto;
   text-align: center;
-  padding: .86rem 0 .5rem 0;
+  padding: 0.86rem 0 0.5rem 0;
 }
 
 .game-name-box img {
   display: inline-block;
   vertical-align: middle;
   width: 3.24rem;
-  height: .77rem;
+  height: 0.77rem;
   margin-right: 0.3rem;
 }
 
 .room-num {
-  margin: .55rem auto 0;
+  margin: 0.55rem auto 0;
   width: 88.67%;
   height: 1.79rem;
   line-height: 1.79rem;
   font-size: 0.56rem;
   color: #fff;
-  background: url('/image/title-bg.png') no-repeat center/100% 100%;
+  background: url("/image/title-bg.png") no-repeat center/100% 100%;
 }
 
 .invite-tips {
@@ -144,21 +148,21 @@ main>.face-box+p {
   font-size: 0.24rem;
   width: 5.76rem;
   text-align: center;
-  margin: 0.8rem auto .5rem;
+  margin: 0.8rem auto 0.5rem;
 }
 
 .invite-tips span {
   display: inline-block;
   color: cornflowerblue;
   font-weight: bold;
-  padding:0 4px;
+  padding: 0 4px;
 }
 
 .about-game {
-  font-size: .24rem;
+  font-size: 0.24rem;
   color: #fff;
   width: 69.3%;
-  margin: .8rem auto 0;
+  margin: 0.8rem auto 0;
   height: 2.62rem;
   overflow-y: scroll;
   line-height: 1.5;

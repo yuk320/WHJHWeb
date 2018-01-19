@@ -35,6 +35,7 @@ table td {
   line-height: 0.8rem;
   text-align: center;
   color: #000;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #f7f7f7;
   border-bottom: 1px solid #dedfe0;
@@ -71,7 +72,7 @@ table td {
   font-size: 0.28rem;
 }
 .ui-query {
-  font-size:0;
+  font-size: 0;
   margin: 0.25rem 0;
   text-align: center;
 }
@@ -165,13 +166,13 @@ table td {
   background: #00cc66;
 }
 
-.ui-confirm{
+.ui-confirm {
   font-size: 0.6rem;
   line-height: 1;
   padding-top: 0.25rem;
 }
 
-.ui-loading{
+.ui-loading {
   margin: 2.5rem auto;
   text-align: center;
 }

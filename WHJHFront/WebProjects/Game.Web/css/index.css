@@ -21,9 +21,7 @@ body {
   width: 100%;
 }
 
-
 /* arrows */
-
 
 /* arrows目前隐藏状态，若要显示，display */
 
@@ -60,7 +58,6 @@ body {
 .slider-switch-next:active {
   background: url("/image/banner_focus.png") no-repeat -140px -160px;
 }
-
 
 /* paganation */
 
@@ -253,7 +250,7 @@ body {
 }
 
 .ui-rank-nav li.active {
-  background: url('/image/rank-active.png') no-repeat center bottom;
+  background: url("/image/rank-active.png") no-repeat center bottom;
 }
 
 .ui-rank-nav li.active a {

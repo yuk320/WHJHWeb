@@ -8,7 +8,7 @@
   width: 906px;
   position: relative;
   border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .12);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
   text-align: center;
 }
 
@@ -26,10 +26,10 @@
   background-size: 100% 100%;
 }
 
-.ui-content-box h2:first-child{
+.ui-content-box h2:first-child {
   margin-top: 0;
 }
-.ui-content-box h2{
+.ui-content-box h2 {
   text-align: left;
   margin: 50px 40px 20px;
   font-size: 20px;
@@ -39,7 +39,7 @@
   font-weight: bold;
 }
 
-.ui-content-box div p{
+.ui-content-box div p {
   margin: 0 40px;
   color: #3b3b3b;
   text-align: left;
@@ -47,6 +47,6 @@
   line-height: 3;
   text-indent: 32px;
 }
-.ui-content-box>img{
+.ui-content-box > img {
   width: 90%;
 }

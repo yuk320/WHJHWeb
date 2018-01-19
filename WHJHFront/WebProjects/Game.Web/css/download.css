@@ -33,7 +33,7 @@
   border-top: 1px solid #e7e7e7;
 }
 
-.ui-gamelist li>img {
+.ui-gamelist li > img {
   margin-top: 3px;
 }
 
@@ -46,21 +46,21 @@
 }
 
 .ui-gamelist li a {
-    display: block;
-    float: right;
-    text-align: right;
-    width: 50px;
-    height: 16px;
-    font-size: 12px;
-    line-height: 16px;
-    margin: -18px 15px 0 0;
-    color: #1276ff;
-    cursor: pointer;
-    text-decoration: none;
+  display: block;
+  float: right;
+  text-align: right;
+  width: 50px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  margin: -18px 15px 0 0;
+  color: #1276ff;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.ui-content-box{
+.ui-content-box {
   width: 100%;
   padding: 0;
-  min-height:816px;
+  min-height: 816px;
 }

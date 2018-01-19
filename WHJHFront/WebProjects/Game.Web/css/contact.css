@@ -1,6 +1,6 @@
 .ui-main-contact {
   position: relative;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .12);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   width: 1352px;
   margin: 54px auto 0;
@@ -111,19 +111,18 @@
   margin: 0 auto;
 }
 
-.ui-content-box{
+.ui-content-box {
   width: 100%;
   padding: 0;
 }
 
-.BMap_cpyCtrl  
-{  
-    display:none;   
-}  
-.anchorBL{  
-    display:none;   
-}   
-.ui-border{
+.BMap_cpyCtrl {
+  display: none;
+}
+.anchorBL {
+  display: none;
+}
+.ui-border {
   padding: 2px;
   border: 1px solid #666;
 }
