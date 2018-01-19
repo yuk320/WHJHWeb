@@ -40,7 +40,9 @@ const LAST_VERSION = "V" + autoConfig.lastVersion;
 let VERSION_LIST = {
   last: autoConfig.versionList[autoConfig.lastVersion]
 };
-autoConfig.versionList[autoConfig.version] = DATE_TOMORROW.toLocaleDateString().replace(/\-/g,'/');
+autoConfig.versionList[
+  autoConfig.version
+] = DATE_TOMORROW.toLocaleDateString().replace(/\-/g, "/");
 fs.writeFileSync("./config.json", JSON.stringify(autoConfig, null, 2));
 start =
   start == null && VERSION_LIST.last
@@ -754,13 +756,17 @@ function publishExec(proj) {
   );
 }
 console.info(`Step_0 项目发布启动`);
-buildDist(function(builded) {
-  if (builded) {
-    projCount++;
-    console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
-  }
+if (autoConfig.prebuild) {
+  buildDist(function(builded) {
+    if (builded) {
+      projCount++;
+      console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
+    }
+    async.each(NEED_PUBLISH_PROJS, publishExec);
+  });
+} else {
   async.each(NEED_PUBLISH_PROJS, publishExec);
-});
+}
 
 // console.info(opts);
 // process.exec("fextract -s "+ opts.start.toISOString() + " -e "+ opts.end.toISOString(),(err,stdout,stderr)=>{
