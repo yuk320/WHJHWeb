@@ -1,12 +1,7 @@
 {
   "product_name": "网狐棋牌精华版-源码包",
-<<<<<<< HEAD
   "mode": "AllOnly",
   "lastVersion": "1.1.2",
-=======
-  "mode": "UpdateOnly",
-  "lastVersion": "1.1.5",
->>>>>>> master
   "version": "1.1.6",
   "versionList": {
     "1.0.5": "2017/11/08",
