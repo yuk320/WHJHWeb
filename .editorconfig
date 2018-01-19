@@ -42,4 +42,5 @@ indent_style = space
 end_of_line = crlf
 
 [*.sql]
+charset = gb2312
 end_of_line = crlf

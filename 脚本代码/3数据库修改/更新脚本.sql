@@ -35,6 +35,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'玩法排序' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GameRule', @level2type=N'COLUMN',@level2name=N'SortID'
 GO
 
+-- V1.1.7 游戏规则 简介字段修改
+ALTER TABLE [dbo].[GameRule] DROP CONSTRAINT [DF_GameRule_KindIntro]
+ALTER TABLE [dbo].[GameRule] ALTER COLUMN [KindIntro] NVARCHAR(MAX) NOT NULL
+ALTER TABLE [dbo].[GameRule] ADD CONSTRAINT [DF_GameRule_KindIntro] DEFAULT (N'') FOR [KindIntro]
+GO
+
 USE [WHJHTreasureDB]
 GO
 
