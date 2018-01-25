@@ -248,5 +248,39 @@ namespace Game.Facade
             return _aideNativeWebData.NullityGameRule(idlist, nullity);
         }
         #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题实体 by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns><see cref="Question"/></returns>
+        public Question GetQuestionInfo(int id)
+        {
+            return _aideNativeWebData.GetQuestionInfo(id);
+        }
+
+        /// <summary>
+        /// 保存常见问题（新增、修改）通用
+        /// </summary>
+        /// <param name="quest"></param>
+        /// <returns><see cref="int"/></returns>
+        public int SaveQuestionInfo(Question quest)
+        {
+            return _aideNativeWebData.SaveQuestionInfo(quest);
+        }
+
+        /// <summary>
+        /// 批量删除常见问题
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int DeleteQuestionInfo(string ids)
+        {
+            return _aideNativeWebData.DeleteQuestionInfo(ids);
+        }
+
+        #endregion
     }
 }

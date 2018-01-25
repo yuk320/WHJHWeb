@@ -72,7 +72,7 @@ namespace Game.Data
         public AccountsInfo GetAccountsInfoByUserID(int userid)
         {
             const string sqlQuery =
-                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID,RegisterIP,LastLogonIP,UnderWrite,PlaceName FROM AccountsInfo WITH(NOLOCK) WHERE UserID = @UserID";
+                @"SELECT UserID,GameID,SpreaderID,NickName,PassPortID,Compellation,FaceID,CustomID,RegisterOrigin,AgentID,RegisterIP,LastLogonIP,UnderWrite,PlaceName,UserUin FROM AccountsInfo WITH(NOLOCK) WHERE UserID = @UserID";
             List<DbParameter> parms = new List<DbParameter> {Database.MakeInParam("UserID", userid)};
             return Database.ExecuteObject<AccountsInfo>(sqlQuery, parms);
         }

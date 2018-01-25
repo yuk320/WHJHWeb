@@ -246,5 +246,22 @@ namespace Game.Data
         }
 
         #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题列表
+        /// </summary>
+        /// <returns></returns>
+        public IList<Question> GetQAList(int top = 0)
+        {
+            string topSql = top > 0 ? $" TOP {top} " : "";
+            IList<Question> list =
+                Database.ExecuteObjectList<Question>(
+                    $"SELECT {topSql} * FROM DBO.[Question] ORDER BY SortID ASC,ID DESC ");
+            return list;
+        }
+
+        #endregion
     }
 }

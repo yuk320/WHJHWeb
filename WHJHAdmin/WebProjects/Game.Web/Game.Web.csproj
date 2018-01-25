@@ -200,6 +200,8 @@
     <Content Include="Module\WebManager\KindRuleList.aspx" />
     <Content Include="Module\WebManager\LogoSet.aspx" />
     <Content Include="Module\WebManager\OtherLogo.aspx" />
+    <Content Include="Module\WebManager\QuestionList.aspx" />
+    <Content Include="Module\WebManager\QuestionInfo.aspx" />
     <Content Include="Module\WebManager\SiteConfig.aspx" />
     <Content Include="Module\WebManager\SystemNoticeInfo.aspx" />
     <Content Include="Module\WebManager\SystemNoticeList.aspx" />
@@ -3134,6 +3136,20 @@
     </Compile>
     <Compile Include="Module\WebManager\OtherLogo.aspx.designer.cs">
       <DependentUpon>OtherLogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\QuestionList.aspx.cs">
+      <DependentUpon>QuestionList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\QuestionList.aspx.designer.cs">
+      <DependentUpon>QuestionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Module\WebManager\QuestionInfo.aspx.cs">
+      <DependentUpon>QuestionInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Module\WebManager\QuestionInfo.aspx.designer.cs">
+      <DependentUpon>QuestionInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Module\WebManager\SiteConfig.aspx.cs">
       <DependentUpon>SiteConfig.aspx</DependentUpon>

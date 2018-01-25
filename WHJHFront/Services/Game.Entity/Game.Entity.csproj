@@ -55,6 +55,7 @@
     <Compile Include="NativeWeb\CacheWealthRank.cs" />
     <Compile Include="NativeWeb\ConfigInfo.cs" />
     <Compile Include="NativeWeb\GameRule.cs" />
+    <Compile Include="NativeWeb\Question.cs" />
     <Compile Include="NativeWeb\RecordRankingRecevie.cs" />
     <Compile Include="NativeWeb\SystemNotice.cs" />
     <Compile Include="Platform\GameKindItem.cs" />

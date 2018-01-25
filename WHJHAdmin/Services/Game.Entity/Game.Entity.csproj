@@ -76,6 +76,7 @@
     <Compile Include="NativeWeb\Ads.cs" />
     <Compile Include="NativeWeb\ConfigInfo.cs" />
     <Compile Include="NativeWeb\GameRule.cs" />
+    <Compile Include="NativeWeb\Question.cs" />
     <Compile Include="NativeWeb\RankingConfig.cs" />
     <Compile Include="NativeWeb\RecordRankingRecevie.cs" />
     <Compile Include="NativeWeb\SystemNotice.cs" />

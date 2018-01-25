@@ -13,18 +13,19 @@ namespace Game.Data
     public class NativeWebDataProvider : BaseDataProvider, INativeWebDataProvider
     {
         #region 构造方法
+
         /// <summary>
         /// 构造函数
         /// </summary>
         public NativeWebDataProvider(string connString)
             : base(connString)
         {
-
         }
 
         #endregion 构造方法
 
         #region 公用分页
+
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
@@ -39,9 +40,11 @@ namespace Game.Data
             PagerParameters pagerPrams = new PagerParameters(tableName, orderby, condition, pageIndex, pageSize);
             return GetPagerSet2(pagerPrams);
         }
+
         #endregion
 
         #region 站点配置
+
         /// <summary>
         /// 获取站点配置
         /// </summary>
@@ -52,6 +55,7 @@ namespace Game.Data
             string sql = $"SELECT * FROM ConfigInfo WITH(NOLOCK) WHERE ConfigID={id}";
             return Database.ExecuteObject<ConfigInfo>(sql);
         }
+
         /// <summary>
         /// 获取站点配置
         /// </summary>
@@ -63,13 +67,15 @@ namespace Game.Data
             var prams = new List<DbParameter> {Database.MakeInParam("ConfigKey", configKey)};
             return Database.ExecuteObject<ConfigInfo>(sql, prams);
         }
+
         /// <summary>
         /// 修改站点配置
         /// </summary>
         /// <param name="config">配置信息</param>
         public int UpdateConfigInfo(ConfigInfo config)
         {
-            string sqlQuery = @"UPDATE ConfigInfo SET Field1=@Field1,Field2=@Field2,Field3=@Field3,Field4=@Field4,Field5=@Field5,
+            string sqlQuery =
+                @"UPDATE ConfigInfo SET Field1=@Field1,Field2=@Field2,Field3=@Field3,Field4=@Field4,Field5=@Field5,
                                 Field6=@Field6,Field7=@Field7,Field8=@Field8,ConfigString=@ConfigString WHERE ConfigID=@ConfigID";
 
             var prams = new List<DbParameter>
@@ -88,9 +94,11 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
+
         #endregion 站点配置
 
         #region 广告管理
+
         /// <summary>
         /// 获取广告实体
         /// </summary>
@@ -101,6 +109,7 @@ namespace Game.Data
             string sqlQuery = $"SELECT * FROM Ads WITH(NOLOCK) WHERE ID={id}";
             return Database.ExecuteObject<Ads>(sqlQuery);
         }
+
         /// <summary>
         /// 删除广告
         /// </summary>
@@ -110,13 +119,15 @@ namespace Game.Data
             string sqlQuery = $"DELETE Ads WHERE ID IN({idlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
+
         /// <summary>
         /// 新增广告
         /// </summary>
         /// <param name="ads">广告信息</param>
         public int InsertAds(Ads ads)
         {
-            string sqlQuery = @"INSERT Ads(Title,ResourceURL,LinkURL,Type,SortID,Remark) VALUES(@Title,@ResourceURL,@LinkURL,@Type,@SortID,@Remark)";
+            string sqlQuery =
+                @"INSERT Ads(Title,ResourceURL,LinkURL,Type,SortID,Remark) VALUES(@Title,@ResourceURL,@LinkURL,@Type,@SortID,@Remark)";
 
             var prams = new List<DbParameter>
             {
@@ -130,6 +141,7 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
+
         /// <summary>
         /// 修改广告
         /// </summary>
@@ -152,9 +164,11 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
+
         #endregion 广告管理
 
         #region 新闻公告
+
         /// <summary>
         /// 获取新闻公告信息
         /// </summary>
@@ -165,6 +179,7 @@ namespace Game.Data
             string sql = $"SELECT * FROM SystemNotice WITH(NOLOCK) WHERE NoticeID = {id}";
             return Database.ExecuteObject<SystemNotice>(sql);
         }
+
         /// <summary>
         /// 新增新闻公告
         /// </summary>
@@ -172,7 +187,8 @@ namespace Game.Data
         /// <returns></returns>
         public int InsertSystemNotice(SystemNotice notice)
         {
-            string sql = @"INSERT INTO SystemNotice(NoticeTitle,MoblieContent,WebContent,SortID,Publisher,PublisherTime,IsHot,IsTop,Nullity)
+            string sql =
+                @"INSERT INTO SystemNotice(NoticeTitle,MoblieContent,WebContent,SortID,Publisher,PublisherTime,IsHot,IsTop,Nullity)
                             VALUES(@NoticeTitle,@MoblieContent,@WebContent,@SortID,@Publisher,@PublisherTime,@IsHot,@IsTop,@Nullity)";
             var prams = new List<DbParameter>
             {
@@ -189,6 +205,7 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
+
         /// <summary>
         /// 修改公告信息
         /// </summary>
@@ -196,7 +213,8 @@ namespace Game.Data
         /// <returns></returns>
         public int UpdateSystemNotice(SystemNotice notice)
         {
-            string sqlQuery = @"UPDATE SystemNotice SET NoticeTitle=@NoticeTitle,MoblieContent=@MoblieContent,WebContent=@WebContent,SortID= @SortID,
+            string sqlQuery =
+                @"UPDATE SystemNotice SET NoticeTitle=@NoticeTitle,MoblieContent=@MoblieContent,WebContent=@WebContent,SortID= @SortID,
                     Publisher= @Publisher,PublisherTime= @PublisherTime,IsHot=@IsHot,IsTop=@IsTop,Nullity=@Nullity WHERE NoticeID= @NoticeID";
 
             var prams = new List<DbParameter>
@@ -214,6 +232,7 @@ namespace Game.Data
             };
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
+
         /// <summary>
         /// 删除公告
         /// </summary>
@@ -224,9 +243,11 @@ namespace Game.Data
             string sqlQuery = $"DELETE SystemNotice WHERE NoticeID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
+
         #endregion
 
         #region 排行榜
+
         /// <summary>
         /// 根据标识获取排行榜配置
         /// </summary>
@@ -237,6 +258,7 @@ namespace Game.Data
             string sql = $"SELECT * FROM RankingConfig WITH(NOLOCK) WHERE ConfigID ={configid}";
             return Database.ExecuteObject<RankingConfig>(sql);
         }
+
         /// <summary>
         /// 判断排行榜配置是否存在
         /// </summary>
@@ -249,6 +271,7 @@ namespace Game.Data
             object obj = Database.ExecuteScalar(CommandType.Text, sql);
             return obj != null;
         }
+
         /// <summary>
         /// 新增排行榜配置
         /// </summary>
@@ -269,6 +292,7 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
+
         /// <summary>
         /// 修改排行榜配置
         /// </summary>
@@ -290,6 +314,7 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
+
         /// <summary>
         /// 删除奖励配置
         /// </summary>
@@ -300,9 +325,11 @@ namespace Game.Data
             string sql = $"DELETE RankingConfig WHERE ConfigID={configid}";
             return Database.ExecuteNonQuery(sql);
         }
+
         #endregion
 
         #region 游戏规则
+
         /// <summary>
         /// 获取游戏规则
         /// </summary>
@@ -313,6 +340,7 @@ namespace Game.Data
             string sql = $"SELECT * FROM GameRule WITH(NOLOCK) WHERE KindID = {kindid} ORDER BY SortID ASC,KindID DESC";
             return Database.ExecuteObject<GameRule>(sql);
         }
+
         /// <summary>
         /// 新增游戏规则
         /// </summary>
@@ -320,7 +348,8 @@ namespace Game.Data
         /// <returns></returns>
         public int InsertGameRule(GameRule rule)
         {
-            string sql = @"INSERT INTO GameRule(KindID,KindName,KindIcon,KindIntro,KindRule,Nullity,CollectDate,SortID) VALUES(@KindID,@KindName,@KindIcon,@KindIntro,@KindRule,@Nullity,@CollectDate,@SortID)";
+            string sql =
+                @"INSERT INTO GameRule(KindID,KindName,KindIcon,KindIntro,KindRule,Nullity,CollectDate,SortID) VALUES(@KindID,@KindName,@KindIcon,@KindIntro,@KindRule,@Nullity,@CollectDate,@SortID)";
             var prams = new List<DbParameter>
             {
                 Database.MakeInParam("KindID", rule.KindID),
@@ -335,6 +364,7 @@ namespace Game.Data
 
             return Database.ExecuteNonQuery(CommandType.Text, sql, prams.ToArray());
         }
+
         /// <summary>
         /// 修改游戏规则
         /// </summary>
@@ -342,7 +372,8 @@ namespace Game.Data
         /// <returns></returns>
         public int UpdateGameRule(GameRule rule)
         {
-            string sqlQuery = @"UPDATE GameRule SET KindIcon=@KindIcon,KindIntro=@KindIntro,KindRule=@KindRule,Nullity= @Nullity,SortID=@SortID WHERE KindID= @KindID";
+            string sqlQuery =
+                @"UPDATE GameRule SET KindIcon=@KindIcon,KindIntro=@KindIntro,KindRule=@KindRule,Nullity= @Nullity,SortID=@SortID WHERE KindID= @KindID";
 
             var prams = new List<DbParameter>
             {
@@ -355,6 +386,7 @@ namespace Game.Data
             };
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery, prams.ToArray());
         }
+
         /// <summary>
         /// 删除游戏规则
         /// </summary>
@@ -365,6 +397,7 @@ namespace Game.Data
             string sqlQuery = $"DELETE GameRule WHERE KindID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
+
         /// <summary>
         /// 禁用启用游戏规则
         /// </summary>
@@ -376,6 +409,54 @@ namespace Game.Data
             string sqlQuery = $"UPDATE GameRule SET Nullity={nullity} WHERE KindID IN({idlist})";
             return Database.ExecuteNonQuery(CommandType.Text, sqlQuery);
         }
+
+        #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题实体 by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Question GetQuestionInfo(int id)
+        {
+            return Database.ExecuteObject<Question>($"SELECT * FROM DBO.[Question] WHERE ID={id}");
+        }
+
+        /// <summary>
+        /// 保存常见问题（新增、修改）通用
+        /// </summary>
+        /// <param name="quest"></param>
+        /// <returns></returns>
+        public int SaveQuestionInfo(Question quest)
+        {
+            var parm = new List<DbParameter>()
+            {
+                Database.MakeInParam("QuestionTitle", quest.QuestionTitle),
+                Database.MakeInParam("Answer", quest.Answer),
+                Database.MakeInParam("SortID", quest.SortID)
+            };
+            if (quest.ID > 0) parm.Add(Database.MakeInParam("ID", quest.ID));
+
+            const string sqlInsert =
+                " INSERT DBO.[Question] (QuestionTitle,Answer,SortID) VALUES (@QuestionTitle,@Answer,@SortID) ";
+            const string sqlUpdate =
+                " UPDATE DBO.[Question] SET QuestionTitle=@QuestionTitle,Answer=@Answer,SortID=@SortID WHERE ID=@ID ";
+
+            return Database.ExecuteNonQuery(CommandType.Text, quest.ID > 0 ? sqlUpdate : sqlInsert, parm.ToArray());
+        }
+
+        /// <summary>
+        /// 批量删除常见问题
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int DeleteQuestionInfo(string ids)
+        {
+            return Database.ExecuteNonQuery($"DELETE DBO.[Question] WHERE ID IN ({ids})");
+        }
+
         #endregion
     }
 }

@@ -118,5 +118,15 @@ namespace Game.IData
         /// <returns></returns>
         IList<Ads> GetAdsList();
         #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题列表
+        /// </summary>
+        /// <returns></returns>
+        IList<Question> GetQAList(int top = 0);
+
+        #endregion
     }
 }

@@ -160,5 +160,30 @@ namespace Game.IData
         /// <returns></returns>
         int NullityGameRule(string idlist, int nullity);
         #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题实体 by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns><see cref="Question"/></returns>
+        Question GetQuestionInfo(int id);
+
+        /// <summary>
+        /// 保存常见问题（新增、修改）通用
+        /// </summary>
+        /// <param name="quest"></param>
+        /// <returns></returns>
+        int SaveQuestionInfo(Question quest);
+
+        /// <summary>
+        /// 批量删除常见问题
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        int DeleteQuestionInfo(string ids);
+
+        #endregion
     }
 }

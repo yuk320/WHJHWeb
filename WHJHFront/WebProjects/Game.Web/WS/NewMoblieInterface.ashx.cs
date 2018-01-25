@@ -76,8 +76,8 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 {
                     case "webversion":
                         _ajv.SetDataItem("apiVersion", 20171220);
-                        _ajv.SetDataItem("webVersion", "V1.1.6");
-                        _ajv.SetDataItem("updateAt", "2018/01/19");
+                        _ajv.SetDataItem("webVersion", "V1.1.7");
+                        _ajv.SetDataItem("updateAt", "2018/01/26");
                         _ajv.SetValidDataValue(true);
                         break;
                     //获取手机端登录数据
@@ -211,6 +211,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                             return;
                         }
                         GetPayOrderStatus(orderid);
+                        break;
+                    case "getquestionandanswerlist":
+                        _ajv.SetDataItem("apiVersion", 20180125);
+                        GetQuestionAndAnswerList();
                         break;
                     default:
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
@@ -736,6 +740,16 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 _ajv.SetDataItem("Diamond", olOrder.Diamond);
             }
             _ajv.SetValidDataValue(true);
+        }
+
+        /// <summary>
+        /// 常见问题接口
+        /// </summary>
+        private static void GetQuestionAndAnswerList()
+        {
+            IList<Question> list = FacadeManage.aideNativeWebFacade.GetQAList();
+            _ajv.SetValidDataValue(true);
+            _ajv.SetDataItem("list", list);
         }
 
         #region 辅助方法

@@ -186,5 +186,18 @@ namespace Game.Facade
             return webData.GetAdsList();
         }
         #endregion
+
+        #region 常见问题
+
+        /// <summary>
+        /// 获取常见问题列表
+        /// </summary>
+        /// <returns></returns>
+        public IList<Question> GetQAList(int top = 0)
+        {
+            return webData.GetQAList(top);
+        }
+
+        #endregion
     }
 }
