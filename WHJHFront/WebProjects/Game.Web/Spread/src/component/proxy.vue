@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <td>
-                可领取数量：
+                可领取金币数量：
               </td>
               <td>
                 {{info.TotalReturn-info.TotalReceive}}
@@ -51,7 +51,7 @@
             </tr>
             <tr>
               <td>
-                已领取数量：
+                已领取金币数量：
               </td>
               <td>
                 {{info.TotalReceive}}
@@ -63,7 +63,13 @@
       <div class="ui-panel ui-query">
         <a class="ui-button" @click="dialog = 'search'; open();">下级查询</a>
         <a class="ui-button" @click="dialog = 'extract'; open();">提取奖励</a>
-        <a class="ui-button" @click="recordType = recordType == 'return' ? 'receive' : 'return';">{{recordType=='return'?'提取记录':'返利记录'}}</a>
+        <!-- <a class="ui-button" @click="recordType = recordType == 'return' ? 'receive' : 'return';">{{recordType=='return'?'提取记录':'返利记录'}}</a> -->
+      </div>
+      <div class="ui-panel ui-record-title">
+        <ul>
+          <li @click="recordType = 'receive';">提取记录</li>
+          <li @click="recordType = 'return';">返利记录</li>
+        </ul>
       </div>
       <record :data="record()" :pageSize="pageSize" :thead="thead"></record>
     </div>

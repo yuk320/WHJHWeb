@@ -92,6 +92,26 @@ table td {
   color: #fff;
 }
 
+.ui-record-title ul{
+  border-top: solid 1px #ccc;
+  width: 100%;
+  font-size: 0;
+}
+
+.ui-record-title li:first-child {
+  border-right: solid 1px #ccc;
+}
+
+.ui-record-title li {
+  text-align: center;
+  font-size: 0.28rem;
+  display: inline-block;
+  vertical-align: top;
+  height: 2em;
+  width: 50%;
+  line-height: 2em;
+}
+
 .ui-dialog {
   left: 0;
   top: 0;
