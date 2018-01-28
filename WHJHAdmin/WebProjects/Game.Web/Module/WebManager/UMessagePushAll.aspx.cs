@@ -199,7 +199,7 @@ namespace Game.Web.Module.WebManager
                             {
                                 iphone_tokens = iphone_sb.ToString();
                                 iphone_tokens = iphone_tokens.Substring(0, (iphone_tokens.Length - 1));
-                                flag = Umeng.SendMessage(0, content, "listcast", time.ToString("yyyy-MM-dd HH:mm:ss"), endTime.ToString("yyyy-MM-dd HH:mm:ss"), iphone_tokens);
+                                flag = Umeng.SendMessage(1, content, "listcast", time.ToString("yyyy-MM-dd HH:mm:ss"), endTime.ToString("yyyy-MM-dd HH:mm:ss"), iphone_tokens);
                                 if(!flag)
                                 {
                                     MessageBox("推送消息失败，请前往友盟后台绑定系统后台ip");
