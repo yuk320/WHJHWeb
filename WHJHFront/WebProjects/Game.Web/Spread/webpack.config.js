@@ -1,9 +1,9 @@
 var path = require("path");
 var webpack = require("webpack");
 var cleanHtmlPlugin = require("clean-webpack-plugin");
-
+var webPlugin = require("web-webpack-plugin");
 module.exports = {
-  entry: "./src/main.js",
+  entry: { main: "./src/main.js" },
   output: {
     path: path.resolve(__dirname, "./dist"),
     publicPath: "/dist/",
@@ -52,9 +52,10 @@ module.exports = {
     hints: false
   },
   externals: {
-    'vue': 'Vue',
-    'vue-router': 'VueRouter'
-  }
+    vue: "Vue",
+    "vue-router": "VueRouter"
+  },
+  profile: true
   // devtool: "#eval-source-map"
 };
 
@@ -74,15 +75,9 @@ if (process.env.NODE_ENV === "production") {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new cleanHtmlPlugin(
-      ["./dist"],
-      {
-        exclude: ["build.min.js"]
-      },
-      {
-        verbose: true,
-        dry: false
-      }
-    )
+    new cleanHtmlPlugin(["./dist"], {
+      verbose: true,
+      dry: false
+    })
   ]);
 }

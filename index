@@ -221,6 +221,13 @@ const buildConfig = [
     options: {
       cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
     }
+  },
+  {
+    execStr: "npm run auto",
+    condition: true,
+    options: {
+      cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+    }
   }
 ];
 

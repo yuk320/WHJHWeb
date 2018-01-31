@@ -117,7 +117,7 @@
                             <%# (Convert.ToDecimal(Eval("PresentScale")) * 1000).ToString("F3") + "‰" %>
                         </td>
                         <td>
-                            <%# Eval("PresentType").ToString() == "0" ? "金币" : "钻石" %>
+                            <%= SpreadReturnType == 0 ? "金币" : "钻石" %>
                         </td>
                         <td>
                             <%# Eval("Nullity").ToString() == "False" ? "启用" : "禁用" %>
