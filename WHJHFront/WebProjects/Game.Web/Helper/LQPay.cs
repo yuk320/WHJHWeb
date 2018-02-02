@@ -138,7 +138,7 @@ namespace Game.Web.Helper
                     ? GameRequest.GetCurrentFullHost()
                     : AppConfig.FrontSiteDomain;
                 string notifyUrl = "http://" + domain + "/Notify/LqPay.aspx";
-                string returnUrl = "http://" + domain + "/Mobile/Pay/LqReturn.aspx";
+                string returnUrl = "http://" + domain + "/Mobile/Pay/LqReturn.aspx?orderId="+orderId;
                 _index = new ArrayList
                 {
                     "comp_id",
