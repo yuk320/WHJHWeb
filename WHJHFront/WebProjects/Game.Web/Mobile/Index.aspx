@@ -50,6 +50,7 @@
             var action = "<%=action %>";
             if (action === "payreturn" && msg) {
               alert(msg);
+              window.location.href = "newryclient://?action=3&msg=" + msg;
             }
           });
         </script>

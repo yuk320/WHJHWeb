@@ -171,7 +171,7 @@ namespace Game.Web.Helper
 
             JObject jd = (JObject)JsonConvert.DeserializeObject(result);
             Nickname = (string)jd["nickname"];
-            Sex = (int)jd["sex"];
+            Sex = (int)jd["sex"]>0?(int)jd["sex"]-1:(int)jd["sex"];
             Headimgurl = (string)jd["headimgurl"];
         }
 
