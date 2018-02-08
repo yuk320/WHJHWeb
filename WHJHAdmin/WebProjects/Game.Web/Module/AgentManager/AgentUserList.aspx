@@ -82,6 +82,9 @@
                     <input type="checkbox" name="chkAll" onclick="SelectAll(this.checked);" />
                 </td>
                 <td class="listTitle2">
+                  管理
+                </td>
+                <td class="listTitle2">
                     代理编号
                 </td>
                 <td class="listTitle2">
@@ -98,19 +101,19 @@
                 </td>
                 <td class="listTitle2">
                     代理等级
-                </td> 
+                </td>
                 <td class="listTitle2">
                     直属上级
-                </td>  
+                </td>
                 <td class="listTitle2">
                     携带钻石
-                </td>  
+                </td>
                 <td class="listTitle2">
                     总转入量
-                </td>  
+                </td>
                 <td class="listTitle2">
                     总转出量
-                </td>  
+                </td>
                 <td class="listTitle2">
                     赠送下级代理钻石
                 </td>
@@ -119,10 +122,10 @@
                 </td>
                 <td class="listTitle2">
                     代理状态
-                </td>  
+                </td>
                 <td class="listTitle2">
                     代理操作
-                </td>              
+                </td>
             </tr>
             <asp:Repeater ID="rptDataList" runat="server">
                 <ItemTemplate>
@@ -132,29 +135,32 @@
                             <input name='cid' type='checkbox' value='<%# Eval("AgentID").ToString()%>' />
                         </td>
                         <td>
+                            <a href="javascript:;" class="l" onclick="openWindowOwn('AgentUserUpdate.aspx?param=<%# Eval( "AgentID") %>', '', 700,490);">编辑</a>
+                        </td>
+                        <td>
                             <%# Eval( "AgentID" ) %>
-                        </td>   
+                        </td>
                         <%# GetAccountsInfo(Convert.ToInt32(Eval( "UserID" )), Convert.ToInt32(Eval( "AgentID" ))) %>
                         <td>
                             <%# Eval( "Compellation" ) %>
-                        </td>    
+                        </td>
                         <td>
                             <%# Eval( "AgentDomain" ) %>
-                        </td>      
+                        </td>
                         <td>
                             <%# Eval( "AgentLevel" ).ToString()=="1"?"一级代理":Eval( "AgentLevel" ).ToString()=="2"?"二级代理":"三级代理" %>
-                        </td>   
+                        </td>
                         <td>
                             <%# GetAgentInfo( Convert.ToInt32( Eval( "ParentAgent" ) ) ) %>
-                        </td>     
-                        <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %>  
+                        </td>
+                        <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %>
                         <td>
                             <%# GetNullityStatus(Convert.ToByte(Eval( "Nullity" ))) %>
-                        </td>  
+                        </td>
                         <td>
                             <a class="l" href="javascript:void(0)" onclick="javascript:openWindowOwn('AgentGrantDiamond.aspx?param=<%#Eval("UserID").ToString() %>','GrantDiamond',600,240);">赠送钻石</a>
                             <a class="l" href="javascript:void(0)" onclick="javascript:openWindowOwn('AgentUserUnder.aspx?param=<%#Eval("UserID").ToString() %>','UnderUser',700,600);">查看下线</a>
-                        </td>          
+                        </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
@@ -163,30 +169,33 @@
                         <td style="width: 30px;">
                             <input name='cid' type='checkbox' value='<%# Eval("AgentID").ToString()%>' />
                         </td>
-                        <td>
+                      <td>
+                        <a href="javascript:;" class="l" onclick="openWindowOwn('AgentUserUpdate.aspx?param=<%# Eval( "AgentID") %>', '', 700,490);">编辑</a>
+                      </td>
+                      <td>
                             <%# Eval( "AgentID" ) %>
-                        </td>   
-                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "UserID" )), Convert.ToInt32(Eval( "AgentID" ))) %>  
+                        </td>
+                        <%# GetAccountsInfo(Convert.ToInt32(Eval( "UserID" )), Convert.ToInt32(Eval( "AgentID" ))) %>
                         <td>
                             <%# Eval( "Compellation" ) %>
-                        </td>    
+                        </td>
                         <td>
                             <%# Eval( "AgentDomain" ) %>
-                        </td>         
+                        </td>
                         <td>
                             <%# Eval( "AgentLevel" ).ToString()=="1"?"一级代理":Eval( "AgentLevel" ).ToString()=="2"?"二级代理":"三级代理" %>
-                        </td>  
+                        </td>
                         <td>
                             <%# GetAgentInfo( Convert.ToInt32( Eval( "ParentAgent" ) ) ) %>
                         </td>
-                        <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %> 
+                        <%# GetAgentDiamond(Convert.ToInt32(Eval( "UserID" ))) %>
                         <td>
                             <%# GetNullityStatus(Convert.ToByte(Eval( "Nullity" ))) %>
-                        </td>   
+                        </td>
                         <td>
                             <a class="l" href="javascript:void(0)" onclick="javascript:openWindowOwn('AgentGrantDiamond.aspx?param=<%#Eval("UserID").ToString() %>','GrantDiamond',600,240);">赠送钻石</a>
                             <a class="l" href="javascript:void(0)" onclick="javascript:openWindowOwn('AgentUserUnder.aspx?param=<%#Eval("UserID").ToString() %>','UnderUser',700,600);">查看下线</a>
-                        </td>           
+                        </td>
                     </tr>
                 </AlternatingItemTemplate>
             </asp:Repeater>
