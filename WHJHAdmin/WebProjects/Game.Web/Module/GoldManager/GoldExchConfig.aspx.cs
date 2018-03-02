@@ -46,7 +46,7 @@ namespace Game.Web.Module.GoldManager
             config.ConfigName = CtrlHelper.GetText(txtProductName);
             config.Diamond = CtrlHelper.GetInt(txtCurrency, 0);
             config.ExchGold = Convert.ToInt64(txtGold.Text);
-            config.ImageType = Convert.ToByte(rbImage.SelectedValue);
+            config.ImageType = Convert.ToByte(txtImageType.Text);
             config.SortID = CtrlHelper.GetInt(txtSortID, 0);
 
             //验证是否存在相同钻石配置
@@ -80,7 +80,7 @@ namespace Game.Web.Module.GoldManager
                     CtrlHelper.SetText(txtCurrency, config.Diamond.ToString());
                     CtrlHelper.SetText(txtGold, config.ExchGold.ToString());
                     CtrlHelper.SetText(txtSortID, config.SortID.ToString());
-                    rbImage.SelectedValue = config.ImageType.ToString();
+                    CtrlHelper.SetText(txtImageType,config.ImageType.ToString());
                 }
             }
         }

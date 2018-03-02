@@ -18,7 +18,7 @@ namespace Game.Web.Card
                 UserTicketInfo user = userTicket;
                 //身上钻石数
                 UserCurrency currency = FacadeManage.aideTreasureFacade.GetUserCurrency(user.UserID);
-                lbDiamond.Text = currency != null ? currency.Diamond.ToString() : "0";
+                lbDiamond.Text = currency?.Diamond.ToString() ?? "0";
                 //获取今日赠送钻石
                 lbPresentDiamond.Text = FacadeManage.aideRecordFacade.GetTodayAgentPresentDiamond(user.UserID).ToString();
             }

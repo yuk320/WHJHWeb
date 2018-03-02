@@ -105,7 +105,7 @@ namespace Game.Facade
 //                        IOSNotStorePaySwitch,
             /// <summary>
             /// 全局推广返利类型（0：金币、1：钻石）
-            /// </summary>  
+            /// </summary>
             SpreadReturnType
         }
 
@@ -265,7 +265,7 @@ namespace Game.Facade
         /// <summary>
         /// 微信授权页面地址(默认用 /Authorize.aspx )
         /// </summary>
-        public const string AuthorizeURL = "/Authorize.aspx";
+        public static string AuthorizeURL = (string.IsNullOrEmpty(FrontSiteDomain) ? "":"http://"+FrontSiteDomain) + "/Authorize.aspx";
         /// <summary>
         /// 微信注册参数加密key（必须8位）
         /// </summary>

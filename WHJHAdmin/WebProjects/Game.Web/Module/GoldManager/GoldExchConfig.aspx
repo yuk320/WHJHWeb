@@ -48,7 +48,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtProductName" runat="server" CssClass="text"></asp:TextBox>
-                <span class="hong">*</span>
+                <span class="hong">* （用于显示商品的名称）</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="请输入产品名称" Display="Dynamic" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
             </td>
         </tr> 
@@ -79,12 +79,10 @@
                 图标类型：
             </td>
             <td>
-                <asp:RadioButtonList ID="rbImage" runat="server" RepeatDirection="Horizontal">
-                    <asp:ListItem Text="少量金币图标" Value="1" Selected="True"></asp:ListItem>
-                    <asp:ListItem Text="普通金币图标" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="多数金币图标" Value="3"></asp:ListItem>
-                    <asp:ListItem Text="大量金币图标" Value="4"></asp:ListItem>
-                </asp:RadioButtonList>
+              <asp:TextBox runat="server" ID="txtImageType" CssClass="text"></asp:TextBox>
+              <span class="hong">* （大于0的正整数，具体根据图标决定）</span>
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="请输入图标类型" Display="Dynamic" ControlToValidate="txtImageType" ForeColor="Red"></asp:RequiredFieldValidator>
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="图标类型格式不正确" Display="Dynamic" ControlToValidate="txtImageType" ForeColor="Red" ValidationExpression="^[1-9]\d*$"></asp:RegularExpressionValidator>
             </td>
         </tr>   
         <tr>
