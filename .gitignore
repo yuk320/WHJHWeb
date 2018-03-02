@@ -162,6 +162,7 @@ FakesAssemblies/
 
 
 #other
+.vscode/
 .extract/
 node_modules/
 .svn/
