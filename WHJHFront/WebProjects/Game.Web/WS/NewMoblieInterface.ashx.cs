@@ -216,6 +216,10 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         _ajv.SetDataItem("apiVersion", 20180125);
                         GetQuestionAndAnswerList();
                         break;
+                    case "agentsynclogin":
+                        _ajv.SetDataItem("apiVersion",20180309);
+                        AgentSyncLogin();
+                        break;
                     default:
                         _ajv.code = (int) ApiCode.VertyParamErrorCode;
                         _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " action 错误");
@@ -750,6 +754,22 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             IList<Question> list = FacadeManage.aideNativeWebFacade.GetQAList();
             _ajv.SetValidDataValue(true);
             _ajv.SetDataItem("list", list);
+        }
+
+        private static void AgentSyncLogin()
+        {
+            AccountsInfo aai = FacadeManage.aideAccountsFacade.GetAccountsInfoByUserID(_userid);
+            if (aai?.AgentID > 0)
+            {
+                string clientParams = Fetch.DESEncrypt($"<>,<{aai.UserUin}>,<{aai.NickName}>,<>,<>",AppConfig.WxUrlKey);
+                _ajv.SetDataItem("link", string.IsNullOrEmpty(Fetch.GetWebSiteConfig().Field5) ? $"/Card/?w={clientParams}": Fetch.GetWebSiteConfig().Field5+$"/?w={clientParams}");
+                _ajv.SetValidDataValue(true);
+            }
+            else
+            {
+                _ajv.code = 2003;
+                _ajv.msg = "抱歉，您的账号不是代理账号";
+            }
         }
 
         #region 辅助方法
