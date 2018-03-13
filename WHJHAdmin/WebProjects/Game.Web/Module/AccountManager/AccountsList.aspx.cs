@@ -114,7 +114,7 @@ namespace Game.Web.Module.AccountManager
         {
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
-            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(StrCIdList, 67108864);
+            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(StrCIdList, 64);
             if(result > 0)
             {
                 ShowInfo("设置成功");
@@ -150,7 +150,7 @@ namespace Game.Web.Module.AccountManager
         {
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
-            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(67108864);
+            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(64);
             if(result > 0)
             {
                 ShowInfo("设置成功");
