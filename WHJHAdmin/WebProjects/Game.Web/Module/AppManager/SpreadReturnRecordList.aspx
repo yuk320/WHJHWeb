@@ -97,9 +97,6 @@
                 <td class="listTitle2">
                     返利数量
                 </td>
-                <td class="listTitle2">
-                    返利前数值
-                </td>
             </tr>
             <asp:Repeater ID="rptDataList" runat="server">
                 <ItemTemplate>
@@ -114,19 +111,16 @@
                             <%# Eval("SourceDiamond") %>
                         </td>
                         <td>
-                            <%# Eval("SpreadLevel").Equals("1") ? "一级" : (Eval("SpreadLevel").Equals("2") ? "二级" : "三级") %>
+                          <%# Convert.ToInt32(Eval("SpreadLevel")) == 1 ? "一级" : (Convert.ToInt32(Eval("SpreadLevel"))==2 ? "二级" : "三级") %>
                         </td>
                         <td>
-                            <%# Eval("ReturnType").Equals("0")?"金币":"钻石" %>
+                          <%# Convert.ToInt32(Eval("ReturnType"))==0 ?"金币":"钻石" %>
                         </td>
                         <td>
                             <%# (Convert.ToDecimal(Eval("ReturnScale"))*1000).ToString("F0") +"‰" %>
                         </td>
                         <td>
                             <%# Eval("ReturnNum") %>
-                        </td>
-                        <td>
-                            <%# Eval("TargetBefore") %>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -137,26 +131,21 @@
                             <%# Eval("CollectDate") %>
                         </td>
                         <%# GetAccountsInfo(Convert.ToInt32(Eval("SourceUserID"))) %>
-                        <td>
-                        </td>
                         <%# GetAccountsInfo(Convert.ToInt32(Eval("TargetUserID"))) %>
                         <td>
                             <%# Eval("SourceDiamond") %>
                         </td>
                         <td>
-                            <%# Eval("SpreadLevel").Equals("1") ? "一级" : (Eval("SpreadLevel").Equals("2") ? "二级" : "三级") %>
+                          <%# Convert.ToInt32(Eval("SpreadLevel")) == 1 ? "一级" : (Convert.ToInt32(Eval("SpreadLevel"))==2 ? "二级" : "三级") %>
                         </td>
                         <td>
-                            <%# Eval("ReturnType").Equals("0")?"金币":"钻石" %>
+                            <%# Convert.ToInt32(Eval("ReturnType"))==0 ?"金币":"钻石" %>
                         </td>
                         <td>
                             <%# (Convert.ToDecimal(Eval("ReturnScale"))*1000).ToString("F0") +"‰" %>
                         </td>
                         <td>
                             <%# Eval("ReturnNum") %>
-                        </td>
-                        <td>
-                            <%# Eval("TargetBefore") %>
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

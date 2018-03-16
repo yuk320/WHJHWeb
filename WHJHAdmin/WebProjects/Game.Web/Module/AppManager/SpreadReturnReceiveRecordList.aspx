@@ -97,7 +97,7 @@
                         </td>
                         <%# GetAccountsInfo(Convert.ToInt32(Eval("UserID"))) %>
                         <td>
-                            <%# Eval("ReceiveType").Equals("0")?"金币":"钻石" %>
+                            <%# Convert.ToInt32(Eval("ReceiveType")) == 0 ?"金币":"钻石" %>
                         </td>
                         <td>
                             <%# Eval("ReceiveNum") %>
@@ -118,7 +118,7 @@
                         </td>
                         <%# GetAccountsInfo(Convert.ToInt32(Eval("UserID"))) %>
                         <td>
-                            <%# Eval("ReceiveType").Equals("0")?"金币":"钻石" %>
+                          <%# Convert.ToInt32(Eval("ReceiveType")) == 0 ?"金币":"钻石" %>
                         </td>
                         <td>
                             <%# Eval("ReceiveNum") %>
