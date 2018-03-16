@@ -16,46 +16,54 @@ namespace Game.Web.Card
             {
                 if (AppConfig.Mode != AppConfig.CodeMode.Dev)
                 {
-                    //演示和通用平台
-                    if (string.IsNullOrEmpty(wxparam))
+                    if (Fetch.isWeChat(Request))
                     {
-                        string domain = "http://" + (string.IsNullOrEmpty(AppConfig.FrontSiteDomain)
-                                            ? GameRequest.GetCurrentFullHost()
-                                            : AppConfig.FrontSiteDomain);
-                        Response.Redirect(domain + AppConfig.AuthorizeURL + "?url=http://" +
-                                          GameRequest.GetCurrentFullHost() + "/Card/Index.aspx?code=1001");
-                    }
-                    else
-                    {
-                        WxUser wu = Fetch.GetWxUser(wxparam);
-                        if (wu == null)
+                        //演示和通用平台
+                        if (string.IsNullOrEmpty(wxparam))
                         {
-                            Response.Write(
-                                "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">参数异常，请稍后尝试。</div>");
-                            return;
+//                        string domain = "http://" + (string.IsNullOrEmpty(AppConfig.FrontSiteDomain)
+//                                            ? GameRequest.GetCurrentFullHost()
+//                                            : AppConfig.FrontSiteDomain);
+                            Response.Redirect(AppConfig.AuthorizeURL + "?url=http://" +
+                                              GameRequest.GetCurrentFullHost() + "/Card/Index.aspx?code=1001");
                         }
-                        Message msg = FacadeManage.aideAccountsFacade.WXLogin(wu.unionid, GameRequest.GetUserIP());
-                        if (msg.Success)
+                        else
                         {
-                            UserInfo ui = msg.EntityList[0] as UserInfo;
-                            if (ui != null)
+                            WxUser wu = Fetch.GetWxUser(wxparam);
+                            if (wu == null)
                             {
-                                Fetch.SetUserCookie(ui.ToUserTicketInfo());
-                                Response.Redirect("/Card/AgentInfo.aspx");
+                                Response.Write(
+                                    "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">参数异常，请稍后尝试。</div>");
+                                return;
+                            }
+                            Message msg = FacadeManage.aideAccountsFacade.WXLogin(wu.unionid, GameRequest.GetUserIP());
+                            if (msg.Success)
+                            {
+                                UserInfo ui = msg.EntityList[0] as UserInfo;
+                                if (ui != null)
+                                {
+                                    Fetch.SetUserCookie(ui.ToUserTicketInfo());
+                                    Response.Redirect("/Card/AgentInfo.aspx");
+                                }
+                                else
+                                {
+                                    Response.Write(
+                                        "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">登录失败，请稍后尝试</div>");
+                                }
                             }
                             else
                             {
                                 Response.Write(
-                                    "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">登录失败，请稍后尝试</div>");
+                                    "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" +
+                                    wu.nickname + "，" +
+                                    msg.Content + "</div>");
                             }
                         }
-                        else
-                        {
-                            Response.Write(
-                                "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" +
-                                wu.nickname + "，" +
-                                msg.Content + "</div>");
-                        }
+                    }
+                    else
+                    {
+                        Response.Write(
+                            "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">请在微信内打开</div>");
                     }
                 }
             }

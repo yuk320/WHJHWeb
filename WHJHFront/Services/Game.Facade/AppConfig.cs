@@ -6,6 +6,7 @@ using System.Text;
 using Game.Utils;
 using Game.Entity.NativeWeb;
 using Game.Utils.Cache;
+// ReSharper disable InconsistentNaming
 
 namespace Game.Facade
 {
@@ -266,6 +267,7 @@ namespace Game.Facade
         /// 微信授权页面地址(默认用 /Authorize.aspx )
         /// </summary>
         public static string AuthorizeURL = (string.IsNullOrEmpty(FrontSiteDomain) ? "":"http://"+FrontSiteDomain) + "/Authorize.aspx";
+        public static string HAuthorizeURL = (string.IsNullOrEmpty(FrontSiteDomain) ? "":"http://"+FrontSiteDomain) + "/HAuthorize.aspx";
         /// <summary>
         /// 微信注册参数加密key（必须8位）
         /// </summary>

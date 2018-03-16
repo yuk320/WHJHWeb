@@ -35,8 +35,14 @@ namespace Game.Web.Mobile
                 string param = Typeid == 82
                     ? $"/Mobile/WxRegister.aspx?t=82&g={Gameid}&r={Roomid}&k={Kindid}&a={Action}&p={Password}"
                     : "/Mobile/WxRegister.aspx?t=81&g=" + Gameid;
-                if (!string.IsNullOrEmpty(PlatformType)) param += $"&y={PlatformType}";
-                Response.Redirect(AppConfig.AuthorizeURL + "?url=" + Server.UrlEncode(param));
+                if (!string.IsNullOrEmpty(PlatformType))
+                {
+                    param += $"&y={PlatformType}";
+//                    TextLogger.Write($"HAuthorizeUrl：{AppConfig.HAuthorizeURL}?url={Server.UrlEncode(param)}");
+//                    Response.Redirect($"{AppConfig.HAuthorizeURL}?url={Server.UrlEncode(param)}");
+//                    return;
+                }
+                Response.Redirect($"{AppConfig.AuthorizeURL}?url={Server.UrlEncode(param)}");
             }
             else
             {
@@ -67,7 +73,7 @@ namespace Game.Web.Mobile
                     ConfigInfo webCfg = Fetch.GetWebSiteConfig();
                     string w = Server.UrlEncode(Fetch.AESEncrypt(wxParam, AppConfig.WxH5Key,
                         AppConfig.WxH5Key));
-                    string baseUrl = webCfg?.Field4 ?? "/h5/";
+                    string baseUrl = "/h5/";
                     if (Typeid == 82)
                     {
                         switch (Kindid)

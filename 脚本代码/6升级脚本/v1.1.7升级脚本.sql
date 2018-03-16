@@ -1,14 +1,14 @@
 USE [WHJHNativeWebDB]
 GO
 
--- V1.1.7 æ¸¸æˆè§„åˆ™ ç®€ä»‹å­—æ®µä¿®æ”¹
+-- V1.1.7 ÓÎÏ·¹æÔò ¼ò½é×Ö¶ÎĞŞ¸Ä
 ALTER TABLE [dbo].[GameRule] DROP CONSTRAINT [DF_GameRule_KindIntro]
 ALTER TABLE [dbo].[GameRule] ALTER COLUMN [KindIntro] NVARCHAR(MAX) NOT NULL
 ALTER TABLE [dbo].[GameRule] ADD CONSTRAINT [DF_GameRule_KindIntro] DEFAULT (N'') FOR [KindIntro]
 GO
 
--- V1.1.7 æ–°å¢å¸¸è§é—®é¢˜ç®¡ç†
- -- å»ºè¡¨
+-- V1.1.7 ĞÂÔö³£¼ûÎÊÌâ¹ÜÀí
+ -- ½¨±í
 IF EXISTS (SELECT 1
 FROM [DBO].SYSObjects
 WHERE ID = OBJECT_ID(N'[dbo].[Question]') AND OBJECTPROPERTY(ID,'IsTable')=1 )
@@ -35,43 +35,43 @@ CREATE TABLE [dbo].[Question](
 ) ON [PRIMARY]
 
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é—®ç­”æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'ID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÎÊ´ğ±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'ID'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'é—®é¢˜' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'QuestionTitle'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÎÊÌâ' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'QuestionTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ç­”æ¡ˆ' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'Answer'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'´ğ°¸' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'Answer'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'æ›´æ–°æ—¶é—´' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'UpdateAt'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¸üĞÂÊ±¼ä' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Question', @level2type=N'COLUMN',@level2name=N'UpdateAt'
 GO
 
- -- æ’å…¥é»˜è®¤æ•°æ®
+ -- ²åÈëÄ¬ÈÏÊı¾İ
 SET IDENTITY_INSERT [dbo].[Question] ON
-INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (1, N'å¦‚ä½•è·å–æˆ¿å¡ï¼Ÿ', N'è¯·è”ç³»å®¢æœï¼š12345678', 1)
-INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (2, N'å¦‚ä½•è·å–é’»çŸ³ï¼Ÿ', N'è¯·è”ç³»å®¢æœï¼š12345678', 2)
-INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (3, N'å¦‚ä½•è”ç³»å®¢æœï¼Ÿ', N'è¯·è”ç³»å®¢æœï¼š12345678', 3)
-INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (4, N'å¦‚ä½•è·å–æ¸¸æˆå¸ï¼Ÿ', N'è¯·è”ç³»å®¢æœï¼š12345678', 4)
+INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (1, N'ÈçºÎ»ñÈ¡·¿¿¨£¿', N'ÇëÁªÏµ¿Í·ş£º12345678', 1)
+INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (2, N'ÈçºÎ»ñÈ¡×êÊ¯£¿', N'ÇëÁªÏµ¿Í·ş£º12345678', 2)
+INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (3, N'ÈçºÎÁªÏµ¿Í·ş£¿', N'ÇëÁªÏµ¿Í·ş£º12345678', 3)
+INSERT [dbo].[Question] ([ID], [QuestionTitle], [Answer], [SortID]) VALUES (4, N'ÈçºÎ»ñÈ¡ÓÎÏ·±Ò£¿', N'ÇëÁªÏµ¿Í·ş£º12345678', 4)
 SET IDENTITY_INSERT [dbo].[Question] OFF
 
 
 USE [WHJHPlatformManagerDB]
 GO
--- V1.1.7 åå°æ–°å¢å¸¸è§é—®é¢˜ç®¡ç†æ¨¡å—
-  -- æ’å…¥æ–°çš„æ¨¡å—
+-- V1.1.7 ºóÌ¨ĞÂÔö³£¼ûÎÊÌâ¹ÜÀíÄ£¿é
+  -- ²åÈëĞÂµÄÄ£¿é
 DELETE DBO.Base_Module WHERE ModuleID = 405
 INSERT DBO.Base_Module (ModuleID,ParentID,Title,Link,OrderNo,Nullity,IsMenu,[Description],ManagerPopedom)
-VALUES (405,3,N'å¸¸è§é—®é¢˜',N'/Module/WebManager/QuestionList.aspx',9,0,0,N'',0)
+VALUES (405,3,N'³£¼ûÎÊÌâ',N'/Module/WebManager/QuestionList.aspx',9,0,0,N'',0)
 GO
-  -- æ’å…¥æ–°æ¨¡å—çš„æƒé™
+  -- ²åÈëĞÂÄ£¿éµÄÈ¨ÏŞ
 DELETE DBO.Base_ModulePermission WHERE ModuleID = 405
 INSERT INTO DBO.Base_ModulePermission ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
-VALUES (405,N'æŸ¥çœ‹',1,0,0,1)
+VALUES (405,N'²é¿´',1,0,0,1)
 GO
 INSERT INTO DBO.Base_ModulePermission ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
-VALUES (405,N'æ–°å¢',2,0,0,1)
+VALUES (405,N'ĞÂÔö',2,0,0,1)
 GO
 INSERT INTO DBO.Base_ModulePermission ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
-VALUES (405,N'ä¿®æ”¹',4,0,0,1)
+VALUES (405,N'ĞŞ¸Ä',4,0,0,1)
 GO
 INSERT INTO DBO.Base_ModulePermission ([ModuleID] ,[PermissionTitle] ,[PermissionValue] ,[Nullity] ,[StateFlag] ,[ParentID])
-VALUES (405,N'åˆ é™¤',8,0,0,1)
+VALUES (405,N'É¾³ı',8,0,0,1)
 GO

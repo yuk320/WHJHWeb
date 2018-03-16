@@ -2,6 +2,7 @@
 
 using Game.Kernel;
 using System.Data;
+using Game.Entity.Accounts;
 using Game.Entity.NativeWeb;
 
 namespace Game.IData
@@ -126,6 +127,25 @@ namespace Game.IData
         /// </summary>
         /// <returns></returns>
         IList<Question> GetQAList(int top = 0);
+
+        #endregion
+
+        #region 代理Token管理
+
+        /// <summary>
+        /// 检查代理登录凭证
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        AgentTokenInfo VerifyAgentToken(string token);
+
+        /// <summary>
+        /// 保存代理登录凭证
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        int SaveAgentToken(UserInfo info, string token);
 
         #endregion
     }

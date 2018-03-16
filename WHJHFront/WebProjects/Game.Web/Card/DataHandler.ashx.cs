@@ -5,10 +5,14 @@ using Game.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.SessionState;
+using Game.Entity.NativeWeb;
 using Game.Facade.DataStruct;
+using Game.Facade.Enum;
+using Game.Web.Helper;
 
 namespace Game.Web.Card
 {
@@ -17,40 +21,122 @@ namespace Game.Web.Card
     /// </summary>
     public class DataHandler : IHttpHandler, IRequiresSessionState
     {
+        private static AjaxJsonValid _ajv;
+
+        public int UserId { get; set; }
+
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "application/json";
             string action = GameRequest.GetQueryString("action").ToLower();
-            switch (action)
+            int version = GameRequest.GetQueryInt("version", 1);
+            if (version == 1)
             {
-                case "getnicknamebygameid":
-                    GetNickNameByGameID(context);
-                    break;
-                case "getpaydiamondlist":
-                    GetPayDiamondList(context);
-                    break;
-                case "getpresentdiamondlist":
-                    GetPresentDiamondList(context);
-                    break;
-                case "getcostdiamondlist":
-                    GetCostDiamondList(context);
-                    break;
-                case "getspreadregisterlist":
-                    GetSpreadRegisterList(context);
-                    break;
-                case "getexchangediamondlist":
-                    GetExchangeDiamondList(context);
-                    break;
-                case "getunderlist":
-                    GetUnderList(context);
-                    break;
-                case "getunderdetail":
-                    GetUnderDetail(context);
-                    break;
-                default:
-                    break;
+                switch (action)
+                {
+                    case "getnicknamebygameid":
+                        GetNickNameByGameID(context);
+                        break;
+                    case "getpaydiamondlist":
+                        GetPayDiamondList(context);
+                        break;
+                    case "getpresentdiamondlist":
+                        GetPresentDiamondList(context);
+                        break;
+                    case "getcostdiamondlist":
+                        GetCostDiamondList(context);
+                        break;
+                    case "getspreadregisterlist":
+                        GetSpreadRegisterList(context);
+                        break;
+                    case "getexchangediamondlist":
+                        GetExchangeDiamondList(context);
+                        break;
+                    case "getunderlist":
+                        GetUnderList(context);
+                        break;
+                    case "getunderdetail":
+                        GetUnderDetail(context);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (version == 2)
+            {
+                try
+                {
+                    //不需要认证的action
+                    string[] unNeedAuthActions = {"agentauth"};
+                    string token = GameRequest.GetString("token");
+                    _ajv = new AjaxJsonValid();
+                    _ajv.SetDataItem("apiVersion", 20180316);
+
+                    //排除不需要认证后判断认证是否正确
+                    if (!unNeedAuthActions.Contains(action))
+                    {
+                        if (string.IsNullOrEmpty(token))
+                        {
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " token 缺失");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        AgentTokenInfo authInfo = FacadeManage.aideNativeWebFacade.VerifyAgentToken(token);
+                        if (authInfo == null)
+                        {
+                            _ajv.code = (int) ApiCode.Unauthorized;
+                            _ajv.msg = EnumHelper.GetDesc(ApiCode.Unauthorized);
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                        }
+                        //认证完成后 设全局属性UserID
+                        UserId = authInfo.UserID;
+                    }
+
+                    switch (action)
+                    {
+                        case "agentauth":
+                            string mobile = GameRequest.GetString("mobile");
+                            string pass = GameRequest.GetString("pass"); //MD5
+                            if (string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(pass))
+                            {
+                                _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                                _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                                    " mobile、pass 缺失");
+                                context.Response.Write(_ajv.SerializeToJson());
+                                return;
+                            }
+                            AgentAuth(mobile, pass);
+                            break;
+                        case "getinfo":
+                            GetAgentInfo(UserId);
+                            break;
+                        default:
+                            _ajv.code = (int) ApiCode.VertyParamErrorCode;
+                            _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode),
+                                " action 对应接口不存在");
+                            context.Response.Write(_ajv.SerializeToJson());
+                            return;
+                    }
+
+                    context.Response.Write(_ajv.SerializeToJson());
+                }
+                catch (Exception ex)
+                {
+                    Log4Net.WriteInfoLog("下面一条为接口故障信息", "Agent_DataHandler");
+                    Log4Net.WriteErrorLog(ex, "Agent_DataHandler");
+                    _ajv = new AjaxJsonValid
+                    {
+                        code = (int) ApiCode.LogicErrorCode,
+                        msg = EnumHelper.GetDesc(ApiCode.LogicErrorCode)
+                    };
+                    context.Response.Write(_ajv.SerializeToJson());
+                }
             }
         }
+
+        #region Version 1.0
 
         /// <summary>
         /// 获取用户昵称
@@ -509,12 +595,88 @@ namespace Game.Web.Card
                     AgentID = ai.AgentID,
                     Diamond = FacadeManage.aideTreasureFacade.GetUserCurrency(ai.UserID)?.Diamond ?? 0
                 };
-                ajv.SetDataItem("info",underDetail.ToString());
+                ajv.SetDataItem("info", underDetail.ToString());
                 ajv.SetValidDataValue(true);
             }
 
             context.Response.Write(ajv.SerializeToJson());
         }
+
+        #endregion
+
+        #region Version 2.0
+
+        /// <summary>
+        /// 代理手机号+安全密码认证 换取 Token
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="pass"></param>
+        private static void AgentAuth(string mobile, string pass)
+        {
+            Message msg = FacadeManage.aideAccountsFacade.AgentMobileLogin(mobile, pass, GameRequest.GetUserIP());
+            if (msg.Success)
+            {
+                UserInfo info = msg.EntityList[0] as UserInfo;
+                if (info != null)
+                {
+                    string token = Fetch.SHA256Encrypt($"<{info.UserID}>,<{info.AgentID}>,<{info.GameID}>,<{Fetch.ConvertDateTimeToUnix(DateTime.Now)}>");
+                    
+                    FacadeManage.aideNativeWebFacade.SaveAgentToken(info, token);
+                    _ajv.SetValidDataValue(true);
+                    _ajv.SetDataItem("token", token);
+                    _ajv.SetDataItem("expirtAt",DateTime.Now.AddDays(1));
+                    return;
+                }
+            }
+
+            _ajv.code = (int) ApiCode.Unauthorized;
+            _ajv.msg = EnumHelper.GetDesc(ApiCode.Unauthorized);
+        }
+
+        /// <summary>
+        /// 获取代理信息汇总
+        /// </summary>
+        /// <param name="userId">用户标识</param>
+        private static void GetAgentInfo(int userId)
+        {
+            DateTime monthFirst = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            AccountsInfo userInfo = FacadeManage.aideAccountsFacade.GetAccountsInfoByUserID(userId);
+            AccountsAgentInfo agentInfo =
+                FacadeManage.aideAccountsFacade.GetAccountsAgentInfoByAgentID(userInfo.UserID);
+            DataStruct.AgentInfo info = new DataStruct.AgentInfo()
+            {
+                //来源用户表
+                UserID = userInfo.UserID,
+                GameID = userInfo.GameID,
+                AgentID = userInfo.AgentID,
+                NickName = userInfo.NickName,
+                //来源代理表
+                AgentLevel = agentInfo.AgentLevel == 1 ? "一级代理" : (agentInfo.AgentLevel == 2 ? "二级代理" : "三级代理"),
+                AgentDomain = agentInfo.AgentDomain,
+                Compellation = agentInfo.Compellation,
+                ContactAddress = agentInfo.ContactAddress,
+                ContactPhone = agentInfo.ContactPhone,
+                WCNickName = agentInfo.WCNickName,
+                QQAccount = agentInfo.QQAccount,
+
+                MyAgent = FacadeManage.aideAccountsFacade.GetAgentBelowAgentCount(userId),
+                MyPlayer = FacadeManage.aideRecordFacade.GetAgentBelowAccountsCount(userId),
+                CurDiamond = FacadeManage.aideTreasureFacade.GetUserWealth(userId)?.Diamond ?? 0L,
+                PresentToday = FacadeManage.aideRecordFacade.GetAgentPresentOutCount(userId,
+                    $" AND CollectDate>= '{today}'"),
+                PresentMonth =
+                    FacadeManage.aideRecordFacade.GetAgentPresentOutCount(userId,
+                        $" AND CollectDate>= '{monthFirst}'"),
+                PresentTotal =
+                    FacadeManage.aideRecordFacade.GetAgentPresentOutCount(userId),
+                IsHasPassword = !agentInfo.Password.Equals("")
+            };
+            _ajv.SetValidDataValue(true);
+            _ajv.SetDataItem("info",info);
+        }
+
+        #endregion
 
         public bool IsReusable => false;
     }

@@ -23,12 +23,20 @@ namespace Game.IData
 
         #region 用户信息
         /// <summary>
-        /// 用户登录（微信）
+        /// 代理用户登录（微信）
         /// </summary>
         /// <param name="unionid">微信标识</param>
         /// <param name="ip">登录ip</param>
         /// <returns></returns>
         Message WXLogin(string unionid, string ip);
+        /// <summary>
+        /// 代理用户安全密码登录
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="pass"></param>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        Message AgentMobileLogin(string mobile, string pass, string ip);
         /// <summary>
         /// 根据用户id获取用户信息
         /// </summary>

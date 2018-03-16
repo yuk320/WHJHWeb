@@ -50,6 +50,7 @@
     <Compile Include="Accounts\UserTicketInfo.cs" />
     <Compile Include="Accounts\WxUser.cs" />
     <Compile Include="NativeWeb\Ads.cs" />
+    <Compile Include="NativeWeb\AgentTokenInfo.cs" />
     <Compile Include="NativeWeb\CacheConsumeRank.cs" />
     <Compile Include="NativeWeb\CacheScoreRank.cs" />
     <Compile Include="NativeWeb\CacheWealthRank.cs" />

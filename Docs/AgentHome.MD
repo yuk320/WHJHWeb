@@ -6,11 +6,57 @@
 
 * API_URL = "DataHandle.ashx"
 
-* 下面提到的接口地址 均为 上述地址 +`?action=xx`
+* 下面提到的接口地址 均为 上述地址 +`?version=2&action=xx`
 
 * 通用部分其他内容参考手机接口说明文档通用部分
 
 ---
+
+## 认证部分
+
+### 1.0 AgentAuth
+
+**简要描述：**
+
+* 代理用户使用手机号码+安全密码登陆
+
+**请求 URL：**
+
+* API_URL + `?version=2&action=AgentAuth&mobile=XX&pass=XX`
+
+**请求方式：**
+
+* GET
+
+**参数：**
+
+| 参数名 | 必选 | 类型   | 说明             |
+| :----- | :--- | :----- | ---------------- |
+| action | 是   | string | 业务逻辑标识     |
+| mobile | 是   | string | 代理用户手机号码 |
+| pass   | 是   | string | MD5 后的密码     |
+
+**返回示例：**
+
+```
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "apiVersion": 20180316,
+    "valid": true,
+    "token":  "XXX...XXX",
+    "expirtAt": /Date(1521282544699)/
+  }
+}
+```
+
+**返回参数说明**
+
+| 参数名   | 类型   | 说明                         |
+| :------- | :----- | ---------------------------- |
+| token    | string | 用于后续接口使用的认证 Token |
+| expirtAt | date   | Token 过期时间               |
 
 ## 逻辑部分
 
@@ -42,7 +88,7 @@
   "code": 0,
   "msg": "",
   "data": {
-    "apiVersion": 20180131,
+    "apiVersion": 20180316,
     "valid": true,
     "info": {
       "UserID": 0,
@@ -51,7 +97,7 @@
       "NickName": "",
       "Compellation": "",
       "AgentLevel": "",
-      "AgentDomain": 0,
+      "AgentDomain": "",
       "MyAgent": 0,
       "MyPlayer": 0,
       "ContactAddress": "",
@@ -59,11 +105,9 @@
       "QQAccount": "",
       "WCNickName": "",
       "CurDiamond": 0,
-      "TodayPresent": 0,
-      "CurCards": 0,
+      "PresentToday": 0,
       "PresentMonth": 0,
-      "PresentTotal": 0,
-      "Password": 0
+      "PresentTotal": 0
     }
   }
 }
@@ -71,33 +115,31 @@
 
 **返回参数说明**
 
-| 参数名 | 类型           | 说明     |
-| :----- | :------------- | -------- |
+| 参数名 | 类型                  | 说明     |
+| :----- | :-------------------- | -------- |
 | info   | Object(WebAgentInfo)} | 用户信息 |
 
 **WebAgentInfo 说明**
 
-| 参数名         | 类型   | 说明           |
-| :------------- | :----- | :------------- |
-| UserID         | number | 用户标识       |
-| GameID         | number | 用户游戏标识   |
-| AgentID        | number | 代理标识       |
-| NickName       | string | 用户昵称       |
-| Compellation   | string | 用户真实姓名   |
-| AgentLevel     | string | 用户的代理等级 |
-| AgentDomain    | string | 代理域名       |
-| MyAgent        | number | 用户的代理人数 |
-| MyPlayer       | number | 用户的下线人数 |
-| ContactAddress | string | 联系地址       |
-| ContactPhone   | string | 联系电话       |
-| QQAccount      | number | QQ             |
-| WCNickName     | string | 微信           |
-| CurDiamond     | number | 当前钻石数量   |
-| CurCards       | number | 当前房卡数量   |
-| PresentToday   | number | 今日赠送       |
-| PresentMonth   | number | 本月赠送       |
-| PresentTotal   | number | 赠送总数       |
-| Password       | number | 安全密码       |
+| 参数名         | 类型   | 说明               |
+| :------------- | :----- | :----------------- |
+| UserID         | number | 用户标识           |
+| GameID         | number | 用户游戏标识       |
+| AgentID        | number | 代理标识           |
+| NickName       | string | 用户昵称           |
+| Compellation   | string | 用户真实姓名       |
+| AgentLevel     | string | 用户的代理等级     |
+| AgentDomain    | string | 代理域名           |
+| MyAgent        | number | 用户的代理人数     |
+| MyPlayer       | number | 用户的下线人数     |
+| ContactAddress | string | 联系地址           |
+| ContactPhone   | string | 联系电话           |
+| QQAccount      | string | QQ                 |
+| WCNickName     | string | 微信               |
+| CurDiamond     | number | 当前钻石数量(房卡) |
+| PresentToday   | number | 今日赠送           |
+| PresentMonth   | number | 本月赠送           |
+| PresentTotal   | number | 赠送总数           |
 
 ---
 
@@ -298,12 +340,12 @@
 
 **返回参数说明**
 
-| 参数名 | 类型               | 说明         |
-| :----- | :----------------- | ------------ |
+| 参数名 | 类型             | 说明         |
+| :----- | :--------------- | ------------ |
 | list   | Array(UnderData) | 所有记录信息 |
-| total  | number             | 记录条数     |
-| count  | number             | 类型总数     |
-| link   | bool               | 是否支持详情 |
+| total  | number           | 记录条数     |
+| count  | number           | 类型总数     |
+| link   | bool             | 是否支持详情 |
 
 **UnderData 说明**
 
@@ -366,8 +408,8 @@
 
 **返回参数说明**
 
-| 参数名 | 类型                  | 说明         |
-| :----- | :-------------------- | ------------ |
+| 参数名 | 类型                | 说明         |
+| :----- | :------------------ | ------------ |
 | info   | Object(UnderDetail) | 所有记录信息 |
 
 **UnderDetail 说明**

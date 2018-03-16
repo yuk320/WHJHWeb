@@ -8,6 +8,7 @@ using Game.IData;
 using Game.Kernel;
 using Game.Utils;
 using System.Data;
+using Game.Entity.Accounts;
 using Game.Entity.NativeWeb;
 
 namespace Game.Facade
@@ -198,6 +199,30 @@ namespace Game.Facade
             return webData.GetQAList(top);
         }
 
+        #endregion
+
+        #region 代理Token管理
+
+        /// <summary>
+        /// 检查代理登录凭证
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public AgentTokenInfo VerifyAgentToken(string token)
+        {
+            return webData.VerifyAgentToken(token);
+        }
+
+        /// <summary>
+        /// 保存代理登录凭证
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public int SaveAgentToken(UserInfo info, string token)
+        {
+            return webData.SaveAgentToken(info, token);
+        }
         #endregion
     }
 }

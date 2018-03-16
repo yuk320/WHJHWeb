@@ -3,6 +3,7 @@ using Game.Kernel;
 using Game.IData;
 using System.Data.Common;
 using System.Data;
+using Game.Entity.Accounts;
 using Game.Entity.NativeWeb;
 using Game.Entity.Treasure;
 
@@ -262,6 +263,38 @@ namespace Game.Data
             return list;
         }
 
+        #endregion
+
+        #region 代理Token管理
+
+        /// <summary>
+        /// 检查代理登录凭证
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public AgentTokenInfo VerifyAgentToken(string token)
+        {
+            Database.ExecuteNonQuery(CommandType.Text, "DELETE AgentTokenInfo WHERE ExpirtAt < GETDATE() ");
+            return 
+                Database.ExecuteObject<AgentTokenInfo>(
+                    $"SELECT * FROM AgentTokenInfo(NOLOCK) WHERE Token = N'{token}' AND ExpirtAt > GETDATE() ");
+        }
+
+        /// <summary>
+        /// 保存代理登录凭证
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public int SaveAgentToken(UserInfo info, string token)
+        {
+            Database.ExecuteNonQuery(CommandType.Text, "DELETE AgentTokenInfo WHERE ExpirtAt < GETDATE() ");
+            string sql =
+                $" IF EXISTS (SELECT 1 FROM AgentTokenInfo WHERE UserID = {info.UserID} AND AgentID = {info.AgentID})  " +
+                $" BEGIN  UPDATE AgentTokenInfo SET Token = N'{token}',ExpirtAt = GETDATE() + 1 WHERE UserID = {info.UserID} AND AgentID = {info.AgentID}  END" +
+                $" ELSE BEGIN INSERT AgentTokenInfo (UserID,AgentID,Token) VALUES ({info.UserID},{info.AgentID},N'{token}') END ";
+            return Database.ExecuteNonQuery(CommandType.Text, sql);
+        }
         #endregion
     }
 }

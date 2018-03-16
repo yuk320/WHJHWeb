@@ -230,12 +230,12 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             }
             catch (Exception ex)
             {
-                Log4Net.WriteInfoLog("下面一条为手机接口故障信息", "MobileInterface");
-                Log4Net.WriteErrorLog(ex);
+                Log4Net.WriteInfoLog("下面一条为接口故障信息", "MobileInterface");
+                Log4Net.WriteErrorLog(ex, "MobileInterface");
                 _ajv = new AjaxJsonValid
                 {
-                    code = 500,
-                    msg = "手机接口短暂故障，请联系管理员！"
+                    code = (int)ApiCode.LogicErrorCode,
+                    msg = EnumHelper.GetDesc(ApiCode.LogicErrorCode)
                 };
                 context.Response.Write(_ajv.SerializeToJson());
             }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
-
 using Game.Utils;
 using Game.Utils.Cache;
 using System.IO;
@@ -29,6 +28,7 @@ namespace Game.Facade
         #endregion
 
         #region 公用方法
+
         /// <summary>
         /// 接口签名验证
         /// </summary>
@@ -39,7 +39,7 @@ namespace Game.Facade
         {
             AjaxJsonValid ajv = new AjaxJsonValid();
             if (!string.IsNullOrEmpty(signData) && Utility.MD5(signStr) == signData) return ajv;
-            ajv.code = (int)ApiCode.VertySignErrorCode;
+            ajv.code = (int) ApiCode.VertySignErrorCode;
             ajv.msg = EnumHelper.GetDesc(ApiCode.VertySignErrorCode);
             return ajv;
         }
@@ -59,7 +59,7 @@ namespace Game.Facade
             tradeNoBuffer += prefix;
             tradeNoBuffer += TextUtility.GetDateTimeLongString();
 
-            if((tradeNoBuffer.Length + randomLength) > orderIDLength)
+            if ((tradeNoBuffer.Length + randomLength) > orderIDLength)
                 randomLength = orderIDLength - tradeNoBuffer.Length;
 
             tradeNoBuffer += TextUtility.CreateRandom(randomLength, 1, 0, 0, 0, "");
@@ -87,20 +87,31 @@ namespace Game.Facade
         public static int GetTerminalType(HttpRequest request)
         {
             string userAgent = request.Headers["User-Agent"];
-            if(userAgent == null)
+            if (userAgent == null)
             {
                 return 0;
             }
             userAgent = userAgent.ToLower();
-            if(userAgent.Contains("android"))
+            if (userAgent.Contains("android"))
             {
                 return 1;
             }
-            else if(userAgent.Contains("ipad") || userAgent.Contains("iphone"))
+            else if (userAgent.Contains("ipad") || userAgent.Contains("iphone"))
             {
                 return 2;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// 判断是否微信内置浏览器
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static bool isWeChat(HttpRequest request)
+        {
+            string userAgent = request.Headers["User-Agent"];
+            return userAgent != null && userAgent.Contains("MicroMessenger");
         }
 
         /// <summary>
@@ -111,11 +122,11 @@ namespace Game.Facade
         {
             IList<ConfigInfo> list = null;
             object obj = WHCache.Default.Get<AspNetCache>(AppConfig.WebSiteConfigCache);
-            if(obj != null)
+            if (obj != null)
             {
                 list = obj as List<ConfigInfo>;
             }
-            if(obj == null || list == null)
+            if (obj == null || list == null)
             {
                 list = FacadeManage.aideNativeWebFacade.GetConfigInfoList();
                 WHCache.Default.Save<AspNetCache>(AppConfig.WebSiteConfigCache, list, AppConfig.ResourceTimeOut);
@@ -131,11 +142,11 @@ namespace Game.Facade
         {
             IList<Ads> list = null;
             object obj = WHCache.Default.Get<AspNetCache>(AppConfig.AdsConfigCache);
-            if(obj != null)
+            if (obj != null)
             {
                 list = obj as List<Ads>;
             }
-            if(obj == null || list == null)
+            if (obj == null || list == null)
             {
                 list = FacadeManage.aideNativeWebFacade.GetAdsList();
                 WHCache.Default.Save<AspNetCache>(AppConfig.AdsConfigCache, list, AppConfig.ResourceTimeOut);
@@ -150,9 +161,9 @@ namespace Game.Facade
         public static ConfigInfo GetWebSiteConfig()
         {
             IList<ConfigInfo> list = GetConfigInfoList();
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(item.ConfigKey == AppConfig.SiteConfigKey.WebSiteConfig.ToString())
+                if (item.ConfigKey == AppConfig.SiteConfigKey.WebSiteConfig.ToString())
                 {
                     return item;
                 }
@@ -171,13 +182,14 @@ namespace Game.Facade
             int terminalType = GetTerminalType(request);
             //下载地址数据集合
             IList<ConfigInfo> list = GetConfigInfoList();
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
+                if (terminalType == 1 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                 {
                     return item.Field6;
                 }
-                else if(terminalType == 2 && item.ConfigKey == AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
+                else if (terminalType == 2 && item.ConfigKey ==
+                         AppConfig.SiteConfigKey.MobilePlatformVersion.ToString())
                 {
                     return item.Field5;
                 }
@@ -214,9 +226,9 @@ namespace Game.Facade
         public static ConfigInfo GetCustomerService()
         {
             IList<ConfigInfo> list = GetConfigInfoList();
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(item.ConfigKey == AppConfig.SiteConfigKey.SysCustomerService.ToString())
+                if (item.ConfigKey == AppConfig.SiteConfigKey.SysCustomerService.ToString())
                 {
                     return item;
                 }
@@ -232,7 +244,7 @@ namespace Game.Facade
         public static string RegisterOrigin(int typeId)
         {
             string rValue;
-            switch(typeId)
+            switch (typeId)
             {
                 case 0:
                     rValue = "PC";
@@ -291,12 +303,12 @@ namespace Game.Facade
         public static WxUser GetWxUser(string encrypt)
         {
             string decparam = DESDecrypt(encrypt, AppConfig.WxUrlKey);
-            if(string.IsNullOrEmpty(decparam) || decparam.IndexOf(',') <= 0)
+            if (string.IsNullOrEmpty(decparam) || decparam.IndexOf(',') <= 0)
             {
                 return null;
             }
             string[] param = decparam.Split(',');
-            if(param.Length != 5)
+            if (param.Length != 5)
             {
                 return null;
             }
@@ -312,21 +324,23 @@ namespace Game.Facade
                 };
                 return wu;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
         }
+
         #endregion
 
         #region 登录用户
+
         /// <summary>
         /// 设置用户cookie
         /// </summary>
         /// <param name="userTicket">用户信息</param>
         public static void SetUserCookie(UserTicketInfo userTicket)
         {
-            if(userTicket == null|| userTicket.UserID <=0)
+            if (userTicket == null || userTicket.UserID <= 0)
             {
                 return;
             }
@@ -350,9 +364,11 @@ namespace Game.Facade
         {
             WHCache.Default.Delete<SessionCache>(AppConfig.UserLoginCacheKey);
         }
+
         #endregion
 
         #region DES 加密解密
+
         /// <summary>
         /// 进行DES加密。
         /// </summary>
@@ -361,13 +377,13 @@ namespace Game.Facade
         /// <returns>以Base64格式返回的加密字符串。</returns>
         public static string DESEncrypt(string pToEncrypt, string sKey)
         {
-            using(DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
             {
                 byte[] inputByteArray = Encoding.UTF8.GetBytes(pToEncrypt);
                 des.Key = Encoding.UTF8.GetBytes(sKey);
                 des.IV = Encoding.UTF8.GetBytes(sKey);
                 MemoryStream ms = new MemoryStream();
-                using(CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write))
+                using (CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write))
                 {
                     cs.Write(inputByteArray, 0, inputByteArray.Length);
                     cs.FlushFinalBlock();
@@ -388,12 +404,12 @@ namespace Game.Facade
         public static string DESDecrypt(string pToDecrypt, string sKey)
         {
             byte[] inputByteArray = Convert.FromBase64String(pToDecrypt);
-            using(DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
             {
                 des.Key = Encoding.UTF8.GetBytes(sKey);
                 des.IV = Encoding.UTF8.GetBytes(sKey);
                 MemoryStream ms = new MemoryStream();
-                using(CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Write))
+                using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Write))
                 {
                     cs.Write(inputByteArray, 0, inputByteArray.Length);
                     cs.FlushFinalBlock();
@@ -404,9 +420,11 @@ namespace Game.Facade
                 return str;
             }
         }
+
         #endregion
 
         #region AES 加密解密
+
         /// <summary>
         /// H5 公用加密方式
         /// </summary>
@@ -433,6 +451,42 @@ namespace Game.Facade
 
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
+
+        #endregion
+
+        #region SHA-256 加密
+
+        /// <summary>
+        /// SHA256 哈希值
+        /// </summary>
+        /// <param name="strIN"></param>
+        /// <param name="isBase64"></param>
+        /// <returns></returns>
+        public static string SHA256Encrypt(string strIN,bool isBase64 = false)
+        {
+            //string strIN = getstrIN(strIN);
+            SHA256 sha256 = new SHA256CryptoServiceProvider();
+            var tmpByte = sha256.ComputeHash(GetKeyByteArray(strIN));
+            sha256.Clear();
+            StringBuilder sb = new StringBuilder();
+            if (isBase64) return Convert.ToBase64String(tmpByte);
+            foreach (byte t in tmpByte)
+            {
+                sb.Append(t.ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// string 转为 byte[]
+        /// </summary>
+        /// <param name="strKey"></param>
+        /// <returns></returns>
+        private static byte[] GetKeyByteArray(string strKey)
+        {
+            return Encoding.UTF8.GetBytes(strKey);
+        }
+
         #endregion
 
         #region 画二维码
@@ -453,7 +507,7 @@ namespace Game.Facade
             //生成二维码数据
             QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
             qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-            qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;//使用H纠错级别
+            qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H; //使用H纠错级别
             qrCodeEncoder.QRCodeVersion = 0;
             var encodedData = qrCodeEncoder.Encode(sData, System.Text.Encoding.UTF8);
 
@@ -494,10 +548,10 @@ namespace Game.Facade
             //添加LOGO
             string url = Fetch.GetUploadFileUrl("/Site/qrsmall.png");
             Bitmap logoImage = null;
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            HttpWebRequest webRequest = (HttpWebRequest) HttpWebRequest.Create(url);
             try
             {
-                HttpWebResponse webReponse = (HttpWebResponse)webRequest.GetResponse();
+                HttpWebResponse webReponse = (HttpWebResponse) webRequest.GetResponse();
                 if (webReponse.StatusCode == HttpStatusCode.OK)
                 {
                     using (Stream stream = webReponse.GetResponseStream())
@@ -547,7 +601,8 @@ namespace Game.Facade
             graph = graph == null ? Graphics.FromImage(original) : graph;
 
             // 将附加图片绘制到原始图中央
-            graph.DrawImage(image, (original.Width - sideTLen) / 2, (original.Height - sideTLen) / 2, sideTLen, sideTLen);
+            graph.DrawImage(image, (original.Width - sideTLen) / 2, (original.Height - sideTLen) / 2, sideTLen,
+                sideTLen);
 
             // 释放GDI+绘图图画内存
             graph.Dispose();
@@ -582,6 +637,31 @@ namespace Game.Facade
             {
                 return null;
             }
+        }
+
+        #endregion
+
+        #region 日期格式与Unix时间戳
+
+        /// <summary>
+        /// DateTime转为Uinx时间戳
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static string ConvertDateTimeToUnix(DateTime time)
+        {
+            return ((time.ToUniversalTime().Ticks - 621355968000000000) / 10000000).ToString();
+        }
+
+        /// <summary>
+        /// Uinx时间戳转为DateTime
+        /// </summary>
+        /// <param name="unix"></param>
+        /// <returns></returns>
+        public static DateTime ConvertUnixToDateTime(string unix)
+        {
+            DateTime startUnixTime = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), TimeZoneInfo.Local);
+            return startUnixTime.AddSeconds(double.Parse(unix));
         }
 
         #endregion

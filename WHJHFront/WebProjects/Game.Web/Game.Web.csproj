@@ -339,6 +339,7 @@
     <Compile Include="Card\AgentInfo.aspx.designer.cs">
       <DependentUpon>AgentInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Card\DataStruct\AgentStruct.cs" />
     <Compile Include="Card\Under.aspx.cs">
       <DependentUpon>Under.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

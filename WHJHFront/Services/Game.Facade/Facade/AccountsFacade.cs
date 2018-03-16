@@ -45,7 +45,7 @@ namespace Game.Facade
 
         #region 用户信息
         /// <summary>
-        /// 用户登录（微信）
+        /// 代理用户登录（微信）
         /// </summary>
         /// <param name="unionid">微信标识</param>
         /// <param name="ip">登录ip</param>
@@ -53,6 +53,17 @@ namespace Game.Facade
         public Message WXLogin(string unionid, string ip)
         {
             return accountsData.WXLogin(unionid, ip);
+        }
+        /// <summary>
+        /// 代理用户安全密码登录
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="pass"></param>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public Message AgentMobileLogin(string mobile, string pass, string ip)
+        {
+            return accountsData.AgentMobileLogin(mobile, pass, ip);
         }
         /// <summary>
         /// 根据用户id获取用户信息

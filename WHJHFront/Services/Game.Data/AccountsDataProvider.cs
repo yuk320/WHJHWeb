@@ -46,7 +46,7 @@ namespace Game.Data
         #region 用户信息
 
         /// <summary>
-        /// 用户登录（微信）
+        /// 代理用户登录（微信）
         /// </summary>
         /// <param name="unionid">微信标识</param>
         /// <param name="ip">登录ip</param>
@@ -62,6 +62,27 @@ namespace Game.Data
                 };
 
             return MessageHelper.GetMessageForObject<UserInfo>(Database, "NET_PW_AgentAccountsLogin", prams);
+        }
+
+        /// <summary>
+        /// 代理用户安全密码登录
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="pass"></param>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public Message AgentMobileLogin(string mobile, string pass, string ip)
+        {
+            List<DbParameter> prams =
+                new List<DbParameter>
+                {
+                    Database.MakeInParam("strMobile", mobile),
+                    Database.MakeInParam("strPassword", pass),
+                    Database.MakeInParam("strClientIP", ip),
+                    Database.MakeOutParam("strErrorDescribe", typeof(string), 127)
+                };
+
+            return MessageHelper.GetMessageForObject<UserInfo>(Database, "NET_PW_AgentAccountsLogin_MP", prams);
         }
 
         /// <summary>

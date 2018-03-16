@@ -30,11 +30,13 @@ namespace Game.Web.Helper
         /// 写入错误日志
         /// </summary>
         /// <param name="ex">错误异常</param>
-        public static void WriteErrorLog(Exception ex)
+        /// <param name="tag"></param>
+        public static void WriteErrorLog(Exception ex, string tag = "")
         {
             HttpRequest req = HttpContext.Current.Request;
+            tag = tag.Equals("") ? req.Url.AbsoluteUri : tag;
             string message =
-                $"[{req.UserHostAddress}] [{req.Url.AbsoluteUri}] \t\r\n[当前堆栈]：{ex.StackTrace}\r\n[错误]：{ex.Message}";
+                $"[{req.UserHostAddress}] [{tag}] \t\r\n[当前堆栈]：{ex.StackTrace}\r\n[错误]：{ex.Message}";
             Log.Error(message);
         }
     }

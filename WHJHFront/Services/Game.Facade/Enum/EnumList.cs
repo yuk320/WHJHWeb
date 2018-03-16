@@ -156,11 +156,18 @@ namespace Game.Facade.Enum
         [EnumDescription("成功")]
         Success = 0,
 
+        [EnumDescription("抱歉，接口认证失败")]
+        Unauthorized = 401,
+
+        [EnumDescription("抱歉，接口系统错误")]
+        LogicErrorCode = 500,
+
         [EnumDescription("抱歉，接口签名错误")]
         VertySignErrorCode = 2001,
 
         [EnumDescription("抱歉，接口参数错误{0}")]
         VertyParamErrorCode = 2002
+      
     }
 
     /// <summary>
