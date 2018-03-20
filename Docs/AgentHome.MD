@@ -22,7 +22,7 @@
 
 **请求 URL：**
 
-* API_URL + `?version=2&action=AgentAuth&mobile=XX&pass=XX`
+* API_URL + `?version=2&action=AgentAuth&phone=XX&pass=XX`
 
 **请求方式：**
 
@@ -33,7 +33,7 @@
 | 参数名 | 必选 | 类型   | 说明             |
 | :----- | :--- | :----- | ---------------- |
 | action | 是   | string | 业务逻辑标识     |
-| mobile | 是   | string | 代理用户手机号码 |
+| phone  | 是   | string | 代理用户手机号码 |
 | pass   | 是   | string | MD5 后的密码     |
 
 **返回示例：**
@@ -68,7 +68,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=GetInfo&userid=XX`
+* API_URL + `?version=2&action=GetInfo&token=XX`
 
 **请求方式：**
 
@@ -79,7 +79,7 @@
 | 参数名 | 必选 | 类型   | 说明         |
 | :----- | :--- | :----- | ------------ |
 | action | 是   | string | 业务逻辑标识 |
-| userid | 是   | number | 用户标识     |
+| token  | 是   | string | 用户认证标识 |
 
 **返回示例：**
 
@@ -151,7 +151,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=GetNickNameByGameID&gameid=XX`
+* API_URL + `?version=2&action=GetNickNameByGameID&gameid=XX&token=XX`
 
 **请求方式：**
 
@@ -163,6 +163,7 @@
 | :----- | :--- | :----- | ------------ |
 | action | 是   | string | 业务逻辑标识 |
 | gameid | 是   | number | 用户游戏标识 |
+| token  | 是   | string | 用户认证标识 |
 
 **返回示例：**
 
@@ -194,7 +195,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=GetRecord&userid=XX&type=XX&pagesize=XX&pageindex=XX`
+* API_URL + `?version=2&action=GetRecord&token=XX&type=XX&pagesize=XX&pageindex=XX`
 
 **请求方式：**
 
@@ -202,13 +203,13 @@
 
 **参数：**
 
-| 参数名    | 必选 | 类型   | 说明                          |
-| :-------- | :--- | :----- | ----------------------------- |
-| action    | 是   | string | 业务逻辑标识                  |
-| userid    | 是   | number | 用户标识                      |
-| type      | 是   | string | 记录类型 （pay 为支付记录、） |
-| pagesize  | 是   | number | 每页记录条数                  |
-| pageindex | 是   | number | 当前页数                      |
+| 参数名    | 必选 | 类型   | 说明                                                                                                       |
+| :-------- | :--- | :----- | ---------------------------------------------------------------------------------------------------------- |
+| action    | 是   | string | 业务逻辑标识                                                                                               |
+| token     | 是   | string | 用户认证标识                                                                                               |
+| type      | 是   | string | 记录类型 （pay 为支付记录、present 为赠送记录、cost 为消耗记录、register 为注册记录、exchange 为兑换记录） |
+| pagesize  | 是   | number | 每页记录条数                                                                                               |
+| pageindex | 是   | number | 当前页数                                                                                                   |
 
 **返回示例：**
 
@@ -236,13 +237,13 @@
 
 **各个类型记录列表说明**
 
-| 参数名               | 类型  | 说明     | 请求参数 type |
-| :------------------- | :---- | :------- | :------------ |
-| payDiamondRecord     | array | 充值记录 | pay           |
-| presentDiamondRecord | array | 赠送记录 | present       |
-| costDiamondRecord    | array | 消耗记录 | cost          |
-| spreadRegisterRecord | array | 注册记录 | register      |
-| exchDiamondRecord    | array | 兑换记录 | exchange      |
+| 参数名               | 类型  | 说明     |
+| :------------------- | :---- | :------- |
+| payDiamondRecord     | array | 充值记录 |
+| presentDiamondRecord | array | 赠送记录 |
+| costDiamondRecord    | array | 消耗记录 |
+| spreadRegisterRecord | array | 注册记录 |
+| exchDiamondRecord    | array | 兑换记录 |
 
 **payDiamondRecord 说明**
 
@@ -300,7 +301,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=GetUnderList&userid=XX&type=XX`
+* API_URL + `?version=2&action=GetUnderList&token=XX&type=XX&range=XX&pagesize=XX&pageindex=XX`
 
 **请求方式：**
 
@@ -308,11 +309,14 @@
 
 **参数：**
 
-| 参数名 | 必选 | 类型   | 说明         |
-| :----- | :--- | :----- | ------------ |
-| action | 是   | string | 业务逻辑标识 |
-| userid | 是   | number | 用户标识     |
-| type   | 是   | string | 类型         |
+| 参数名    | 必选 | 类型   | 说明                                                                                                        |
+| :-------- | :--- | :----- | ----------------------------------------------------------------------------------------------------------- |
+| action    | 是   | string | 业务逻辑标识                                                                                                |
+| token     | 是   | string | 用户认证标识                                                                                                |
+| type      | 是   | string | 类型                                                                                                        |
+| range     | 是   | string | 数据排序规则（all 为正常数据没有排序、topCurMonth 为依据本月售卡数据排序、topTotal 为依据累计售卡数据排序） |
+| pagesize  | 是   | number | 每页数据条数                                                                                                |
+| pageindex | 是   | number | 页数                                                                                                        |
 
 **返回示例：**
 
@@ -369,7 +373,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=GetUnderDetail&userid=XX`
+* API_URL + `?version=2&action=GetUnderDetail&token=XX`
 
 **请求方式：**
 
@@ -380,7 +384,7 @@
 | 参数名 | 必选 | 类型   | 说明         |
 | :----- | :--- | :----- | ------------ |
 | action | 是   | string | 业务逻辑标识 |
-| userid | 是   | number | 用户标识     |
+| token  | 是   | string | 用户认证标识 |
 
 **返回示例：**
 
@@ -420,9 +424,9 @@
 | GameID         | number | 游戏 ID  |
 | NickName       | string | 昵称     |
 | Compellation   | string | 真实姓名 |
-| QQAccount      | number | QQ       |
+| QQAccount      | string | QQ       |
 | ContactAddress | string | 联系地址 |
-| ContactPhone   | number | 联系电话 |
+| ContactPhone   | string | 联系电话 |
 | Diamond        | number | 当前钻石 |
 
 ---
@@ -435,7 +439,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=PresentDiamond&userid=XX&gameid=XX&count=XX&note=XX`
+* API_URL + `?version=2&action=PresentDiamond&token=XX&gameid=XX&count=XX&note=XX`
 
 **请求方式：**
 
@@ -446,7 +450,7 @@
 | 参数名   | 必选 | 类型          | 说明               |
 | :------- | :--- | :------------ | ------------------ |
 | action   | 是   | string        | 业务逻辑标识       |
-| userid   | 是   | number        | 赠送人用户标识     |
+| token    | 是   | string        | 赠送人用户认证标识 |
 | gameid   | 是   | number        | 接受人用户游戏标识 |
 | password | 是   | string（MD5） | 代理后台安全密码   |
 | count    | 是   | number        | 赠送数量           |
@@ -475,7 +479,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=UpdatePassword&userid=XX&password=XX`
+* API_URL + `?version=2&action=UpdatePassword&token=XX&oldPassword=XX&newPassword=XX`
 
 **请求方式：**
 
@@ -486,7 +490,7 @@
 | 参数名      | 必选 | 类型          | 说明         |
 | ----------- | ---- | ------------- | ------------ |
 | action      | 是   | string        | 业务逻辑标识 |
-| userid      | 是   | number        | 用户标识     |
+| token       | 是   | string        | 用户认证标识 |
 | oldPassword | 是   | string（MD5） | 旧密码       |
 | newPassword | 是   | string（MD5） | 新密码       |
 
@@ -515,7 +519,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=UpdateInfo&userid=XX&address=XX&phone=XX&qq=XX`
+* API_URL + `?version=2&action=UpdateInfo&token=XX&address=XX&phone=XX&qq=XX`
 
 **请求方式：**
 
@@ -526,7 +530,7 @@
 | 参数名  | 必选 | 类型   | 说明         |
 | ------- | ---- | ------ | ------------ |
 | action  | 是   | string | 业务逻辑标识 |
-| userid  | 是   | number | 用户标识     |
+| token   | 是   | string | 用户认证标识 |
 | address | 是   | string | 联系地址     |
 | phone   | 是   | string | 联系电话     |
 | qq      | 是   | string | QQ           |
@@ -556,7 +560,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=AddAgent&userid=XX&gameid=XX&agentdomain=XX&compellation=XX&note=XX&address=XX&phone=XX&qq=XX&wcnickname=XX`
+* API_URL + `?version=2&action=AddAgent&token=XX&gameid=XX&agentDomain=XX&compellation=XX&note=XX&address=XX&phone=XX&qq=XX&wcNickName=XX`
 
 **请求方式：**
 
@@ -564,18 +568,18 @@
 
 **参数：**
 
-| 参数名       | 必选 | 类型   | 说明             |
-| ------------ | ---- | ------ | ---------------- |
-| action       | 是   | string | 业务逻辑标识     |
-| userid       | 是   | number | 请求者用户标识   |
-| gameid       | 是   | number | 下级代理游戏标识 |
-| agentDomain  | 是   | string | 代理域名         |
-| compellation | 是   | string | 真实姓名         |
-| note         | 是   | string | 代理备注         |
-| address      | 是   | string | 联系地址         |
-| phone        | 是   | string | 联系电话         |
-| qq           | 是   | string | QQ               |
-| wcNickName   | 是   | string | 微信昵称         |
+| 参数名       | 必选 | 类型   | 说明               |
+| ------------ | ---- | ------ | ------------------ |
+| action       | 是   | string | 业务逻辑标识       |
+| token        | 是   | string | 请求者用户认证标识 |
+| gameid       | 是   | number | 下级代理游戏标识   |
+| agentDomain  | 是   | string | 代理域名           |
+| compellation | 是   | string | 真实姓名           |
+| note         | 是   | string | 代理备注           |
+| address      | 是   | string | 联系地址           |
+| phone        | 是   | string | 联系电话           |
+| qq           | 是   | string | QQ                 |
+| wcNickName   | 是   | string | 微信昵称           |
 
 **返回示例**
 

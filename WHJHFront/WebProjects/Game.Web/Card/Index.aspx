@@ -9,8 +9,9 @@
 <body>
     <% if (AppConfig.Mode == AppConfig.CodeMode.Dev)  { %>
     <form runat="server">
-        <p>输入GameID：<asp:TextBox ID="TextBox1" runat="server" Text="100101"></asp:TextBox></p>
-        <p><asp:Button ID="Button1" runat="server" Text="登录" OnClick="Button1_Click" /></p>
+        <p>输入手机号码：<asp:TextBox ID="txtPhone" runat="server" Text="12345678901"></asp:TextBox></p>
+        <p>输入安全密码：<asp:TextBox ID="txtPassword" runat="server" Text="123456"></asp:TextBox></p>
+        <p><asp:Button ID="btnAuth" runat="server" Text="登录" OnClick="btnAuth_OnClick" /></p>
     </form>
     <% } %>
 </body>

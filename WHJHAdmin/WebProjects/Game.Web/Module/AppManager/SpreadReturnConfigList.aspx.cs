@@ -43,10 +43,10 @@ namespace Game.Web.Module.AppManager
                 ShowError("只能选择单个配置进行删除");
                 return;
             }
-            int result = FacadeManage.aideTreasureFacade.DeleteSpreadConfig(Convert.ToInt32(StrCIdList));
+            int result = FacadeManage.aideTreasureFacade.DeleteSpreadReturnConfig(Convert.ToInt32(StrCIdList));
             if(result > 0)
             {
-                ShowInfo("删除成功", "SpreadConfigList.aspx", 1200);
+                ShowInfo("删除成功", "SpreadReturnConfigList.aspx", 1200);
             }
             else
             {

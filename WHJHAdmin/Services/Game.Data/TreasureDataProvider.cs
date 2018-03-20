@@ -243,6 +243,18 @@ namespace Game.Data
         }
 
         /// <summary>
+        /// 删除推广返利配置
+        /// </summary>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        public int DeleteSpreadReturnConfig(int configId)
+        {
+            string sqlQuery = $"DELETE SpreadReturnConfig WHERE ConfigID = {configId}";
+            return Database.ExecuteNonQuery(sqlQuery);
+        }
+
+
+        /// <summary>
         /// 保存推广返利配置（新增、更新）
         /// </summary>
         /// <param name="config"></param>

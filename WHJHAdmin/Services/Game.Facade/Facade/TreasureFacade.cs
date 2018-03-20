@@ -153,6 +153,16 @@ namespace Game.Facade
         }
 
         /// <summary>
+        /// 删除推广返利配置
+        /// </summary>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        public int DeleteSpreadReturnConfig(int configId)
+        {
+            return aideTreasureData.DeleteSpreadReturnConfig(configId);
+        }
+
+        /// <summary>
         /// 保存推广返利配置（新增、更新）
         /// </summary>
         /// <param name="config"></param>

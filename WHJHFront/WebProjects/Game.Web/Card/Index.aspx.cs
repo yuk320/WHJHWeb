@@ -42,8 +42,15 @@ namespace Game.Web.Card
                                 UserInfo ui = msg.EntityList[0] as UserInfo;
                                 if (ui != null)
                                 {
+                                    // for Version 1.0 跳转
                                     Fetch.SetUserCookie(ui.ToUserTicketInfo());
-                                    Response.Redirect("/Card/AgentInfo.aspx");
+                                    Response.Redirect("Card/AgentInfo.aspx");
+
+                                    //for Version 2.0 跳转
+//                                    string token = Fetch.SHA256Encrypt(
+//                                            $"<{ui.UserID}>,<{ui.AgentID}>,<{ui.GameID}>,<{Fetch.ConvertDateTimeToUnix(DateTime.Now)}>");
+//                                    FacadeManage.aideNativeWebFacade.SaveAgentToken(ui, token);
+//                                    Response.Redirect($"index.html/#/?token={token}");
                                 }
                                 else
                                 {
@@ -62,41 +69,80 @@ namespace Game.Web.Card
                     }
                     else
                     {
+                        // for Version 1.0 非微信提示
                         Response.Write(
                             "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">请在微信内打开</div>");
+
+                        // for Version 2.0 跳转到手机+安全密码登录页面
+//                        Response.Redirect("Index.html/#/auth");
                     }
                 }
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnAuth_OnClick(object sender, EventArgs e)
         {
             if (AppConfig.Mode == AppConfig.CodeMode.Dev)
             {
-                AccountsInfo info =
-                    FacadeManage.aideAccountsFacade.GetAccountsInfoByGameID(Convert.ToInt32(TextBox1.Text));
-                Message msg =
-                    FacadeManage.aideAccountsFacade.WXLogin(info != null ? info.UserUin : "yryr",
-                        GameRequest.GetUserIP());
+                #region Version 1.0 Dev
+
+                //                AccountsInfo info =
+                //                    FacadeManage.aideAccountsFacade.GetAccountsInfoByGameID(Convert.ToInt32(TextBox1.Text));
+                //                Message msg =
+                //                    FacadeManage.aideAccountsFacade.WXLogin(info != null ? info.UserUin : "yryr",
+                //                        GameRequest.GetUserIP());
+                //                if (msg.Success)
+                //                {
+                //                    UserInfo ui = msg.EntityList[0] as UserInfo;
+                //                    if (ui != null)
+                //                    {
+                //                        Fetch.SetUserCookie(ui.ToUserTicketInfo());
+                //                        Response.Redirect("/Card/AgentInfo.aspx");
+                //                    }
+                //                    else
+                //                    {
+                //                        Response.Write(
+                //                            "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">登录失败，请稍后尝试</div>");
+                //                    }
+                //                }
+                //                else
+                //                {
+                //                    Response.Write("<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" +
+                //                                   msg.Content + "</div>");
+                //                }
+
+                #endregion
+
+                #region Version 2.0 Dev
+
+                string mobile = CtrlHelper.GetText(txtPhone);
+                string pass = Utility.MD5(CtrlHelper.GetText(txtPassword));
+                Message msg = FacadeManage.aideAccountsFacade.AgentMobileLogin(mobile, pass, GameRequest.GetUserIP());
                 if (msg.Success)
                 {
-                    UserInfo ui = msg.EntityList[0] as UserInfo;
-                    if (ui != null)
+                    UserInfo info = msg.EntityList[0] as UserInfo;
+                    if (info != null)
                     {
-                        Fetch.SetUserCookie(ui.ToUserTicketInfo());
-                        Response.Redirect("/Card/AgentInfo.aspx");
-                    }
-                    else
-                    {
-                        Response.Write(
-                            "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">登录失败，请稍后尝试</div>");
+                        string token =
+                            Fetch.SHA256Encrypt(
+                                $"<{info.UserID}>,<{info.AgentID}>,<{info.GameID}>,<{Fetch.ConvertDateTimeToUnix(DateTime.Now)}>");
+
+                        FacadeManage.aideNativeWebFacade.SaveAgentToken(info, token);
+                        Response.Redirect($"index.html/#/?token={token}");
+                        return;
                     }
                 }
                 else
                 {
-                    Response.Write("<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">" +
-                                   msg.Content + "</div>");
+                    Response.Write(
+                        $"<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">{msg.Content}</div>");
+                    return;
                 }
+
+                Response.Write(
+                    "<div style=\"font-size:1.2rem; color:red; text-align:center; margin-top:3rem;\">账号或密码错误。</div>");
+
+                #endregion
             }
         }
     }

@@ -145,7 +145,7 @@ BEGIN
 	END
 
   -- 查询代理
-  SELECT @AgentID = AgentID,@UserID = UserID,@AgentNullity=Nullity FROM AccountAgentInfo WITH(NOLOCK) WHERE ContactPhone = @strMobile AND [Password] = @strPassword
+  SELECT @AgentID = AgentID,@UserID = UserID,@AgentNullity=Nullity FROM AccountsAgentInfo WITH(NOLOCK) WHERE ContactPhone = @strMobile AND [Password] = @strPassword
 
   IF @UserID IS NULL
 	BEGIN

@@ -95,6 +95,13 @@ namespace Game.IData
         SpreadReturnConfig GetSpreadReturnConfig(int configId);
 
         /// <summary>
+        /// 删除推广返利配置
+        /// </summary>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        int DeleteSpreadReturnConfig(int configId);
+
+        /// <summary>
         /// 保存推广返利配置（新增、更新）
         /// </summary>
         /// <param name="config"></param>
