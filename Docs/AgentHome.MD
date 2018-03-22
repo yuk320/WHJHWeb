@@ -22,7 +22,7 @@
 
 **请求 URL：**
 
-* API_URL + `?version=2&action=AgentAuth&phone=XX&pass=XX`
+* API_URL + `?version=2&action=AgentAuth&mobile=XX&pass=XX`
 
 **请求方式：**
 
@@ -33,7 +33,7 @@
 | 参数名 | 必选 | 类型   | 说明             |
 | :----- | :--- | :----- | ---------------- |
 | action | 是   | string | 业务逻辑标识     |
-| phone  | 是   | string | 代理用户手机号码 |
+| mobile | 是   | string | 代理用户手机号码 |
 | pass   | 是   | string | MD5 后的密码     |
 
 **返回示例：**
@@ -108,6 +108,7 @@
       "PresentToday": 0,
       "PresentMonth": 0,
       "PresentTotal": 0
+      "IsHasPassword": true
     }
   }
 }
@@ -121,25 +122,26 @@
 
 **WebAgentInfo 说明**
 
-| 参数名         | 类型   | 说明               |
-| :------------- | :----- | :----------------- |
-| UserID         | number | 用户标识           |
-| GameID         | number | 用户游戏标识       |
-| AgentID        | number | 代理标识           |
-| NickName       | string | 用户昵称           |
-| Compellation   | string | 用户真实姓名       |
-| AgentLevel     | string | 用户的代理等级     |
-| AgentDomain    | string | 代理域名           |
-| MyAgent        | number | 用户的代理人数     |
-| MyPlayer       | number | 用户的下线人数     |
-| ContactAddress | string | 联系地址           |
-| ContactPhone   | string | 联系电话           |
-| QQAccount      | string | QQ                 |
-| WCNickName     | string | 微信               |
-| CurDiamond     | number | 当前钻石数量(房卡) |
-| PresentToday   | number | 今日赠送           |
-| PresentMonth   | number | 本月赠送           |
-| PresentTotal   | number | 赠送总数           |
+| 参数名         | 类型    | 说明                 |
+| :------------- | :------ | :------------------- |
+| UserID         | number  | 用户标识             |
+| GameID         | number  | 用户游戏标识         |
+| AgentID        | number  | 代理标识             |
+| NickName       | string  | 用户昵称             |
+| Compellation   | string  | 用户真实姓名         |
+| AgentLevel     | string  | 用户的代理等级       |
+| AgentDomain    | string  | 代理域名             |
+| MyAgent        | number  | 用户的代理人数       |
+| MyPlayer       | number  | 用户的下线人数       |
+| ContactAddress | string  | 联系地址             |
+| ContactPhone   | string  | 联系电话             |
+| QQAccount      | string  | QQ                   |
+| WCNickName     | string  | 微信                 |
+| CurDiamond     | number  | 当前钻石数量(房卡)   |
+| PresentToday   | number  | 今日赠送             |
+| PresentMonth   | number  | 本月赠送             |
+| PresentTotal   | number  | 赠送总数             |
+| IsHasPassword  | boolean | 是否已经设置安全密码 |
 
 ---
 
@@ -309,14 +311,14 @@
 
 **参数：**
 
-| 参数名    | 必选 | 类型   | 说明                                                                                                        |
-| :-------- | :--- | :----- | ----------------------------------------------------------------------------------------------------------- |
-| action    | 是   | string | 业务逻辑标识                                                                                                |
-| token     | 是   | string | 用户认证标识                                                                                                |
-| type      | 是   | string | 类型                                                                                                        |
-| range     | 是   | string | 数据排序规则（all 为正常数据没有排序、topCurMonth 为依据本月售卡数据排序、topTotal 为依据累计售卡数据排序） |
-| pagesize  | 是   | number | 每页数据条数                                                                                                |
-| pageindex | 是   | number | 页数                                                                                                        |
+| 参数名    | 必选 | 类型   | 说明                                                                     |
+| :-------- | :--- | :----- | ------------------------------------------------------------------------ |
+| action    | 是   | string | 业务逻辑标识                                                             |
+| token     | 是   | string | 用户认证标识                                                             |
+| type      | 是   | string | 类型（agent 为我的代理、user 为我的玩家）                                |
+| range     | 是   | string | 数据排序规则（month 为依据本月售卡数据排序、all 为依据累计售卡数据排序） |
+| pagesize  | 是   | number | 每页数据条数                                                             |
+| pageindex | 是   | number | 页数                                                                     |
 
 **返回示例：**
 
@@ -328,12 +330,14 @@
     "apiVersion": 20180131,
     "valid": true,
     "list": {
-      "SerialNumber": 1,
+      "AgentID": 0,
+      "UserID": 1,
       "GameID": 0,
       "NickName": "",
       "Diamond": 0,
       "MonthDiamond": 0,
       "TotalDiamond": 0
+      "RankID": 0
     }
     "total": 0,
     "count": 0,
@@ -356,6 +360,7 @@
 | 参数名       | 类型   | 说明             |
 | :----------- | :----- | ---------------- |
 | RankID       | number | 序号             |
+| AgentID      | number | 代理标识         |
 | UserID       | number | 用户标识         |
 | GameID       | number | 用户游戏标识     |
 | NickName     | string | 昵称             |
@@ -373,7 +378,7 @@
 
 **请求 URL：**
 
-* API_URL + `?version=2&action=GetUnderDetail&token=XX`
+* API_URL + `?version=2&action=GetUnderDetail&token=XX&gameid=XX`
 
 **请求方式：**
 
@@ -385,6 +390,7 @@
 | :----- | :--- | :----- | ------------ |
 | action | 是   | string | 业务逻辑标识 |
 | token  | 是   | string | 用户认证标识 |
+| gameid | 是   | string | 用户标识     |
 
 **返回示例：**
 
@@ -396,6 +402,8 @@
     "apiVersion": 20180131,
     "valid": true,
     "info": {
+      "isAgent": true,
+      "RankID": 0,
       "UserID": 0,
       "GameID": 0,
       "NickName": "",
@@ -405,6 +413,8 @@
       "ContactPhone": "",
       "AgentID": 0,
       "Diamond": 0
+      "MonthDiamond": 0,
+      "TotalDiamond": 0
     }
   }
 }
@@ -418,16 +428,20 @@
 
 **UnderDetail 说明**
 
-| 参数名         | 类型   | 说明     |
-| :------------- | :----- | -------- |
-| UserID         | number | 序号     |
-| GameID         | number | 游戏 ID  |
-| NickName       | string | 昵称     |
-| Compellation   | string | 真实姓名 |
-| QQAccount      | string | QQ       |
-| ContactAddress | string | 联系地址 |
-| ContactPhone   | string | 联系电话 |
-| Diamond        | number | 当前钻石 |
+| 参数名         | 类型    | 说明       |
+| :------------- | :------ | ---------- |
+| IsAgent        | boolean | 是否为代理 |
+| RankID         | number  | 序号       |
+| UserID         | number  | 用户标识   |
+| GameID         | number  | 游戏标识   |
+| NickName       | string  | 昵称       |
+| Compellation   | string  | 真实姓名   |
+| QQAccount      | string  | QQ         |
+| ContactAddress | string  | 联系地址   |
+| ContactPhone   | string  | 联系电话   |
+| Diamond        | number  | 当前房卡   |
+| MonthDiamond   | number  | 本月售卡   |
+| TotalDiamond   | number  | 累计售卡   |
 
 ---
 
@@ -439,7 +453,7 @@
 
 **请求 URL：**
 
-* API_URL + `?version=2&action=PresentDiamond&token=XX&gameid=XX&count=XX&note=XX`
+* API_URL + `?version=2&action=PresentDiamond&token=XX&gameid=XX&password=XX&count=XX&note=XX`
 
 **请求方式：**
 
@@ -471,7 +485,48 @@
 
 **返回参数说明**
 
-### 1.7 UpdatePassword
+---
+
+### 1.7 SetPassword
+
+**简要描述：**
+
+* 用户修改安全密码
+
+**请求 URL：**
+
+* API_URL + `?version=2&action=SetPassword&token=XX&password=XX`
+
+**请求方式：**
+
+* GET
+
+**参数：**
+
+| 参数名   | 必选 | 类型          | 说明         |
+| -------- | ---- | ------------- | ------------ |
+| action   | 是   | string        | 业务逻辑标识 |
+| token    | 是   | string        | 用户认证标识 |
+| password | 是   | string（MD5） | 安全密码     |
+
+**返回示例**
+
+```
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "apiVersion": 20180131,
+    "valid": true
+  }
+}
+```
+
+**返回参数说明**
+
+---
+
+### 1.8 UpdatePassword
 
 **简要描述：**
 
@@ -511,7 +566,7 @@
 
 ---
 
-### 1.8 UpdateInfo
+### 1.9 UpdateInfo
 
 **简要描述：**
 
@@ -552,7 +607,7 @@
 
 ---
 
-### 1.9 AddAgent
+### 1.10 AddAgent
 
 **简要描述：**
 
