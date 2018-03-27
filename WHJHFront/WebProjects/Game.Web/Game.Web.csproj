@@ -144,7 +144,6 @@
     <Content Include="Card\UpdateAgent.aspx" />
     <Content Include="Card\UpdatePass.aspx" />
     <Content Include="Card\UserControl\Record_Sidebar.ascx" />
-    <Content Include="Card\v2\arrow-right.png" />
     <Content Include="Card\v2\assets\css\inputStyle.css" />
     <Content Include="Card\v2\assets\css\main.css" />
     <Content Include="Card\v2\assets\images\arrow-left.png" />
@@ -152,8 +151,8 @@
     <Content Include="Card\v2\assets\images\close.png" />
     <Content Include="Card\v2\assets\images\diamond.png" />
     <Content Include="Card\v2\assets\images\face.png" />
+    <Content Include="Card\v2\assets\images\fail.png" />
     <Content Include="Card\v2\assets\images\gift1.png" />
-    <Content Include="Card\v2\assets\images\hint.png" />
     <Content Include="Card\v2\assets\images\icon-1.png" />
     <Content Include="Card\v2\assets\images\icon-2.png" />
     <Content Include="Card\v2\assets\images\icon-3.png" />
@@ -161,10 +160,10 @@
     <Content Include="Card\v2\assets\images\icon-5.png" />
     <Content Include="Card\v2\assets\images\icon-6.png" />
     <Content Include="Card\v2\assets\images\icon-7.png" />
+    <Content Include="Card\v2\assets\images\icon-8.png" />
+    <Content Include="Card\v2\assets\images\icon-9.png" />
+    <Content Include="Card\v2\assets\images\success.png" />
     <Content Include="Card\v2\build.js" />
-    <Content Include="Card\v2\close.png" />
-    <Content Include="Card\v2\face.png" />
-    <Content Include="Card\v2\hint.png" />
     <Content Include="Card\v2\index.html" />
     <Content Include="Card\v2\vendor.js" />
     <Content Include="Card\v2\vendors~build~vendor.js" />
