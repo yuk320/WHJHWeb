@@ -1,0 +1,10 @@
+input[type="text"]{
+  font-size: 0.4rem;
+  border: 1px solid #ccc;
+  margin-left:0.2rem;
+}
+input[type="password"]{
+  font-size: 0.4rem;
+  border: 1px solid #ccc;
+  margin-left:0.2rem;
+}

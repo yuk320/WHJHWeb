@@ -1,6 +1,6 @@
 {
   "product_name": "网狐棋牌精华版-源码包",
-  "mode": "PublishOnly",
+  "mode": "UpdateOnly",
   "lastVersion": "1.1.9",
   "version": "1.1.10",
   "versionList": {
@@ -15,9 +15,12 @@
     "1.1.7": "2018/1/26",
     "1.1.8": "2018/2/3",
     "1.1.9": "2018/3/3",
-    "1.1.10": "2018/3/10"
+    "1.1.10": "2018/3/28"
   },
   "otherRoomCard": true,
   "otherAPI": true,
-  "prebuild": false
+  "prebuild": {
+    "spread": false,
+    "card": true
+  }
 }

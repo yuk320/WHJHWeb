@@ -65,7 +65,7 @@
             html+="</tbody></table>";
         layer.open({
             btn: "关闭",
-            title: ["代理详情 <em style='font-size:10px;color:#ff6666'>(提示:点击阴影处可关闭详情页)</em>", 
+            title: ["代理详情 <em style='font-size:10px;color:#ff6666'>(提示:点击阴影处可关闭详情页)</em>",
             "background-color: #8966ca;color: #feac99;"],
             content: html,
             style:"background-color:rgb(233, 233, 233);"

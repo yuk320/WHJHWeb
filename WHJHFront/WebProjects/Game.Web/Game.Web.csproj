@@ -144,6 +144,30 @@
     <Content Include="Card\UpdateAgent.aspx" />
     <Content Include="Card\UpdatePass.aspx" />
     <Content Include="Card\UserControl\Record_Sidebar.ascx" />
+    <Content Include="Card\v2\arrow-right.png" />
+    <Content Include="Card\v2\assets\css\inputStyle.css" />
+    <Content Include="Card\v2\assets\css\main.css" />
+    <Content Include="Card\v2\assets\images\arrow-left.png" />
+    <Content Include="Card\v2\assets\images\arrow-right.png" />
+    <Content Include="Card\v2\assets\images\close.png" />
+    <Content Include="Card\v2\assets\images\diamond.png" />
+    <Content Include="Card\v2\assets\images\face.png" />
+    <Content Include="Card\v2\assets\images\gift1.png" />
+    <Content Include="Card\v2\assets\images\hint.png" />
+    <Content Include="Card\v2\assets\images\icon-1.png" />
+    <Content Include="Card\v2\assets\images\icon-2.png" />
+    <Content Include="Card\v2\assets\images\icon-3.png" />
+    <Content Include="Card\v2\assets\images\icon-4.png" />
+    <Content Include="Card\v2\assets\images\icon-5.png" />
+    <Content Include="Card\v2\assets\images\icon-6.png" />
+    <Content Include="Card\v2\assets\images\icon-7.png" />
+    <Content Include="Card\v2\build.js" />
+    <Content Include="Card\v2\close.png" />
+    <Content Include="Card\v2\face.png" />
+    <Content Include="Card\v2\hint.png" />
+    <Content Include="Card\v2\index.html" />
+    <Content Include="Card\v2\vendor.js" />
+    <Content Include="Card\v2\vendors~build~vendor.js" />
     <Content Include="Contact\Index.aspx" />
     <Content Include="css\base.css" />
     <Content Include="css\common.css" />
@@ -264,6 +288,7 @@
     <Content Include="Mobile\DownLoad.aspx" />
     <Content Include="Mobile\Index.aspx" />
     <Content Include="Mobile\MoblieVideoInfo.aspx" />
+    <Content Include="Notify\JftPay.aspx" />
     <Content Include="Mobile\Pay\LqReturn.aspx" />
     <Content Include="Mobile\RoomLink.aspx" />
     <Content Include="Mobile\ShareLink.aspx" />
@@ -486,6 +511,7 @@
     <Compile Include="HAuthorize.aspx.designer.cs">
       <DependentUpon>HAuthorize.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Helper\JFTPay.cs" />
     <Compile Include="Helper\LQPay.cs" />
     <Compile Include="Helper\AlipayHelper.cs" />
     <Compile Include="Helper\AlipayRSA.cs" />
@@ -527,6 +553,13 @@
     </Compile>
     <Compile Include="Mobile\MoblieVideoInfo.aspx.designer.cs">
       <DependentUpon>MoblieVideoInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notify\JftPay.aspx.cs">
+      <DependentUpon>JftPay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notify\JftPay.aspx.designer.cs">
+      <DependentUpon>JftPay.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mobile\Pay\LqReturn.aspx.cs">
       <DependentUpon>LqReturn.aspx</DependentUpon>

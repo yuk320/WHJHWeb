@@ -203,34 +203,64 @@ let NEED_PUBLISH_PROJS = [
     )
   }
 ];
-const buildConfig = [
-  {
-    execStr: "npm i",
-    condition: !fs.existsSync(
-      path.join(
-        __dirname,
-        "./WHJHFront/WebProjects/Game.Web/Spread/node_modules"
-      )
-    ),
-    options: {
-      cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+const buildConfig = {
+  spread: [
+    {
+      execStr: "npm i",
+      condition: !fs.existsSync(
+        path.join(
+          __dirname,
+          "./WHJHFront/WebProjects/Game.Web/Spread/node_modules"
+        )
+      ),
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+      }
+    },
+    {
+      execStr: "npm run build",
+      condition: true,
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+      }
+    },
+    {
+      execStr: "npm run auto",
+      condition: true,
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+      }
     }
-  },
-  {
-    execStr: "npm run build",
-    condition: true,
-    options: {
-      cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
+  ],
+  card: [
+    {
+      execStr: "npm i",
+      condition: !fs.existsSync(
+        path.join(
+          __dirname,
+          "./WHJHFront/WebProjects/Game.Web/Card/node_modules"
+        )
+      ),
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Card/")
+      }
+    },
+    {
+      execStr: "npm run product",
+      condition: true,
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Card/")
+      }
+    },
+    {
+      execStr: "npm run auto",
+      condition: true,
+      options: {
+        cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Card/")
+      }
     }
-  },
-  {
-    execStr: "npm run auto",
-    condition: true,
-    options: {
-      cwd: path.join(__dirname, "./WHJHFront/WebProjects/Game.Web/Spread/")
-    }
-  }
-];
+  ]
+};
 
 const codeDiffExtract = function(cb) {
   console.time("源码更新");
@@ -458,23 +488,31 @@ const codeExtract = function(cb) {
   });
 };
 
-const buildDist = function(cb) {
-  if (buildConfig.length > 0) {
+const buildDist = function(buildCfg, cb) {
+  if (buildCfg.length > 0) {
     let epBuildList = new eventproxy();
-    epBuildList.after("builded", buildConfig.length, function(builded) {
+    epBuildList.after("builded", buildCfg.length, function(builded) {
       cb(true);
     });
-    buildConfig.forEach(function(cfg) {
-      if (cfg.condition) {
-        console.info(`${cfg.execStr} on ${cfg.options.cwd} start`);
-        exec(cfg.execStr, cfg.options, (err, stdout, stderr) => {
-          console.info(`${cfg.execStr} on ${cfg.options.cwd} end`);
-          epBuildList.emit("builded", true);
-        });
-      } else {
-        epBuildList.emit("builded", false);
+    async.eachSeries(
+      buildCfg,
+      (cfg, ecb) => {
+        if (cfg.condition) {
+          console.info(`${cfg.execStr} on ${cfg.options.cwd} start`);
+          exec(cfg.execStr, cfg.options, (err, stdout, stderr) => {
+            console.info(`${cfg.execStr} on ${cfg.options.cwd} end`);
+            ecb();
+            epBuildList.emit("builded", true);
+          });
+        } else {
+          ecb();
+          epBuildList.emit("builded", false);
+        }
+      },
+      err => {
+        if (err) console.err(err);
       }
-    });
+    );
   } else {
     cb(false);
   }
@@ -764,6 +802,31 @@ function publishExec(proj) {
   );
 }
 console.info(`Step_0 项目发布启动`);
+if (Object.keys(autoConfig.prebuild).length > 0) {
+  let epPreBuild = new eventproxy();
+  epPreBuild.after(
+    "prebuilded",
+    Object.keys(autoConfig.prebuild).length,
+    prebuilded => {
+      async.each(NEED_PUBLISH_PROJS, publishExec);
+    }
+  );
+  Object.keys(autoConfig.prebuild).forEach(k => {
+    if (autoConfig.prebuild[k]) {
+      buildDist(buildConfig[k], builded => {
+        if (builded) {
+          projCount++;
+          console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
+        }
+        epPreBuild.emit("prebuilded", true);
+      });
+    } else {
+      epPreBuild.emit("prebuilded", false);
+    }
+  });
+} else {
+  async.each(NEED_PUBLISH_PROJS, publishExec);
+}
 if (autoConfig.prebuild) {
   buildDist(function(builded) {
     if (builded) {
@@ -773,7 +836,6 @@ if (autoConfig.prebuild) {
     async.each(NEED_PUBLISH_PROJS, publishExec);
   });
 } else {
-  async.each(NEED_PUBLISH_PROJS, publishExec);
 }
 
 // console.info(opts);

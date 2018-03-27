@@ -107,7 +107,11 @@ namespace Game.Facade
             /// <summary>
             /// 全局推广返利类型（0：金币、1：钻石）
             /// </summary>
-            SpreadReturnType
+            SpreadReturnType,
+            /// <summary>
+            /// 代理后台版本
+            /// </summary>
+            AgentHomeVersion
         }
 
         public enum CodeMode
@@ -281,5 +285,23 @@ namespace Game.Facade
         /// </summary>
         public const string WxTicket = "WxTicket";
         #endregion
+
+        /// <summary>
+        /// 公共方法获取Web.Config Setting
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetSetting(string key)
+        {
+            try
+            {
+                var value = ApplicationSettings.Get(key);
+                return value;
+            }
+            catch
+            {
+                return "";
+            }
+        }
     }
 }

@@ -205,3 +205,12 @@ END
 
 RETURN 0
 GO
+
+
+-- 1.1.10 新增配置值，代理中心版本
+USE WHJHAccountsDB
+GO
+
+INSERT DBO.SystemStatusInfo (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
+VALUES (N'AgentHomeVersion',1, N'代理后台的版本号，可切换新老后台',N'代理后台版本',N'键值：1-老版本房卡后台，2-新版本房卡后台',9999)
+GO

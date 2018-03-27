@@ -115,7 +115,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         break;
                     //钻石充值下单
                     case "createpayorder":
-                        _ajv.SetDataItem("apiVersion", 20171123);
+                        _ajv.SetDataItem("apiVersion", 20180327);
                         //获取参数
                         string paytype = GameRequest.GetQueryString("paytype");
                         string openid = GameRequest.GetQueryString("openid");
@@ -217,7 +217,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                         GetQuestionAndAnswerList();
                         break;
                     case "agentsynclogin":
-                        _ajv.SetDataItem("apiVersion",20180309);
+                        _ajv.SetDataItem("apiVersion", 20180309);
                         AgentSyncLogin();
                         break;
                     default:
@@ -234,7 +234,7 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 Log4Net.WriteErrorLog(ex, "MobileInterface");
                 _ajv = new AjaxJsonValid
                 {
-                    code = (int)ApiCode.LogicErrorCode,
+                    code = (int) ApiCode.LogicErrorCode,
                     msg = EnumHelper.GetDesc(ApiCode.LogicErrorCode)
                 };
                 context.Response.Write(_ajv.SerializeToJson());
@@ -415,6 +415,23 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     order.ShareID = 301;
                     order.OrderID = Fetch.GetOrderIDByPrefix("360LQ");
                     break;
+                case "jft":
+                    switch (subtype)
+                    {
+                        case "wx":
+                            order.ShareID = 302;
+                            order.OrderID = Fetch.GetOrderIDByPrefix("JFTH5WX");
+                            break;
+                        case "zfb":
+                            order.ShareID = 303;
+                            order.OrderID = Fetch.GetOrderIDByPrefix("JFTH5ZFB");
+                            break;
+                        default:
+                            order.ShareID = 300;
+                            order.OrderID = Fetch.GetOrderIDByPrefix("JFT");
+                            break;
+                    }
+                    break;
                 default:
                     _ajv.code = (int) ApiCode.VertyParamErrorCode;
                     _ajv.msg = string.Format(EnumHelper.GetDesc(ApiCode.VertyParamErrorCode), " paytype（充值类型） 错误");
@@ -436,6 +453,16 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     LQPay.LQPayRequest request =
                         new LQPay.LQPayRequest(orderReturn, subtype == "zfb" ? "alipay" : "weixin");
                     _ajv.SetDataItem("PayUrl", HttpUtility.UrlDecode(LQPay.GetPayPackage(request.ToUrl("PayUrl"))));
+                }
+                else if (paytype == "jft")
+                {
+                    JFTPay.JFTH5Request request =
+                        new JFTPay.JFTH5Request(orderReturn?.OrderID, orderReturn?.Amount.ToString("F2"),
+                            subtype == "zfb" ? "ZFBZZWAP" : "WXZZWAP", orderReturn?.GameID.ToString(),
+                            Utility.UserIP.Replace(".", "_"));
+                    request.SetTerminal(Fetch.GetTerminalType(GameRequest.Request));
+                    _ajv.SetDataItem("PayUrl", JFTPay.Config.JFTH5Url);
+                    _ajv.SetDataItem("Params", request.UrlParams());
                 }
                 _ajv.SetDataItem("OrderID", orderReturn?.OrderID ?? "");
             }
@@ -761,8 +788,12 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
             AccountsInfo aai = FacadeManage.aideAccountsFacade.GetAccountsInfoByUserID(_userid);
             if (aai?.AgentID > 0)
             {
-                string clientParams = Fetch.DESEncrypt($"<>,<{aai.UserUin}>,<{aai.NickName}>,<>,<>",AppConfig.WxUrlKey);
-                _ajv.SetDataItem("link", string.IsNullOrEmpty(Fetch.GetWebSiteConfig().Field5) ? $"/Card/?w={clientParams}": Fetch.GetWebSiteConfig().Field5+$"/?w={clientParams}");
+                string clientParams = Fetch.DESEncrypt($"<>,<{aai.UserUin}>,<{aai.NickName}>,<>,<>",
+                    AppConfig.WxUrlKey);
+                _ajv.SetDataItem("link",
+                    string.IsNullOrEmpty(Fetch.GetWebSiteConfig().Field5)
+                        ? $"/Card/?w={clientParams}"
+                        : Fetch.GetWebSiteConfig().Field5 + $"/?w={clientParams}");
                 _ajv.SetValidDataValue(true);
             }
             else

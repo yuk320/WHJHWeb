@@ -1,0 +1,47 @@
+{
+  "name": "testing",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
+  "author": "sgzzy <witzzy@163.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --open --hot",
+    "devbuild": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "build": "webpack",
+    "product": "rimraf v2 && npm run build",
+    "auto": "node index"
+  },
+  "dependencies": {
+    "vue": "^2.4.4",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "blueimp-md5": "^2.10.0",
+    "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.10",
+    "file-loader": "^1.1.11",
+    "happypack": "^4.0.1",
+    "html-webpack-plugin": "^3.0.6",
+    "mockjs": "^1.0.1-beta3",
+    "style-loader": "^0.20.2",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.3",
+    "webpack": "^4.1.0",
+    "webpack-api-mocker": "^1.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  }
+}

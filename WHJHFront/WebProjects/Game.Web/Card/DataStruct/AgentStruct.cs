@@ -26,6 +26,8 @@ namespace Game.Web.Card.DataStruct
         public long PresentMonth { get; set; }
         public long PresentTotal { get; set; }
 
+        public string FaceUrl { get; set; }
+
         /// <summary>
         /// 虚拟属性
         /// </summary>

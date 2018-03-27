@@ -475,7 +475,7 @@ namespace Game.Web.Card
 
             string type = GameRequest.GetQueryString("type");
             string range = GameRequest.GetQueryString("range");
-            int number = range == "all" ? GameRequest.GetQueryInt("pageSize", 10) : 50; 
+            int number = range == "all" ? GameRequest.GetQueryInt("pageSize", 10) : 50;
             int page = GameRequest.GetQueryInt("page", 1);
             string sqlMonth = " AND CollectDate >= '" +
                               new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd HH:mm:ss") +
@@ -720,6 +720,7 @@ namespace Game.Web.Card
                 UserID = userInfo.UserID,
                 GameID = userInfo.GameID,
                 AgentID = userInfo.AgentID,
+                FaceUrl =  FacadeManage.aideAccountsFacade.GetAccountsFace(userInfo.CustomID).FaceUrl,
                 NickName = userInfo.NickName,
                 //来源代理表
                 AgentLevel = agentInfo.AgentLevel == 1 ? "一级代理" : (agentInfo.AgentLevel == 2 ? "二级代理" : "三级代理"),
@@ -1194,9 +1195,14 @@ namespace Game.Web.Card
                     " address、phone、qq 缺失");
                 return;
             }
+            if (!Validate.IsMobileCode(phone))
+            {
+                _ajv.msg = "抱歉，联系电话格式不正确";
+                return;
+            }
             AccountsAgentInfo uiAgent = new AccountsAgentInfo()
             {
-                AgentID = AgentId,
+                UserID = UserId,
                 ContactAddress = address,
                 ContactPhone = phone,
                 QQAccount = qq
