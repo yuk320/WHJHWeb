@@ -137,20 +137,23 @@ namespace Game.Data
         /// </summary>
         /// <param name="userlist">用户列表</param>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        public int TransferPowerAccounts(string userlist, int userRight)
+        public int TransferPowerAccounts(string userlist, int userRight, string calc = "|")
         {
-            string sqlQuery = $"UPDATE AccountsInfo SET UserRight={userRight} WHERE UserID IN({userlist})";
+            string sqlQuery = $"UPDATE AccountsInfo SET UserRight= UserRight {calc} {userRight} WHERE UserID IN({userlist})";
             return Database.ExecuteNonQuery(sqlQuery);
         }
+
         /// <summary>
         /// 全部设置取消转账权限
         /// </summary>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        public int TransferPowerAccounts(int userRight)
+        public int TransferPowerAccounts(int userRight,string calc = "|")
         {
-            string sqlQuery = $"UPDATE AccountsInfo SET UserRight={userRight}";
+            string sqlQuery = $"UPDATE AccountsInfo SET UserRight=UserRight {calc} {userRight}";
             return Database.ExecuteNonQuery(sqlQuery);
         }
 

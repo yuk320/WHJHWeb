@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using Game.Web.UI;
 using Game.Kernel;
 using System.Text;
@@ -23,11 +22,12 @@ namespace Game.Web.Module.AccountManager
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 AccountsDataBind();
             }
         }
+
         /// <summary>
         /// 数据分页
         /// </summary>
@@ -35,6 +35,7 @@ namespace Game.Web.Module.AccountManager
         {
             AccountsDataBind();
         }
+
         /// <summary>
         /// 数据查询
         /// </summary>
@@ -45,16 +46,16 @@ namespace Game.Web.Module.AccountManager
 
             StringBuilder condition = new StringBuilder(" WHERE 1=1");
 
-            if(!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(query))
             {
-                if(type != 2)
+                if (type != 2)
                 {
-                    if(!Utils.Validate.IsPositiveInt(query))
+                    if (!Utils.Validate.IsPositiveInt(query))
                     {
                         ShowError("输入查询格式不正确");
                         return;
                     }
-                    if(type == 1)
+                    if (type == 1)
                     {
                         condition.AppendFormat(" AND GameID={0}", query);
                     }
@@ -71,6 +72,7 @@ namespace Game.Web.Module.AccountManager
             ViewState["SearchItems"] = condition.ToString();
             AccountsDataBind();
         }
+
         /// <summary>
         /// 批量冻结玩家
         /// </summary>
@@ -79,7 +81,7 @@ namespace Game.Web.Module.AccountManager
             //判断权限
             AuthUserOperationPermission(Permission.Enable);
             int result = FacadeManage.aideAccountsFacade.NullityAccountInfo(StrCIdList, 1);
-            if(result > 0)
+            if (result > 0)
             {
                 ShowInfo("冻结成功");
                 AccountsDataBind();
@@ -89,6 +91,7 @@ namespace Game.Web.Module.AccountManager
                 ShowError("冻结失败");
             }
         }
+
         /// <summary>
         /// 批量解冻玩家
         /// </summary>
@@ -97,7 +100,7 @@ namespace Game.Web.Module.AccountManager
             //判断权限
             AuthUserOperationPermission(Permission.Enable);
             int result = FacadeManage.aideAccountsFacade.NullityAccountInfo(StrCIdList, 0);
-            if(result > 0)
+            if (result > 0)
             {
                 ShowInfo("解冻成功");
                 AccountsDataBind();
@@ -107,6 +110,7 @@ namespace Game.Web.Module.AccountManager
                 ShowError("解冻失败");
             }
         }
+
         /// <summary>
         /// 批量设置转账权限
         /// </summary>
@@ -115,7 +119,7 @@ namespace Game.Web.Module.AccountManager
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
             int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(StrCIdList, 64);
-            if(result > 0)
+            if (result > 0)
             {
                 ShowInfo("设置成功");
                 AccountsDataBind();
@@ -125,6 +129,7 @@ namespace Game.Web.Module.AccountManager
                 ShowError("设置失败");
             }
         }
+
         /// <summary>
         /// 批量取消转账权限
         /// </summary>
@@ -132,8 +137,8 @@ namespace Game.Web.Module.AccountManager
         {
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
-            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(StrCIdList, 0);
-            if(result > 0)
+            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(StrCIdList, 64, "^");
+            if (result > 0)
             {
                 ShowInfo("取消成功");
                 AccountsDataBind();
@@ -143,6 +148,7 @@ namespace Game.Web.Module.AccountManager
                 ShowError("取消失败");
             }
         }
+
         /// <summary>
         /// 设置所有人转账权限
         /// </summary>
@@ -151,7 +157,7 @@ namespace Game.Web.Module.AccountManager
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
             int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(64);
-            if(result > 0)
+            if (result > 0)
             {
                 ShowInfo("设置成功");
                 AccountsDataBind();
@@ -161,6 +167,7 @@ namespace Game.Web.Module.AccountManager
                 ShowError("设置失败");
             }
         }
+
         /// <summary>
         /// 取消所有人转账权限
         /// </summary>
@@ -168,8 +175,8 @@ namespace Game.Web.Module.AccountManager
         {
             //判断权限
             AuthUserOperationPermission(Permission.TransferPower);
-            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(0);
-            if(result > 0)
+            int result = FacadeManage.aideAccountsFacade.TransferPowerAccounts(64, "^");
+            if (result > 0)
             {
                 ShowInfo("取消成功");
                 AccountsDataBind();
@@ -179,17 +186,20 @@ namespace Game.Web.Module.AccountManager
                 ShowError("取消失败");
             }
         }
+
         /// <summary>
         /// 数据绑定
         /// </summary>
         private void AccountsDataBind()
         {
-            PagerSet pagerSet = FacadeManage.aideAccountsFacade.GetList(AccountsInfo.Tablename, anpPage.CurrentPageIndex, anpPage.PageSize, SearchItems, Orderby);
+            PagerSet pagerSet = FacadeManage.aideAccountsFacade.GetList(AccountsInfo.Tablename,
+                anpPage.CurrentPageIndex, anpPage.PageSize, SearchItems, Orderby);
             anpPage.RecordCount = pagerSet.RecordCount;
             litNoData.Visible = pagerSet.PageSet.Tables[0].Rows.Count > 0 ? false : true;
             rptDataList.DataSource = pagerSet.PageSet;
             rptDataList.DataBind();
         }
+
         /// <summary>
         /// 查询条件
         /// </summary>
@@ -197,17 +207,15 @@ namespace Game.Web.Module.AccountManager
         {
             get
             {
-                if(ViewState["SearchItems"] == null)
+                if (ViewState["SearchItems"] == null)
                 {
                     ViewState["SearchItems"] = "WHERE 1=1";
                 }
-                return (string)ViewState["SearchItems"];
+                return (string) ViewState["SearchItems"];
             }
-            set
-            {
-                ViewState["SearchItems"] = value;
-            }
+            set { ViewState["SearchItems"] = value; }
         }
+
         /// <summary>
         /// 排序条件
         /// </summary>
@@ -215,16 +223,13 @@ namespace Game.Web.Module.AccountManager
         {
             get
             {
-                if(ViewState["Orderby"] == null)
+                if (ViewState["Orderby"] == null)
                 {
                     ViewState["Orderby"] = "ORDER BY UserID DESC";
                 }
-                return (string)ViewState["Orderby"];
+                return (string) ViewState["Orderby"];
             }
-            set
-            {
-                ViewState["Orderby"] = value;
-            }
+            set { ViewState["Orderby"] = value; }
         }
     }
 }

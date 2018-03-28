@@ -105,24 +105,28 @@ namespace Game.Facade
         {
             return aideAccountsData.GetReserveIdentifierList();
         }
+
         /// <summary>
         /// 批量设置取消转账权限
         /// </summary>
         /// <param name="userlist">用户列表</param>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        public int TransferPowerAccounts(string userlist, int userRight)
+        public int TransferPowerAccounts(string userlist, int userRight,string calc="|")
         {
-            return aideAccountsData.TransferPowerAccounts(userlist, userRight);
+            return aideAccountsData.TransferPowerAccounts(userlist, userRight, calc);
         }
+
         /// <summary>
         /// 全部设置取消转账权限
         /// </summary>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        public int TransferPowerAccounts(int userRight)
+        public int TransferPowerAccounts(int userRight, string calc = "|")
         {
-            return aideAccountsData.TransferPowerAccounts(userRight);
+            return aideAccountsData.TransferPowerAccounts(userRight, calc);
         }
 
         /// <summary>

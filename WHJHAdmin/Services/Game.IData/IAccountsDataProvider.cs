@@ -67,19 +67,23 @@ namespace Game.IData
         /// <param name="customid">头像标识</param>
         /// <returns></returns>
         string GetAccountsFaceById(int customid);
+
         /// <summary>
         /// 批量设置取消转账权限
         /// </summary>
         /// <param name="userlist">用户列表</param>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        int TransferPowerAccounts(string userlist, int userRight);
+        int TransferPowerAccounts(string userlist, int userRight, string calc = "|");
+
         /// <summary>
         /// 全部设置取消转账权限
         /// </summary>
         /// <param name="userRight">权限值</param>
+        /// <param name="calc"></param>
         /// <returns></returns>
-        int TransferPowerAccounts(int userRight);
+        int TransferPowerAccounts(int userRight, string calc = "|");
 
         /// <summary>
         /// 添加超端管理员
