@@ -1,17 +1,17 @@
 USE [WHJHNativeWebDB]
 GO
 
--- v1.1.10 æ›´æ–°ç«™ç‚¹é…ç½®ï¼Œä¸­ç½‘ç«™ç«™ç‚¹é…ç½®çš„è¯´æ˜åŠå­—æ®µã€‚
-UPDATE ConfigInfo SET ConfigString = N'å‚æ•°è¯´æ˜
-å­—æ®µ1ï¼šç½‘ç«™äºŒç»´ç åœ°å€
-å­—æ®µ2ï¼šç½‘ç«™å›¾ç‰‡æœåŠ¡å™¨åœ°å€
-å­—æ®µ3ï¼šç½‘ç«™å‰å°æœåŠ¡å™¨åœ°å€
-å­—æ®µ4ï¼šH5æ¸¸æˆæœåŠ¡å™¨åœ°å€
-å­—æ®µ5ï¼šä»£ç†ç½‘ç«™åŸŸåæˆ–IP
-å­—æ®µ8ï¼šç½‘ç«™å‰å°åº•éƒ¨å†…å®¹',Field5 = N'/Card'
+-- v1.1.10 ¸üĞÂÕ¾µãÅäÖÃ£¬ÖĞÍøÕ¾Õ¾µãÅäÖÃµÄËµÃ÷¼°×Ö¶Î¡£
+UPDATE ConfigInfo SET ConfigString = N'²ÎÊıËµÃ÷
+×Ö¶Î1£ºÍøÕ¾¶şÎ¬ÂëµØÖ·
+×Ö¶Î2£ºÍøÕ¾Í¼Æ¬·şÎñÆ÷µØÖ·
+×Ö¶Î3£ºÍøÕ¾Ç°Ì¨·şÎñÆ÷µØÖ·
+×Ö¶Î4£ºH5ÓÎÏ··şÎñÆ÷µØÖ·
+×Ö¶Î5£º´úÀíÍøÕ¾ÓòÃû»òIP
+×Ö¶Î8£ºÍøÕ¾Ç°Ì¨µ×²¿ÄÚÈİ',Field5 = N'/Card'
 
 
--- v1.1.10 æ–°å»ºä»£ç†è®¤è¯ä¿¡æ¯è¡¨
+-- v1.1.10 ĞÂ½¨´úÀíÈÏÖ¤ĞÅÏ¢±í
 IF EXISTS (SELECT 1
 FROM [DBO].SYSObjects
 WHERE ID = OBJECT_ID(N'[dbo].[AgentTokenInfo]') AND OBJECTPROPERTY(ID,'IsTable')=1 )
@@ -53,24 +53,24 @@ GO
 ALTER TABLE [dbo].[AgentTokenInfo] ADD  CONSTRAINT [DF_AgentTokenInfo_ExpirtAt]  DEFAULT (getdate()+(1)) FOR [ExpirtAt]
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ç”¨æˆ·æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'UserID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÓÃ»§±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'UserID'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ä»£ç†æ ‡è¯†' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'AgentID'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'´úÀí±êÊ¶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'AgentID'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è®¤è¯ä¸²ï¼ˆSHA256ï¼‰' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'Token'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ÈÏÖ¤´®£¨SHA256£©' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'Token'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'è¿‡æœŸæ—¶é—´' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'ExpirtAt'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'¹ıÆÚÊ±¼ä' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'AgentTokenInfo', @level2type=N'COLUMN',@level2name=N'ExpirtAt'
 GO
 
 
--- v1.1.10 ä»£ç†åå°ç™»å½•ï¼ˆæ‰‹æœºå·+å®‰å…¨å¯†ç ï¼‰å­˜å‚¨
+-- v1.1.10 ´úÀíºóÌ¨µÇÂ¼£¨ÊÖ»úºÅ+°²È«ÃÜÂë£©´æ´¢
 ----------------------------------------------------------------------------------------------------
--- ç‰ˆæƒï¼š2018
--- æ—¶é—´ï¼š2018-03-16
--- ç”¨é€”ï¼šä»£ç†åå°ç™»å½•ï¼ˆæ‰‹æœºå·+å®‰å…¨å¯†ç ï¼‰
+-- °æÈ¨£º2018
+-- Ê±¼ä£º2018-03-16
+-- ÓÃÍ¾£º´úÀíºóÌ¨µÇÂ¼£¨ÊÖ»úºÅ+°²È«ÃÜÂë£©
 ----------------------------------------------------------------------------------------------------
 
 USE WHJHAccountsDB
@@ -88,18 +88,18 @@ GO
 
 ----------------------------------------------------------------------------------------------------
 
--- å¸å·ç™»å½•
+-- ÕÊºÅµÇÂ¼
 CREATE PROCEDURE NET_PW_AgentAccountsLogin_MP
-	@strMobile NVARCHAR(11),					-- æ‰‹æœºå·ç 
-	@strPassword NVARCHAR(32),					-- å®‰å…¨å¯†ç 
-	@strClientIP NVARCHAR(15),					-- è¿æ¥åœ°å€
-	@strErrorDescribe	NVARCHAR(127) OUTPUT	-- è¾“å‡ºä¿¡æ¯
+	@strMobile NVARCHAR(11),					-- ÊÖ»úºÅÂë
+	@strPassword NVARCHAR(32),					-- °²È«ÃÜÂë
+	@strClientIP NVARCHAR(15),					-- Á¬½ÓµØÖ·
+	@strErrorDescribe	NVARCHAR(127) OUTPUT	-- Êä³öĞÅÏ¢
 WITH ENCRYPTION AS
 
--- å±æ€§è®¾ç½®
+-- ÊôĞÔÉèÖÃ
 SET NOCOUNT ON
 
--- åŸºæœ¬ä¿¡æ¯
+-- »ù±¾ĞÅÏ¢
 DECLARE @UserID INT
 DECLARE @FaceID INT
 DECLARE @Accounts NVARCHAR(31)
@@ -109,7 +109,7 @@ DECLARE @AgentID INT
 DECLARE @Nullity BIT
 DECLARE @StunDown BIT
 
--- æ‰©å±•ä¿¡æ¯
+-- À©Õ¹ĞÅÏ¢
 DECLARE @GameID INT
 DECLARE @CustomID INT
 DECLARE @Gender TINYINT
@@ -122,13 +122,13 @@ DECLARE @SpreaderID INT
 DECLARE @PlayTimeCount INT
 DECLARE @AgentNullity TINYINT
 
--- è¾…åŠ©å˜é‡
+-- ¸¨Öú±äÁ¿
 DECLARE @EnjoinLogon AS INT
 DECLARE @StatusString NVARCHAR(127)
 
--- æ‰§è¡Œé€»è¾‘
+-- Ö´ĞĞÂß¼­
 BEGIN
-	-- ç³»ç»Ÿæš‚åœ
+	-- ÏµÍ³ÔİÍ£
 	SELECT @EnjoinLogon=StatusValue,@StatusString=StatusString FROM SystemStatusInfo WITH(NOLOCK) WHERE StatusName=N'EnjoinLogon'
 	IF @EnjoinLogon=1
 	BEGIN
@@ -136,69 +136,69 @@ BEGIN
 		RETURN 1001
 	END
 
-	-- æ•ˆéªŒåœ°å€
+	-- Ğ§ÑéµØÖ·
 	SELECT @EnjoinLogon=EnjoinLogon FROM ConfineAddress WITH(NOLOCK) WHERE AddrString=@strClientIP AND (EnjoinOverDate>GETDATE() OR EnjoinOverDate IS NULL)
 	IF @EnjoinLogon=1
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œç³»ç»Ÿç¦æ­¢äº†æ‚¨æ‰€åœ¨çš„ IP åœ°å€çš„ç™»å½•åŠŸèƒ½ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÏµÍ³½ûÖ¹ÁËÄúËùÔÚµÄ IP µØÖ·µÄµÇÂ¼¹¦ÄÜ£¡'
 		RETURN 1002
 	END
 
-  -- æŸ¥è¯¢ä»£ç†
+  -- ²éÑ¯´úÀí
   SELECT @AgentID = AgentID,@UserID = UserID,@AgentNullity=Nullity FROM AccountsAgentInfo WITH(NOLOCK) WHERE ContactPhone = @strMobile AND [Password] = @strPassword
 
   IF @UserID IS NULL
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„å¸å·ä¸å­˜åœ¨ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄÕÊºÅ²»´æÔÚ£¡'
 		RETURN 1002
 	END
 
-	-- æŸ¥è¯¢ç”¨æˆ·
+	-- ²éÑ¯ÓÃ»§
 	SELECT @GameID=GameID, @Accounts=Accounts, @Nickname=Nickname, @UnderWrite=UnderWrite, @FaceID=FaceID,@CustomID=CustomID,
 		@Gender=Gender, @Nullity=Nullity, @StunDown=StunDown, @SpreaderID=SpreaderID,@PlayTimeCount=PlayTimeCount,@AgentID=AgentID
 	FROM AccountsInfo WITH(NOLOCK) WHERE UserID=@UserID
 
-	-- å¸å·ç¦æ­¢
+	-- ÕÊºÅ½ûÖ¹
 	IF @Nullity=1
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„å¸å·å·²å†»ç»“ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄÕÊºÅÒÑ¶³½á£¡'
 		RETURN 1003
 	END
 
-	-- å¸å·å…³é—­
+	-- ÕÊºÅ¹Ø±Õ
 	IF @StunDown=1
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„å¸å·å·²å¼€å¯å®‰å…¨å…³é—­ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄÕÊºÅÒÑ¿ªÆô°²È«¹Ø±Õ£¡'
 		RETURN 1004
 	END
 
-  -- ä»£ç†åˆ¤æ–­
+  -- ´úÀíÅĞ¶Ï
 	IF @AgentID IS NULL
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„å¸å·ä¸ºéä»£ç†å•†ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄÕÊºÅÎª·Ç´úÀíÉÌ£¡'
 		RETURN 2001
 	END
 	IF @AgentNullity IS NULL
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„å¸å·ä¸ºéä»£ç†å•†ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄÕÊºÅÎª·Ç´úÀíÉÌ£¡'
 		RETURN 2001
 	END
 	IF @AgentNullity=1
 	BEGIN
-		SET @strErrorDescribe=N'æŠ±æ­‰ï¼Œæ‚¨çš„ä»£ç†å¸å·å·²å†»ç»“ï¼'
+		SET @strErrorDescribe=N'±§Ç¸£¬ÄúµÄ´úÀíÕÊºÅÒÑ¶³½á£¡'
 		RETURN 2002
 	END
 
-	-- æ›´æ–°ä¿¡æ¯
+	-- ¸üĞÂĞÅÏ¢
 	UPDATE AccountsInfo SET WebLogonTimes=WebLogonTimes+1,LastLogonDate=GETDATE(),LastLogonIP=@strClientIP WHERE UserID=@UserID
 
-	-- è®°å½•æ—¥å¿—
+	-- ¼ÇÂ¼ÈÕÖ¾
 	DECLARE @DateID INT
 	SET @DateID=CAST(CAST(GETDATE() AS FLOAT) AS INT)
 	UPDATE SystemStreamInfo SET WebLogonSuccess=WebLogonSuccess+1 WHERE DateID=@DateID
 	IF @@ROWCOUNT=0 INSERT SystemStreamInfo (DateID, WebLogonSuccess) VALUES (@DateID, 1)
 
-	-- è¾“å‡ºå˜é‡
+	-- Êä³ö±äÁ¿
 	SELECT @UserID AS UserID, @GameID AS GameID, @Accounts AS Accounts, @Nickname AS Nickname,@UnderWrite AS UnderWrite, @FaceID AS FaceID, @CustomID AS CustomID,
 		@Gender AS Gender,@AgentID AS AgentID
 END
@@ -207,10 +207,10 @@ RETURN 0
 GO
 
 
--- 1.1.10 æ–°å¢é…ç½®å€¼ï¼Œä»£ç†ä¸­å¿ƒç‰ˆæœ¬
+-- 1.1.10 ĞÂÔöÅäÖÃÖµ£¬´úÀíÖĞĞÄ°æ±¾
 USE WHJHAccountsDB
 GO
 
 INSERT DBO.SystemStatusInfo (StatusName,StatusValue,StatusString,StatusTip,StatusDescription,SortID)
-VALUES (N'AgentHomeVersion',1, N'ä»£ç†åå°çš„ç‰ˆæœ¬å·ï¼Œå¯åˆ‡æ¢æ–°è€åå°',N'ä»£ç†åå°ç‰ˆæœ¬',N'é”®å€¼ï¼š1-è€ç‰ˆæœ¬æˆ¿å¡åå°ï¼Œ2-æ–°ç‰ˆæœ¬æˆ¿å¡åå°',9999)
+VALUES (N'AgentHomeVersion',1, N'´úÀíºóÌ¨µÄ°æ±¾ºÅ£¬¿ÉÇĞ»»ĞÂÀÏºóÌ¨',N'´úÀíºóÌ¨°æ±¾',N'¼üÖµ£º1-ÀÏ°æ±¾·¿¿¨ºóÌ¨£¬2-ĞÂ°æ±¾·¿¿¨ºóÌ¨',9999)
 GO
