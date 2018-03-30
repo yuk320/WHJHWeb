@@ -6,7 +6,7 @@
       <div class="ui-face-box">
         <img :src="info.FaceUrl"/>
       </div>
-      <p class="ui-name">{{info.GameID}}</p>
+      <p class="ui-name">ID&ensp;:&ensp;{{info.GameID}}</p>
     </div>
     <ul class="ui-list">
       <li v-for="(item, index) in items" :key="index" class="ui-item">
@@ -163,8 +163,8 @@ export default {
   border-bottom: 1px solid #dedfe0;
 }
 .ui-item {
-  height: 1.06rem;
-  line-height: 1.06rem;
+  height: 1.1rem;
+  line-height: 1.1rem;
   background: #fff;
 }
 .ui-link > img {
@@ -174,22 +174,24 @@ export default {
 }
 .ui-link {
   box-sizing: border-box;
-  height: 1rem;
-  line-height: 1rem;
+  height: 100%;
+  line-height: 1.1rem;
   display: list-item;
-  margin-left: 90px;
-  border-bottom: 1px solid #dedfe0;
   font-size: 20px;
   color: #0f7fd5;
+  border-bottom: 1px solid #dedfe0;
 }
 .ui-icon {
-  width: 1.6rem;
+  width: 1rem;
   height: 100%;
   text-align: center;
+  margin-right: 0.16rem;
+  margin-left: 0.1rem;
 }
 .ui-icon > img {
-  width: 34%;
-  margin-top: 0.2rem;
+  width: 66%;
+  /* margin-top: 0.2rem; */
+  vertical-align: middle;
 }
 .ui-item:last-child .ui-link {
   border: none;
@@ -199,7 +201,7 @@ export default {
   text-align: center;
   margin-top: 0.4rem;
 }
-.ui-main-exit input[type="submit"]{
+.ui-main-exit  input[type="submit"]{
     width: 100%;
     border-radius: 0;
     background: #fff;

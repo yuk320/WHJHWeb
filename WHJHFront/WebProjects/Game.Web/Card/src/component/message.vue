@@ -6,7 +6,7 @@
     </div>
     <div class="ui-message-content">
       <img :src="hintImg"/>
-      <p>{{msg}}</p>
+      <p :style="{color: msgColor}">{{msg}}</p>
     </div>
     <button class="ui-confirm" @click="$emit('close')">确&ensp;定</button>
   </div>
@@ -31,10 +31,10 @@ export default {
   },
   computed: {
     hintImg:function() {
-      if(this.state) {
-        return this.successImg
-      }
-      return this.failImg
+      return this.state ? this.successImg : this.failImg
+    },
+    msgColor: function() {
+      return this.state ? '#1AAD19' : '#FF6704'
     }
   }
 }
@@ -96,5 +96,7 @@ export default {
 p{
   font-weight: 600;
   height: 0.5rem;
+  text-align: center;
+  padding: 0 0.1rem;
 }
 </style>

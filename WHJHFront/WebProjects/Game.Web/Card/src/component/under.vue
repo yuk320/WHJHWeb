@@ -4,19 +4,19 @@
       <router-link v-if="this.type == 'agent'" to="/AddProxy" class="ui-top-right">添加代理</router-link>
     </top>
     <div class="ui-panel">
-      <img :src="numberImg"/>{{numTitle}}
+      <img :src="numberImg" />{{numTitle}}
       <span>{{totalNum}}</span>
     </div>
     <div class="vue-custom-tab">
       <div class="vue-tab-nav">
         <ul>
           <li v-for="(label, index) in labels" :key="index">
-            <a @click="changeTab(label.name)">{{label.title}}</a>
+            <a @click="changeTab(label.name)" :class="curType === label.name ? 'active' : ''">{{label.title}}</a>
           </li>
         </ul>
       </div>
       <div class="ui-panel vue-tab-content">
-         <ui-table :thead="theadObj[type]" :datas="record" :type="type" :isPull="true" :upload="upload" :download="download" />
+        <ui-table :thead="theadObj[type]" :datas="record" :type="type" :isPull="true" :upload="upload" :download="download" />
       </div>
     </div>
     <dailog :show="showDetail">
@@ -79,7 +79,7 @@ export default {
           title: 'Top50本月售卡'
         },
         {
-          name: 'all',
+          name: 'total',
           title: 'Top50累计售卡'
         }
       ],
@@ -92,12 +92,7 @@ export default {
       showDetail: false
     }
   },
-  beforeCreate() {
-    console.info('agent beforeCreate')
-  },
   created() {
-    // getAgentUnderList(this.fetchData.bind(this));
-    console.info('show detail ', this.showDetail, this.type)
     getInfo({ token: localStorage.getItem('token') }, data => {
       this.agentNum = data.data.info.MyAgent
       this.playNum = data.data.info.MyPlayer
@@ -106,7 +101,7 @@ export default {
   },
   methods: {
     changeTab: function(value) {
-      this.curPage = 0
+      this.curPage = 1
       this.curType = value
       this.fetchData(this.curPage)
     },
@@ -119,7 +114,6 @@ export default {
         pageindex: page
       }
       getUnderList(params, data => {
-        // console.info("underlist data", data);
         // 若有详情，设置链接
         if (data.link) {
           Object.assign(this.theadObj[this.type][0], this.linkData)
@@ -191,15 +185,23 @@ export default {
 
 .ui-proxy-info .vue-tab-nav li {
   display: inline-block;
-  margin: 0.2rem 0 0.2rem 0.1rem;
+  margin: 0.2rem 0 0.2rem 2%;
 }
+
+.ui-proxy-info .vue-tab-nav li:first-child {
+  margin-left: 0;
+}
+
 .ui-proxy-info .vue-tab-nav a {
   display: block;
-  margin-left: 0.1rem;
   text-align: center;
   border-radius: 0.12rem;
   margin-bottom: 0.1rem;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.3rem;
 }
+
 .ui-proxy-info .vue-tab-nav li:first-child a {
   background: #18945a;
   color: #fff;
@@ -218,7 +220,7 @@ export default {
 }
 .ui-proxy-info .vue-ui-table-body td {
   text-align: center;
-  padding: 2px 0 1px 0;
+  padding: 0.14rem 0 0.14rem 0;
   box-sizing: border-box;
   width: 0.6rem;
 }
@@ -231,12 +233,20 @@ export default {
 .ui-top-right {
   color: #0f7fd5;
 }
-.ui-proxy-info>.ui-panel{
+.ui-proxy-info > .ui-panel {
   padding: 0.1rem 0;
+  border-bottom: 1px solid #dedfe0;
 }
-.ui-proxy-info>.ui-panel>img{
+.ui-proxy-info > .ui-panel > img {
   margin: 0 0.16rem;
   width: 0.66rem;
   vertical-align: -42%;
+}
+.vue-tab-nav {
+  padding: 0 0.06rem;
+  text-align: center;
+}
+.ui-proxy-info .vue-tab-nav li a.active {
+  color: #000;
 }
 </style>

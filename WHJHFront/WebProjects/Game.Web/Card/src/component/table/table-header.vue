@@ -26,5 +26,6 @@ export default {
 <style scoped>
   .vue-ui-table-header {
     z-index: 2;
+    position: relative;
   }
 </style>

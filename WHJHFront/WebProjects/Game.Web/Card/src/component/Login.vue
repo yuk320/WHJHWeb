@@ -5,16 +5,17 @@
       <form>
         <div class="ui-panel">
           <div class="ui-form-item">
-            <label><img :src="imgUrl.phoneImg" />手机号码：</label>
+            <img title="手机号码" :src="imgUrl.phoneImg" />
             <input type="text" class="ui-value" placeholder="请输入您的手机号码" v-model="phone">
           </div>
           <div class="ui-form-item">
-            <label><img :src="imgUrl.passImg" />安全密码：</label>
+            <img title="安全密码" :src="imgUrl.passImg" />
             <input type="password" class="ui-value" placeholder="请输入您的安全密码" v-model="password">
           </div>
+          <div class="ui-form-item">
+            <input type="submit" :disabled="disabled" value="登录" @click="login">
+          </div>
         </div>
-        <input type="submit" :disabled="disabled" value="登录" @click="login">
-
       </form>
     </div>
     <div class="ui-hints">
@@ -110,8 +111,11 @@ export default {
 <style scoped>
 @import '../assets/css/inputStyle.css';
 
-.ui-form-item{
-  margin-bottom: 0.4rem;
+.ui-container {
+  padding: 0 0.4rem;
+}
+.ui-form-item {
+  text-align: center;
 }
 .ui-hints {
   position: fixed;
@@ -121,21 +125,35 @@ export default {
   color: red;
 }
 .ui-panel {
-  margin-top: 0.56rem;
-  margin-bottom: 0.48rem;
   width: 100%;
-  padding-bottom: 0.4rem;
+  padding: 0.1rem 0 0 0;
+  background: #f7f7f7;
+  margin-top: 1rem;
 }
-.ui-form-item>label>img{
-  width: 0.36rem;
-  vertical-align:-3%;
+.ui-form-item {
+  margin-top: 0.4rem;
 }
-@media screen and (min-width:768px){
-  .ui-form-item{
+.ui-form-item:last-child {
+  margin-top: 0.6rem;
+}
+.ui-form-item > img {
+  width: 0.5rem;
+  position: relative;
+  top: 0.14rem;
+}
+.ui-login input[type='password'] {
+  background: #f7f7f7;
+  border-bottom: 1px solid #dedfe0;
+}
+.ui-login input[type='text'] {
+  background: #f7f7f7;
+  border-bottom: 1px solid #dedfe0;
+}
+@media screen and (min-width: 768px) {
+  .ui-form-item {
     width: 70%;
     margin: 0 auto;
-    padding-left: 2rem;
-    margin-bottom: 0.4rem;
+    margin-top: 0.3rem;
   }
 }
 </style>

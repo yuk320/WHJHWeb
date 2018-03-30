@@ -4,39 +4,39 @@
     <form>
       <div class="ui-panel">
         <div class="ui-form-item">
-          <label>游戏I&nbsp;D：</label>
+          <label>游戏&nbsp;I&nbsp;D&nbsp;</label>
           <input type="text" class="ui-value" @change="setGameID" :value="info.gameID">
         </div>
         <div class="ui-form-item">
-          <label>用户昵称：</label>
-          <input type="text" class="ui-value ui-input-text" disabled placeholder="输入游戏ID验证代理昵称" :value="info.nickName">
+          <label>用户昵称</label>
+          <input type="text" class="ui-value ui-input-text" disabled placeholder="输入游戏ID验证代理昵称" :style="{color: nickColor}" :value="info.nickName">
         </div>
         <div class="ui-form-item">
-          <label>真实姓名：</label>
+          <label>真实姓名</label>
           <input type="text" class="ui-value" v-model="info.compellation">
         </div>
         <div class="ui-form-item">
-          <label>代理域名：</label>
+          <label>代理域名</label>
           <input type="text" class="ui-value" v-model="info.agentDomain">
         </div>
         <div class="ui-form-item">
-          <label>Q&nbsp;Q账号：</label>
+          <label>QQ&nbsp;账号</label>
           <input type="text" class="ui-value" v-model="info.qq">
         </div>
         <div class="ui-form-item">
-          <label>微信昵称：</label>
-          <input type="text" class="ui-value ui-input-text" disabled placeholder="输入游戏ID验证微信昵称" v-model="info.wcNikeName">
+          <label>微信昵称</label>
+          <input type="text" class="ui-value ui-input-text" disabled placeholder="输入游戏ID验证微信昵称" :style="{color: nickColor}" v-model="info.wcNikeName">
         </div>
         <div class="ui-form-item">
-          <label>联系电话：</label>
+          <label>联系电话</label>
           <input type="text" class="ui-value" v-model="info.phone">
         </div>
         <div class="ui-form-item">
-          <label>联系地址：</label>
+          <label>联系地址</label>
           <input type="text" class="ui-value" v-model="info.address">
         </div>
         <div class="ui-form-item">
-          <label>代理备注：</label>
+          <label>代理备注</label>
           <input type="text" class="ui-value" v-model="info.note">
         </div>
       </div>
@@ -73,7 +73,8 @@ export default {
       state: false,
       showMessage: false,
       msg: null,
-      disabled: false
+      disabled: false,
+      nickExist: true
     }
   },
   methods: {
@@ -93,14 +94,24 @@ export default {
       getNickNameByGameID({ gameid: info.gameID, token: localStorage.getItem('token') }, data => {
         info.nickName = data.data.NickName || '代理玩家不存在'
         info.wcNikeName = data.data.NickName
+        const nick = data.data.NickName
+        if (nick) {
+          info.nickName = nick
+          info.wcNickName = nick
+          this.nickExist = true
+        } else {
+          info.nickName = data.msg
+          info.wcNickName = data.msg
+          this.nickExist = false
+        }
       })
     },
     validate: function() {
       // 对数据进行验证
       let info = this.info
       switch (true) {
-        case !info.gameID || isNaN(parseInt(info.gameID)):
-          this.msg = '抱歉，添加代理游戏ID不能为空'
+        case !info.gameID || isNaN(parseInt(info.gameID)) || !this.nickExist:
+          this.msg = '抱歉，添加代理对象无效'
           this.showMessage = true
           break
         case !info.compellation:
@@ -138,6 +149,7 @@ export default {
       e.preventDefault()
 
       if (this.validate()) {
+        this.state = false
         return
       }
 
@@ -170,6 +182,11 @@ export default {
     closeDialog: function() {
       this.showMessage = false
     }
+  },
+  computed: {
+    nickColor: function() {
+      return this.nickExist ? 'black' : 'red'
+    }
   }
 }
 </script>
@@ -184,10 +201,29 @@ input[type='text'].ui-input-text:focus {
   background: inherit;
 }
 .ui-panel {
-  margin-top: 0.4rem;
+  background: #fff;
+  border-top: 1px solid #dedfe0;
+  border-bottom: 1px solid #dedfe0;
+  padding: 0 0 0.2rem 0;
 }
 .ui-panel > label {
   margin: 0.2rem auto;
   text-align: center;
+}
+.ui-form-item{
+  height: 0.8rem;
+  border-bottom: 1px solid #dedfe0;
+  width: 84%;
+  margin: 0.3rem auto;
+  text-align: left;
+  line-height: 1rem;
+  display: flex;
+  display: -webkit-flex;
+}
+.ui-form-item>input{
+  margin-left: 0.4rem;
+  margin-top: 0.1rem;
+  flex: 1;
+  -ms-flex: 1;
 }
 </style>

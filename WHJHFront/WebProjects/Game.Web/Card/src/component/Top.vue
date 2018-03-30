@@ -55,7 +55,6 @@ export default {
 }
 
 .ui-back {
-  /* top: 0.05rem; */
   line-height: 0.7rem;
   left: 0.2rem;
   text-align: center;

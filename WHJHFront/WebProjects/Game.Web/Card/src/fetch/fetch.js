@@ -5,7 +5,6 @@ let api = '/Card/DataHandler.ashx'
 
 function toLogin(data) {
   if (data.code === 401) {
-    console.log('to Login')
     router.push('/Login')
     return true
   }
@@ -198,25 +197,6 @@ function addAgent(params, callback) {
   })
 }
 
-// /**
-//  * 添加下线
-//  * @param {String} userid
-//  * @param {String} gameid
-//  */
-// function addUser(userid, gameid, callback) {
-//   $.ajax({
-//     url: api + "adduser",
-//     data: {
-//       userid: userid,
-//       gameid: gameid
-//     }
-//   }).done(function(data) {
-//     let sourceData = data.data;
-//     if (sourceData.valid) {
-//       callback(sourceData.msg);
-//     }
-//   });
-// }
 /**
  * 根据GameID获取昵称
  *

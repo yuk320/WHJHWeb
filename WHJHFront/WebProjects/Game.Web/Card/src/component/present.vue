@@ -4,33 +4,35 @@
     <form>
       <div class="ui-panel ui-info-show">
         <div class="ui-diamond ui-info-display">
-          <span>身上钻石：</span>
+          <img :src="diamondImg" />
+          <span>身上钻石</span>
           <span>{{diamond}}</span>
         </div>
         <div class="ui-day-present ui-info-display">
-          <span>今日赠送：</span>
+          <img :src="diamondImg" />
+          <span>今日赠送</span>
           <span>{{dayPresent}}</span>
         </div>
       </div>
       <div class="ui-panel">
         <div class="ui-form-item">
-          <label>赠送对象：</label>
+          <label>赠送对象</label>
           <input type="text" class="ui-value" placeholder="请输入赠送GameID" @change="setGameID" :value="gameID">
         </div>
         <div class="ui-form-item">
-          <label>赠送昵称：</label>
-          <input type="text" class="ui-value ui-input-text" placeholder="输入赠送对象验证对象昵称" disabled :value="nickName">
+          <label>赠送昵称</label>
+          <input type="text" class="ui-value ui-input-text" placeholder="输入赠送对象验证对象昵称" disabled :value="nickName" :style="{color: nickColor}">
         </div>
         <div class="ui-form-item">
-          <label>赠送数量：</label>
+          <label>赠送数量</label>
           <input type="text" class="ui-value" placeholder="请输入赠送数量" v-model="presentDiamond">
         </div>
         <div class="ui-form-item">
-          <label>赠送备注：</label>
+          <label>赠送备注</label>
           <input type="text" class="ui-value" placeholder="备注" v-model="note">
         </div>
         <div class="ui-form-item">
-          <label>安全密码：</label>
+          <label>安全密码</label>
           <input type="password" class="ui-value" placeholder="请输入安全密码" v-model="password">
         </div>
       </div>
@@ -54,6 +56,7 @@ export default {
   components: { top, Dailog, Message },
   data: function() {
     return {
+      diamondImg: './assets/images/diamond.png',
       diamond: null,
       nickName: null,
       dayPresent: null,
@@ -65,15 +68,10 @@ export default {
       showMessage: false,
       msg: null,
       disabled: false,
-      state: false
+      state: false,
+      nickExist: true
+
     }
-  },
-  beforeCreate() {
-    console.info('present beforeCreate')
-  },
-  updated() {
-    // 赠送成功后更新信息
-    this.getAgentInfo()
   },
   created() {
     this.getAgentInfo()
@@ -103,13 +101,20 @@ export default {
         return
       }
       getNickNameByGameID({ gameid: this.gameID, token: localStorage.getItem('token') }, data => {
-        this.nickName = data.data.NickName
+        const nick = data.data.NickName
+        if (nick) {
+          this.nickName = nick
+          this.nickExist = true
+        } else {
+          this.nickName = data.msg
+          this.nickExist = false
+        }
       })
     },
     validate: function() {
       // 对数据进行验证
       switch (true) {
-        case !this.gameID || isNaN(parseInt(this.gameID)):
+        case !this.gameID || isNaN(parseInt(this.gameID)) || !this.nickExist:
           this.msg = '抱歉赠送对象无效'
           this.showMessage = true
           break
@@ -149,6 +154,9 @@ export default {
         this.disabled = false
 
         if (data.data.valid) {
+          // 赠送成功后更新信息
+          this.getAgentInfo()
+
           this.state = true
         } else {
           this.state = false
@@ -157,6 +165,11 @@ export default {
     },
     closeDialog: function() {
       this.showMessage = false
+    }
+  },
+  computed: {
+    nickColor: function() {
+      return this.nickExist ? 'black' : 'red'
     }
   }
 }
@@ -223,7 +236,6 @@ input[type='text'].ui-input-text:focus {
 }
 .ui-send .ui-send-msg {
   padding: 0.36rem 0;
-  /* background: red; */
 }
 .ui-panel > label {
   margin: 0.3rem auto;
@@ -234,5 +246,21 @@ input[type='text'].ui-input-text:focus {
 }
 .ui-send input[type='password'] {
   background: #fff;
+}
+.ui-form-item {
+  height: 0.8rem;
+  border-bottom: 1px solid #dedfe0;
+  width: 84%;
+  margin: 0.3rem auto;
+  text-align: left;
+  line-height: 1rem;
+  display: flex;
+  display: -webkit-flex;
+}
+.ui-form-item > input {
+  margin-left: 0.4rem;
+  margin-top: 0.1rem;
+  flex: 1;
+  -ms-flex: 1;
 }
 </style>

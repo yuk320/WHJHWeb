@@ -53,8 +53,6 @@ a {
 }
 
 .ui-panel {
-  /* padding-bottom: 10px; */
-  border-bottom: 1px solid #dedfe0;
   font-size: 0.36rem;
 }
 
@@ -63,14 +61,12 @@ a {
 .ui-addplayer .ui-panel,
 .ui-change .ui-panel {
   border: none;
-  margin-bottom: 24px;
-  /* text-align: right; */
+  margin-bottom: 0.4rem;
 }
 
 .ui-info tbody tr td:first-child {
   color: #000;
   width: 36.9%;
-  /* border-right: 1px solid #dedfe0; */
 }
 
 .ui-button {
@@ -152,7 +148,7 @@ form {
 }
 
 .ui-form-item {
-  text-align: left;
+  text-align: center;
   margin-top: 0.3rem;
   overflow: hidden;
 }
@@ -162,15 +158,14 @@ input {
   vertical-align: middle;
   border: none;
   outline: none;
-  /* border-radius: 0.15rem; */
   height: 0.6rem;
+  line-height: 0.6rem;
   text-align: left;
   width: 64%;
-  /* text-indent: 0.3rem; */
   font-size: 0.5rem;
   color: #000;
-  background: #f7f7f7;
-  border-bottom: 1px solid #ccc;
+  background: #fff;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 input[type="submit"],
@@ -179,7 +174,6 @@ input[type="submit"],
   vertical-align: middle;
   border: none;
   outline: none;
-  /* width: 1.5rem; */
   height: 0.8rem;
   font-size: 0.42rem;
   line-height: 0.42rem;
@@ -189,9 +183,8 @@ input[type="submit"],
   border-radius: 0.15rem;
 }
 label {
-  margin-left: 0.1rem;
-  width: 30%;
-  text-align: center;
+  margin: 0;
+  text-align: right;
   height: 0.8rem;
   line-height: 0.8rem;
   display: block;

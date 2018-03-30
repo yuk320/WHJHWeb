@@ -40,7 +40,6 @@ export default {
     }
   },
   mounted() {
-    // console.info("tbody mounted data", this.data, this.thead);
     // 设置最小宽度，避免表头换行
     this.curType = this.type
     this.setFontSize()
@@ -50,11 +49,9 @@ export default {
   updated() {
     if (this.type !== this.curType) {
       this.curType = this.type
-      // console.log('align')
       this.columnsMinWidth = []
       this.columnsWidth = []
       this.setMinWidth()
-      // console.log('type change', this.data)
       this.$emit('align', this.align())
     }
 
@@ -64,7 +61,6 @@ export default {
         this.columnsMinWidth = []
         this.columnsWidth = []
         this.setMinWidth()
-        // console.log('type change', this.data)
         this.$emit('align', this.align())
       }
     }
@@ -84,19 +80,15 @@ export default {
       if (this.columnsMinWidth.length > this.thead.length) {
         this.columnsMinWidth.splice(this.thead.length)
       }
-      // console.log('setminwidth', this.type, this.columnsMinWidth)
     },
     align: function() {
       // 没有数据是不需要对齐
-      // console.log("no data", this.data);
       if (!this.data || this.data.length === 0) {
-        // return this.columnsMinWidth
         return this.columnsMinWidth
       }
 
       // thead和tbody对齐
       let firstTr = document.querySelectorAll('.vue-ui-table-body > table > tbody > tr:first-of-type td')
-      // console.info('tbody first tr tds', firstTr)
       firstTr = Array.prototype.slice.apply(firstTr)
       let columns = []
       // 获取tbody首行各td的宽度，这里不考虑滚动条
@@ -105,8 +97,6 @@ export default {
       let offsetWidth = 0
       let maxIndex = 0
 
-      // console.info("minwidth", this.columnsMinWidth);
-
       firstTr.forEach((el, index) => {
         let minWidth = this.columnsMinWidth[index]
         let diffWidth = minWidth - el.offsetWidth
@@ -114,7 +104,6 @@ export default {
           offsetWidth += diffWidth
         }
         // 若宽度小于该列最小宽度，则补足，再从最大宽度列减去相应值
-        // console.info("first width", el.offsetWidth);
         let width = el.offsetWidth < minWidth ? minWidth : el.offsetWidth
         if (width > maxWidth) {
           maxWidth = width
@@ -126,7 +115,6 @@ export default {
 
       // 减去差值，确保100%width,不完善，还可优化
       columns[maxIndex] -= offsetWidth
-      // console.info('final width', this.columnsMinWidth, columns)
       this.columnsWidth = columns
       return columns
     }

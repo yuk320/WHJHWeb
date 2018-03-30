@@ -4,22 +4,22 @@
     <form>
      <div class="ui-panel">
        <div class="ui-form-item">
-         <label>原安全密码：</label>
+         <label>原安全密码</label>
          <input type="password" class="ui-value" placeholder="请输入原安全密码" v-model="password">
        </div>
        <div class="ui-form-item">
-         <label>新安全密码：</label>
+         <label>新安全密码</label>
          <input type="password" class="ui-value" placeholder="请输入新安全密码"  v-model="newPassword">
        </div>
        <div class="ui-form-item">
-         <label>确认新密码：</label>
+         <label>确认新密码</label>
          <input type="password" class="ui-value" placeholder="请输入确认安全密码" v-model="repeatPassword">
        </div>
      </div>
      <input type="submit" :disabled="disabled" value="确认修改" @click="update">
     </form>
     <dailog :show="showMessage">
-      <message :msg="msg" v-on:close="closeDialog"></message>
+      <message :msg="msg" v-on:close="closeDialog" :state="state"></message>
     </dailog>
   </div>
 </template>
@@ -76,6 +76,7 @@ export default {
 
       // 简单检测
       if (this.validate()) {
+        this.state = false
         return
       }
 
@@ -111,8 +112,12 @@ export default {
 @import '../assets/css/inputStyle.css';
 
 .ui-panel {
-  margin-top: 0.56rem;
+  background: #fff;
+  border-top: 1px solid #dedfe0;
+  border-bottom: 1px solid #dedfe0;
+  padding: 0.1rem 0 0.4rem 0;
 }
+
 .ui-panel > label {
   margin: 0.2rem auto;
   text-align: center;
@@ -120,5 +125,23 @@ export default {
 }
 .ui-change p{
   font-weight: 600;
+}
+
+.ui-form-item {
+  height: 0.8rem;
+  border-bottom: 1px solid #dedfe0;
+  width: 84%;
+  margin: 0.3rem auto;
+  text-align: left;
+  line-height: 1rem;
+  display: flex;
+  display: -webkit-flex;
+}
+
+.ui-form-item > input {
+  margin-left: 0.4rem;
+  margin-top: 0.1rem;
+  flex: 1;
+  -ms-flex: 1;
 }
 </style>

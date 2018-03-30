@@ -6,12 +6,11 @@ module.exports = {
   // mode: 'development',
   mode: 'production',
   entry: {
-    vendor: ['vue', 'vue-router', 'vuex', 'blueimp-md5'],
+    vendor: ['vue', 'vue-router', 'blueimp-md5'],
     build: './src/main.js'
   },
   output: {
     path: path.resolve(__dirname, 'v2'),
-    // publicPath: '/dist/',
     filename: '[name].js'
   },
   module: {
@@ -29,11 +28,7 @@ module.exports = {
         test: /\.vue$/,
         use: [
           {
-            loader: 'vue-loader',
-            options: {
-              loaders: {}
-              // other vue-loader options go here
-            }
+            loader: 'vue-loader'
           }
         ],
         include: [path.resolve(__dirname, 'src/component')],
@@ -48,9 +43,9 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
-        // options: {
-        //   name: '[name].[ext]?[hash]'
-        // },
+        options: {
+          name: '[name].[ext]?[hash]'
+        },
         include: [path.resolve(__dirname, 'src/assets/images')]
       }
     ]
@@ -64,8 +59,6 @@ module.exports = {
     mainFields: ['jsnext:main', 'browser', 'main']
   },
   devServer: {
-    // openPage: 'dist/',
-    // publicPath: '/dist/',
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
@@ -77,15 +70,6 @@ module.exports = {
     hints: false
   },
   plugins: [
-    // new CleanWebpackPlugin(["dist"], {
-    //   verbose: true,
-    //   dry: false
-    // }),
-    // 告诉 Webpack 使用了哪些动态链接库
-    // new DllReferencePlugin({
-    //   // 描述 md5 动态链接库的文件内容
-    //   manifest: require("./version2/util.manifest.json")
-    // }),
     new CopyWebpackPlugin([
       {
         from: './src/assets',
@@ -107,8 +91,6 @@ module.exports = {
     // vuex: "Vuex",
     // "vue-router": "VueRouter"
   },
-  // recordsPath: path.join(__dirname, 'records.json'),
-  // devtool: "eval-source-map"
   optimization: {
     splitChunks: {
       chunks: 'all'

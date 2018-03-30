@@ -5,12 +5,12 @@
       <div class="vue-tab-nav">
         <ul>
           <li v-for="(label, index) in labels" :key="index">
-            <a @click="changeTab(label.name)" :disabled="disabled">{{label.title}}</a>
+            <a @click="changeTab(label.name)" :disabled="disabled" :class="curRecord === label.name ? 'active' : ''">{{label.title}}</a>
           </li>
         </ul>
       </div>
       <div class="ui-panel vue-tab-content">
-         <ui-table :thead="theadObj[curRecord]" :datas="record" :type="curRecord" :isPull="true" :upload="upload" :download="download" />
+        <ui-table :thead="theadObj[curRecord]" :datas="record" :type="curRecord" :isPull="true" :upload="upload" :download="download" />
       </div>
     </div>
   </div>
@@ -165,9 +165,7 @@ export default {
         pagesize: this.pageSize,
         pageindex: page
       }
-      console.info('record fetchdata type', params.type)
       getRecord(params, data => {
-        // console.info("get record data", data);
         // 没有数据时造一个空数据以避免报错（table-body）
         this.record = data.record || []
         this.pages = data.pageCount
@@ -191,48 +189,50 @@ export default {
 }
 </script>
 <style>
+.vue-tab-nav{
+  padding: 0 0.06rem;
+  text-align: center;
+}
 .ui-record .vue-tab-nav li {
   display: inline-block;
-  margin: 0.2rem 0 0.2rem 0.08rem;
+  margin: 0.2rem 0 0.2rem 1%;
 }
-.ui-record .vue-tab-nav li a {
-  font-size: 0.32rem;
+.ui-record .vue-tab-nav li:first-child{
+  margin-left: 0;
 }
 .ui-record .vue-tab-nav a {
   display: block;
   text-align: center;
   border-radius: 0.12rem;
   margin-bottom: 0.1rem;
-  /* box-shadow: 1px 1px 1px #333333; */
+  width: 1.34rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  font-size: 0.28rem;
 }
 .ui-record .vue-tab-nav li:first-child a {
   background: #18945a;
   color: #fff;
-  width: 1.34rem;
   margin-top: 0.1rem;
 }
 .ui-record .vue-tab-nav li:nth-child(2) a {
   background: #0f7fd5;
   color: #fff;
-  width: 1.34rem;
   margin-top: 0.1rem;
 }
 .ui-record .vue-tab-nav li:nth-child(3) a {
   background: #eb8711;
   color: #fff;
-  width: 1.34rem;
   margin-top: 0.1rem;
 }
 .ui-record .vue-tab-nav li:nth-child(4) a {
   background: #ff6666;
   color: #fff;
-  width: 1.34rem;
   margin-top: 0.1rem;
 }
 .ui-record .vue-tab-nav li:last-child a {
   background: #3dcdf6;
   color: #fff;
-  width: 1.34rem;
   margin-top: 0.1rem;
 }
 .ui-record .vue-ui-table-header tr {
@@ -250,8 +250,11 @@ export default {
 }
 .ui-record .vue-ui-table-body td {
   text-align: center;
-  padding: 2px 0 1px 0;
+  padding: 0.14rem 0 0.14rem 0;
   box-sizing: border-box;
   width: 0.8rem;
+}
+.ui-record .vue-tab-nav li a.active{
+  color:#000;
 }
 </style>

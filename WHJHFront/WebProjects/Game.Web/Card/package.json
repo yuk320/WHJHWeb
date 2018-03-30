@@ -1,6 +1,6 @@
 {
-  "name": "testing",
-  "description": "A Vue.js project",
+  "name": "agenthome",
+  "description": "ryfront card",
   "version": "1.0.0",
   "author": "sgzzy <witzzy@163.com>",
   "license": "MIT",
@@ -10,7 +10,8 @@
     "devbuild": "cross-env NODE_ENV=development webpack --progress --hide-modules",
     "build": "webpack",
     "product": "rimraf v2 && npm run build",
-    "auto": "node index"
+    "auto": "node index",
+    "a":"npm run product && npm run auto"
   },
   "dependencies": {
     "vue": "^2.4.4",

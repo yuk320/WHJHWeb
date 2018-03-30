@@ -107,8 +107,9 @@
       "CurDiamond": 0,
       "PresentToday": 0,
       "PresentMonth": 0,
-      "PresentTotal": 0
-      "IsHasPassword": true
+      "PresentTotal": 0,
+      "IsHasPassword": true,
+      "FaceUrl": ''
     }
   }
 }
@@ -142,6 +143,7 @@
 | PresentMonth   | number  | 本月赠送             |
 | PresentTotal   | number  | 赠送总数             |
 | IsHasPassword  | boolean | 是否已经设置安全密码 |
+| FaceUrl        | string  | 用户头像地址         |
 
 ---
 
@@ -311,14 +313,14 @@
 
 **参数：**
 
-| 参数名    | 必选 | 类型   | 说明                                                                     |
-| :-------- | :--- | :----- | ------------------------------------------------------------------------ |
-| action    | 是   | string | 业务逻辑标识                                                             |
-| token     | 是   | string | 用户认证标识                                                             |
-| type      | 是   | string | 类型（agent 为我的代理、user 为我的玩家）                                |
-| range     | 是   | string | 数据排序规则（month 为依据本月售卡数据排序、all 为依据累计售卡数据排序） |
-| pagesize  | 是   | number | 每页数据条数                                                             |
-| pageindex | 是   | number | 页数                                                                     |
+| 参数名    | 必选 | 类型   | 说明                                                                                                                         |
+| :-------- | :--- | :----- | ---------------------------------------------------------------------------------------------------------------------------- |
+| action    | 是   | string | 业务逻辑标识                                                                                                                 |
+| token     | 是   | string | 用户认证标识                                                                                                                 |
+| type      | 是   | string | 类型（agent 为我的代理、user 为我的玩家）                                                                                    |
+| range     | 是   | string | 数据排序规则（month 为依据本月售卡数据排序、all 为依据累计售卡数据排序前十条数据、total 为依据累计售卡数据排序前五十条数据） |
+| pagesize  | 是   | number | 每页数据条数                                                                                                                 |
+| pageindex | 是   | number | 页数                                                                                                                         |
 
 **返回示例：**
 

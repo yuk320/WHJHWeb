@@ -16,6 +16,22 @@
           <td>{{info.Compellation}}</td>
         </tr>
         <tr>
+          <td>联系电话</td>
+          <td>{{info.ContactPhone}}</td>
+        </tr>
+        <tr>
+          <td>联系QQ</td>
+          <td>{{info.QQAccount}}</td>
+        </tr>
+        <tr>
+          <td>联系微信</td>
+          <td>{{info.WCNickName}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
           <td>代理等级</td>
           <td>{{info.AgentLevel}}</td>
         </tr>
@@ -35,18 +51,10 @@
             <span>{{info.MyPlayer}}人</span><router-link to="/Under?type=user">详情</router-link>
           </td>
         </tr>
-        <tr>
-          <td>联系电话</td>
-          <td>{{info.ContactPhone}}</td>
-        </tr>
-        <tr>
-          <td>联系QQ</td>
-          <td>{{info.QQAccount}}</td>
-        </tr>
-        <tr>
-          <td>联系微信</td>
-          <td>{{info.WCNickName}}</td>
-        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
         <tr>
           <td>当前房卡</td>
           <td>{{info.CurDiamond}}</td>
@@ -95,12 +103,14 @@ export default {
   color: #fff;
   display: inline-block;
   width: 1rem;
-  height: 70%;
+  height: 80%;
   position: absolute;
   right: 0.2rem;
+  top: 0.06rem;
+  line-height:0.5rem;
   border-radius: 0.1rem;
   background: #0f7fd5;
-  font-size: 0.34rem;
+  font-size: 0.3rem;
 }
 .ui-player-number {
   position: relative;
