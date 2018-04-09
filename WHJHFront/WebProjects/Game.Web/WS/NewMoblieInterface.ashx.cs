@@ -458,9 +458,15 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                 {
                     JFTPay.JFTH5Request request =
                         new JFTPay.JFTH5Request(orderReturn?.OrderID, orderReturn?.Amount.ToString("F2"),
-                            subtype == "zfb" ? "ZFBZZWAP" : "WXZZWAP", orderReturn?.GameID.ToString(),
+                            subtype == "zfb" ? "ZFB" : "WX", orderReturn?.GameID.ToString(),
                             Utility.UserIP.Replace(".", "_"));
                     request.SetTerminal(Fetch.GetTerminalType(GameRequest.Request));
+                    if (AppConfig.Mode == AppConfig.CodeMode.Dev) //测试开发用，正式时请注释掉此段代码
+                    {
+                        request.paytype = "ZZ"; 
+                        JFTPay.JFTH5Notify notify = new JFTPay.JFTH5Notify(orderReturn);
+                        _ajv.SetDataItem("ReturnUrlForTest", notify.TestNotifyUrl());
+                    }
                     _ajv.SetDataItem("PayUrl", JFTPay.Config.JFTH5Url);
                     _ajv.SetDataItem("Params", request.UrlParams());
                 }

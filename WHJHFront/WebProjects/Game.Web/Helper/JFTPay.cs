@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Game.Entity.Treasure;
 using Game.Facade;
 using Game.Utils;
 
@@ -73,6 +74,10 @@ namespace Game.Web.Helper
             /// 传终端类型 PC：1 IOS：2 Android：3
             /// </summary>
             public string p25_terminal { get; set; } = "1";
+            /// <summary>
+            /// 直连用于正式环境此配置无效，直转时才需要此参数
+            /// </summary>
+            public string paytype { get; set; }
 
             public JFTH5Request(string orderId, string orderAmount, string productCode, string gameId, string clientIp)
             {
@@ -170,6 +175,19 @@ namespace Game.Web.Helper
             public string p11_pdesc { get; set; }
             public string p12_remark { get; set; }
 
+            public JFTH5Notify(OnLinePayOrder order)
+            {
+                p1_yingyongnum = Config.JFTID;
+                p2_ordernumber = order.OrderID;
+                p3_money = order.Amount.ToString("F2");
+                p4_zfstate = "1";
+                p5_orderid = Fetch.ConvertDateTimeToUnix(DateTime.Now);
+                p6_productcode = order.ShareID == 303 ? "ZFB" : "WX";
+                p8_charset = "UTF-8";
+                p9_signtype = "1";
+                p10_sign = MarkSign();
+            }
+
             public JFTH5Notify(HttpRequest request)
             {
                 Type t = GetType();
@@ -188,8 +206,40 @@ namespace Game.Web.Helper
 
             public bool VerifySign()
             {
-                return p10_sign == Utility.MD5(
-                           $"{p1_yingyongnum}&{p2_ordernumber}&{p3_money}&{p4_zfstate}&{p5_orderid}&{p6_productcode}&{p7_bank_card_code}&{p8_charset}&{p9_signtype}&{p11_pdesc}&{Config.JFTKEY}");
+                return p10_sign == MarkSign();
+            }
+
+            public string MarkSign()
+            {
+                return Utility.MD5(
+                    $"{p1_yingyongnum}&{p2_ordernumber}&{p3_money}&{p4_zfstate}&{p5_orderid}&{p6_productcode}&{p7_bank_card_code}&{p8_charset}&{p9_signtype}&{p11_pdesc}&{Config.JFTKEY}");
+            }
+
+            /// <summary>
+            /// Url拼接方法
+            /// </summary>
+            /// <returns></returns>
+            public string UrlParams()
+            {
+                Type t = GetType();
+                PropertyInfo[] PropertyList = t.GetProperties();
+                string result = "";
+                foreach (PropertyInfo item in PropertyList)
+                {
+                    string name = item.Name;
+                    object value = item.GetValue(this, null);
+                    if (value != null)
+                    {
+                        result += $"{name}={value}&";
+                    }
+                }
+                return result.Substring(0, result.Length - 1);
+            }
+
+            public string TestNotifyUrl()
+            {
+                return
+                    $"http://{GameRequest.GetCurrentFullHost()}/Notify/JFTPay.aspx?{UrlParams()}";
             }
         }
     }
