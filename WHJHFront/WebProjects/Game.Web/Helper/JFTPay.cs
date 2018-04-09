@@ -18,6 +18,7 @@ namespace Game.Web.Helper
             public const string JFTH5Url = "http://order.z.jtpay.com/jh-web-order/order/receiveOrder";
             public static string JFTID = AppConfig.GetSetting("JFTID");
             public static string JFTKEY = AppConfig.GetSetting("JFTKEY");
+            public static string JFTMODE = AppConfig.GetSetting("JFTMODE");
         }
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace Game.Web.Helper
                 p7_productcode = productCode;
                 p14_customname = gameId.ToString();
                 p16_customip = clientIp;
+                paytype = Config.JFTMODE;
             }
 
             public string Sign()

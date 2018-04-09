@@ -463,7 +463,6 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     request.SetTerminal(Fetch.GetTerminalType(GameRequest.Request));
                     if (AppConfig.Mode == AppConfig.CodeMode.Dev) //测试开发用，正式时请注释掉此段代码
                     {
-                        request.paytype = "ZZ"; 
                         JFTPay.JFTH5Notify notify = new JFTPay.JFTH5Notify(orderReturn);
                         _ajv.SetDataItem("ReturnUrlForTest", notify.TestNotifyUrl());
                     }
