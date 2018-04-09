@@ -1,10 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     vendor: ['vue', 'vue-router', 'blueimp-md5'],
     build: './src/main.js'
@@ -58,14 +57,6 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json', '.css'],
     mainFields: ['jsnext:main', 'browser', 'main']
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true,
-    proxy: {
-      '/Card': 'http://localhost:8081'
-    }
-  },
   performance: {
     hints: false
   },
@@ -75,14 +66,7 @@ module.exports = {
         from: './src/assets',
         to: 'assets'
       }
-    ]),
-    new HtmlWebpackPlugin({
-      template: './src/dev.html',
-      filename: 'index.html',
-      hash: true,
-      inject: true,
-      chunksSortMode: 'none'
-    })
+    ])
     // 开启 Scope Hoisting
     // new ModuleConcatenationPlugin(),
     // new webpack.HotModuleReplacementPlugin(),

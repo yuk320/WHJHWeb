@@ -6,12 +6,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "prebuild": "npm i",
+    "predev": "npm i",
     "dev": "webpack-dev-server --open --hot",
-    "devbuild": "cross-env NODE_ENV=development webpack --progress --hide-modules",
-    "build": "webpack",
+    "build": "webpack --config webpack_pro.config.js",
     "product": "rimraf v2 && npm run build",
     "auto": "node index",
-    "a":"npm run product && npm run auto"
+    "a": "npm run product && npm run auto"
   },
   "dependencies": {
     "vue": "^2.4.4",
