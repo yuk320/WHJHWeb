@@ -9,7 +9,7 @@ UPDATE ConfigInfo SET ConfigString = N'参数说明
 字段4：H5游戏服务器地址
 字段5：代理网站域名或IP
 字段8：网站前台底部内容',Field5 = N'/Card'
-
+WHERE ConfigKey = N'WebSiteConfig'
 
 -- v1.1.10 新建代理认证信息表
 IF EXISTS (SELECT 1

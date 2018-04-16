@@ -459,8 +459,11 @@ Fetch.VerifySignData((context.Request.QueryString["userid"] == null ? "" : _user
                     JFTPay.JFTH5Request request =
                         new JFTPay.JFTH5Request(orderReturn?.OrderID, orderReturn?.Amount.ToString("F2"),
                             subtype == "zfb" ? "ZFB" : "WX", orderReturn?.GameID.ToString(),
-                            Utility.UserIP.Replace(".", "_"));
-                    request.SetTerminal(Fetch.GetTerminalType(GameRequest.Request));
+                            Utility.UserIP.Replace(".", "_"))
+                        {
+                            p25_terminal = string.IsNullOrEmpty(GameRequest.GetString("terminaltype"))  ? "3"  : GameRequest.GetString("terminaltype")
+                        };
+                    //需要手机传 IOS：2  Android：3
                     if (AppConfig.Mode == AppConfig.CodeMode.Dev) //测试开发用，正式时请注释掉此段代码
                     {
                         JFTPay.JFTH5Notify notify = new JFTPay.JFTH5Notify(orderReturn);

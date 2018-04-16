@@ -2,10 +2,11 @@
 
 | 说明日期   | 更新说明                                                                                                                                                                              | 网站版本           | 作者               |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------- | ------------------ |
-| 2018/03/27 | 修改接口支付接口，新增骏付通 H5 支付的支持（_CreatePayOrder_）                                                                                                                        | 精华版网站-V1.1.10 | 研发部-网站组-余珂 |
-| 2018/03/09 | 新增代理网站同步登录接口（AgentSyncLogin）                                                                                                                                            | 精华版网站-V1.1.10 | 研发部-网站组-余珂 |
-| 2018/01/25 | 新增常见问题接口（GetQuestionAndAnswerList）                                                                                                                                          | 精华版网站-V1.1.7  | 研发部-网站组-余珂 |
-| 2017/12/20 | 新增速查网站版本接口（webVersion）                                                                                                                                                    | 精华版网站-V1.1.4  | 研发部-网站组-余珂 |
+| 2018/04/12 | 修改接口支付接口，修改骏付通 H5 支付的支持（CreatePayOrder）                                                                                                                          | 精华版网站-V1.1.11 | 研发部-网站组-余珂 |
+| 2018/03/27 | 修改接口支付接口，新增骏付通 H5 支付的支持（CreatePayOrder）                                                                                                                          | 精华版网站-V1.1.10 | 研发部-网站组-余珂 |
+| 2018/03/09 | 新增代理网站同步登录接口（_AgentSyncLogin_）                                                                                                                                          | 精华版网站-V1.1.10 | 研发部-网站组-余珂 |
+| 2018/01/25 | 新增常见问题接口（_GetQuestionAndAnswerList_）                                                                                                                                        | 精华版网站-V1.1.7  | 研发部-网站组-余珂 |
+| 2017/12/20 | 新增速查网站版本接口（_webVersion_）                                                                                                                                                  | 精华版网站-V1.1.4  | 研发部-网站组-余珂 |
 | 2017/12/13 | 修改玩家登录后数据接口（GetMobileLoginLater）、领取注册奖励接口（ReceiveRegisterGrant）、领取排行榜奖励接口（ReceiveRankingAward）、玩家信息查询接口（GetUserInfo）、API 详细说明补全 | 精华版网站-V1.1.3  | 研发部-网站组-余珂 |
 | 2017/12/12 | 增加 API 详细说明 GetMobileLoginData、ReceiveSpreadAward                                                                                                                              |                    | 研发部-网站组-余珂 |
 | 2017/12/08 | 新增玩家信息查询接口（_GetUserInfo_）、取消玩家 ip 接口（~~GetUserIp~~）并添加说明                                                                                                    | 精华版网站-V1.1.2  | 研发部-网站组-余珂 |
@@ -201,7 +202,7 @@
 
 **请求 URL：**
 
-* API_URL + `?action=CreatePayOrder&userid=xx&time=xx&sign=xx&configid=xx&paytype=xx&openid=xx&suptype=xx&device=xx`
+* API_URL + `?action=CreatePayOrder&userid=xx&time=xx&sign=xx&configid=xx&paytype=xx&openid=xx&suptype=xx&device=xx&terminaltype=xx`
 
 **请求方式：**
 
@@ -209,14 +210,15 @@
 
 **请求参数：**
 
-| 参数名   | 必选 | 类型   | 说明                                                                                   |
-| :------- | :--- | :----- | -------------------------------------------------------------------------------------- |
-| userid   | 是   | number | 用户标识                                                                               |
-| configid | 是   | number | 支付配置标识                                                                           |
-| paytype  | 是   | string | 支付渠道 `目前支持：wx、zfb、hwx、lq、jft`                                             |
-| openid   | 否   | string | paytype=wx 且为 H5 场景需要支付时,openid 代表充值用户的 openid，APP（SDK）支付请勿传值 |
-| subtype  | 否   | string | paytype=lq、jft 时,subtype 代表充值的具体渠道 wx 代表微信支付、zfb 代表支付宝支付      |
-| device   | 否   | string | 某些场景由于没有充值预绑定推广员的功能时，可传 device，不为空则为特殊场景              |
+| 参数名       | 必选 | 类型   | 说明                                                                                   |
+| :----------- | :--- | :----- | -------------------------------------------------------------------------------------- |
+| userid       | 是   | number | 用户标识                                                                               |
+| configid     | 是   | number | 支付配置标识                                                                           |
+| paytype      | 是   | string | 支付渠道 `目前支持：wx、zfb、hwx、lq、jft`                                             |
+| openid       | 否   | string | paytype=wx 且为 H5 场景需要支付时,openid 代表充值用户的 openid，APP（SDK）支付请勿传值 |
+| subtype      | 否   | string | paytype=lq、jft 时,subtype 代表充值的具体渠道 wx 代表微信支付、zfb 代表支付宝支付      |
+| device       | 否   | string | 某些场景由于没有充值预绑定推广员的功能时，可传 device，不为空则为特殊场景              |
+| terminaltype | 否   | string | pattype=jft 时，用于区分客户端系统                                                     |
 
 **响应示例**
 
@@ -229,6 +231,7 @@
     "valid": true,
     "OrderID": "XXXXXXXXXX",
     "PayPackage": "{JSON stringify}",
+    "Params": "XX=XX&XX=XX&XX=XX",
     "PayUrl": "XXXXXXXXXX"
   }
 }
