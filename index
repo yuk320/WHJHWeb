@@ -808,16 +808,14 @@ if (Object.keys(autoConfig.prebuild).length > 0) {
     "prebuilded",
     Object.keys(autoConfig.prebuild).length,
     prebuilded => {
+      projCount++;
+          console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
       async.each(NEED_PUBLISH_PROJS, publishExec);
     }
   );
   Object.keys(autoConfig.prebuild).forEach(k => {
     if (autoConfig.prebuild[k]) {
       buildDist(buildConfig[k], builded => {
-        if (builded) {
-          projCount++;
-          console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
-        }
         epPreBuild.emit("prebuilded", true);
       });
     } else {
@@ -826,16 +824,6 @@ if (Object.keys(autoConfig.prebuild).length > 0) {
   });
 } else {
   async.each(NEED_PUBLISH_PROJS, publishExec);
-}
-if (autoConfig.prebuild) {
-  buildDist(function(builded) {
-    if (builded) {
-      projCount++;
-      console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
-    }
-    async.each(NEED_PUBLISH_PROJS, publishExec);
-  });
-} else {
 }
 
 // console.info(opts);

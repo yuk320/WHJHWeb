@@ -25,6 +25,7 @@ osql -d WHJHPlatformDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHPlatformManagerDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHRecordDB -E  -n -i "%rootPath%分页过程.sql"
 osql -d WHJHTreasureDB -E  -n -i "%rootPath%分页过程.sql"
+
 osql -d WHJHAccountsDB -E  -n -i "%rootPath%切字符串.sql"
 osql -d WHJHGameScoreDB -E  -n -i "%rootPath%切字符串.sql"
 osql -d WHJHNativeWebDB -E  -n -i "%rootPath%切字符串.sql"
@@ -94,6 +95,10 @@ osql -E -i "%rootPath%排行榜统计.sql"
 osql -E -i "%rootPath%排行榜周统计.sql"
 osql -E -i "%rootPath%每日钻石统计.sql"
 osql -E -i "%rootPath%每日统计.sql"
+
+set rootPath=6升级脚本\
+osql -E -i "%rootPath%v1.1.7升级脚本.sql"
+osql -E -i "%rootPath%v1.1.10升级脚本.sql"
 
 pause
 
