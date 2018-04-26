@@ -50,7 +50,7 @@ namespace Game.Web.Card
                                     {
                                         // for Version 1.0 跳转
                                         Fetch.SetUserCookie(ui.ToUserTicketInfo());
-                                        Response.Redirect("Card/AgentInfo.aspx");
+                                        Response.Redirect("AgentInfo.aspx");
                                     }
                                     else if (version == 2)
                                     {
@@ -109,7 +109,7 @@ namespace Game.Web.Card
                         if (ui != null)
                         {
                             Fetch.SetUserCookie(ui.ToUserTicketInfo());
-                            Response.Redirect("/Card/AgentInfo.aspx");
+                            Response.Redirect("AgentInfo.aspx");
                         }
                         else
                         {
