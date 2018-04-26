@@ -809,7 +809,7 @@ if (Object.keys(autoConfig.prebuild).length > 0) {
     Object.keys(autoConfig.prebuild).length,
     prebuilded => {
       projCount++;
-          console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
+      console.info(`Step_0_${projCount} 项目[预发布] 编译完成!`);
       async.each(NEED_PUBLISH_PROJS, publishExec);
     }
   );
