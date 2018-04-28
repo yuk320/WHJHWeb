@@ -180,6 +180,13 @@ namespace Game.IData
         /// </summary>
         /// <returns></returns>
         DataSet GetDiamondDistribute();
+
+        /// <summary>
+        /// 获取游戏记录输赢总数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        long GetTotalUserGameCount(string sql);
         #endregion
 
         #region 金币信息

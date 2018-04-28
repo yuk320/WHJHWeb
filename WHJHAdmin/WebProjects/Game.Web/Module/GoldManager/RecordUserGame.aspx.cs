@@ -58,12 +58,22 @@ namespace Game.Web.Module.GoldManager
                 ShowError("输入用户格式不正确");
                 return;
             }
-            int id = Convert.ToInt32(query);
-            condition.AppendFormat(" WHERE DrawID IN (SELECT DrawID FROM  RecordDrawScore WHERE UserID={0})", typeId == 1 ? GetUserIDByGameID(id) : id);
-            if(!string.IsNullOrEmpty(startDate))
+            int id = typeId == 1 ? GetUserIDByGameID(Convert.ToInt32(query)) : Convert.ToInt32(query);
+            condition.AppendFormat(" WHERE DrawID IN (SELECT DrawID FROM  RecordDrawScore WHERE UserID={0})", id);
+            if (!string.IsNullOrEmpty(startDate))
                 condition.AppendFormat(" AND ConcludeTime >= '{0}' ", startDate);
-            if(!string.IsNullOrEmpty(endDate))
-                condition.AppendFormat(" AND ConcludeTime < '{0}'", Convert.ToDateTime(endDate).AddDays(1).ToString("yyyy-MM-dd"));
+            if (!string.IsNullOrEmpty(endDate))
+                condition.AppendFormat(" AND ConcludeTime < '{0:yyyy-MM-dd}'", Convert.ToDateTime(endDate).AddDays(1));
+
+            //统计模块
+            string sql = $"SELECT ISNULL(SUM(Score),0) FROM RecordDrawScore WHERE UserID={id}";
+            if (!string.IsNullOrEmpty(startDate))
+                sql += $" AND InsertTime >= '{startDate}' ";
+            if (!string.IsNullOrEmpty(endDate))
+                sql += $" AND InsertTime < '{Convert.ToDateTime(endDate).AddDays(1):yyyy-MM-dd}' ";
+            long scoreCount = FacadeManage.aideTreasureFacade.GetTotalUserGameCount(sql);
+            CtrlHelper.SetText(lblCount, $"当前情况下：{FacadeManage.aideAccountsFacade.GetAccountInfoByUserId(id).NickName} 的累计输赢 {scoreCount}");
+
             ViewState["SearchItems"] = condition.ToString();
         }
         /// <summary>

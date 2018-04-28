@@ -454,6 +454,16 @@ namespace Game.Data
             return Database.ExecuteDataset(CommandType.StoredProcedure, "NET_PW_GetDiamondDistribute");
         }
 
+        /// <summary>
+        /// 获取游戏记录输赢总数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public long GetTotalUserGameCount(string sql)
+        {
+            return Convert.ToInt64(Database.ExecuteScalar(CommandType.Text, sql));
+        }
+
         #endregion
 
         #region 金币信息
